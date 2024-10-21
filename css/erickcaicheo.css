@@ -1,0 +1,47 @@
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-item {
+    position: relative;
+    margin: 20px 0;
+    padding-left: 50px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: #ccc; /* Color de la línea de tiempo */
+}
+
+.timeline-content {
+    background: #f9f9f9; /* Fondo de cada item */
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 2px 4px;
+}
+
+.event-description {
+    display: none; 
+}
+
+
+.timeline-item:hover .event-description {
+    display: block; 
+}
+
+/* Opcional: estilo para el encabezado */
+h2.mb-5 {
+    text-align: center;
+}
+
+
+
+
+
+
