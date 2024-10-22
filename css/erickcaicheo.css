@@ -16,7 +16,7 @@
     top: 0;
     height: 100%;
     width: 2px;
-    background: #ccc; /* Color de la línea de tiempo */
+    background: black; /* Color de la línea de tiempo */
 }
 
 .timeline-content {
@@ -28,6 +28,7 @@
 
 .event-description {
     display: none; 
+    color:turquoise
 }
 
 
@@ -40,6 +41,64 @@ h2.mb-5 {
     text-align: center;
 }
 
+#navbar {
+    display:flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: oblique;
+    text-align: center;
+}
+
+#navbarMenu{
+    display:flex;
+    justify-content: center;
+    
+}
+
+.navbar-nav .nav-link{
+    color: black;
+    
+}
+.navbar-nav .nav-link:hover{
+    color: yellow;
+}
+
+body{
+    background-color:  #e6f7ff;
+}
+
+.text-color{
+    color: lightblue;
+}
+
+.subheading {
+    color: black;
+    font-style:italic;
+}
+
+#email{
+    color: blueviolet;
+    text-decoration: overline;
+}
+
+#email:hover{
+    color: blueviolet;
+}
+
+h1{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.mb-0{
+    color:turquoise
+}
+
+.mb-5{
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: lightgreen;
+}
+
+
+    
 
 
 
