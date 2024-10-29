@@ -146,6 +146,8 @@ h1{
     
 }
 #perfiles{
+    
+    padding: 300px ;
     display: flex;
     justify-content: center;   
     flex-wrap: wrap;
@@ -155,6 +157,7 @@ h1{
 
 #perfiles h2{
     margin-bottom: 10px;
+    width: 200px;
 }
 
 #perfiles p{
@@ -306,3 +309,6 @@ ul li a:hover {
 
 
 
+.text-53-m2{
+
+}
