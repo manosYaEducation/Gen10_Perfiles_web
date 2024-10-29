@@ -26,6 +26,9 @@ function renderUsers() {
     });
 }
     
+
+
+// ORIGINAL
 function addOrUpdateUser(e) {
     e.preventDefault();
     const id = userId.value;
