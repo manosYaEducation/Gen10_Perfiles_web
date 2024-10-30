@@ -1,0 +1,18 @@
+Tareas:
+
+No listadas:
+* Update - DELETE
+
+ERIC:
+
+1. Arreglar estilos index.
+2. Crear el Create en crud-profile.js
+3. Modificar el crud-profile.html acorde.
+
+
+Sebastián:
+
+1. Arreglar estilos profile-template.html
+2. Terminar de crear el GET (al menos para el dummy array).
+3. Re ordenar los archivos.
+4. Modificar estilos crud-styles.css posterior al cambio de eric.
