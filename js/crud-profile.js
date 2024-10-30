@@ -9,22 +9,22 @@ const rutInput = document.getElementById("rut");
 const addressInput = document.getElementById("address");
 const userTable = document.getElementById("userTable").getElementsByTagName("tbody")[0];
 
-function renderUsers() {
-    userTable.innerHTML = ""; 
-    users.forEach((user, index) => {
-        const row = userTable.insertRow();
-        row.innerHTML = `
-      <td>${user.name}</td>
-      <td>${user.email}</td>
-      <td>${user.rut}</td>
-      <td>${user.address}</td>
-      <td>
-        <button onclick="editUser(${index})">Editar</button>
-        <button onclick="deleteUser(${index})">Eliminar</button>
-      </td>`
-    ;
-    });
-}
+// function renderUsers() {
+//     userTable.innerHTML = ""; 
+//     users.forEach((user, index) => {
+//         const row = userTable.insertRow();
+//         row.innerHTML = `
+//       <td>${user.name}</td>
+//       <td>${user.email}</td>
+//       <td>${user.rut}</td>
+//       <td>${user.address}</td>
+//       <td>
+//         <button onclick="editUser(${index})">Editar</button>
+//         <button onclick="deleteUser(${index})">Eliminar</button>
+//       </td>`
+//     ;
+//     });
+// }
     
 
 

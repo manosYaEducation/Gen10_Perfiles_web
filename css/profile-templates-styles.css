@@ -199,38 +199,38 @@ h1, h2, h3, p {
 }
 
 
-/*EDUCATION */
-#education{
+/* EDUCATION */
+#education {
     margin: 16px;
 }
-#resume-section-education{
+
+#resume-section-education {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#title-education{
+#title-education {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 24px;
 }
+
 #timeline {
     display: flex;
     margin: 24px;
-    justify-content: space-between;
+    justify-content: space-around; 
     padding: 20px 0;
     position: relative;
-    
 }
 
-#timeline-item {
+.timeline-item {
     flex: 1;
     margin: 0 15px; 
     position: relative;
 }
 
-
-#timeline-content {
+.timeline-content {
     padding: 20px;
     background: #f8f9fa; 
     border-radius: 12px;
