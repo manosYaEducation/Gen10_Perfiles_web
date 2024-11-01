@@ -3,41 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Profile Management</title>
     <link rel="stylesheet" href="/frontend/css/crud-profile-styles.css">
-    
 </head>
 <body>
-    <!-- POST - CREATE - LATER -->
     <div> 
         <form id="userForm">
             <input type="hidden" id="userId">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" required>
-            <label for="email">Correo:</label>
-            <input type="email" id="email" required>
-            <label for="rut">Rut:</label>
-            <input type="text" id="rut" required>
-            <label for="address">Dirección</label>
-            <input type="text" id="address" required>
+            
+            <h3>Información personal</h3>
+            <label for="input-name">Nombre:</label>
+            <input type="text" id="input-name" required>
+            
+            <label for="input-email">Correo electronico:</label>
+            <input type="email" id="input-email" required>
+            
+            <label for="input-location">Ubicación</label>
+            <input type="text" id="input-location" required>
+            
+            <label for="input-phone">Teléfono:</label>
+            <input type="text" id="input-phone" required>
+
+            <h3>Descripción e intereses</h3>
+            <label for="input-description">Descripción:</label>
+            <textarea id="input-description" required></textarea>
+            
+            <label for="input-interests">Intereses:</label>
+            <input type="text" id="input-interests" required>
+
+            <h3>Experiencia</h3>
+            <div id="experience-section">
+                <label for="input-experience-title">Experiencia Titulo:</label>
+                <input type="text" id="input-experience-title" required>
+                
+                <label for="input-experience-start-date">Fecha de Inicio:</label>
+                <input type="date" id="input-experience-start-date" required>
+
+                <label for="input-experience-end-date">Fecha de Fin:</label>
+                <input type="date" id="input-experience-end-date" required>
+
+                <label for="input-experience-detail-subtitle">Subtitulo:</label>
+                <input type="text" id="input-experience-detail-subtitle" required>
+
+                <label for="input-experience-detail-desc">Descripción:</label>
+                <textarea id="input-experience-detail-desc"></textarea>
+            </div>
+
+            <h3>Educación</h3>
+            <div id="education-section">
+                <label for="input-education-title">Educación titulo:</label>
+                <input type="text" id="input-education-title" required>
+                
+                <label for="input-education-period">Periodo:</label>
+                <input type="text" id="input-education-period" required>
+
+                <label for="input-education-institution">Institución:</label>
+                <input type="text" id="input-education-institution" required>
+            </div>
+
             <button type="submit">Guardar</button>
         </form>
-    
-    
-        <table id="userTable" border="1">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Rut</th>
-                    <th>Direccion</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
+
     <script src="/frontend/js/create_user.js"></script>
     <script src="/frontend/js/delete_user.js"></script> 
     <script src="/frontend/js/update_user.js"></script>  

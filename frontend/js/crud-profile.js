@@ -29,24 +29,24 @@ const userTable = document.getElementById("userTable").getElementsByTagName("tbo
 
 
 // ORIGINAL
-function addOrUpdateUser(e) {
-    e.preventDefault();
-    const id = userId.value;
-    const name = nameInput.value;
-    const email = emailInput.value;
-    const rut = rutInput.value;
-    const address = addressInput.value;
+// function addOrUpdateUser(e) {
+//     e.preventDefault();
+//     const id = userId.value;
+//     const name = nameInput.value;
+//     const email = emailInput.value;
+//     const rut = rutInput.value;
+//     const address = addressInput.value;
 
-    if (id) {
-        users[id] = { name, email, rut, address };
-    } else {
-        users.push({ name, email, rut, address });
-    }
+//     if (id) {
+//         users[id] = { name, email, rut, address };
+//     } else {
+//         users.push({ name, email, rut, address });
+//     }
 
 
-    resetForm();
-    renderUsers();
-}
+//     resetForm();
+//     renderUsers();
+// }
 
 
 function editUser(index) {
