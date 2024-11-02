@@ -1,21 +1,23 @@
 <?php
 
 $host = 'localhost';
-$port ='5432';
-$user ='user';
-$password = 'password';
-$nameDb ='bd';  
+$port = '5432';
+$user = 'postgres';
+$password = 'clave';
+$nameDb = 'CVTEST1';
 
-$info = "host=$host port=$port dbname=$nameDb user=$user password=$password";
-$conn = pg_connect($info);
+$dsn = "pgsql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
 
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
 
-
-if (!$conn){
-    echo "Conexión fallida".pg_last_error();
-} else {
-    echo "Conexión exitosa";
+try {
+    $conn = new PDO($dsn, $user, $password, $options);
+    echo "Se conectó correctamente"; 
+} catch (\PDOException $e) {
+    echo "Error de conexión: " . $e->getMessage();
+    
 }
-
-
-pg_close($conn);
