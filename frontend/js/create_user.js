@@ -43,7 +43,7 @@ async function createUser() {
     };
 
     try {
-        const response = await fetch('ruta/al/archivo_create.php', { //RUTA DEL ARCHIVO PHP ERICK
+        const response = await fetch('/backend/create_user.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
