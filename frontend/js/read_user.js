@@ -93,8 +93,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const id = urlParams.get('id');
 
     try {
-        const response = await fetch(`ruta/al/archivo.php?id=${id}`);
-        const perfil = await response.json();
+        const response = await fetch(`http://localhost:8000/read_user.php?id=${id}`);
+        const resultado = await response.json();
+
+        console.log('Resultado del servidor:', resultado);
+
+        const perfil = resultado.data;
 
         // info personal
         document.getElementById('name-hero').textContent = perfil.basico.nombre;
@@ -107,31 +111,32 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Experiencia
         const experienceSection = document.getElementById('experience-section');
-        experienceSection.innerHTML = perfil.experiencia.map(exp => `
+        const experienceData = perfil.experience || [];
+        experienceSection.innerHTML = perfil.experience.map(exp => `
             <div class="experience-sub-section">
-                <h3>${exp.title}</h3>
-                <span class="text-primary">${exp.startDate} - ${exp.endDate}</span>
+                <h3>${exp.titulo || 'Título no disponible'}</h3>
+                <span class="text-primary">${exp.startDate || 'Fecha de inicio no disponible'} - ${exp.endDate || 'Fecha de fin no disponible'}</span>
                 <ul>
-                    ${exp.details.map(detail => `
-                        <li class="subheading mb-3">${detail.subtitle}</li>
-                        ${detail.description ? `<li><p>${detail.description}</p></li>` : ''}
-                    `).join('')}
+                    ${exp.descripcion ? `<li><p>${exp.descripcion}</p></li>` : '<li>No hay descripción disponible</li>'}
                 </ul>
             </div>
         `).join('');
 
         // Educación
         const educationSection = document.getElementById('resume-section-education');
-        educationSection.innerHTML = perfil.educacion.map(edc => `
+        const educationData = perfil.education || [];
+        
+        educationSection.innerHTML = perfil.education.map(edc => `
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3 class="mb-0">${edc.titulo}</h3>
-                    <span class="text-primary">${edc.periodo}</span>
-                    <div class="subheading mb-3">${edc.institucion}</div>
+                    <h3 class="mb-0">${edc.titulo || 'Título no disponible'}</h3>
+                    <span class="text-primary">${edc.periodo || 'Fecha de inicio no disponible'} - ${edc.fechaFin || 'Fecha de fin no disponible'}</span>
+                    <div class="subheading mb-3">${edc.descripcion || 'Descripción no disponible'}</div>
                 </div>
             </div>
         `).join('');
-        
+
+
         //Intereses
         document.getElementById('p-interest-section').textContent = perfil.intereses;
 
@@ -140,21 +145,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-////////// ICONS
-const socialIcons = document.querySelectorAll('.social-icon');
+// ////////// ICONS
+// const socialIcons = document.querySelectorAll('.social-icon');
 
-socialIcons.forEach(icon => {
-    icon.addEventListener('Mouse', () => {
-        socialIcons.forEach(otherIcon => {
-            if (otherIcon !== icon) {
-                otherIcon.style.margin = '0 20px'; 
-            }
-        });
-    });
+// socialIcons.forEach(icon => {
+//     icon.addEventListener('Mouse', () => {
+//         socialIcons.forEach(otherIcon => {
+//             if (otherIcon !== icon) {
+//                 otherIcon.style.margin = '0 20px'; 
+//             }
+//         });
+//     });
 
-    icon.addEventListener('Mouseleaves', () => {
-        socialIcons.forEach(otherIcon => {
-            otherIcon.style.margin = '12px'; 
-        });
-    });
-});
+//     icon.addEventListener('Mouseleaves', () => {
+//         socialIcons.forEach(otherIcon => {
+//             otherIcon.style.margin = '12px'; 
+//         });
+//     });
+// });

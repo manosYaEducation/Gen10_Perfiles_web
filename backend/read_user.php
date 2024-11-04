@@ -24,11 +24,11 @@ try {
         exit;
     }
 
-    $stmtExp = $conn->prepare("SELECT title AS titulo, startDate AS fecha, description AS descripcion FROM experience WHERE profileID = ?");
+    $stmtExp = $conn->prepare("SELECT title AS titulo, startDate AS fecha, description AS descripcion FROM experience WHERE profileId = ?");
     $stmtExp->execute([$profileId]);
     $experience = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmtEdu = $conn->prepare("SELECT title AS titulo, startDate AS fecha, description AS descripcion FROM experience WHERE profileId = ?");
+    $stmtEdu = $conn->prepare("SELECT title AS titulo, startDate AS periodo, endDate AS fechaFin, description AS descripcion FROM education WHERE profileId = ?");
     $stmtEdu->execute([$profileId]);
     $education = $stmtEdu->fetchAll(PDO::FETCH_ASSOC);
 
