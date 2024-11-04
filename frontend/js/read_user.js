@@ -22,15 +22,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Experiencia
         const experienceSection = document.getElementById('experience-section');
         const experienceData = perfil.experience || [];
-        experienceSection.innerHTML = perfil.experience.map(exp => `
-            <div class="experience-sub-section">
-                <h3>${exp.titulo || 'Título no disponible'}</h3>
-                <span class="text-primary">${exp.startDate || 'Fecha de inicio no disponible'} - ${exp.endDate || 'Fecha de fin no disponible'}</span>
-                <ul>
-                    ${exp.descripcion ? `<li><p>${exp.descripcion}</p></li>` : '<li>No hay descripción disponible</li>'}
-                </ul>
-            </div>
-        `).join('');
+
+        experienceSection.innerHTML = experienceData.map(exp => `
+        <div class="experience-sub-section">
+            <h3>${exp.titulo || 'Título no disponible'}</h3>
+            <span class="text-primary">${exp.fechaInicio || 'Fecha de inicio no disponible'} - ${exp.fechaFin || 'Fecha de fin no disponible'}</span>
+            <ul>
+                ${exp.descripcion ? `<li><p>${exp.descripcion}</p></li>` : '<li>No hay descripción disponible</li>'}
+            </ul>
+        </div>
+    `).join('');
 
         // Educación
         const educationSection = document.getElementById('resume-section-education');

@@ -11,13 +11,10 @@ async function createUser() {
         {
             title: document.getElementById('input-experience-title').value,
             startDate: document.getElementById('input-experience-start-date').value,
-            endDate: document.getElementById('input-experience-end-date').value,
-            details: [
-                {
-                    subtitle: document.getElementById('input-experience-detail-subtitle').value,
-                    description: document.getElementById('input-experience-detail-desc').value
-                }
-            ]
+            endDate: document.getElementById('input-experience-end-date').value,        
+            subtitle: document.getElementById('input-experience-subtitle').value,
+            description: document.getElementById('input-experience-desc').value        
+            
         }
     ];
 
