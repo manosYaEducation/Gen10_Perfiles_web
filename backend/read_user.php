@@ -26,19 +26,19 @@ try {
 
     $stmtExp = $conn->prepare("SELECT title AS titulo, startDate AS fecha, description AS descripcion FROM experience WHERE profileID = ?");
     $stmtExp->execute([$profileId]);
-    $experiences = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
+    $experience = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
 
     $stmtEdu = $conn->prepare("SELECT title AS titulo, startDate AS fecha, description AS descripcion FROM experience WHERE profileId = ?");
     $stmtEdu->execute([$profileId]);
-    $educations = $stmtEdu->fetchAll(PDO::FETCH_ASSOC);
+    $education = $stmtEdu->fetchAll(PDO::FETCH_ASSOC);
 
     
     $response = [
         'success' => true,
         'data' => [
             'basico' => $profile, 
-            'experience' => $experiences,
-            'education' => $educations,
+            'experience' => $experience,
+            'education' => $education,
             
         ]
     ];
