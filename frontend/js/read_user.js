@@ -4,56 +4,56 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
         const response = await fetch(`http://localhost:8000/read_user.php?id=${id}`);
-        const resultado = await response.json();
+        const result = await response.json();
 
-        console.log('Resultado del servidor:', resultado);
+        console.log('Resultados', result);
 
-        const perfil = resultado.data;
+        const profile = result.data;
 
-        // info personal
-        document.getElementById('name-hero').textContent = perfil.basico.nombre;
+        // Información personal
+        document.getElementById('name-hero').textContent = profile.basic.name;
         document.getElementById('personal-information-hero').innerHTML = `
-            <p>Ubicación: ${perfil.basico.ubicacion}</p>
-            <p>Teléfono: ${perfil.basico.telefono}</p>
-            <p>Correo: ${perfil.basico.correo}</p>
+            <p>Location: ${profile.basic.location}</p>
+            <p>Phone: ${profile.basic.phone}</p>
+            <p>Email: ${profile.basic.email}</p>
         `;
-        document.getElementById('description-hero').textContent = perfil.basico.descripcion;
+        document.getElementById('description-hero').textContent = profile.basic.description;
 
         // Experiencia
         const experienceSection = document.getElementById('experience-section');
-        const experienceData = perfil.experience || [];
-        experienceSection.innerHTML = perfil.experience.map(exp => `
+        const experienceData = profile.experience || [];
+        experienceSection.innerHTML = experienceData.map(exp => `
             <div class="experience-sub-section">
-                <h3>${exp.titulo || 'Título no disponible'}</h3>
-                <span class="text-primary">${exp.startDate || 'Fecha de inicio no disponible'} - ${exp.endDate || 'Fecha de fin no disponible'}</span>
+                <h3 class="experience-sub-title">${exp.title || 'titulo no disponible'}</h3>
+                <span class="text-primary">${exp.startDate || 'Fecha de inicio no disponible'} - ${exp.endDate || 'Fecha de finalización no disponible'}</span>
                 <ul>
-                    ${exp.descripcion ? `<li><p>${exp.descripcion}</p></li>` : '<li>No hay descripción disponible</li>'}
+                    ${exp.subtitle ? `<li class="subheading mb-3">${exp.subtitle}</li>` : ''}
+                    ${exp.description ? `<li><p>${exp.description}</p></li>` : '<li>Nohay descripción disponible</li>'}
                 </ul>
             </div>
         `).join('');
 
         // Educación
-        const educationSection = document.getElementById('resume-section-education');
-        const educationData = perfil.education || [];
-        
-        educationSection.innerHTML = perfil.education.map(edc => `
+        const educationSection = document.getElementById('timeline');
+        const educationData = profile.education || [];
+        educationSection.innerHTML = educationData.map(edc => `
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3 class="mb-0">${edc.titulo || 'Título no disponible'}</h3>
-                    <span class="text-primary">${edc.periodo || 'Fecha de inicio no disponible'} - ${edc.fechaFin || 'Fecha de fin no disponible'}</span>
-                    <div class="subheading mb-3">${edc.descripcion || 'Descripción no disponible'}</div>
+                    <h3 class="mb-0">${edc.title || 'titulo no disponible'}</h3>
+                    <span class="text-primary">${edc.startDate || 'Fecha de inicio no disponible'} - ${edc.endDate || 'Fecha de finalización no disponible'}</span>
+                    <div class="subheading mb-3">${edc.institution || 'Institución no disponible'}</div>
                 </div>
             </div>
         `).join('');
 
-
-        //Intereses
-        document.getElementById('p-interest-section').textContent = perfil.intereses;
+        // Intereses
+        document.getElementById('p-interest-section').textContent = profile.interests;
 
     } catch (error) {
-        console.error("Error al obtener el perfil:", error);
+        console.error("Error al obtener los datos:", error);
     }
 });
+
 
 // ////////// ICONS
 // const socialIcons = document.querySelectorAll('.social-icon');
