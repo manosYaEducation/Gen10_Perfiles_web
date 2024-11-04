@@ -24,7 +24,7 @@ try {
         exit;
     }
 
-    $stmtExp = $conn->prepare("SELECT title AS titulo, startDate AS fecha, description AS descripcion FROM experience WHERE profileId = ?");
+    $stmtExp = $conn->prepare("SELECT title AS titulo, description AS descripcion, startDate AS fechaInicio, endDate AS fechaFin FROM experience WHERE profileId = ?");
     $stmtExp->execute([$profileId]);
     $experience = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
 
