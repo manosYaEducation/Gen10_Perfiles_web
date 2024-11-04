@@ -62,3 +62,5 @@ async function createUser() {
         console.error("Error:", error);
     }
 }
+
+document.getElementById('userForm').addEventListener('submit', createUser);
