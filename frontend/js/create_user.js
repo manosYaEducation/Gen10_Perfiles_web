@@ -11,21 +11,21 @@ async function createUser() {
         {
             title: document.getElementById('input-experience-title').value,
             startDate: document.getElementById('input-experience-start-date').value,
-            endDate: document.getElementById('input-experience-end-date').value,        
-            subtitle: document.getElementById('input-experience-subtitle').value,
-            description: document.getElementById('input-experience-desc').value        
-            
+            endDate: document.getElementById('input-experience-end-date').value,
+            subtitle: document.getElementById('input-experience-detail-subtitle').value,
+            description: document.getElementById('input-experience-detail-desc').value
         }
     ];
-
+    
     const education = [
         {
             title: document.getElementById('input-education-title').value,
-            period: document.getElementById('input-education-period').value,
+            startDate: document.getElementById('input-education-start-date').value,
+            endDate: document.getElementById('input-education-end-date').value,
             institution: document.getElementById('input-education-institution').value
         }
     ];
-
+    
     const newUser = {
         basic: {
             name,
@@ -59,3 +59,5 @@ async function createUser() {
         console.error("Error:", error);
     }
 }
+
+document.getElementById('userForm').addEventListener('submit', createUser);
