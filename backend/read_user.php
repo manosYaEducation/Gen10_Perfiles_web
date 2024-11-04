@@ -15,7 +15,7 @@ if ($profileId === null) {
 
 try {
     
-    $stmt = $conn->prepare("SELECT name AS nombre, location AS ubicacion, phone AS telefono, email AS correo, description AS descripcion FROM profile WHERE id = ?");
+    $stmt = $conn->prepare("SELECT name, location, phone, email, description FROM profile WHERE id = ?");
     $stmt->execute([$profileId]);
     $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -24,22 +24,20 @@ try {
         exit;
     }
 
-    $stmtExp = $conn->prepare("SELECT title AS titulo, description AS descripcion, startDate AS fechaInicio, endDate AS fechaFin FROM experience WHERE profileId = ?");
+    $stmtExp = $conn->prepare("SELECT title, description, startDate, endDate FROM experience WHERE profileId = ?");
     $stmtExp->execute([$profileId]);
     $experience = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmtEdu = $conn->prepare("SELECT title AS titulo, startDate AS periodo, endDate AS fechaFin, description AS descripcion FROM education WHERE profileId = ?");
+    $stmtEdu = $conn->prepare("SELECT title, startDate, endDate, description FROM education WHERE profileId = ?");
     $stmtEdu->execute([$profileId]);
     $education = $stmtEdu->fetchAll(PDO::FETCH_ASSOC);
 
-    
     $response = [
         'success' => true,
         'data' => [
-            'basico' => $profile, 
+            'basic' => $profile, 
             'experience' => $experience,
             'education' => $education,
-            
         ]
     ];
 
