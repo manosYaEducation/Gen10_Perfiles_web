@@ -9,46 +9,85 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div>
-                <ul class="headernav">
-                    <li>
-                        <a class="button-53" href="#equipo">Nuestro Equipo</a>
-                    </li>
-                    <li>
-                        <a class="button-53" href="#contacto">Contacto</a>
-                    </li>
-                </ul>
+    <div class="hero-gradient">
+        <header>
+            <nav>
+                <div class="header-container">
+                    <div class="logo">
+                        <img src="icono.png" alt="Icono" class="icon">
+                    </div>
+                    <ul class="headernav">
+                        <li>
+                            <a class="button-53" href="#equipo">Nuestro Equipo</a>
+                        </li>
+                        <li>
+                            <a class="button-53" href="#contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Bienvenido a Nuestro Sitio</h1>
+                    <h2>Tu aliado en el éxito</h2>
+                    <p>Descubre cómo nuestro equipo de profesionales está aquí para ayudarte a alcanzar tus metas. Contáctanos para saber más sobre nuestros servicios y cómo podemos colaborar juntos.</p>
+                </div>
+                <div class="hero-image">
+                    <img src="imagen-hero.jpg" alt="Imagen de Bienvenida">
+                </div>
             </div>
-        </nav>
-    </header>
+        </section>
+    </div>
+    
     <main>
-        <h1 class="maintitle">Gen10 Alpha Docere</h1>
-        <section id="perfiles">
+        <section class="info-section">
+            <h1 class="maintitle">Gen10 Alpha Docere</h1>
+            <p>Gen10 Alpha Docere es una plataforma diseñada para destacar y conectar a profesionales de diversas áreas. Explora los perfiles y encuentra al experto que necesitas.</p>
+            
+            <div class="info-images">
+                <img src="imagen-izquierda.jpg" alt="Imagen Izquierda" class="info-image left-image">
+                <img src="imagen-derecha.jpg" alt="Imagen Derecha" class="info-image right-image">
+            </div>
+        </section>
+        
+        
+    
+        <section class="profiles-section" id="perfiles">
             <h2 class="text-53">Perfiles de Profesionales</h2>
-            <ul>
-                <li>
-                    <a href="/frontend/perfiles/profile-template.html?id=0">Sebastián Santana</a>
-                    <button id="buttonBorrar">Borrar</button>
-                </li>
-                <li>
-                    <a href="/frontend/perfiles/profile-template.html?id=1">Erick Caicheo</a>
-                    <button id="buttonBorrar">Borrar</button>
-                </li>
-                <li>
-                    <a href="/frontend/perfiles/profile-template.html?id=7">Erick Caicheo777777777</a>
-                    <button id="buttonBorrar">Borrar</button>
-                </li>
-                <li>
-                    <a href="/frontend/perfiles/profile-template.html?id=6">Erick Caicheo666666</a>
-                    <button id="buttonBorrar">Borrar</button>
-                </li>
-            </ul>
-            <a href="/frontend/crud-profile.html">Crear Perfil</a>
+            <div class="profiles-container">
+                <div class="profiles-column">
+                    <ul>
+                        <li>
+                            <a href="/frontend/perfiles/profile-template.html?id=0">Sebastián Santana</a>
+                            <button class="button-borrar">Borrar</button>
+                        </li>
+                        <li>
+                            <a href="/frontend/perfiles/profile-template.html?id=1">Erick Caicheo</a>
+                            <button class="button-borrar">Borrar</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="profiles-column">
+                    <ul>
+                        <li>
+                            <a href="/frontend/perfiles/profile-template.html?id=7">Erick Caicheo777777777</a>
+                            <button class="button-borrar">Borrar</button>
+                        </li>
+                        <li>
+                            <a href="/frontend/perfiles/profile-template.html?id=6">Erick Caicheo666666</a>
+                            <button class="button-borrar">Borrar</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <a href="/frontend/crud-profile.html" class="create-profile">Crear Perfil</a>
         </section>
     </main>
-    <footer>
+    
+    <!-- <footer>
         <p class="text-52">
             Para más información, puedes contactarnos a través de:
         </p>
@@ -58,14 +97,10 @@
             <li><a href="formulario_contacto.html">Formulario de Contacto</a></li>
         </ul>
         <p>&copy; 2024 Equipo Profesional. Todos los derechos reservados.</p>
-    </footer>
+    </footer> -->
 
-    <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
     <script src="/frontend/js/delete_user.js"></script>
     <script src="/frontend/js/index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
