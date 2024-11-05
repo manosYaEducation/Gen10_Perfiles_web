@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Equipo Profesional Gen10 Alpha Docere</title>
-    <link href="/frontend/css/index.css" rel="stylesheet">
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equipo Profesional Gen10 Alpha Docere</title>
+    <link href="/frontend/css/index.css" rel="stylesheet" />
 </head>
+
 <body>
-    <!-- <header >
-       
-        <nav >
-            
-            <div >
+    <header>
+        <nav>
+            <div>
                 <ul class="headernav">
-                    <button id="button-53-home">
-                        <span>Inicio</span>
-                    </button>
-                    <li >
-                        <a class="button-53" href="perfiles/">Perfiles de Profesionales</a>
-                    </li>
                     <li>
-                        <a class="button-53"href="#equipo">Nuestro Equipo</a>
+                        <a class="button-53" href="#equipo">Nuestro Equipo</a>
                     </li>
                     <li>
                         <a class="button-53" href="#contacto">Contacto</a>
@@ -29,48 +22,50 @@
                 </ul>
             </div>
         </nav>
-    </header> -->
-
-
-
-
+    </header>
     <main>
-        
-
-
-        <h1 class="maintitle"> Gen10 Alpha Docere </h1>
+        <h1 class="maintitle">Gen10 Alpha Docere</h1>
         <section id="perfiles">
             <h2 class="text-53">Perfiles de Profesionales</h2>
-            <!-- <p class="text-52">Aquí puedes acceder a los perfiles de nuestros profesionales altamente capacitados.</p> -->
             <ul>
-                <li><a href="/frontend/perfiles/profile-template.html?id=0">Sebastián Santana</a></li>
-                <li><a href="/frontend/perfiles/profile-template.html?id=1">Erick Caicheo</a></li>
+                <li>
+                    <a href="/frontend/perfiles/profile-template.html?id=0">Sebastián Santana</a>
+                    <button id="buttonBorrar">Borrar</button>
+                </li>
+                <li>
+                    <a href="/frontend/perfiles/profile-template.html?id=1">Erick Caicheo</a>
+                    <button id="buttonBorrar">Borrar</button>
+                </li>
+                <li>
+                    <a href="/frontend/perfiles/profile-template.html?id=7">Erick Caicheo777777777</a>
+                    <button id="buttonBorrar">Borrar</button>
+                </li>
+                <li>
+                    <a href="/frontend/perfiles/profile-template.html?id=6">Erick Caicheo666666</a>
+                    <button id="buttonBorrar">Borrar</button>
+                </li>
             </ul>
             <a href="/frontend/crud-profile.html">Crear Perfil</a>
         </section>
-        
-        
-<!-- 
-        <section id="contacto">
-            <h2 class="text-53">Contacto</h2>
-            <p class="text-52">Para más información, puedes contactarnos a través de:</p>
-            <ul>
-                <li><a>Email: contacto@equipo-profesional.com</a></li>
-                <li><a>Teléfono: +56 9 1234 5678</a></li>
-                <li><a href="formulario_contacto.html">Formulario de Contacto</a></li>
-            </ul>
-        </section>
-    
     </main>
-
     <footer>
+        <p class="text-52">
+            Para más información, puedes contactarnos a través de:
+        </p>
+        <ul>
+            <li><a>Email: contacto@equipo-profesional.com</a></li>
+            <li><a>Teléfono: +56 9 1234 5678</a></li>
+            <li><a href="formulario_contacto.html">Formulario de Contacto</a></li>
+        </ul>
         <p>&copy; 2024 Equipo Profesional. Todos los derechos reservados.</p>
-    </footer> -->
+    </footer>
 
     <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
-     <script src="/frontend/js/index.js"></script>
+    <script src="/frontend/js/delete_user.js"></script>
+    <script src="/frontend/js/index.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
