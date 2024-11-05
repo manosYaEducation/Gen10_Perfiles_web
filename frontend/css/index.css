@@ -1,308 +1,130 @@
-body{
-    background-color: #dee4c6;
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    padding: 1rem;
+}
+
+header nav div ul.headernav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+header nav div ul.headernav button,
+header nav div ul.headernav li a {
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #444;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+header nav div ul.headernav button:hover,
+header nav div ul.headernav li a:hover {
+    background-color: #555;
+}
+
+/* Main */
+main {
+    padding: 2rem;
+}
+
+.maintitle {
+    font-size: 2rem;
     text-align: center;
+    margin-bottom: 1rem;
 }
 
-ul{
-    list-style-type: none;
-}
-
-
-.button-53 {
-  background-color: #3DD1E7;
-  border: 0 solid #E5E7EB;
-  box-sizing: border-box;
-  color: #000000;
-  display: flex;
-  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 1rem;
-  font-weight: 700;
-  justify-content: center;
-  line-height: 1.75rem;
-  padding: .75rem 1.65rem;
-  position: relative;
-  text-align: center;
-  text-decoration: none #000000 solid;
-  text-decoration-thickness: auto;
-  width: 100%;
-  max-width: 460px;
-  position: relative;
-  cursor: pointer;
-  transform: rotate(-2deg);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
-
-.button-53:hover{
-    color:yellow;
-}
-
-.button-53:focus {
-  outline: 0;
-}
-
-.button-53:after {
-  content: '';
-  position: absolute;
-  border: 1px solid #000000;
-  bottom: 4px;
-  left: 4px;
-  width: calc(100% - 1px);
-  height: calc(100% - 1px);
-}
-
-.button-53:hover:after {
-  bottom: 2px;
-  left: 2px;
-  color:yellow;
-}
-
-
-#button-53-home {
-    background-color: #3d95e7;
-    border: 0 solid #E5E7EB;
-    box-sizing: border-box;
-    color: #000000;
+section#perfiles {
     display: flex;
-    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 700;
-    justify-content: center;
-    line-height: 1.75rem;
-    padding: .75rem 1.65rem;
-    position: relative;
-    text-align: center;
-    text-decoration: none #000000 solid;
-    text-decoration-thickness: auto;
-    width: 100%;
-    max-width: 460px;
-    position: relative;
-    cursor: pointer;
-    transform: rotate(-2deg);
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-  }
-  
-#button-53-home:hover{
-      color:yellow;
-}
-  
-#button-53-home:focus {
-    outline: 0;
-}
-  
-#button-53-home:after {
-    content: '';
-    position: absolute;
-    border: 1px solid #000000;
-    bottom: 4px;
-    left: 4px;
-    width: calc(100% - 1px);
-    height: calc(100% - 1px);
-}
-  
-#button-53-home:hover:after {
-    bottom: 2px;
-    left: 2px;
-    color:yellow;
-}
-
-.headernav{
-    display: flex;
-    justify-content: center;
-    background-color: black;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-
-
-.maintitle{
-    font-size: 70px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color:white;
-}
-
-h1{
-    background-color: black;
-    margin:0%
-}
-
-#contacto{
-    display: flex;
-    justify-content: center;   
-    flex-wrap: wrap;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-}
-
-
-#equipo{
-    display: flex;
-    justify-content: center;   
-    flex-wrap: wrap;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    
-}
-#perfiles{
-    
-    padding: 300px ;
-    display: flex;
-    justify-content: center;   
-    flex-wrap: wrap;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    
-}
-
-#perfiles h2{
-    margin-bottom: 10px;
-    width: 200px;
-}
-
-#perfiles p{
-    margin-top:auto;
-    margin-bottom: auto;
-}
-
-p{
-    margin-left: auto;
-}
-
-.text-53 {
-    background-color: #3DD1E7;
-    border: 0 solid #E5E7EB;
-    box-sizing: border-box;
-    color: #000000;
-    display: flex;
-    font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: 1rem;
-    font-weight: 700;
-    justify-content: center;
-    line-height: 1.75rem;
-    padding: .75rem 1.65rem;
-    position: relative;
-    text-align: center;
-    text-decoration: none #000000 solid;
-    text-decoration-thickness: auto;
-    width: 100%;
-    max-width: 460px;
-    position: center;
-
-  }
-  
-  .text-53:hover{
-      color:yellow;
-  }
-  
-  .text-53:focus {
-    outline: 0;
-  }
-  
-  .text-53:after {
-    content: '';
-    position: absolute;
-    border: 1px solid #000000;
-    bottom: 4px;
-    left: 4px;
-    width: calc(100% - 1px);
-    height: calc(100% - 1px);
-  }
-  
-  .text-53:hover:after {
-    bottom: 2px;
-    left: 2px;
-    color:yellow;
-  }
-
-  main section p{
-    margin-bottom: 20px;
-  }
-
-
-.text-52 {
-    font-size: 16px;
-    font-weight: 200;
-    letter-spacing: 1px;
-    padding: 13px 20px 13px;
-    outline: 0;
-    border: 1px solid black;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0);
-    margin:auto;
-    
-}
-.text-52:hover{
-    color:#3DD1E7;
-}
-  
-.text-52:after {
-    content: "";
-    background-color: #ffe54c;
-    width: 100%;
-    z-index: -1;
-    position: absolute;
-    height: 100%;
-    top: 7px;
-    left: 7px;
-    transition: 0.2s;
-}
-
-.text-52:hover:after {
-    top: 0px;
-    left: 0px;
-}
-  
-@media (min-width: 768px) {
-    .button-52 {
-      padding: 13px 50px 13px;
-    }
-  }
-
-p.text-52{
-    text-align: center;
-}
-
-ul {
-    list-style-type: none; 
-    padding: 0; 
-    margin: 0; 
     flex-direction: column;
+    align-items: center;
+    width: 40%;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-ul li {
-    margin-bottom: auto;
+section#perfiles h2.text-53 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-ul li a {
-  background-color: transparent;
-  color: #00132C;
-  font-family: "Avenir Next LT W01 Bold",sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-  padding: 16px 23px;
-  position: relative;
-  text-decoration: none;
-  touch-action: manipulation;
+section#perfiles ul {
+    list-style: none;
+    padding: 0;
 }
 
-ul li a:hover {
-    color: #0056b3;     
+section#perfiles ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
+section#perfiles ul li a {
+    font-weight: bold;
+    color: #333;
+}
 
-@media (min-width: 600px) {
-    ul {
-        flex-direction: row; /* Cambiar a fila en pantallas más grandes */
-        flex-wrap: wrap; /* Permitir que los elementos se ajusten en varias líneas */
-    }
+#buttonBorrar {
+  font-size: 1.2rem; /* ajusta el tamaño del icono */
+}
 
-    ul li {
-        margin: 0 1em; /* Ajustar márgenes en pantallas más grandes */
-    }
+section#perfiles a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #007bff;
+    font-weight: bold;
+}
 
-    ul li a {
-        font-size: 1.2em; /* Aumentar el tamaño de fuente en pantallas más grandes */
-    }
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+footer ul li {
+    margin: 5px 0;
+}
+
+footer ul li a {
+    color: #007bff;
+}
+
+footer ul li a:hover {
+    text-decoration: underline;
 }
