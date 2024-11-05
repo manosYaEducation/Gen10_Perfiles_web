@@ -1,130 +1,236 @@
-/* General */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    overflow-x: hidden; /* Previene el desbordamiento horizontal */
+    box-sizing: border-box;
 }
 
-a {
-    color: #007bff;
-    text-decoration: none;
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
 }
 
-a:hover {
-    text-decoration: underline;
+/* Contenedor con el gradiente compartido */
+.hero-gradient {
+    background: linear-gradient(90deg, rgba(53,133,160,1) 2%, rgba(50,69,75,1) 35%, rgba(43,49,51,1) 100%);
+    color: white;
+    width: 100%; /* Asegura que el contenedor no exceda el viewport */
+    overflow: hidden; /* Previene desbordamiento de contenido */
 }
 
 /* Header */
 header {
-    background-color: #333;
-    padding: 1rem;
+    padding: 10px 0;
 }
 
-header nav div ul.headernav {
-    list-style: none;
-    padding: 0;
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo .icon {
+    width: 40px;
+    height: auto;
+}
+
+.headernav {
+    display: flex;
+    list-style-type: none;
     margin: 0;
-    display: flex;
-    gap: 15px;
-}
-
-header nav div ul.headernav button,
-header nav div ul.headernav li a {
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: #444;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
-
-header nav div ul.headernav button:hover,
-header nav div ul.headernav li a:hover {
-    background-color: #555;
-}
-
-/* Main */
-main {
-    padding: 2rem;
-}
-
-.maintitle {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-section#perfiles {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40%;
-    margin: 2rem 0;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-section#perfiles h2.text-53 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-section#perfiles ul {
-    list-style: none;
     padding: 0;
 }
 
-section#perfiles ul li {
+.headernav li {
+    margin-left: 20px;
+}
+
+.headernav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.headernav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.button-53 {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1em;
+}
+
+/* Hero Section */
+.hero {
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-content {
     display: flex;
     align-items: center;
-    gap: 10px;
+    max-width: 1200px;
+    width: 100%;
+    gap: 20px;
+}
+
+/* Texto del héroe alineado a la izquierda */
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 2.5em;
     margin-bottom: 10px;
 }
 
-section#perfiles ul li a {
-    font-weight: bold;
-    color: #333;
+.hero-text h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
 }
 
-#buttonBorrar {
-  font-size: 1.2rem; /* ajusta el tamaño del icono */
+.hero-text p {
+    font-size: 1em;
+    line-height: 1.6;
 }
 
-section#perfiles a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: #007bff;
-    font-weight: bold;
+/* Imagen del héroe alineada a la derecha */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
 }
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: #fff;
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px; /* Para darle un toque de estilo a la imagen */
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Primera Sección: Caja con título y párrafo */
+.info-section {
+    background-color: #F1F1F0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
     text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
 }
 
-footer ul {
-    list-style: none;
+.info-section .maintitle {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.info-section p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Contenedor para las imágenes en la sección de información */
+.info-images {
+    display: flex; /* Utiliza flexbox para alinear las imágenes */
+    justify-content: space-between; /* Espacio entre las imágenes */
+    margin-top: 20px; /* Espacio encima de las imágenes */
+}
+
+/* Estilos para las imágenes en la sección de información */
+.info-image {
+    width: 45%; /* Asegura que las imágenes no excedan el ancho del contenedor */
+    height: auto; /* Mantiene la proporción de las imágenes */
+    border-radius: 8px; /* Para darle un toque de estilo a las imágenes */
+}
+
+/* Segunda Sección: Caja con perfiles */
+.profiles-section {
+    background-color: #F1F1F0;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.profiles-section .text-53 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+/* Contenedor de columnas para los perfiles */
+.profiles-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    text-align: left;
+}
+
+/* Columnas de perfiles */
+.profiles-column {
+    flex: 1;
+}
+
+.profiles-column ul {
+    list-style-type: none;
     padding: 0;
-    margin: 1rem 0;
+    margin: 0;
 }
 
-footer ul li {
-    margin: 5px 0;
+.profiles-column li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-footer ul li a {
-    color: #007bff;
+/* Enlaces de perfiles y botones */
+.profiles-column a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }
 
-footer ul li a:hover {
-    text-decoration: underline;
+.button-borrar {
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button-borrar:hover {
+    background-color: #FF4A4A;
+}
+
+/* Botón para crear perfil */
+.create-profile {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.create-profile:hover {
+    background-color: #45A049;
 }
