@@ -8,24 +8,24 @@ async function createUser() {
     const phone = document.getElementById('input-phone').value;
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
-    // const experience = [
-    //     {
-    //         title: document.getElementById('input-experience-title').value,
-    //         startDate: document.getElementById('input-experience-start-date').value,
-    //         endDate: document.getElementById('input-experience-end-date').value,
-    //         subtitle: document.getElementById('input-experience-detail-subtitle').value,
-    //         description: document.getElementById('input-experience-detail-desc').value
-    //     }
-    // ];
+    const experience = [
+        {
+            title: document.getElementById('input-experience-title').value,
+            startDate: document.getElementById('input-experience-start-date').value,
+            endDate: document.getElementById('input-experience-end-date').value,
+            subtitle: document.getElementById('input-experience-detail-subtitle').value,
+            description: document.getElementById('input-experience-detail-desc').value
+        }
+    ];
     
-    // const education = [
-    //     {
-    //         title: document.getElementById('input-education-title').value,
-    //         startDate: document.getElementById('input-education-start-date').value,
-    //         endDate: document.getElementById('input-education-end-date').value,
-    //         institution: document.getElementById('input-education-institution').value
-    //     }
-    // ];
+    const education = [
+        {
+            title: document.getElementById('input-education-title').value,
+            startDate: document.getElementById('input-education-start-date').value,
+            endDate: document.getElementById('input-education-end-date').value,
+            institution: document.getElementById('input-education-institution').value
+        }
+    ];
     
     const newUser = {
         basic: {
@@ -34,9 +34,9 @@ async function createUser() {
             phone,
             email,
             description
-        }
-        // experience,
-        // education
+        },
+        experience,
+        education
     };
     console.log("User data to send:", JSON.stringify(newUser, null, 2));
     
