@@ -1,35 +1,40 @@
-body {
-    margin: 0;
-    overflow-x: hidden; /* Previene el desbordamiento horizontal */
-    box-sizing: border-box;
-}
-
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-
-/* Contenedor con el gradiente compartido */
-.hero-gradient {
-    background: linear-gradient(90deg, rgba(53,133,160,1) 2%, rgba(50,69,75,1) 35%, rgba(43,49,51,1) 100%);
-    color: white;
-    width: 100%; /* Asegura que el contenedor no exceda el viewport */
-    overflow: hidden; /* Previene desbordamiento de contenido */
+body {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    min-width: 100%;
+    overflow-x: hidden;
+}
+/* Contenedor principal que limita el ancho del contenido */
+.main-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
 }
 
 /* Header */
 header {
+    color: white;
     padding: 10px 0;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.header-container {
+nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .logo .icon {
@@ -39,13 +44,14 @@ header {
 
 .headernav {
     display: flex;
-    list-style-type: none;
+    list-style: none;
     margin: 0;
     padding: 0;
+    gap: 20px;
 }
 
 .headernav li {
-    margin-left: 20px;
+    margin: 0;
 }
 
 .headernav a {
@@ -61,41 +67,53 @@ header {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.button-53 {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+button {
+    background-color: #4CAF50;
     color: white;
-    font-size: 1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
+}
+
+button:hover {
+    background-color: #45A049;
 }
 
 /* Hero Section */
+.hero-gradient {
+    background: linear-gradient(90deg, rgba(53,133,160,1) 2%, rgba(50,69,75,1) 35%, rgba(43,49,51,1) 100%);
+    color: white;
+    width: 100%;
+    min-width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
 .hero {
     padding: 50px 20px;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .hero-content {
     display: flex;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1440px;
     width: 100%;
     gap: 20px;
 }
 
-/* Texto del héroe alineado a la izquierda */
-.hero-text {
-    flex: 1;
+.hero-text, .hero-image {
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .hero-text h1 {
     font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-.hero-text h2 {
-    font-size: 1.5em;
     margin-bottom: 10px;
 }
 
@@ -104,28 +122,22 @@ header {
     line-height: 1.6;
 }
 
-/* Imagen del héroe alineada a la derecha */
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
 .hero-image img {
     width: 100%;
     max-width: 500px;
     height: auto;
-    border-radius: 8px; /* Para darle un toque de estilo a la imagen */
+    border-radius: 8px;
 }
 
+/* Main Content */
 main {
-    max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     overflow: hidden;
 }
 
-/* Primera Sección: Caja con título y párrafo */
+/* Info Section */
 .info-section {
     background-color: #F1F1F0;
     padding: 20px;
@@ -144,88 +156,94 @@ main {
     line-height: 1.6;
 }
 
-/* Contenedor para las imágenes en la sección de información */
 .info-images {
-    display: flex; /* Utiliza flexbox para alinear las imágenes */
-    justify-content: space-between; /* Espacio entre las imágenes */
-    margin-top: 20px; /* Espacio encima de las imágenes */
-}
-
-/* Estilos para las imágenes en la sección de información */
-.info-image {
-    width: 45%; /* Asegura que las imágenes no excedan el ancho del contenedor */
-    height: auto; /* Mantiene la proporción de las imágenes */
-    border-radius: 8px; /* Para darle un toque de estilo a las imágenes */
-}
-
-/* Segunda Sección: Caja con perfiles */
-.profiles-section {
-    background-color: #F1F1F0;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.profiles-section .text-53 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-}
-
-/* Contenedor de columnas para los perfiles */
-.profiles-container {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
     gap: 20px;
-    text-align: left;
 }
 
-/* Columnas de perfiles */
-.profiles-column {
-    flex: 1;
+.info-image {
+    width: 45%;
+    height: auto;
+    border-radius: 8px;
 }
 
+/* Profiles Section */
 .profiles-column ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.profiles-column li {
-    margin-bottom: 10px;
+.profile-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
 }
 
-/* Enlaces de perfiles y botones */
-.profiles-column a {
+.profile-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-content {
+    max-width: 400px;
+}
+
+.profile-content h2 {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+}
+
+.profile-content p {
+    font-size: 1em;
+    color: #555;
+    margin: 0 0 10px;
+}
+
+.button-link,
+.button-borrar {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fff;
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+}
+
+.button-link {
+    background-color: #007bff;
+    margin-right: 10px;
 }
 
 .button-borrar {
-    background-color: #FF6B6B;
-    color: white;
+    background-color: #dc3545;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-.button-borrar:hover {
-    background-color: #FF4A4A;
+/* Alternate Card Layouts */
+.profile-card.left {
+    flex-direction: row;
 }
 
-/* Botón para crear perfil */
+.profile-card.right {
+    flex-direction: row-reverse;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+/* Create Profile Button */
 .create-profile {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
-    text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
     transition: background 0.3s ease;
@@ -233,4 +251,34 @@ main {
 
 .create-profile:hover {
     background-color: #45A049;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+}
+
+footer .text-52 {
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 5px;
+}
+
+footer p {
+    font-size: 0.9em;
 }
