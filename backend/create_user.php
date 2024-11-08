@@ -4,21 +4,18 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 
-include 'conexion.php'; // Asegúrate de que el archivo de conexión esté correcto
+include 'conexion.php';
+
+// Maneja las solicitudes OPTIONS para CORS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 // Decodifica la entrada JSON
 $data = json_decode(file_get_contents("php://input"));
 
 try {
-    // Validaciones
-    if (empty($data->basic->name) || empty($data->basic->location) || empty($data->basic->phone) || empty($data->basic->email) || empty($data->basic->description)) {
-        throw new Exception("Todos los campos son obligatorios.");
-    }
-
-    if (!filter_var($data->basic->email, FILTER_VALIDATE_EMAIL)) {
-        throw new Exception("El formato del correo electrónico es inválido.");
-    }
-
     $conn->beginTransaction(); // Comienza la transacción
 
     // Inserta en la tabla `profile`
@@ -30,52 +27,53 @@ try {
         $data->basic->email,
         $data->basic->description
     ]);
-    $profileId = $stmt->fetchColumn(); // Obtiene el ID del perfil recién insertado
+    $profileid = $stmt->fetchColumn(); // Obtiene el ID del perfil recién insertado
 
-    // Si hay experiencia, inserta en la tabla `experience`
-    if (!empty($data->experience)) {
-        foreach ($data->experience as $exp) {
-            $stmtExp = $conn->prepare("INSERT INTO experience (profileid, title, description, startDate, endDate) VALUES (?, ?, ?, ?, ?)");
-            $stmtExp->execute([$profileId, $exp->title, $exp->description ?? null, $exp->startDate, $exp->endDate]);
-        }
-    }
+    // Inserta en la tabla `experience`
+    $stmtExperience = $conn->prepare("INSERT INTO experience (profileid, title, startDate, endDate) VALUES (?, ?, ?, ?)");
+    $stmtExperience->execute([
+        $profileid,
+        $data->experience->experienceTitle,
+        $data->experience->experienceStartDate,
+        $data->experience->experienceEndDate
+    ]);
 
-    // Si hay educación, inserta en la tabla `education`
-    if (!empty($data->education)) {
-        foreach ($data->education as $edu) {
-            $stmtEdu = $conn->prepare("INSERT INTO education (profileid, title, institution, description, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmtEdu->execute([$profileId, $edu->title, $edu->institution, $edu->description ?? null, $edu->startDate, $edu->endDate]);
-        }
-    }
+    // Inserta en la tabla `education`
+    $stmtEducation = $conn->prepare("INSERT INTO education (profileid, title, institution, startDate, endDate) VALUES (?, ?, ?, ?, ?)");
+    $stmtEducation->execute([
+        $profileid,
+        $data->education->educationTitle,
+        $data->education->educationInstitution,
+        $data->education->educationStartDate,
+        $data->education->educationEndDate
+    ]);
 
-    // Si hay habilidades, inserta en la tabla `skill`
-    if (!empty($data->skills)) {
-        foreach ($data->skills as $skill) {
-            $stmtSkill = $conn->prepare("INSERT INTO skill (profileid, skill) VALUES (?, ?)");
-            $stmtSkill->execute([$profileId, $skill]);
-        }
-    }
+    // Inserta en la tabla `social`
+    $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
+    $stmtSocial->execute([
+        $profileid,
+        $data->social->socialPlatform,
+        $data->social->socialUrl
+    ]);
 
-    // Si hay redes sociales, inserta en la tabla `social`
-    if (!empty($data->social)) {
-        foreach ($data->social as $social) {
-            $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
-            $stmtSocial->execute([$profileId, $social->platform, $social->url]);
-        }
-    }
+    // Inserta en la tabla `skill`
+    $stmtSkill = $conn->prepare("INSERT INTO skill (profileid, skill) VALUES (?, ?)");
+    $stmtSkill->execute([
+        $profileid,
+        $data->skill
+    ]);
 
-    // Si hay intereses, inserta en la tabla `interests`
-    if (!empty($data->interests)) {
-        foreach ($data->interests as $interest) {
-            $stmtInterest = $conn->prepare("INSERT INTO interests (profileid, interest) VALUES (?, ?)");
-            $stmtInterest->execute([$profileId, $interest]);
-        }
-    }
+    // Inserta en la tabla `interest`
+    $stmtInterest = $conn->prepare("INSERT INTO interests (profileid, interest) VALUES (?, ?)");
+    $stmtInterest->execute([
+        $profileid,
+        $data->interest
+    ]);
 
     $conn->commit(); // Confirma la transacción
 
     // Respuesta exitosa
-    echo json_encode(['success' => true, 'message' => 'Usuario creado con éxito', 'profileid' => $profileId]);
+    echo json_encode(['success' => true, 'message' => 'Usuario creado con éxito', 'profileid' => $profileid]);
 
 } catch (Exception $e) {
     if ($conn->inTransaction()) {

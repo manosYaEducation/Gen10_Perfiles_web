@@ -4,7 +4,7 @@ $host = 'localhost';
 $port = '5432';
 $user = 'postgres';
 $password = 'clave';
-$nameDb = 'CVTEST1';
+$nameDb = 'CVTEST2';
 
 $dsn = "pgsql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
 

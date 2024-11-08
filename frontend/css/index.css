@@ -418,7 +418,7 @@ button:hover {
 
 
 .button-link,
-.button-borrar {
+.buttonBorrar {
     display: inline-block;
     padding: 8px 16px;
     border-radius: 4px;
@@ -432,7 +432,7 @@ button:hover {
     margin-right: 10px;
 }
 
-.button-borrar {
+.buttonBorrar {
     background-color: #dc3545;
     border: none;
     cursor: pointer;

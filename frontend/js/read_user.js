@@ -47,29 +47,32 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join('');
 
         // Intereses
-        document.getElementById('p-interest-section').textContent = profile.interests;
+        if (profile.interest && Array.isArray(profile.interest)) {
+            document.getElementById('p-interest-section').innerHTML = '';
+            profile.interest.forEach(function(interest) {
+                document.getElementById('p-interest-section').innerHTML += `<p>${interest}</p>`;
+            });
+        } else {
+            document.getElementById('p-interest-section').innerHTML = 'No hay intereses disponibles.';
+        }
+
+        // Habilidades
+        if (profile.skill && Array.isArray(profile.skill)) {
+            document.getElementById('p-skill-section').innerHTML = '';
+            profile.skill.forEach(function(skill) {
+                document.getElementById('p-skill-section').innerHTML += `<p>${skill}</p>`;
+            });
+        } else {
+            document.getElementById('p-skill-section').innerHTML = 'No hay habilidades disponibles.';
+        }
+
+        // Redes sociales
+        const socialLinksElement = document.getElementById('social-links');
+        socialLinksElement.innerHTML = profile.social.map(social => `
+            <a href="${social.url}" target="_blank">${social.platform || 'Plataforma no disponible'}</a>
+        `).join(', ');
 
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
 });
-
-
-// ////////// ICONS
-// const socialIcons = document.querySelectorAll('.social-icon');
-
-// socialIcons.forEach(icon => {
-//     icon.addEventListener('Mouse', () => {
-//         socialIcons.forEach(otherIcon => {
-//             if (otherIcon !== icon) {
-//                 otherIcon.style.margin = '0 20px'; 
-//             }
-//         });
-//     });
-
-//     icon.addEventListener('Mouseleaves', () => {
-//         socialIcons.forEach(otherIcon => {
-//             otherIcon.style.margin = '12px'; 
-//         });
-//     });
-// });

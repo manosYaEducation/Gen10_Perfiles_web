@@ -9,7 +9,6 @@ body {
 .container-fluid {
     max-width: 70%;
     margin: 0 auto;
-    
 }
 
 .navbar {
@@ -27,7 +26,6 @@ body {
     backdrop-filter: blur(3.3px);
     -webkit-backdrop-filter: blur(3.3px);
     border: 1px solid rgba(255, 255, 255, 1);
-    
 }
 
 .navbar-brand {
@@ -49,9 +47,10 @@ body {
     padding-left: 0;
 }
 
-#navbarResponsive{
+#navbarResponsive {
     font-weight: 700;
 }
+
 .nav-item {
     margin-left: 16px;
 }
@@ -72,14 +71,7 @@ h1, h2, h3, p {
     padding: 0;
 }
 
-
-
 /* HERO SECTION */
-.resume-section { 
-    padding: 80px 0;
-    margin-top: 80px;
-}
-
 #about {
     padding: 80px 0;
     margin-top: 80px;
@@ -88,45 +80,40 @@ h1, h2, h3, p {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-   
 }
 
-#resume-section-hero{
-    
+#resume-section-hero, 
+#experience, 
+#education,
+#interest,
+#skills,
+#social {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    
 }
 
-#description-hero{
+#description-hero {
     width: 60%;
 }
 
 #image-profile {
-    
     width: 200px;
     height: 260px;
     border-radius: 35%;
 }
 
-#name-hero{
-    display: flex;
-    justify-content: center;
-    align-content: center;
+#name-hero {
     font-size: 64px;
     margin: 36px;
 }
 
-#personal-information-hero{
+#personal-information-hero {
     font-size: 20px;
 }
 
-#description-hero{
-    display: flex;
-    justify-content: center;
-    align-content: center;
+#description-hero {
     font-size: 16px;
     padding: 20px;
 }
@@ -135,180 +122,144 @@ h1, h2, h3, p {
     display: flex;
     justify-content: center;
     margin: 4px;
-    
 }
 
 .social-icon {
-    display: flex; 
+    display: flex;
     margin: 12px;
-    transition: transform 0.3s, margin 0.3s; 
+    transition: transform 0.3s, margin 0.3s;
     color: black;
 }
 
 .social-icon:hover {
-    transform: scale(1.9); 
-    margin: 0 20px; 
+    transform: scale(1.9);
+    margin: 0 20px;
 }
 
-
-
-
-/* EXPERIENCIA */
-#experience{
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 36px 0 36px 0;
-
-}
-#experience-title{
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    
-}
-
-#experience-section{
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    
-    
-}
-
-#experience-sub-section{
-    margin: 26px;
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    
-
-    
-}
-
-#experience-sub-title{
-    
-    display:flex ;
-    align-items: flex-start;
-    margin: 20px 0 20px 0;
-    font-weight: 600;
-}
-
-
-/* EDUCATION */
-#education {
-    margin: 16px;
-}
-
-#resume-section-education {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
+/* EXPERIENCE */
+#experience-title, 
 #title-education {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 24px;
 }
 
+#experience-section, 
 #timeline {
     display: flex;
-    margin: 24px;
-    justify-content: space-around; 
-    padding: 20px 0;
-    position: relative;
-}
-
-.timeline-item {
-    flex: 1;
-    margin: 0 15px; 
-    position: relative;
-}
-
-.timeline-content {
-    padding: 20px;
-    background: #f8f9fa; 
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
-    text-align: left;
-    display: flex;
     justify-content: center;
+}
+
+#experience-sub-section, 
+.timeline-item {
+    margin: 26px;
+    width: 30%;
+    display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#experience-sub-title, 
+.timeline-content h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .text-primary {
-    color: #a47148; 
+    color: #a47148;
 }
 
-/*HABILIDADES */
-#skills {
-    padding: 20px;
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-#skill-section {
+ul li {
+    font-size: 16px;
+    color: #555;
+}
+
+.subheading {
+    font-weight: bold;
+}
+
+/* Sección de habilidades */
+.skill-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-}
-
-.skills-category {
+    justify-content: flex-start;
+    text-align: center;
     width: 100%;
-    text-align: center; 
-    
+    max-width: 800px;
 }
 
-.dev-icons {
+.skill-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+#p-skill-section {
+    font-size: 18px;
+    color: #555;
+}
+
+
+/* Sección de redes sociales */
+.social-section, 
+.interest-section {
     display: flex;
-    justify-content: center; 
-    list-style: none;
-    margin: 10px 0; 
-    
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
 }
 
-.dev-icons .list-inline-item {
-    margin-right: 15px;
-    font-size: 16px;
+.social-section h2, 
+.interest-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 24px;
 }
 
-.fa-ul {
-    list-style-type: none;
-    padding: 0;
+#social-links {
     display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.fa-li {
-    margin-bottom: 8px; 
+#social-links a {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-
-/* contacto*/
-#contact{
-    background: rgba(255, 255, 255, 0.13);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(0px);
--webkit-backdrop-filter: blur(0px);
+#social-links a:hover {
+    color: #0056b3;
 }
+
+#p-interest-section {
+    font-size: 18px;
+    color: #555;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .navbar-nav {
         display: none;
     }
+
     .navbar-toggler {
         display: block;
     }
+
     .navbar-brand {
         font-size: 18px;
     }
