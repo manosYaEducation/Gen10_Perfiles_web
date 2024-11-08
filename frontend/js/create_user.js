@@ -1,32 +1,48 @@
-// FALTAN VALIDACIONES DE CAMPOS
+// Faltan validaciones de campos
 
-
-async function createUser() {
+async function createUser(event) {
     event.preventDefault();
+
+    // Capturar datos de la información personal
     const name = document.getElementById('input-name').value;
     const location = document.getElementById('input-location').value;
     const phone = document.getElementById('input-phone').value;
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
-    const experience = [
-        {
-            title: document.getElementById('input-experience-title').value,
-            startDate: document.getElementById('input-experience-start-date').value,
-            endDate: document.getElementById('input-experience-end-date').value,
-            subtitle: document.getElementById('input-experience-detail-subtitle').value,
-            description: document.getElementById('input-experience-detail-desc').value
-        }
-    ];
+
+    // Capturar los datos de las experiencias (si existen)
+    const experienceList = [];
+    const experienceTitles = document.querySelectorAll('.experience-title');
+    const experienceStartDates = document.querySelectorAll('.experience-start-date');
+    const experienceEndDates = document.querySelectorAll('.experience-end-date');
+    const experienceDescriptions = document.querySelectorAll('.experience-description');
     
-    const education = [
-        {
-            title: document.getElementById('input-education-title').value,
-            startDate: document.getElementById('input-education-start-date').value,
-            endDate: document.getElementById('input-education-end-date').value,
-            institution: document.getElementById('input-education-institution').value
-        }
-    ];
+    for (let i = 0; i < experienceTitles.length; i++) {
+        experienceList.push({
+            title: experienceTitles[i].value,
+            startDate: experienceStartDates[i].value,
+            endDate: experienceEndDates[i].value,
+            description: experienceDescriptions[i].value
+        });
+    }
+
+    // Capturar los datos de la educación (si existen)
+    const educationList = [];
+    const educationTitles = document.querySelectorAll('.education-title');
+    const educationStartDates = document.querySelectorAll('.education-start-date');
+    const educationEndDates = document.querySelectorAll('.education-end-date');
+    const educationInstitutions = document.querySelectorAll('.education-institution');
     
+    for (let i = 0; i < educationTitles.length; i++) {
+        educationList.push({
+            title: educationTitles[i].value,
+            startDate: educationStartDates[i].value,
+            endDate: educationEndDates[i].value,
+            institution: educationInstitutions[i].value
+        });
+    }
+
+    // Preparar el objeto del nuevo usuario
     const newUser = {
         basic: {
             name,
@@ -35,12 +51,13 @@ async function createUser() {
             email,
             description
         },
-        experience,
-        education
+        experience: experienceList,
+        education: educationList
     };
-    console.log("User data to send:", JSON.stringify(newUser, null, 2));
-    
 
+    console.log("User data to send:", JSON.stringify(newUser, null, 2));
+
+    // Enviar los datos al servidor
     try {
         const response = await fetch('http://localhost:8000/create_user.php', {
             method: 'POST',
@@ -62,4 +79,5 @@ async function createUser() {
     }
 }
 
+// Agregar el evento de submit para llamar la función
 document.getElementById('userForm').addEventListener('submit', createUser);
