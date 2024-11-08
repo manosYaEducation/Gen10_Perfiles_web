@@ -11,7 +11,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 try {
     // Validaciones
-    if (empty($data->basic->name) || empty($data->basic->location) || empty($data->basic->phone) || empty($data->basic->email || empty($data->basic->description ?? null))) {
+    if (empty($data->basic->name) || empty($data->basic->location) || empty($data->basic->phone) || empty($data->basic->email) || empty($data->basic->description)) {
         throw new Exception("Todos los campos son obligatorios.");
     }
 
@@ -28,9 +28,9 @@ try {
         $data->basic->location,
         $data->basic->phone,
         $data->basic->email,
-        $data->basic->description ?? null
+        $data->basic->description
     ]);
-    $id = $stmt->fetchColumn();
+    $profileId = $stmt->fetchColumn(); // Obtiene el ID del perfil recién insertado
 
     // Si hay experiencia, inserta en la tabla `experience`
     if (!empty($data->experience)) {
@@ -43,14 +43,40 @@ try {
     // Si hay educación, inserta en la tabla `education`
     if (!empty($data->education)) {
         foreach ($data->education as $edu) {
-            $stmtEdu = $conn->prepare("INSERT INTO education (profileid, title, description, startDate, endDate) VALUES (?, ?, ?, ?, ?)");
-            $stmtEdu->execute([$profileId, $edu->title, $edu->description ?? null, $edu->startDate, $edu->endDate]);
+            $stmtEdu = $conn->prepare("INSERT INTO education (profileid, title, institution, description, startDate, endDate) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmtEdu->execute([$profileId, $edu->title, $edu->institution, $edu->description ?? null, $edu->startDate, $edu->endDate]);
+        }
+    }
+
+    // Si hay habilidades, inserta en la tabla `skill`
+    if (!empty($data->skills)) {
+        foreach ($data->skills as $skill) {
+            $stmtSkill = $conn->prepare("INSERT INTO skill (profileid, skill) VALUES (?, ?)");
+            $stmtSkill->execute([$profileId, $skill]);
+        }
+    }
+
+    // Si hay redes sociales, inserta en la tabla `social`
+    if (!empty($data->social)) {
+        foreach ($data->social as $social) {
+            $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
+            $stmtSocial->execute([$profileId, $social->platform, $social->url]);
+        }
+    }
+
+    // Si hay intereses, inserta en la tabla `interests`
+    if (!empty($data->interests)) {
+        foreach ($data->interests as $interest) {
+            $stmtInterest = $conn->prepare("INSERT INTO interests (profileid, interest) VALUES (?, ?)");
+            $stmtInterest->execute([$profileId, $interest]);
         }
     }
 
     $conn->commit(); // Confirma la transacción
 
+    // Respuesta exitosa
     echo json_encode(['success' => true, 'message' => 'Usuario creado con éxito', 'profileid' => $profileId]);
+
 } catch (Exception $e) {
     if ($conn->inTransaction()) {
         $conn->rollBack(); // Revierte la transacción en caso de error

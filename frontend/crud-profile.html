@@ -3,68 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Management</title>
+    <title>Gestión de Perfil</title>
     <link rel="stylesheet" href="/frontend/css/crud-profile-styles.css">
 </head>
 <body>
-    <div> 
-        <form id="userForm">
-            <input type="hidden" id="userId">
-            
-            <h3>Información personal</h3>
-            <label for="input-name">Nombre:</label>
-            <input type="text" id="input-name" required>
-            
-            <label for="input-email">Correo electronico:</label>
-            <input type="email" id="input-email" required>
-            
-            <label for="input-location">Ubicación</label>
-            <input type="text" id="input-location" required>
-            
-            <label for="input-phone">Teléfono:</label>
-            <input type="text" id="input-phone" required>
 
-            <h3>Descripción</h3>
-            <label for="input-description">Descripción:</label>
-            <textarea id="input-description" required></textarea>
-            
-            <h3>Experiencia</h3>
-            <div id="experience-section">
-                <label for="input-experience-title">Experiencia Titulo:</label>
-                <input type="text" id="input-experience-title" required>
-                
-                <label for="input-experience-start-date">Fecha de Inicio:</label>
-                <input type="date" id="input-experience-start-date" required>
+    <header>
+        <h1>Gestión de Perfil</h1>
+    </header>
 
-                <label for="input-experience-end-date">Fecha de Fin:</label>
-                <input type="date" id="input-experience-end-date" required>
+    <main>
+        <div> 
+            <form id="userForm">
+                <input type="hidden" id="userId">
 
-                <label for="input-experience-detail-subtitle">Subtitulo:</label>
-                <input type="text" id="input-experience-detail-subtitle" required>
+                <h3>Información Personal</h3>
+                <label for="input-name">Nombre:</label>
+                <input type="text" id="input-name" required>
 
-                <label for="input-experience-detail-desc">Descripción:</label>
-                <textarea id="input-experience-detail-desc"></textarea>
-            </div>
+                <label for="input-email">Correo Electrónico:</label>
+                <input type="email" id="input-email" required>
 
-            <h3>Educación</h3>
-            <div id="education-section">
-                <label for="input-education-title">Educación titulo:</label>
-                <input type="text" id="input-education-title" required>
-                
-                <label for="input-education-start-date">Fecha de Inicio:</label>
-                <input type="date" id="input-education-start-date" required>
+                <label for="input-location">Ubicación:</label>
+                <input type="text" id="input-location" required>
 
-                <label for="input-education-end-date">Fecha de Fin:</label>
-                <input type="date" id="input-education-end-date" required>
+                <label for="input-phone">Teléfono:</label>
+                <input type="text" id="input-phone" required>
 
-                <label for="input-education-institution">Institución:</label>
-                <input type="text" id="input-education-institution" required>
-            </div>
+                <h3>Descripción</h3>
+                <label for="input-description">Descripción:</label>
+                <textarea id="input-description" required></textarea>
 
-            <button type="submit">Guardar</button>
-        </form>
+                <h3>Experiencia</h3>
+                <ul id="experienceList"></ul>
+                <button type="button" onclick="openModal('experience')">Agregar Experiencia</button>
+
+                <h3>Educación</h3>
+                <ul id="educationList"></ul>
+                <button type="button" onclick="openModal('education')">Agregar Educación</button>
+
+                <h3>Habilidades</h3>
+                <ul id="skillList"></ul>
+                <button type="button" onclick="openModal('skill')">Agregar Habilidad</button>
+
+                <h3>Redes Sociales</h3>
+                <ul id="socialList"></ul>
+                <button type="button" onclick="openModal('social')">Agregar Red Social</button>
+
+
+                <h3>Intereses</h3>
+                <label for="input-interest">Intereses:</label>
+                <textarea id="input-interest" required></textarea>
+
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Modal Dinámico -->
+    <div id="dynamicModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <form id="modalForm"></form>
+            <button onclick="addItem()">Agregar</button>
+        </div>
     </div>
 
+    <script src="/frontend/js/crud-profile.js"></script>
     <script src="/frontend/js/create_user.js"></script>
     <script src="/frontend/js/delete_user.js"></script> 
     <script src="/frontend/js/update_user.js"></script>  
