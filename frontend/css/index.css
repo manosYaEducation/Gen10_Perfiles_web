@@ -1,3 +1,59 @@
+
+.poppins-thin-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .poppins-extralight-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  .poppins-light-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .poppins-regular-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .poppins-semibold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .poppins-bold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .poppins-extrabold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  .poppins-black-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  
+
 *,
 *::before,
 *::after {
@@ -6,18 +62,18 @@
     padding: 0;
 }
 body {
-    font-family: Arial, sans-serif;
+    font-family: poppins, sans-serif;
     width: 100%;
     min-width: 100%;
     overflow-x: hidden;
-}
-/* Contenedor principal que limita el ancho del contenido */
-.main-container {
-    max-width: 1440px;
     margin: 0 auto;
-    padding: 0;
-    width: 100%;
 }
+
+section {
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
 
 /* Header */
 header {
@@ -26,6 +82,7 @@ header {
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
+    max-width: 1440px; 
 }
 
 nav {
@@ -61,42 +118,28 @@ nav {
     padding: 10px 15px;
     border-radius: 5px;
     transition: background 0.3s ease;
+    color: black;
 }
 
 .headernav a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    white-space: nowrap;
+nav div{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-button:hover {
-    background-color: #45A049;
-}
 
-/* Hero Section */
-.hero-gradient {
-    background: linear-gradient(90deg, rgba(53,133,160,1) 2%, rgba(50,69,75,1) 35%, rgba(43,49,51,1) 100%);
-    color: white;
-    width: 100%;
-    min-width: 100%;
-    overflow: hidden;
-    margin: 0 auto;
-}
 
 .hero {
     padding: 50px 20px;
     display: flex;
     justify-content: center;
     overflow: hidden;
+    background: rgb(243, 240, 237)
 }
 
 .hero-content {
@@ -107,19 +150,26 @@ button:hover {
     gap: 20px;
 }
 
-.hero-text, .hero-image {
-    max-width: 100%;
-    overflow: hidden;
+.hero-text{
+    max-width: 46%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero-text h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
 }
 
 .hero-text p {
     font-size: 1em;
     line-height: 1.6;
+    margin-bottom: 20px;
+    width: 66%;
 }
 
 .hero-image img {
@@ -129,82 +179,157 @@ button:hover {
     border-radius: 8px;
 }
 
-/* Main Content */
-main {
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    overflow: hidden;
+.hero-cta {
+    background-color: #314438;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
 }
 
+button:hover {
+    background-color: rgb(131, 85, 1);
+}
 /* Info Section */
 .info-section {
-    background-color: #F1F1F0;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
     text-align: center;
+    max-width: 1440px; 
+    margin: 0 auto;
 }
 
 .info-section .maintitle {
     font-size: 2em;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .info-section p {
     font-size: 1.1em;
     line-height: 1.6;
+    margin-bottom: 40px;
 }
 
 .info-images {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    margin-bottom: 20px;
     gap: 20px;
 }
 
 .info-image {
-    width: 45%;
+    width: 35%;
     height: auto;
     border-radius: 8px;
 }
 
-/* Profiles Section */
+/* Profiles */
+
+.profiles-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.profiles-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px; 
+}
+
+.info-container {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+}
+
+.info-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #314438;
+}
+
+.info-subtitle {
+    font-size: 1.2em;
+    color: #bbb;
+    margin-bottom: 20px;
+    color: #314438;
+}
+
+.icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    color: #314438;
+}
+
+.icons-container i {
+    font-size: 1.5em;
+    color: #314438;
+}
+
+.profiles-column {
+    flex: 2; /
+}
+
 .profiles-column ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    margin-bottom: 20px;
+    color: white;
 }
 
 .profile-card img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    margin-right: 20px;
-}
-
-.profile-content {
-    max-width: 400px;
+    margin-bottom: 15px;
 }
 
 .profile-content h2 {
     font-size: 1.5em;
-    margin: 0 0 10px;
+    margin: 10px 0 5px;
+    color: #314438;
+}
+
+.profile-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #314438;
 }
 
 .profile-content p {
     font-size: 1em;
-    color: #555;
-    margin: 0 0 10px;
+    margin: 0 0 15px;
+    color: #314438;
 }
+
 
 .button-link,
 .button-borrar {
@@ -213,10 +338,11 @@ main {
     border-radius: 4px;
     color: #fff;
     text-decoration: none;
+    margin: 5px 0;
 }
 
 .button-link {
-    background-color: #007bff;
+    background-color: #314438;
     margin-right: 10px;
 }
 
@@ -226,7 +352,7 @@ main {
     cursor: pointer;
 }
 
-/* Alternate Card Layouts */
+/* Cards  */
 .profile-card.left {
     flex-direction: row;
 }
@@ -242,7 +368,7 @@ main {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: orange;
     color: white;
     border-radius: 5px;
     font-weight: bold;
@@ -250,7 +376,7 @@ main {
 }
 
 .create-profile:hover {
-    background-color: #45A049;
+    background-color: rgb(138, 90, 2);
 }
 
 /* Footer */
@@ -259,11 +385,12 @@ footer {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    background-color: #333;
+    background-color: #314438;
     color: #fff;
     margin: 0 auto;
     overflow: hidden;
     width: 100%;
+    max-width: 1440px;
 }
 
 footer .text-52 {
