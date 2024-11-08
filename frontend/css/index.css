@@ -1,35 +1,97 @@
-body {
-    margin: 0;
-    overflow-x: hidden; /* Previene el desbordamiento horizontal */
-    box-sizing: border-box;
-}
+
+.poppins-thin-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  .poppins-extralight-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  .poppins-light-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  .poppins-regular-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  .poppins-semibold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  .poppins-bold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+  .poppins-extrabold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  .poppins-black-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: poppins, sans-serif;
+    width: 100%;
+    min-width: 100%;
+    overflow-x: hidden;
+    margin: 0 auto;
 }
 
-/* Contenedor con el gradiente compartido */
-.hero-gradient {
-    background: linear-gradient(90deg, rgba(53,133,160,1) 2%, rgba(50,69,75,1) 35%, rgba(43,49,51,1) 100%);
-    color: white;
-    width: 100%; /* Asegura que el contenedor no exceda el viewport */
-    overflow: hidden; /* Previene desbordamiento de contenido */
+section {
+    margin-bottom: 40px;
+    margin-top: 20px;
 }
+
 
 /* Header */
 header {
+    color: white;
     padding: 10px 0;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    max-width: 1440px; 
 }
 
-.header-container {
+nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
     padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .logo .icon {
@@ -39,13 +101,14 @@ header {
 
 .headernav {
     display: flex;
-    list-style-type: none;
+    list-style: none;
     margin: 0;
     padding: 0;
+    gap: 20px;
 }
 
 .headernav li {
-    margin-left: 20px;
+    margin: 0;
 }
 
 .headernav a {
@@ -55,182 +118,294 @@ header {
     padding: 10px 15px;
     border-radius: 5px;
     transition: background 0.3s ease;
+    color: black;
 }
 
 .headernav a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.button-53 {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-size: 1em;
+nav div{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-/* Hero Section */
+
+
 .hero {
     padding: 50px 20px;
     display: flex;
     justify-content: center;
+    overflow: hidden;
+    background: rgb(243, 240, 237)
 }
 
 .hero-content {
     display: flex;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1440px;
     width: 100%;
     gap: 20px;
 }
 
-/* Texto del héroe alineado a la izquierda */
-.hero-text {
-    flex: 1;
+.hero-text{
+    max-width: 46%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero-text h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
-}
-
-.hero-text h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
 }
 
 .hero-text p {
     font-size: 1em;
     line-height: 1.6;
-}
-
-/* Imagen del héroe alineada a la derecha */
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
+    margin-bottom: 20px;
+    width: 66%;
 }
 
 .hero-image img {
     width: 100%;
     max-width: 500px;
     height: auto;
-    border-radius: 8px; /* Para darle un toque de estilo a la imagen */
+    border-radius: 8px;
 }
 
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    overflow: hidden;
+.hero-cta {
+    background-color: #314438;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    white-space: nowrap;
 }
 
-/* Primera Sección: Caja con título y párrafo */
+button:hover {
+    background-color: rgb(131, 85, 1);
+}
+/* Info Section */
 .info-section {
-    background-color: #F1F1F0;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
     text-align: center;
+    max-width: 1440px; 
+    margin: 0 auto;
 }
 
 .info-section .maintitle {
     font-size: 2em;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .info-section p {
     font-size: 1.1em;
     line-height: 1.6;
+    margin-bottom: 40px;
 }
 
-/* Contenedor para las imágenes en la sección de información */
 .info-images {
-    display: flex; /* Utiliza flexbox para alinear las imágenes */
-    justify-content: space-between; /* Espacio entre las imágenes */
-    margin-top: 20px; /* Espacio encima de las imágenes */
-}
-
-/* Estilos para las imágenes en la sección de información */
-.info-image {
-    width: 45%; /* Asegura que las imágenes no excedan el ancho del contenedor */
-    height: auto; /* Mantiene la proporción de las imágenes */
-    border-radius: 8px; /* Para darle un toque de estilo a las imágenes */
-}
-
-/* Segunda Sección: Caja con perfiles */
-.profiles-section {
-    background-color: #F1F1F0;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.profiles-section .text-53 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-}
-
-/* Contenedor de columnas para los perfiles */
-.profiles-container {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
     gap: 20px;
-    text-align: left;
 }
 
-/* Columnas de perfiles */
+.info-image {
+    width: 35%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Profiles */
+
+.profiles-section {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.profiles-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px; 
+}
+
+.info-container {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+}
+
+.info-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #314438;
+}
+
+.info-subtitle {
+    font-size: 1.2em;
+    color: #bbb;
+    margin-bottom: 20px;
+    color: #314438;
+}
+
+.icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    color: #314438;
+}
+
+.icons-container i {
+    font-size: 1.5em;
+    color: #314438;
+}
+
 .profiles-column {
-    flex: 1;
+    flex: 2; /
 }
 
 .profiles-column ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.profiles-column li {
-    margin-bottom: 10px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
 }
 
-/* Enlaces de perfiles y botones */
-.profiles-column a {
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 400px;
+    height: 300px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.profile-content h2 {
+    font-size: 1.5em;
+    margin: 10px 0 5px;
+    color: #314438;
+}
+
+.profile-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #314438;
+}
+
+.profile-content p {
+    font-size: 1em;
+    margin: 0 0 15px;
+    color: #314438;
+}
+
+
+.button-link,
+.button-borrar {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fff;
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    margin: 5px 0;
+}
+
+.button-link {
+    background-color: #314438;
+    margin-right: 10px;
 }
 
 .button-borrar {
-    background-color: #FF6B6B;
-    color: white;
+    background-color: #dc3545;
     border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
-.button-borrar:hover {
-    background-color: #FF4A4A;
+/* Cards  */
+.profile-card.left {
+    flex-direction: row;
 }
 
-/* Botón para crear perfil */
+.profile-card.right {
+    flex-direction: row-reverse;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+/* Create Profile Button */
 .create-profile {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: orange;
     color: white;
-    text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
     transition: background 0.3s ease;
 }
 
 .create-profile:hover {
-    background-color: #45A049;
+    background-color: rgb(138, 90, 2);
+}
+
+/* Footer */
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #314438;
+    color: #fff;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1440px;
+}
+
+footer .text-52 {
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 5px;
+}
+
+footer p {
+    font-size: 0.9em;
 }

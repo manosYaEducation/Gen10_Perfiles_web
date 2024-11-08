@@ -6,88 +6,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Equipo Profesional Gen10 Alpha Docere</title>
     <link href="/frontend/css/index.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="hero-gradient">
-        <header>
-            <nav>
-                <div class="header-container">
-                    <div class="logo">
-                        <img src="icono.png" alt="Icono" class="icon">
-                    </div>
-                    <ul class="headernav">
-                        <li>
-                            <a class="button-53" href="#equipo">Nuestro Equipo</a>
-                        </li>
-                        <li>
-                            <a class="button-53" href="#contacto">Contacto</a>
-                        </li>
-                    </ul>
+    <header>
+        <nav>
+            <span class="logo">
+                <img src="/assets/img/favicon.ico" alt="Icono" class="icon">
+            </span>
+            <div class="navbar" id="navbar">
+                <ul class="headernav">
+                    <li><a class="button-53" href="#hero">Inicio</a></li>
+                    <li><a class="button-53" href="#perfiles">Nuestro equipo</a></li>
+                    <li><a class="button-53" href="#proyectos">Nuestros proyectos</a></li>
+                </ul>
+                <button class="hero-cta">Agendar reunión</button>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Bienvenido a nuestro sitio</h1>
+                <p id="hero-paragraph">Descubre cómo nuestro equipo de profesionales está aquí para ayudarte a alcanzar tus metas.
+                    Contáctanos para saber más sobre nuestros servicios y cómo podemos colaborar juntos.</p>
+                <button class="hero-cta">Agendar reunión</button>
+            </div>
+            <div class="hero-image">
+                <img src="/assets/img/profile.jpg" alt="Imagen de Bienvenida">
+            </div>
+        </div>
+    </section>
+
+
+    <section class="info-section">
+        <h1 class="maintitle">Gen10 Alpha Docere</h1>
+        <p>Gen10 Alpha Docere es una plataforma diseñada para destacar y conectar a profesionales de diversas áreas.
+            Explora los perfiles y encuentra al experto que necesitas.</p>
+
+        <div class="info-images">
+            <img src="/assets/img/profile.jpg" alt="Imagen Izquierda" class="info-image left-image">
+            <img src="/assets/img/profile.jpg" alt="Imagen Derecha" class="info-image right-image">
+        </div>
+    </section>
+    <section class="profiles-section" id="perfiles">
+        <div class="profiles-container">
+            <div class="info-container">
+                <h1 class="info-title">Título Principal</h1>
+                <h3 class="info-subtitle">Lorem ipsum dolor sit amet consetium magni facere dolorem aspernatficiis quod distinctio numquam.</h3>
+                <div class="icons-container">
+                    <i class="icon-class-1">Icono 1</i>
+                    <i class="icon-class-2">Icono 2</i>
+                    <i class="icon-class-3">Icono 3</i>
                 </div>
-            </nav>
-        </header>
+            </div>
+
+            <div class="profiles-column">
+                <ul>
+                    <li class="profile-card left">
+                        <img src="/assets/img/sebastianProfile.jpg" alt="Sebastián Santana">
+                        <div class="profile-content">
+                            <h2>Sebastián Santana</h2>
+                            <h3 class="profile-subtitle">Cargo del profesional</h3>
+                            <p class="profiles-paragraph">"Gen10 Alpha Docere es una plataforma diseñada para destacar."</p>
+                            <a href="/frontend/perfiles/profile-template.html?id=0" class="button-link">Perfil</a>
+                            <button class="button-borrar">Borrar</button>
+                        </div>
+                    </li>
+                    
+                    <li class="profile-card right">
+                        <img src="/assets/img/sebastianProfile.jpg" alt="Erick Caicheo">
+                        <div class="profile-content">
+                            <h2>Erick Caicheo</h2>
+                            <h3 class="profile-subtitle">Cargo del profesional</h3>
+                            <p class="profiles-paragraph">"Gen10 Alpha Docere es una plataforma diseñada para destacar."</p>
+                            <a href="/frontend/perfiles/profile-template.html?id=1" class="button-link">Perfil</a>
+                            <button class="button-borrar">Borrar</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
     
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Bienvenido a Nuestro Sitio</h1>
-                    <h2>Tu aliado en el éxito</h2>
-                    <p>Descubre cómo nuestro equipo de profesionales está aquí para ayudarte a alcanzar tus metas. Contáctanos para saber más sobre nuestros servicios y cómo podemos colaborar juntos.</p>
+
+        </div>
+        <a href="/frontend/crud-profile.html" class="create-profile">Agregar Perfil</a>
+    </section>
+    <!-- <section id="proyectos">
+            <h2>Nuestros proyectos</h2>
+            <p>Gen10 Alpha Docere es una plataforma diseñada para destacar y conectar a profesionales de diversas áreas. 
+                Explora los perfiles y encuentra al experto que necesitas.</p>
+            <div>
+                <div>
+                    <img src="" alt="IMAGEN 1">
+                    <p> diseñada para destacar y conecta</p>
+                    <span>Ver</span>
                 </div>
-                <div class="hero-image">
-                    <img src="imagen-hero.jpg" alt="Imagen de Bienvenida">
+                <div>
+                    <img src="" alt="IMAGEN 2">
+                    <p> diseñada para destacar y conecta</p>
+                    <span>Ver</span>
+                </div>
+                <div>
+                    <img src="" alt="IMAGEN 3">
+                    <p> diseñada para destacar y conecta</p>
+                    <span>Ver</span>
                 </div>
             </div>
         </section>
-    </div>
-    
-    <main>
-        <section class="info-section">
-            <h1 class="maintitle">Gen10 Alpha Docere</h1>
-            <p>Gen10 Alpha Docere es una plataforma diseñada para destacar y conectar a profesionales de diversas áreas. Explora los perfiles y encuentra al experto que necesitas.</p>
-            
-            <div class="info-images">
-                <img src="imagen-izquierda.jpg" alt="Imagen Izquierda" class="info-image left-image">
-                <img src="imagen-derecha.jpg" alt="Imagen Derecha" class="info-image right-image">
-            </div>
+        <section>
+            <H2>Pon en marchas tus ideas</H2>
+            <button>Agenda una reunión</button>
         </section>
-        
-        
-    
-        <section class="profiles-section" id="perfiles">
-            <h2 class="text-53">Perfiles de Profesionales</h2>
-            <div class="profiles-container">
-                <div class="profiles-column">
-                    <ul>
-                        <li>
-                            <a href="/frontend/perfiles/profile-template.html?id=0">Sebastián Santana</a>
-                            <button class="button-borrar">Borrar</button>
-                        </li>
-                        <li>
-                            <a href="/frontend/perfiles/profile-template.html?id=1">Erick Caicheo</a>
-                            <button class="button-borrar">Borrar</button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="profiles-column">
-                    <ul>
-                        <li>
-                            <a href="/frontend/perfiles/profile-template.html?id=7">Erick Caicheo777777777</a>
-                            <button class="button-borrar">Borrar</button>
-                        </li>
-                        <li>
-                            <a href="/frontend/perfiles/profile-template.html?id=6">Erick Caicheo666666</a>
-                            <button class="button-borrar">Borrar</button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <a href="/frontend/crud-profile.html" class="create-profile">Crear Perfil</a>
-        </section>
-    </main>
-    
-    <!-- <footer>
+
+    <footer>
         <p class="text-52">
             Para más información, puedes contactarnos a través de:
         </p>
