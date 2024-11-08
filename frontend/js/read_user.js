@@ -47,7 +47,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join('');
 
         // Intereses
-        document.getElementById('p-interest-section').textContent = profile.interests;
+        document.getElementById('p-interest-section').textContent = profile.interest.join(', ');
+
+        // Skills
+        document.getElementById('p-skill-section').textContent = profile.skill.join(', ');
+
+        // Redes sociales
+        const socialLinksElement = document.getElementById('social-links');
+        socialLinksElement.innerHTML = profile.social.map(social => `
+            <a href="${social.url}" target="_blank">${social.platform || 'Plataforma no disponible'}</a>
+        `).join(', ');
 
     } catch (error) {
         console.error("Error al obtener los datos:", error);

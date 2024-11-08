@@ -51,8 +51,24 @@ async function createUser(event) {
             email,
             description
         },
-        experience: experienceList,
-        education: educationList
+        experience:{
+            title,
+            startDate,
+            endDate,
+            description
+        },
+        education:{
+            title,
+            startDate,
+            endDate,
+            institution
+        },
+        skill,
+        social:{
+            platform,
+            url
+        },
+        interest
     };
 
     console.log("User data to send:", JSON.stringify(newUser, null, 2));
