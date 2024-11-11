@@ -25,12 +25,12 @@ try {
     }
 
     // Recupera la experiencia
-    $stmtExp = $conn->prepare("SELECT title, description, startDate, endDate FROM experience WHERE profileid = ?");
+    $stmtExp = $conn->prepare("SELECT title, description, startdate, enddate FROM experience WHERE profileid = ?");
     $stmtExp->execute([$profileId]);
     $experience = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
 
     // Recupera la educación
-    $stmtEdu = $conn->prepare("SELECT title, institution, startDate, endDate FROM education WHERE profileid = ?");
+    $stmtEdu = $conn->prepare("SELECT title, institution, startdate, enddate FROM education WHERE profileid = ?");
     $stmtEdu->execute([$profileId]);
     $education = $stmtEdu->fetchAll(PDO::FETCH_ASSOC);
 

@@ -25,9 +25,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         experienceSection.innerHTML = experienceData.map(exp => `
             <div class="experience-sub-section">
                 <h3 class="experience-sub-title">${exp.title || 'titulo no disponible'}</h3>
-                <span class="text-primary">${exp.startDate || 'Fecha de inicio no disponible'} - ${exp.endDate || 'Fecha de finalización no disponible'}</span>
+                <span class="text-primary">${exp.startdate || 'Fecha de inicio no disponible'} - ${exp.enddate || 'Fecha de finalización no disponible'}</span>
                 <ul>
-                    ${exp.subtitle ? `<li class="subheading mb-3">${exp.subtitle}</li>` : ''}
                     ${exp.description ? `<li><p>${exp.description}</p></li>` : '<li>Nohay descripción disponible</li>'}
                 </ul>
             </div>
@@ -40,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div class="timeline-item">
                 <div class="timeline-content">
                     <h3 class="mb-0">${edc.title || 'titulo no disponible'}</h3>
-                    <span class="text-primary">${edc.startDate || 'Fecha de inicio no disponible'} - ${edc.endDate || 'Fecha de finalización no disponible'}</span>
+                    <span class="text-primary">${edc.startdate || 'Fecha de inicio no disponible'} - ${edc.enddate || 'Fecha de finalización no disponible'}</span>
                     <div class="subheading mb-3">${edc.institution || 'Institución no disponible'}</div>
                 </div>
             </div>
