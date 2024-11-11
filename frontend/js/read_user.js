@@ -46,11 +46,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join('');
 
         // Intereses
-        if (profile.interest && Array.isArray(profile.interest)) {
-            document.getElementById('p-interest-section').innerHTML = '';
-            profile.interest.forEach(function(interest) {
-                document.getElementById('p-interest-section').innerHTML += `<p>${interest}</p>`;
-            });
+        if (profile.interest && profile.interest.description) {
+            document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest.description}</p>`;
         } else {
             document.getElementById('p-interest-section').innerHTML = 'No hay intereses disponibles.';
         }

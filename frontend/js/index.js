@@ -9,12 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const profileCard = document.createElement('div');
                 profileCard.classList.add('profile-card');
                 
+                // Check if the necessary profile properties exist before rendering
+                const profileName = profile.name || 'Nombre no disponible';
+                const profileDescription = profile.description || 'Descripción no disponible';
+                const profileId = profile.id ? profile.id : null;
+
                 profileCard.innerHTML = `
                     <div class="profile-content">
-                        <h2>${profile.name}</h2>
-                        <p class="profile-paragraph">${profile.description}</p>
-                        <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
-                        <button class="button-borrar" data-id="${profile.id}">Borrar</button>
+                        <h2>${profileName}</h2>
+                        <p class="profile-paragraph">${profileDescription}</p>
+                        ${profileId ? `<a href="/frontend/perfiles/profile-template.html?id=${profileId}" class="button-link">Perfil</a>` : ''}
+                        ${profileId ? `<button class="button-borrar" data-id="${profileId}">Borrar</button>` : ''}
                     </div>
                 `;
                 
