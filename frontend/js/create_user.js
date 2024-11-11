@@ -106,6 +106,8 @@ async function createUser(event) {
         if (result.success) {
             console.log("Success:", result);
             document.getElementById('userForm').reset();
+            document.getElementById("message").textContent = "Usuario agregado con éxito";
+            document.getElementById("message").style.color = "green";
         } else {
             console.error("Error creating user", result.message);
         }
