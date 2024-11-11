@@ -1,12 +1,12 @@
 <?php
 
 $host = 'localhost';
-$port = '5432';
-$user = 'postgres';
-$password = 'clave';
-$nameDb = 'CVTEST2';
+$port = '3306';
+$user = 'root';
+$password = '';
+$nameDb = 'cvmysql';
 
-$dsn = "pgsql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
+$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -16,6 +16,7 @@ $options = [
 
 try {
     $conn = new PDO($dsn, $user, $password, $options);
+    echo "CONEXION WENA";
 } catch (\PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
     
