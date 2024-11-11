@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 profileCard.innerHTML = `
                     <div class="profile-content">
                         <h2>${profile.name}</h2>
-                        <h3 class="profile-subtitle">${profile.position}</h3>
-                        <p class="profiles-paragraph">${profile.quote}</p>
+                        <p class="profile-paragraph">${profile.description}</p>
                         <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
                         <button class="button-borrar" data-id="${profile.id}">Borrar</button>
                     </div>
@@ -30,4 +29,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Falta la imagen 
 // Falta el boton de borrar (revisar) 
 // Agregar quote y position al formulario de creación 
-// Falta crear nueva tabla.  
+// Falta crear nueva tabla.  <p class="profiles-paragraph">${profile.quote}</p>  - <h3 class="profile-subtitle">${profile.position}</h3>
