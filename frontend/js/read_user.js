@@ -26,9 +26,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div class="experience-sub-section">
                 <h3 class="experience-sub-title">${exp.title || 'titulo no disponible'}</h3>
                 <span class="text-primary">${exp.startdate || 'Fecha de inicio no disponible'} - ${exp.enddate || 'Fecha de finalización no disponible'}</span>
-                <ul>
-                    ${exp.description ? `<li><p>${exp.description}</p></li>` : '<li>Nohay descripción disponible</li>'}
-                </ul>
             </div>
         `).join('');
 
@@ -47,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Intereses
         
-        document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest.interest}</p>`;
+        document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest}</p>`;
         
 
         // Habilidades
