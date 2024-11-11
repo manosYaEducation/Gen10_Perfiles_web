@@ -297,6 +297,7 @@ button:hover {
 .profiles-section {
     display: flex;
     justify-content: center;
+    width: 100%;
     padding: 40px;
 }
 
@@ -334,7 +335,7 @@ button:hover {
     color: #314438;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
-    font-style: normal;
+    font-style: italic;
 }
 
 .icons-container {
@@ -353,14 +354,17 @@ button:hover {
     flex: 2; /
 }
 
-.profiles-column{
+.profiles-column {
     list-style: none;
+    width: 700px;
     padding: 0;
     margin: 0;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
+
 
 .profile-card {
     display: flex;
@@ -370,9 +374,9 @@ button:hover {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: 400px;
+    width: 300px;
     height: auto;
-    margin-bottom: 20px;
+    margin: 30px;
     color: white;
 }
 
@@ -420,7 +424,7 @@ button:hover {
 
 
 .button-link,
-.button-borrar {
+.buttonBorrar {
     display: inline-block;
     padding: 8px 16px;
     border-radius: 4px;
@@ -434,7 +438,7 @@ button:hover {
     margin-right: 10px;
 }
 
-.button-borrar {
+.buttonBorrar {
     background-color: #dc3545;
     border: none;
     cursor: pointer;

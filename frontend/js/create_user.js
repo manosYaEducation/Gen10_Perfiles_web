@@ -10,37 +10,57 @@ async function createUser(event) {
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
 
-    // Capturar los datos de las experiencias (si existen)
-    const experienceList = [];
-    const experienceTitles = document.querySelectorAll('.experience-title');
-    const experienceStartDates = document.querySelectorAll('.experience-start-date');
-    const experienceEndDates = document.querySelectorAll('.experience-end-date');
-    const experienceDescriptions = document.querySelectorAll('.experience-description');
-    
-    for (let i = 0; i < experienceTitles.length; i++) {
-        experienceList.push({
-            title: experienceTitles[i].value,
-            startDate: experienceStartDates[i].value,
-            endDate: experienceEndDates[i].value,
-            description: experienceDescriptions[i].value
-        });
-    }
+    const experienceTitle = document.getElementById('input-experience-title').value;
+    const experienceStartDate = document.getElementById('input-experience-startDate').value;
+    const experienceEndDate = document.getElementById('input-experience-endDate').value;
 
-    // Capturar los datos de la educación (si existen)
-    const educationList = [];
-    const educationTitles = document.querySelectorAll('.education-title');
-    const educationStartDates = document.querySelectorAll('.education-start-date');
-    const educationEndDates = document.querySelectorAll('.education-end-date');
-    const educationInstitutions = document.querySelectorAll('.education-institution');
+    const educationTitle = document.getElementById('input-education-title').value;
+    const educationStartDate = document.getElementById('input-education-startDate').value;
+    const educationEndDate = document.getElementById('input-education-endDate').value;
+    const educationInstitution = document.getElementById('input-education-institution').value;
+
+    const socialPlatform = document.getElementById('input-social-platform').value;
+    const socialUrl = document.getElementById('input-social-url').value;
+
+    const skill = document.getElementById('input-skill').value;
+
+    const interest = document.getElementById('input-interest').value;
+
+
     
-    for (let i = 0; i < educationTitles.length; i++) {
-        educationList.push({
-            title: educationTitles[i].value,
-            startDate: educationStartDates[i].value,
-            endDate: educationEndDates[i].value,
-            institution: educationInstitutions[i].value
-        });
-    }
+    
+
+    // // Capturar los datos de las experiencias (si existen)
+    // const experienceList = [];
+    // const experienceTitles = document.querySelectorAll('.experience-title');
+    // const experienceStartDates = document.querySelectorAll('.experience-start-date');
+    // const experienceEndDates = document.querySelectorAll('.experience-end-date');
+    // const experienceDescriptions = document.querySelectorAll('.experience-description');
+    
+    // for (let i = 0; i < experienceTitles.length; i++) {
+    //     experienceList.push({
+    //         title: experienceTitles[i].value,
+    //         startDate: experienceStartDates[i].value,
+    //         endDate: experienceEndDates[i].value,
+    //         description: experienceDescriptions[i].value
+    //     });
+    // }
+
+    // // Capturar los datos de la educación (si existen)
+    // const educationList = [];
+    // const educationTitles = document.querySelectorAll('.education-title');
+    // const educationStartDates = document.querySelectorAll('.education-start-date');
+    // const educationEndDates = document.querySelectorAll('.education-end-date');
+    // const educationInstitutions = document.querySelectorAll('.education-institution');
+    
+    // for (let i = 0; i < educationTitles.length; i++) {
+    //     educationList.push({
+    //         title: educationTitles[i].value,
+    //         startDate: educationStartDates[i].value,
+    //         endDate: educationEndDates[i].value,
+    //         institution: educationInstitutions[i].value
+    //     });
+    // }
 
     // Preparar el objeto del nuevo usuario
     const newUser = {
@@ -52,21 +72,20 @@ async function createUser(event) {
             description
         },
         experience:{
-            title,
-            startDate,
-            endDate,
-            description
+            experienceTitle,
+            experienceStartDate,
+            experienceEndDate
         },
         education:{
-            title,
-            startDate,
-            endDate,
-            institution
+            educationTitle,
+            educationStartDate,
+            educationEndDate,
+            educationInstitution
         },
         skill,
         social:{
-            platform,
-            url
+            socialPlatform,
+            socialUrl
         },
         interest
     };
