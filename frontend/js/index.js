@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error al obtener perfiles:', error));
 });
 
-document.getElementById("inicio").addEventListener("click", function(event) {
-    event.preventDefault(); 
-    location.reload(); 
-  });
+// document.getElementById("inicio").addEventListener("click", function(event) {
+//     event.preventDefault(); 
+//     location.reload(); 
+//   });
 
 
 // TODO : Agregar link de php 

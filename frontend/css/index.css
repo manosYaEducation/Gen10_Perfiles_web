@@ -136,6 +136,7 @@ header {
     margin: 0 auto;
     overflow: hidden;
     max-width: 1440px; 
+    
 }
 
 nav {
@@ -304,7 +305,7 @@ button:hover {
 .profiles-container {
     display: flex;
     width: 100%;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     gap: 20px; 
 }
 
@@ -350,13 +351,14 @@ button:hover {
     color: #314438;
 }
 
-.profiles-column {
-    flex: 2; /
+.profile-complete-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profiles-column {
     list-style: none;
-    width: 700px;
     padding: 0;
     margin: 0;
     display: flex;
@@ -374,11 +376,12 @@ button:hover {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: 200px;
-    height: auto;
+    width: 400px;
+    height: 500px;
     margin: 30px;
     color: white;
 }
+
 
 .profile-content{
     display: flex;
