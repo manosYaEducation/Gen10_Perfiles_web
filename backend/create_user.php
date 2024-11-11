@@ -19,7 +19,7 @@ try {
     $conn->beginTransaction(); // Comienza la transacción
 
     // Inserta en la tabla `profile`
-    $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description) VALUES (?, ?, ?, ?, ?) RETURNING id");
+    $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description) VALUES (?, ?, ?, ?, ?)");
     $stmt->execute([
         $data->basic->name,
         $data->basic->location,
@@ -27,7 +27,7 @@ try {
         $data->basic->email,
         $data->basic->description
     ]);
-    $profileid = $stmt->fetchColumn(); // Obtiene el ID del perfil recién insertado
+    $profileid = $conn -> lastInsertId(); // Obtiene el ID del perfil recién insertado
 
     // Inserta en la tabla `experience`
     $stmtExperience = $conn->prepare("INSERT INTO experience (profileid, title, startDate, endDate) VALUES (?, ?, ?, ?)");
@@ -64,7 +64,7 @@ try {
     ]);
 
     // Inserta en la tabla `interest`
-    $stmtInterest = $conn->prepare("INSERT INTO interests (profileid, interest) VALUES (?, ?)");
+    $stmtInterest = $conn->prepare("INSERT INTO interest (profileid, interest) VALUES (?, ?)");
     $stmtInterest->execute([
         $profileid,
         $data->interest

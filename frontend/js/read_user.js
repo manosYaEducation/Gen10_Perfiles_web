@@ -46,14 +46,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join('');
 
         // Intereses
-        if (profile.interest && Array.isArray(profile.interest)) {
-            document.getElementById('p-interest-section').innerHTML = '';
-            profile.interest.forEach(function(interest) {
-                document.getElementById('p-interest-section').innerHTML += `<p>${interest}</p>`;
-            });
-        } else {
-            document.getElementById('p-interest-section').innerHTML = 'No hay intereses disponibles.';
-        }
+        
+        document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest.interest}</p>`;
+        
 
         // Habilidades
         if (profile.skill && Array.isArray(profile.skill)) {
