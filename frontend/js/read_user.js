@@ -46,11 +46,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join('');
 
         // Intereses
-        if (profile.interest && profile.interest.description) {
-            document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest.description}</p>`;
-        } else {
-            document.getElementById('p-interest-section').innerHTML = 'No hay intereses disponibles.';
-        }
+        
+        document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest.interest}</p>`;
+        
 
         // Habilidades
         if (profile.skill && Array.isArray(profile.skill)) {

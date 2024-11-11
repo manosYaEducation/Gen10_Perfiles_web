@@ -1,12 +1,12 @@
 <?php
 
 $host = 'localhost';
-$port = '5432';
-$user = 'postgres';
-$password = 'clave';
-$nameDb = 'CVTEST2';
+$port = '3306';
+$user = 'root';
+$password = '';
+$nameDb = 'cv';
 
-$dsn = "pgsql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
+$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
