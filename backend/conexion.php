@@ -1,6 +1,6 @@
 <?php
 
-$host = 'gen10.alphadocere.cl';
+$host = 'localhost';
 $port = '3306';
 $user = 'alpha_kreative';
 $password = 'No.Olvidemos.Que.Un.Trigger.Es.Un.diparador.22';
