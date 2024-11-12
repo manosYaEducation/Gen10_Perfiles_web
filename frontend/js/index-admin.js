@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Realiza una solicitud para obtener todos los perfiles desde el mismo endpoint
-    fetch('http://localhost:8000/read_user.php')
+    fetch('https://gen10.alphadocere.cl/backend/read_user.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {

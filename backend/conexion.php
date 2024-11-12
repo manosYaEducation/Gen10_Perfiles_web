@@ -1,10 +1,10 @@
 <?php
 
-$host = 'localhost';
+$host = 'gen10.alphadocere.cl';
 $port = '3306';
-$user = 'root';
-$password = '';
-$nameDb = 'cv';
+$user = 'alpha_kreative';
+$password = 'No.Olvidemos.Que.Un.Trigger.Es.Un.diparador.22';
+$nameDb = 'alpha_kreative';
 
 $dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
 
