@@ -120,82 +120,85 @@ body {
     min-width: 100%;
     overflow-x: hidden;
     margin: 0 auto;
+    height: auto;
 }
 
-section {
-    margin-bottom: 40px;
-    margin-top: 20px;
-}
-
-
-/* Header */
 header {
     color: white;
-    padding: 10px 0;
+    padding: 10px 20px;
     width: 100%;
     margin: 0 auto;
-    overflow: hidden;
-    max-width: 1440px; 
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 nav {
     display: flex;
     align-items: center;
+    max-width: 1000px;
+    width: 1440px;
     justify-content: space-between;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
 }
 
-.logo .icon {
-    width: 40px;
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 60px; 
     height: auto;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
 }
 
 .headernav {
     display: flex;
     list-style: none;
-    margin: 0;
     padding: 0;
-    gap: 20px;
+    margin: 0;
 }
 
 .headernav li {
-    margin: 0;
+    margin-left: 20px; 
 }
 
-.headernav a {
+.headernav li a.button-53 {
     text-decoration: none;
-    font-weight: bold;
-    padding: 10px 15px;
+    padding: 8px 16px;
     border-radius: 5px;
-    transition: background 0.3s ease;
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: normal;
+    transition: background-color 0.3s;
     color: #314438;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
 }
 
-.headernav a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-nav div{
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.headernav li a.button-53:hover {
+    background-color: #314438;
+    color: white;
 }
 
 
-
+/*HERO SECTION */
 .hero {
     padding: 50px 20px;
     display: flex;
     justify-content: center;
     overflow: hidden;
-    background: rgb(243, 240, 237)
+    background: rgb(243, 240, 237);
+    min-height: 860px;
+    background-image: url("/assets/img/fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
 }
 
 .hero-content {
@@ -204,6 +207,7 @@ nav div{
     max-width: 1440px;
     width: 100%;
     gap: 20px;
+    
 }
 
 .hero-text{
@@ -217,8 +221,9 @@ nav div{
     font-size: 2.5em;
     margin-bottom: 10px;
     font-family: "Poppins", sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     font-style: italic;
+    color: #314438;
 }
 
 .hero-text p {
@@ -229,6 +234,7 @@ nav div{
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
+    color: #314438;
 }
 
 .hero-image img {
@@ -238,7 +244,7 @@ nav div{
     border-radius: 8px;
 }
 
-.hero-cta {
+/* .hero-cta {
     background-color: #314438;
     color: white;
     padding: 10px 20px;
@@ -247,12 +253,13 @@ nav div{
     cursor: pointer;
     transition: background 0.3s ease;
     white-space: nowrap;
-}
+} */
 
 button:hover {
     background-color: rgb(131, 85, 1);
 }
-/* Info Section */
+
+/* Info Section
 .info-section {
     padding: 20px;
     border-radius: 8px;
@@ -291,7 +298,7 @@ button:hover {
     width: 35%;
     height: auto;
     border-radius: 8px;
-}
+} */
 
 /* Profiles */
 
@@ -299,18 +306,13 @@ button:hover {
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 40px;
-}
-
-.profiles-container {
-    display: flex;
-    width: 100%;
-    /* max-width: 1200px; */
-    gap: 20px; 
+    padding: 0px;
+    margin: 0px;
+    flex-direction: column;
+    min-height: 920px;
 }
 
 .info-container {
-    flex: 1; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -318,7 +320,6 @@ button:hover {
     text-align: center;
     padding: 20px;
     color: white;
-    border-radius: 10px;
 }
 
 .info-title {
@@ -351,20 +352,14 @@ button:hover {
     color: #314438;
 }
 
-.profile-complete-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .profiles-column {
     list-style: none;
     padding: 0;
-    margin: 0;
     display: flex;
     align-items: center;
-    flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
+    max-width: 100%;
 }
 
 
@@ -372,35 +367,33 @@ button:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: 400px;
-    height: 500px;
-    margin: 30px;
+    width: 450px;
+    height: 450px;
+    margin: 8px;
     color: white;
+    box-sizing: border-box;
 }
 
 
 .profile-content{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-
 }
 
-.profile-card img {
+/* .profile-card img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-bottom: 15px;
-}
+} */
 
 .profile-content h2 {
-    font-size: 1.4em;
-    margin: 10px 0 5px;
+    font-size: 1.3em;
+    margin: 10px 0 10px;
     color: #314438;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
@@ -408,12 +401,13 @@ button:hover {
 }
 
 .profile-subtitle {
-    font-size: 1em;
-    margin-bottom: 10px;
+    font-size: 0.9em;
+    margin: 20px 0 10px;
     color: #314438;
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: italic;
+    height: 250px;
 }
 
 .profile-content p {
@@ -423,6 +417,16 @@ button:hover {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
+}
+
+.profile-content h3 {
+    font-size: 0.9em;
+    margin: 10px 0 10px;
+    color: #314438;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 16px;
 }
 
 
@@ -475,7 +479,7 @@ button:hover {
 }
 
 /* Footer */
-footer {
+/* footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -503,4 +507,131 @@ footer ul li {
 
 footer p {
     font-size: 0.9em;
+} */
+
+
+@media (max-width: 1024px) {
+    .headernav li {
+        margin-left: 10px;
+    }
+    .hero-text h1 {
+        font-size: 2em;
+    }
+    .hero-text p {
+        width: 80%;
+    }
+    .hero-image img {
+        max-width: 400px;
+    }
+    .profile-card {
+        width: 400px; 
+        height: auto; 
+        margin: 10px 0; 
+    }
+    .create-profile {
+        padding: 8px 16px;
+    }
+    /* Ajustes para el header */
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+    }
+    nav {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .navbar {
+        flex-direction: column; 
+        align-items: center;
+        width: 100%;
+    }
+    .headernav {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+    .headernav li {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .logo img.icon {
+        width: 30px; /* Ajustamos el tamaño del logo en pantallas pequeñas */
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .headernav {
+        flex-direction: column;
+        text-align: center;
+    }
+    .headernav li {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    .hero {
+        padding: 30px 10px;
+        min-height: auto;
+    }
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    .hero-text {
+        max-width: 100%;
+    }
+    .hero-text h1 {
+        font-size: 1.8em;
+    }
+    .hero-text p {
+        width: 90%;
+    }
+    .hero-image img {
+        max-width: 300px;
+    }
+    .profiles-section {
+        padding: 10px;
+    }
+    .profile-card {
+        width: 100%; 
+        height: auto; 
+        margin: 10px 0; 
+    }
+    .info-title,
+    .info-subtitle {
+        font-size: 1.5em;
+        text-align: center;
+    }
+    .button-link,
+    .buttonBorrar {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+    .create-profile {
+        padding: 8px 16px;
+    }
+    /* Ajustes para el navbar en pantallas pequeñas */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .headernav {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+    .headernav li {
+        margin-top: 10px;
+    }
+    .logo img.icon {
+        width: 30px; /* Ajuste en tamaño para pantallas pequeñas */
+    }
 }
