@@ -447,6 +447,7 @@ button:hover {
 
 .buttonBorrar {
     background-color: #dc3545;
+    margin-right: 10px;
     border: none;
     cursor: pointer;
 }
