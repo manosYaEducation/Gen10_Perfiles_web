@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Perfil</title>
     <link rel="stylesheet" href="/frontend/css/crud-profile-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -13,11 +14,13 @@
     </header>
 
     <main>
-        <div> 
+        <div class="forma-1"> 
             <form id="userForm">
                 <input type="hidden" id="userId">
-
-                <h3>Información Personal</h3>
+                <button class="fass-1" onclick="window.location.href='../index.html'"><i class="fas fa-arrow-left"></i></button>
+                  
+                <h3 class="info">Información Personal</h3>
+                
                 <label for="input-name">Nombre:</label>
                 <input type="text" id="input-name" required>
 
@@ -91,8 +94,11 @@
                 <button type="button" onclick="openModal('social')">Agregar Red Social</button> -->
 
                 
+                <div class="button-container">
+                    <button type="submit">Guardar</button>
+                    <button type="button" onclick="window.location.href='../index.html'">Volver</button>
 
-                <button type="submit">Guardar</button>
+                </div>
             </form>
             <div id="message"></div>
         </div>

@@ -1,20 +1,47 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
+  
 }
+
 
 form {
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 50px;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: rgb(243, 240, 237);
+  
 }
 
+.fas{
+  
+  color: #4CAF50;
+
+}
+
+.fass-1{
+  border: none;
+  cursor: pointer;
+}
+
+.fass-1:hover{
+  transform: scale(1.1);
+}
+
+.info{
+  margin-bottom: 50px;
+  
+}
+
+h1{
+  text-align: center;
+}
 h3 {
   margin-top: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 label {
@@ -48,8 +75,25 @@ button[type="submit"] {
   cursor: pointer;
 }
 
+.button-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 8px;
+ 
+}
+
+button[type="submit"]{
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0;
+}
 button[type="submit"]:hover {
   background-color: #3e8e41;
+  
 }
 
 #experience-section, #education-section {
@@ -60,6 +104,9 @@ button[type="submit"]:hover {
   margin-bottom: 5px;
 }
 
+.forma-1{
+  justify-content: center;
+}
 
 /* Modal styling */
 .modal {
