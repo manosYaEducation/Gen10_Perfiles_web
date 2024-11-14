@@ -96,6 +96,20 @@ button[type="submit"]:hover {
   
 }
 
+button[type="button"]{
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0;
+  background-color: #916e3a;
+}
+button[type="button"]:hover {
+  background-color: #614510;
+  
+}
+
 #experience-section, #education-section {
   margin-bottom: 20px;
 }
