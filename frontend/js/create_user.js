@@ -108,13 +108,31 @@ async function createUser(event) {
             document.getElementById('userForm').reset();
             document.getElementById("message").textContent = "Usuario agregado con éxito";
             document.getElementById("message").style.color = "green";
+            Swal.fire({
+                icon: 'success',
+                title: 'Usuario agregado con éxito',
+                confirmButtonText: 'Aceptar',
+                showConfirmButton: false,
+                timer: 1500
+            });
         } else {
             console.error("Error creating user", result.message);
+
+            
         }
     } catch (error) {
         console.error("Error:", error);
+
+        Swal.fire({
+            title: 'Error',
+            text: 'Hubo un error al procesar la solicitud',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#d33'
+        });
     }
 }
+
 
 // Agregar el evento de submit para llamar la función
 document.getElementById('userForm').addEventListener('submit', createUser);
