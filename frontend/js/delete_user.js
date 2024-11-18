@@ -19,6 +19,7 @@ async function deleteUser(event) {
                 console.log('Usuario eliminado con éxito');
                 // Eliminar el perfil de la vista (opcional)
                 button.closest('.profile-content').remove();  // Eliminar el contenedor del perfil
+                location.reload();
             } else {
                 console.error(result.message);
             }
