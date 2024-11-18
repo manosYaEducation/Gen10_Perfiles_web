@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h2>${profile.name}</h2>
                             <h3 class="profile-subtitle">${profile.description}</h3>
                             <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
-                            <a href="/backend/delete_user.php?id=${profile.id}" class="buttonBorrar">Borrar</a>
+                            <button class="buttonBorrar" data-id="${profile.id}" onclick="deleteUser(event)">Borrar</button>
                         </div>
                     `;
                     
