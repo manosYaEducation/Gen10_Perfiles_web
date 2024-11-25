@@ -43,3 +43,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Error al consultar la base de datos: " . $e->getMessage();
     }
 }
+
+
+
+// header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Methods: POST");
+// header("Access-Control-Allow-Headers: Content-Type");
+// header('Content-Type: application/json');
+
+// include 'conexion.php';
+
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     $data = json_decode(file_get_contents('php://input'), true);
+
+//     if (empty($data['username']) || empty($data['password'])) {
+//         echo json_encode(['status' => 'error', 'message' => 'Por favor ingresa ambos campos: usuario y contraseña.']);
+//         exit();
+//     }
+
+//     $username = trim($data['username']);
+//     $password = $data['password'];
+
+//     try {
+//         $stmt = $conn->prepare('SELECT * FROM users WHERE username = :username');
+//         $stmt->bindParam(':username', $username);
+//         $stmt->execute();
+
+//         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+//         if ($user && password_verify($password, $user['password'])) {
+//             echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso.']);
+//         } else {
+//             echo json_encode(['status' => 'error', 'message' => 'Nombre de usuario o contraseña incorrectos.']);
+//         }
+//     } catch (PDOException $e) {
+//         echo json_encode(['status' => 'error', 'message' => 'Error al consultar la base de datos: ' . $e->getMessage()]);
+//     }
+//     exit();
+// }
