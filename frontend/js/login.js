@@ -6,8 +6,16 @@ loginF.addEventListener('submit', async (event) => {
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password').value;
 
+    // Verificar si los campos están vacíos antes de enviar la solicitud
+    if (!username || !password) {
+        alert('Por favor ingresa ambos campos: usuario y contraseña.');
+        return;
+    }
+
+    console.log('Enviando datos:', { username, password }); // Verifica los valores enviados
+
     try {
-        const response = await fetch('https://gen10.alphadocere.cl/backend/login.php', {
+        const response = await fetch('http://localhost:8000/login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +26,7 @@ loginF.addEventListener('submit', async (event) => {
         const result = await response.json();
 
         if (response.ok && result.status === 'success') {
-            window.location.href = 'https://gen10.alphadocere.cl/frontend/index-admin.html';
+            window.location.href = 'http://127.0.0.1:5501/frontend/index-admin.html';
         } else {
             alert(result.message || 'Usuario o contraseña incorrectos.');
         }

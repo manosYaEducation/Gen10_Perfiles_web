@@ -2,8 +2,8 @@
 
 $host = 'localhost';
 $port = '3306';
-$user = 'alphadoc_kreative';
-$password = 'No.Olvidemos.Que.Un.Trigger.Es.Un.diparador.22';
+$user = 'root';
+$password = '';
 $nameDb = 'alphadoc_kreative';
 
 $dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
