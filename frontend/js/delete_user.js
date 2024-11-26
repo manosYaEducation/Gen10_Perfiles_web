@@ -10,7 +10,7 @@ async function deleteUser(event) {
 
     try {
         // 
-        const url = `https://gen10.alphadocere.cl/backend/delete_user.php?id=${id}`;
+        const url = `http://localhost:8000/delete_user.php?id=${id}`;
         const response = await fetch(url, { method: 'GET' });
 
         if (response.ok) {

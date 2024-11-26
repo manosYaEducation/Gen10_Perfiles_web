@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const id = urlParams.get('id');
 
     try {
-        const response = await fetch(`https://gen10.alphadocere.cl/backend/read_user.php?id=${id}`);
+        const response = await fetch(`https://localhost:8000/read_user.php?id=${id}`);
         const result = await response.json();
 
         console.log('Resultados', result);

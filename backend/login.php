@@ -19,7 +19,7 @@ $username = $data['username'];
 $password = $data['password'];
 
 try {
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt = $conn->prepare("SELECT password FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -27,13 +27,18 @@ try {
     if ($stmt->rowCount() > 0) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (password_verify($password, $user['password'])) {
-            $_SESSION['username'] = $user['username'];
-
-            echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta']);
+        if($password === $user['password']){
+            echo json_encode(['status'=> 'success','username'=> $username,'password'=> $password]);
+        }else{
+            echo json_encode(['status'=> 'error','message'=> 'Contraseña incorrecta']);
         }
+        // if (password_verify($password, $user['password'])) {
+        //     $_SESSION['username'] = $user['username'];
+
+        //     echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso']);
+        // } else {
+        //     echo json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta']);
+        // }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }

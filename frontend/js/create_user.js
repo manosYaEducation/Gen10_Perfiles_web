@@ -94,7 +94,7 @@ async function createUser(event) {
 
     // Enviar los datos al servidor
     try {
-        const response = await fetch('https://gen10.alphadocere.cl/backend/create_user.php', {
+        const response = await fetch('http://localhost:8000/create_user.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

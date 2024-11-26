@@ -25,6 +25,8 @@ loginF.addEventListener('submit', async (event) => {
 
         const result = await response.json();
 
+        console.log(result); // Verifica los valores enviados
+
         if (response.ok && result.status === 'success') {
             window.location.href = 'http://127.0.0.1:5501/frontend/index-admin.html';
         } else {
