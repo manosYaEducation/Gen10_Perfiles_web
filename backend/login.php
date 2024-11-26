@@ -19,7 +19,7 @@ $username = $data['username'];
 $password = $data['password'];
 
 try {
-    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = :username");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username");
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -28,7 +28,6 @@ try {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
 
             echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso']);
