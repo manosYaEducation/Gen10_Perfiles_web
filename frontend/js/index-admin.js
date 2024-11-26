@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Realiza una solicitud para obtener todos los perfiles desde el mismo endpoint
-    fetch('http://localhost:8000/read_user.php')
+    // Verificar que la API_URL esté correctamente configurada
+    if (!window.API_URL) {
+        console.error('API_URL no está definida');
+        return;
+    }
+
+    // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
+    fetch(`${window.API_URL}read_user.php`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -29,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error al obtener perfiles:', error));
 });
+
 
 // document.getElementById("inicio").addEventListener("click", function(event) {
 //     event.preventDefault(); 

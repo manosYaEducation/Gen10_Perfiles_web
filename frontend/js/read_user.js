@@ -2,8 +2,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
+
+    if (!window.API_URL) {
+        console.error('API_URL no está definida');
+        return;
+    }
+
     try {
-        const response = await fetch(`https://localhost:8000/read_user.php?id=${id}`);
+        const response = await fetch(`${window.API_URL}read_user.php?id=${id}`);
         const result = await response.json();
 
         console.log('Resultados', result);

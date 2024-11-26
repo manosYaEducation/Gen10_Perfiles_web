@@ -15,13 +15,16 @@ loginF.addEventListener('submit', async (event) => {
     console.log('Enviando datos:', { username, password }); // Verifica los valores enviados
 
     try {
-        const response = await fetch('http://localhost:8000/login.php', {
+        const response = await fetch(API_URL + 'login.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({username, password})
         });
+
+        // Log de la respuesta
+        console.log('URL de la respuesta:', response.url);
 
         const result = await response.json();
 
