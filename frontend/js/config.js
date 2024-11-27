@@ -3,6 +3,4 @@ window.API_URL = (window.location.hostname === 'localhost' ||
 ? 'http://localhost:8000/'
 : 'https://gen10.alphadocere.cl';
 
-console.log('API_URL configurada como:', window.API_URL);
-
 

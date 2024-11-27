@@ -32,13 +32,6 @@ try {
         }else{
             echo json_encode(['status'=> 'error','message'=> 'Contraseña incorrecta']);
         }
-        // if (password_verify($password, $user['password'])) {
-        //     $_SESSION['username'] = $user['username'];
-
-        //     echo json_encode(['status' => 'success', 'message' => 'Inicio de sesión exitoso']);
-        // } else {
-        //     echo json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta']);
-        // }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }

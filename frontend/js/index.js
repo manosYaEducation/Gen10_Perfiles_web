@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('API_URL no está definida');
         return;
     }
-
     // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
     fetch(`${window.API_URL}read_user.php`)
         .then(response => response.json())
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
                         </div>
                     `;
-                    
                     profilesColumn.appendChild(profileCard);
                 });
             } else {
@@ -34,16 +32,3 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error al obtener perfiles:', error));
 });
-
-
-// document.getElementById("inicio").addEventListener("click", function(event) {
-//     event.preventDefault(); 
-//     location.reload(); 
-//   });
-
-
-// TODO : Agregar link de php 
-// Falta la imagen 
-// Falta el boton de borrar (revisar) 
-// Agregar quote y position al formulario de creación 
-// Falta crear nueva tabla.  

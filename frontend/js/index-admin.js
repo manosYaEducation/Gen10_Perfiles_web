@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('API_URL no está definida');
         return;
     }
-
     // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
     fetch(`${window.API_URL}read_user.php`)
         .then(response => response.json())
@@ -12,12 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 const profilesColumn = document.querySelector('.profiles-column');
                 profilesColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
-
                 // Mostrar todos los perfiles
                 data.profiles.forEach(profile => {
                     const profileCard = document.createElement('div');
                     profileCard.classList.add('profile-card');
-                    
                     profileCard.innerHTML = `
                         <div class="profile-content">
                             <h2>${profile.name}</h2>
@@ -26,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <button class="buttonBorrar" data-id="${profile.id}" onclick="deleteUser(event)">Borrar</button>
                         </div>
                     `;
-                    
                     profilesColumn.appendChild(profileCard);
                 });
             } else {
@@ -35,16 +31,3 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error al obtener perfiles:', error));
 });
-
-
-// document.getElementById("inicio").addEventListener("click", function(event) {
-//     event.preventDefault(); 
-//     location.reload(); 
-//   });
-
-
-// TODO : Agregar link de php 
-// Falta la imagen 
-// Falta el boton de borrar (revisar) 
-// Agregar quote y position al formulario de creación 
-// Falta crear nueva tabla.  
