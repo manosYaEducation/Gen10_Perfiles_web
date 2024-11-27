@@ -54,7 +54,6 @@ async function createUser(event) {
         });
         const result = await response.json();
         if (result.success) {
-            console.log("Success:", result);
             document.getElementById('userForm').reset();
             document.getElementById("message").textContent = "Usuario agregado con éxito";
             document.getElementById("message").style.color = "green";

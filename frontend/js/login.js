@@ -8,7 +8,6 @@ loginF.addEventListener('submit', async (event) => {
         alert('Por favor ingresa ambos campos: usuario y contraseña.');
         return;
     }
-    console.log('Enviando datos:', { username, password }); // Verifica los valores enviados
     try {
         const response = await fetch(API_URL + 'login.php', {
             method: 'POST',
@@ -19,8 +18,8 @@ loginF.addEventListener('submit', async (event) => {
         });
         // Log de la respuesta
         const result = await response.json();
-        console.log(result); // Verifica los valores enviados
         if (response.ok && result.status === 'success') {
+            sessionStorage.setItem('userLoggedIn', true);
             const localURL = 'http://127.0.0.1:5501/frontend/index-admin.html';
             const fallbackURL = 'https://gen10.alphadocere.cl/frontend/index-admin.html';
             fetch(localURL, { method: 'HEAD' })
