@@ -194,7 +194,6 @@ nav {
     overflow: hidden;
     background: rgb(243, 240, 237);
     min-height: 860px;
-    background-image: url("/assets/img/fondo.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
