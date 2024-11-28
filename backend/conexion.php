@@ -1,9 +1,9 @@
 <?php
 
-define('environment', 'local'); // NOTA IMPORTANTE: SE DEBE CAMBIAR LA VARIABLE "environment" local a production cuando el proyecto esté en producción.
+define('ENVIRONMENT', 'local'); // NOTA IMPORTANTE: SE DEBE CAMBIAR LA VARIABLE "ENVIRONMENT" de local a production cuando el proyecto esté en producción.
 
 
-if(environment === 'production') {  
+if(ENVIRONMENT === 'production') {  
     $host = 'localhost';
     $port = '3306';
     $user = 'alphadoc';
