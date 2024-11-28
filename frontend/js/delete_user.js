@@ -7,7 +7,7 @@ async function deleteUser(event) {
     if (!confirmDelete) return;
     try {
         // 
-        const url = `${window.API_URL}delete_user.php?id=${id}`;
+        const url = `${window.API_URL_PHP}delete_user.php?id=${id}`;
         const response = await fetch(url, { method: 'GET' });
         if (response.ok) {
             const result = await response.json();

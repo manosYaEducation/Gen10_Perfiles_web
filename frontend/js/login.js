@@ -9,7 +9,7 @@ loginF.addEventListener('submit', async (event) => {
         return;
     }
     try {
-        const response = await fetch(API_URL + 'login.php', {
+        const response = await fetch(API_URL_PHP + 'login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -45,7 +45,7 @@ async function createUser(event) {
     };
     // Enviar los datos al servidor
     try {
-        const response = await fetch(API_URL + 'create_user.php', {
+        const response = await fetch(API_URL_PHP + 'create_user.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

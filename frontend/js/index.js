@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
-    fetch(`${window.API_URL}read_user.php`)
+    fetch(`${window.API_URL_PHP}read_user.php`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
