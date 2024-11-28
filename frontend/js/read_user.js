@@ -1,21 +1,14 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
-
-
-    if (!window.API_URL) {
-        console.error('API_URL no está definida');
+    if (!window.API_URL_PHP) {
+        console.error('API_URL_PHP no está definida');
         return;
     }
-
     try {
-        const response = await fetch(`${window.API_URL}read_user.php?id=${id}`);
+        const response = await fetch(`${window.API_URL_PHP}read_user.php?id=${id}`);
         const result = await response.json();
-
-        console.log('Resultados', result);
-
         const profile = result.data;
-
         // Información personal
         document.getElementById('name-hero').textContent = profile.basic.name;
         document.getElementById('personal-information-hero').innerHTML = `
@@ -24,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             <p>Email: ${profile.basic.email}</p>
         `;
         document.getElementById('description-hero').textContent = profile.basic.description;
-
         // Experiencia
         const experienceSection = document.getElementById('experience-section');
         const experienceData = profile.experience || [];
@@ -34,7 +26,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <span class="text-primary">${exp.startdate || 'Fecha de inicio no disponible'} - ${exp.enddate || 'Fecha de finalización no disponible'}</span>
             </div>
         `).join('');
-
         // Educación
         const educationSection = document.getElementById('timeline');
         const educationData = profile.education || [];
@@ -47,12 +38,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </div>
             </div>
         `).join('');
-
         // Intereses
-        
         document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest}</p>`;
-        
-
         // Habilidades
         if (profile.skill && Array.isArray(profile.skill)) {
             document.getElementById('p-skill-section').innerHTML = '';
@@ -62,13 +49,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         } else {
             document.getElementById('p-skill-section').innerHTML = 'No hay habilidades disponibles.';
         }
-
         // Redes sociales
         const socialLinksElement = document.getElementById('social-links');
         socialLinksElement.innerHTML = profile.social.map(social => `
             <a href="${social.url}" target="_blank">${social.platform || 'Plataforma no disponible'}</a>
         `).join(', ');
-
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
