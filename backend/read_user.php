@@ -15,37 +15,30 @@ try {
         $stmt = $conn->prepare("SELECT name, location, phone, email, description FROM profile WHERE id = ?");
         $stmt->execute([$profileid]);
         $profile = $stmt->fetch(PDO::FETCH_ASSOC);
-
         if (!$profile) {
             echo json_encode(['success' => false, 'message' => 'Perfil no encontrado']);
             exit;
         }
-
         // Recupera la experiencia
         $stmtExp = $conn->prepare("SELECT title, startdate, enddate FROM experience WHERE profileid = ?");
         $stmtExp->execute([$profileid]);
         $experience = $stmtExp->fetchAll(PDO::FETCH_ASSOC);
-
         // Recupera la educación
         $stmtEdu = $conn->prepare("SELECT title, institution, startdate, enddate FROM education WHERE profileid = ?");
         $stmtEdu->execute([$profileid]);
         $education = $stmtEdu->fetchAll(PDO::FETCH_ASSOC);
-
         // Recupera las habilidades
         $stmtSkill = $conn->prepare("SELECT skill FROM skill WHERE profileid = ?");
         $stmtSkill->execute([$profileid]);
         $skill = $stmtSkill->fetchAll(PDO::FETCH_COLUMN);
-
         // Recupera los intereses
         $stmtInterest = $conn->prepare("SELECT interest FROM interest WHERE profileid = ?");
         $stmtInterest->execute([$profileid]);
         $interest = $stmtInterest->fetchAll(PDO::FETCH_COLUMN);
-
         // Recupera las redes sociales
         $stmtSocial = $conn->prepare("SELECT platform, url FROM social WHERE profileid = ?");
         $stmtSocial->execute([$profileid]);
         $social = $stmtSocial->fetchAll(PDO::FETCH_ASSOC);
-
         // Estructura la respuesta JSON para un perfil específico
         $response = [
             'success' => true,
@@ -58,7 +51,6 @@ try {
                 'social' => $social,
             ]
         ];
-
     } else {
         // Si no hay 'id', devuelve todos los perfiles
         $stmt = $conn->prepare("SELECT id, name, description FROM profile");
@@ -69,16 +61,13 @@ try {
             echo json_encode(['success' => false, 'message' => 'No se encontraron perfiles']);
             exit;
         }
-
         // Responde con todos los perfiles
         $response = [
             'success' => true,
             'profiles' => $profiles
         ];
     }
-
     echo json_encode($response);
-
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
