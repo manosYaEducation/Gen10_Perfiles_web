@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar que la API_URL esté correctamente configurada
-    if (!window.API_URL) {
-        console.error('API_URL no está definida');
+    // Verificar que la API_URL_PHP esté correctamente configurada
+    if (!window.API_URL_PHP) {
+        console.error('API_URL_PHP no está definida');
         return;
     }
     // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
