@@ -9,6 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   function logout() {
     sessionStorage.removeItem('userLoggedIn');
-    window.location.href = 'login.html';
+    window.location.href = `${window.API_URL}login.php`;
   }
   
