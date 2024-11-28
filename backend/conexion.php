@@ -6,7 +6,7 @@ define('ENVIRONMENT', 'local'); // NOTA IMPORTANTE: SE DEBE CAMBIAR LA VARIABLE 
 if(ENVIRONMENT === 'production') {  
     $host = 'localhost';
     $port = '3306';
-    $user = 'alphadoc';
+    $user = 'alphadocere';
     $password = 'No.Olvidemos.Que.Un.Trigger.Es.Un.diparador.22';
     $nameDb = 'alphadoc_kreative';
 
