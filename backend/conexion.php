@@ -1,21 +1,24 @@
 <?php
 
-define('ENVIRONMENT', 'local'); // NOTA IMPORTANTE: SE DEBE CAMBIAR LA VARIABLE "ENVIRONMENT" de local a production cuando el proyecto esté en producción.
+//esto  carga  las  variables  de  entorno
+require_once __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
 
+$environment = $_ENV['ENVIRONMENT'] ?? 'local';
 
-if(ENVIRONMENT === 'production') {  
-    $host = 'localhost';
-    $port = '3306';
-    $user = 'alphadocere';
-    $password = 'No.Olvidemos.Que.Un.Trigger.Es.Un.diparador.22';
-    $nameDb = 'alphadoc_kreative';
-
-}else{
-    $host = 'localhost';
-    $port = '3306';
-    $user = 'root';
-    $password = '';
-    $nameDb = 'alphadoc_kreative';
+if($environment === 'production') {  
+    $host = $_ENV['PROD_DB_HOST'];
+    $port = $_ENV['PROD_DB_PORT'];
+    $user = $_ENV['PROD_DB_USER'];
+    $password = $_ENV['PROD_DB_PASSWORD'];
+    $nameDb = $_ENV['PROD_DB_NAME'];
+} else {
+    $host = $_ENV['DEV_DB_HOST'];
+    $port = $_ENV['DEV_DB_PORT'];
+    $user = $_ENV['DEV_DB_USER'];
+    $password = $_ENV['DEV_DB_PASSWORD'];
+    $nameDb = $_ENV['DEV_DB_NAME'];
 }
 
 

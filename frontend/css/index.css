@@ -149,7 +149,7 @@ nav {
 }
 
 .icon {
-    width: 60px; 
+    width: 110px; 
     height: auto;
 }
 
@@ -181,7 +181,7 @@ nav {
 }
 
 .headernav li a.button-53:hover {
-    background-color: #314438;
+    background-color: hsl(142, 16%, 23%);
     color: white;
 }
 

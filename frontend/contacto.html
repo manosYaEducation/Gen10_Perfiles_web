@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/contacto.css">
     <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>Formulario de Contacto</title>
 </head>
 <body >
 
-  
+
 
     <header>
         <nav>
             <img src="/assets/img/kreativenofondo.png" alt="Icono" class="icon">
             <div class="navbar" id="navbar">
                 <ul class="headernav">
-                    <!-- <li><a class="button-53" href="#hero">Inicio</a></li> -->
+                    <li><a class="button-53" href="../index.html">Inicio</a></li> 
                     <li><a class="button-53" href="#perfiles">Nosotros</a></li>
                     <!-- <li><a class="button-53" href="#proyectos">Nuestros proyectos</a></li> -->
                 </ul>
@@ -25,10 +26,35 @@
             </div>
         </nav>
     </header>
+
+<div class="container-general">
+    <div class="contacto-container">
+        <div class="redes-sociales">
+            <h3>Síguenos en:</h3>
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/kreative_gen10/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                
+            </div>
+        </div>
+
+
+        <div class="info-contacto">    
+            <div class="detalles-contacto">
+                <h2>INFORMACIÓN DE CONTACTO</h2>
+                
+                <p><i class="fas fa-phone"></i> Teléfono: +569 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> Email: Kreative@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
     <h1>Contacto</h1>
-    <div class="contacto-section">
-        <form action="#" method="POST">
-            <h2>Contáctanos</h2>
+    <div class="contacto-container">
+        <div class="contacto-section">
+            <form action="https://formsubmit.co/e06825095b59278ee7084f6aba49bf6c" method="POST" >
+            
             
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -57,9 +83,11 @@
                 <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
             </div>
 
-            <button type="submit">Enviar </button>
+            <button type="submit" value="Enviar"><i class="fas fa-envelope"></i> Enviar</button>
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="http://127.0.0.1:5501/frontend/contacto.html">
         </form>
     </div>
-    
+</div>
 </body>
 </html>
