@@ -1,6 +1,7 @@
 
 .env
 .env.backup
+conexion.php
 
 
 /vendor/
