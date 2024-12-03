@@ -30,23 +30,29 @@ try {
     $profileid = $conn -> lastInsertId(); // Obtiene el ID del perfil recién insertado
 
     // Inserta en la tabla `experience`
+    
+foreach ($data->experience as $exp) {
     $stmtExperience = $conn->prepare("INSERT INTO experience (profileid, title, startDate, endDate) VALUES (?, ?, ?, ?)");
     $stmtExperience->execute([
         $profileid,
-        $data->experience->experienceTitle,
-        $data->experience->experienceStartDate,
-        $data->experience->experienceEndDate
+        $exp->experienceTitle,
+        $exp->experienceStartDate,
+        $exp->experienceEndDate
     ]);
+}
 
     // Inserta en la tabla `education`
-    $stmtEducation = $conn->prepare("INSERT INTO education (profileid, title, institution, startDate, endDate) VALUES (?, ?, ?, ?, ?)");
-    $stmtEducation->execute([
-        $profileid,
-        $data->education->educationTitle,
-        $data->education->educationInstitution,
-        $data->education->educationStartDate,
-        $data->education->educationEndDate
-    ]);
+    foreach ($data->education as $edu) {
+        $stmtEducation = $conn->prepare("INSERT INTO education (profileid, title, institution, startDate, endDate) VALUES (?, ?, ?, ?, ?)");
+        $stmtEducation->execute([
+            $profileid,
+            $edu->educationTitle,
+            $edu->educationInstitution,
+            $edu->educationStartDate,
+            $edu->educationEndDate
+        ]);
+    }
+   
 
     // Inserta en la tabla `social`
     $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
