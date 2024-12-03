@@ -27,31 +27,39 @@
                 <h3>Descripción</h3>
                 <label for="input-description">Descripción:</label>
                 <textarea id="input-description" required></textarea>
-                <h3>Experiencia</h3>
-                <label for="input-experience-title">Experiencia:</label>
-                <input type="text" id="input-experience-title" required>
-                <label for="input-experience-startDate">Fecha inicio:</label>
-                <input type="date" id="input-experience-startDate" required>
-                <label for="input-experience-endDate">Fecha finalización:</label>
-                <input type="date" id="input-experience-endDate" required>
-                <button type="button" id="add-experience">Agregar experiencia</button>
+                <h2>Experiencia <button type="button" id="addExperience">+</button></h2>
+                <div id="experience-container">
+                  <div class="experience-item">
+                    <label>Título de la experiencia:</label>
+                    <input type="text" class="input-experience-title" placeholder="Título">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" class="input-experience-startDate">
+                    <label>Fecha de finalización:</label>
+                    <input type="date" class="input-experience-endDate">
+                  </div>
+                </div>
+                <h2>Educación <button type="button" id="addEducation">+</button></h2>
+                <div id="education-container">
+                  <div class="education-item">
+                    <label>Título:</label>
+                    <input type="text" class="input-education-title" placeholder="Título">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" class="input-education-startDate">
+                    <label>Fecha de finalización:</label>
+                    <input type="date" class="input-education-endDate">
+                    <label>Institución:</label>
+                    <input type="text" class="input-education-institution" placeholder="Institución">
+                  </div>
+                </div>
                 <h3>Habilidades</h3>
                 <label for="input-skill">Habilidades:</label>
-                <input type="text" id="input-skill" required>
+                <input type="text" id="input-skill" required> 
                 <h3>Redes Sociales</h3>
                 <label for="input-social-platform">Redes sociales:</label>
                 <input type="text" id="input-social-platform" required>
                 <label for="input-social-url">URL:</label>
                 <input type="url" id="input-social-url" required>
-                <h3>Educación</h3>
-                <label for="input-education-title">Educación:</label>
-                <input type="text" id="input-education-title" required>
-                <label for="input-education-startDate">Fecha inicio:</label>
-                <input type="date" id="input-education-startDate" required>
-                <label for="input-education-endDate">Fecha finalización:</label>
-                <input type="date" id="input-education-endDate" required>
-                <label for="input-education-institution">Institución:</label>
-                <input type="text" id="input-education-institution" required>
+                
                 <h3>Intereses</h3>
                 <label for="input-interest">Intereses:</label>
                 <textarea id="input-interest" required></textarea>

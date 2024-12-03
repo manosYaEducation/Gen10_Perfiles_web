@@ -6,17 +6,24 @@ async function createUser(event) {
     const phone = document.getElementById('input-phone').value;
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
-    const experienceTitle = document.getElementById('input-experience-title').value;
-    const experienceStartDate = document.getElementById('input-experience-startDate').value;
-    const experienceEndDate = document.getElementById('input-experience-endDate').value;
-    const educationTitle = document.getElementById('input-education-title').value;
-    const educationStartDate = document.getElementById('input-education-startDate').value;
-    const educationEndDate = document.getElementById('input-education-endDate').value;
-    const educationInstitution = document.getElementById('input-education-institution').value;
     const socialPlatform = document.getElementById('input-social-platform').value;
     const socialUrl = document.getElementById('input-social-url').value;
     const skill = document.getElementById('input-skill').value;
     const interest = document.getElementById('input-interest').value;
+
+const experienceItems = document.querySelectorAll('.experience-item');
+const experiences = Array.from(experienceItems).map(item => ({
+    experienceTitle: item.querySelector('.input-experience-title').value,
+    experienceStartDate: item.querySelector('.input-experience-startDate').value,
+    experienceEndDate: item.querySelector('.input-experience-endDate').value
+}));
+const educationItems = document.querySelectorAll('.education-item');
+const educations = Array.from(educationItems).map(item => ({
+    educationTitle: item.querySelector('.input-education-title').value,
+    educationStartDate: item.querySelector('.input-education-startDate').value,
+    educationEndDate: item.querySelector('.input-education-endDate').value,
+    educationInstitution: item.querySelector('.input-education-institution').value
+}));
     const newUser = {
         basic: {
             name,
@@ -25,17 +32,8 @@ async function createUser(event) {
             email,
             description
         },
-        experience:{
-            experienceTitle,
-            experienceStartDate,
-            experienceEndDate
-        },
-        education:{
-            educationTitle,
-            educationStartDate,
-            educationEndDate,
-            educationInstitution
-        },
+        experience: experiences, 
+        education: educations,   
         skill,
         social:{
             socialPlatform,
@@ -79,3 +77,47 @@ async function createUser(event) {
     }
 }
 document.getElementById('userForm').addEventListener('submit', createUser);
+
+
+document.getElementById('addExperience').addEventListener('click', () => {
+    const container = document.getElementById('experience-container');
+    const experienceItem = document.createElement('div');
+    experienceItem.classList.add('experience-item');
+    experienceItem.innerHTML = `
+        <label>Título de la experiencia:</label>
+        <input type="text" class="input-experience-title" placeholder="Título">
+        <label>Fecha de inicio:</label>
+        <input type="date" class="input-experience-startDate">
+        <label>Fecha de finalización:</label>
+        <input type="date" class="input-experience-endDate">
+        <button type="button" class="remove-btn">Eliminar</button>
+    `;
+    container.appendChild(experienceItem);
+
+    experienceItem.querySelector('.remove-btn').addEventListener('click', () => {
+        container.removeChild(experienceItem);
+    });
+});
+
+document.getElementById('addEducation').addEventListener('click', () => {
+    const container = document.getElementById('education-container');
+    const educationItem = document.createElement('div');
+    educationItem.classList.add('education-item');
+    educationItem.innerHTML = `
+        <label>Título:</label>
+        <input type="text" class="input-education-title" placeholder="Título">
+        <label>Fecha de inicio:</label>
+        <input type="date" class="input-education-startDate">
+        <label>Fecha de finalización:</label>
+        <input type="date" class="input-education-endDate">
+        <label>Institución:</label>
+        <input type="text" class="input-education-institution" placeholder="Institución">
+        <button type="button" class="remove-btn">Eliminar</button>
+    `;
+    container.appendChild(educationItem);
+
+    
+    educationItem.querySelector('.remove-btn').addEventListener('click', () => {
+        container.removeChild(educationItem);
+    });
+});
