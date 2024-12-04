@@ -1,8 +1,14 @@
 window.onload = function() {
     const userLoggedIn = sessionStorage.getItem('userLoggedIn');
+    const estaLogueadoLocal = localStorage.getItem('userLoggedIn');
     
-    if (!userLoggedIn) {
-      window.location.href = 'login.html'; // Redirige a login si no está logeado
+    if (!userLoggedIn && !estaLogueadoLocal) {
+      window.location.href = 'login.html'; 
     }
   }
-  
+
+  function obtenerUsuario() {
+    return sessionStorage.getItem('username') || localStorage.getItem('username');
+}
+
+

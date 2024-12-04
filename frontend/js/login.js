@@ -3,6 +3,7 @@ loginF.addEventListener('submit', async (event) => {
     event.preventDefault();
     const username = document.querySelector('#username').value;
     const password = document.querySelector('#password').value;
+    const mantenerSesion = document.querySelector('#mantenerSesion').checked;
     // Verificar si los campos están vacíos antes de enviar la solicitud
     if (!username || !password) {
         alert('Por favor ingresa ambos campos: usuario y contraseña.');
@@ -19,7 +20,17 @@ loginF.addEventListener('submit', async (event) => {
         // Log de la respuesta
         const result = await response.json();
         if (response.ok && result.status === 'success') {
-            sessionStorage.setItem('userLoggedIn', true);
+
+            
+            if (mantenerSesion) {
+                localStorage.setItem('userLoggedIn', 'true');
+                localStorage.setItem('username', username);
+                localStorage.setItem('sessionPermanent', 'true');
+            } else {
+                sessionStorage.setItem('userLoggedIn', 'true');
+                sessionStorage.setItem('username', username);
+                sessionStorage.setItem('sessionPermanent', 'false');
+            }
             const localURL = 'http://127.0.0.1:5501/frontend/index-admin.html';
             const fallbackURL = 'https://gen10.alphadocere.cl/frontend/index-admin.html';
             fetch(localURL, { method: 'HEAD' })
