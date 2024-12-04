@@ -81,6 +81,19 @@ body {
     display: none;
 }
 
+.form-check {
+    margin: 15px 0;
+}
+
+.form-check-input {
+    margin-right: 8px;
+}
+
+.form-check-label {
+    font-size: 20px;
+    color: #666;
+}
+
 @media (max-width: 480px) {
     .login-container {
         margin: 1rem;
