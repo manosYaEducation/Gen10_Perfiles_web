@@ -154,3 +154,28 @@ button[type="button"]:hover {
   font-size: 24px;
   cursor: pointer;
 }
+
+
+.image-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.image-upload:hover {
+  background-color: #e0e0e0;
+}
+
+#image-preview {
+  max-width: 200px;
+  margin: 10px 0;
+}
+
+#image-preview img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}

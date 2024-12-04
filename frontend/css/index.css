@@ -356,7 +356,7 @@ button:hover {
     padding: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
     max-width: 100%;
 }
@@ -369,12 +369,14 @@ button:hover {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: 450px;
-    height: 450px;
+    width: 100%;
+    max-width: 450px;
     margin: 8px;
     color: white;
     box-sizing: border-box;
 }
+
+
 
 
 .profile-content{
@@ -510,6 +512,20 @@ footer p {
 } */
 
 
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px auto;
+    border: 3px solid #ccc;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 @media (max-width: 1024px) {
     .headernav li {
         margin-left: 10px;
