@@ -1,0 +1,127 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+
+.encabezado-seccion {
+    text-align: center;
+    padding: 20px 20px 40px;
+    background-color: #F3F0ED;
+    position: relative;
+    margin-bottom: 50px;
+    margin-top: -20px;
+}
+
+.encabezado-seccion h2 {
+    font-size: 3rem;
+    color: #333;
+    margin: 0;
+    padding-bottom: 50px;
+    position: relative;
+    display: inline-block;
+}
+
+.linea-decorativa {
+    width: 200px;
+    height: 4px;
+    background-color: #37722b;
+    margin: 0 auto;
+    
+}
+
+
+.proyectos-destacados {
+    padding: 150px 100px;
+    background-color: #F3F0ED;
+    text-align: center;
+}
+
+
+.proyectos-destacados h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #314438;
+    font-family: "Poppins", sans-serif;
+}
+
+
+.contenedor-proyectos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 200px;
+}
+
+.tarjeta-proyecto {
+    background-color: #F4F4F9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s;
+}
+
+.tarjeta-proyecto:hover {
+    transform: translateY(-10px);
+}
+
+
+.tarjeta-proyecto img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.info-proyecto {
+    padding: 20px;
+}
+
+
+.info-proyecto h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #314438;
+}
+
+
+.info-proyecto p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+
+.boton-ver-mas {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #314438;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+
+.boton-ver-mas:hover {
+    background-color: #142402;
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+    .tarjeta-proyecto {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .proyectos-destacados h2 {
+        font-size: 2rem;
+    }
+}
