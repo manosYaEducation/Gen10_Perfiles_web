@@ -148,16 +148,22 @@ h1, h2, h3, p {
 #timeline {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 #experience-sub-section, 
 .timeline-item {
-    margin: 26px;
-    width: 30%;
+    margin: 0;
+    width: 300px;
+    min-width: 250px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+ 
 }
 
 #experience-sub-title, 
@@ -165,6 +171,8 @@ h1, h2, h3, p {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
 }
 
 .text-primary {
