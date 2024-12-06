@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById('input-name').value = profile.basic.name || '';
         document.getElementById('input-location').value = profile.basic.location || '';
         document.getElementById('input-phone').value = profile.basic.phone || '';
+        document.getElementById('input-phrase').value = profile.basic.phrase || '';
         document.getElementById('input-email').value = profile.basic.email || '';
         document.getElementById('input-description').value = profile.basic.description || '';
         document.getElementById('input-social-platform').value = profile.social ? profile.social[0]?.platform || '' : '';
@@ -107,6 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 phone: document.getElementById('input-phone').value.trim(),
                 email: document.getElementById('input-email').value.trim(),
                 description: document.getElementById('input-description').value.trim(),
+                phrase: document.getElementById('input-phrase').value.trim(),
             },
             social: [{
                 platform: document.getElementById('input-social-platform').value.trim(),

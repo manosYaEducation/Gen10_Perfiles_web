@@ -34,13 +34,14 @@ try {
     $conn->beginTransaction();
 
     // Actualizar datos básicos
-    $stmt = $conn->prepare("UPDATE profile SET name = ?, location = ?, phone = ?, email = ?, description = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE profile SET name = ?, location = ?, phone = ?, email = ?, description = ?, phrase = ? WHERE id = ?");
     $stmt->execute([
         $basic['name'], 
         $basic['location'], 
         $basic['phone'], 
         $basic['email'], 
         $basic['description'], 
+        $basic['phrase'],
         $userId
     ]);
 

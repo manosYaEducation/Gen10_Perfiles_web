@@ -6,6 +6,8 @@ async function createUser(event) {
     const phone = document.getElementById('input-phone').value;
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
+    const phrase = document.getElementById('input-phrase').value;
+    
     const socialPlatform = document.getElementById('input-social-platform').value;
     const socialUrl = document.getElementById('input-social-url').value;
     const skill = document.getElementById('input-skill').value;
@@ -30,7 +32,8 @@ const educations = Array.from(educationItems).map(item => ({
             location,
             phone,
             email,
-            description
+            description,
+            phrase
         },
         experience: experiences, 
         education: educations,   

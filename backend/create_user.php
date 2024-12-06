@@ -19,13 +19,14 @@ try {
     $conn->beginTransaction(); // Comienza la transacción
 
     // Inserta en la tabla `profile`
-    $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description,phrase) VALUES (?, ?, ?, ?, ?,?)");
     $stmt->execute([
         $data->basic->name,
         $data->basic->location,
         $data->basic->phone,
         $data->basic->email,
-        $data->basic->description
+        $data->basic->description,
+        $data->basic->phrase
     ]);
     $profileid = $conn -> lastInsertId(); // Obtiene el ID del perfil recién insertado
 

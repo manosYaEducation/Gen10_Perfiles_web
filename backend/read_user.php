@@ -12,7 +12,7 @@ try {
     // Si hay un 'id', devolver un perfil específico
     if ($profileid !== null) {
         // Recupera información básica del perfil
-        $stmt = $conn->prepare("SELECT name, location, phone, email, description FROM profile WHERE id = ?");
+        $stmt = $conn->prepare("SELECT name, location, phone, email, description, phrase FROM profile WHERE id = ?");
         $stmt->execute([$profileid]);
         $profile = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$profile) {
@@ -53,7 +53,7 @@ try {
         ];
     } else {
         // Si no hay 'id', devuelve todos los perfiles
-        $stmt = $conn->prepare("SELECT id, name, description FROM profile");
+        $stmt = $conn->prepare("SELECT id, name, description, phrase FROM profile");
         $stmt->execute();
         $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
