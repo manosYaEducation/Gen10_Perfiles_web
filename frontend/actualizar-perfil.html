@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Perfil</title>
+    <link rel="stylesheet" href="/frontend/css/crud-profile-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<body>
+    <header>
+        <h1>Gestión de Perfil</h1>
+    </header>
+    <main>
+        <div class="forma-1"> 
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <button class="fass-1" onclick="window.location.href='../index.html'"><i class="fas fa-arrow-left"></i></button>
+                <h3 class="info">Información Personal</h3>
+                <label for="input-name">Nombre:</label>
+                <input type="text" id="input-name" required>
+                <label for="input-email">Correo Electrónico:</label>
+                <input type="email" id="input-email" required>
+                <label for="input-location">Ubicación:</label>
+                <input type="text" id="input-location" required>
+                <label for="input-phone">Teléfono:</label>
+                <input type="text" id="input-phone" required>
+                <h3>Descripción</h3>
+                <label for="input-description">Descripción:</label>
+                <textarea id="input-description" required></textarea>
+                <h2>Experiencia <button type="button" id="addExperience">+</button></h2>
+                <div id="experience-container">
+                  <div class="experience-item">
+                    <label>Título de la experiencia:</label>
+                    <input type="text" class="input-experience-title" placeholder="Título">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" class="input-experience-startDate">
+                    <label>Fecha de finalización:</label>
+                    <input type="date" class="input-experience-endDate">
+                  </div>
+                </div>
+                <h2>Educación <button type="button" id="addEducation">+</button></h2>
+                <div id="education-container">
+                  <div class="education-item">
+                    <label>Título:</label>
+                    <input type="text" class="input-education-title" placeholder="Título">
+                    <label>Fecha de inicio:</label>
+                    <input type="date" class="input-education-startDate">
+                    <label>Fecha de finalización:</label>
+                    <input type="date" class="input-education-endDate">
+                    <label>Institución:</label>
+                    <input type="text" class="input-education-institution" placeholder="Institución">
+                  </div>
+                </div>
+                <h3>Habilidades</h3>
+                <label for="input-skill">Habilidades:</label>
+                <input type="text" id="input-skill" required> 
+                <h3>Redes Sociales</h3>
+                <label for="input-social-platform">Redes sociales:</label>
+                <input type="text" id="input-social-platform" required>
+                <label for="input-social-url">URL:</label>
+                <input type="url" id="input-social-url" required>
+                
+                <h3>Intereses</h3>
+                <label for="input-interest">Intereses:</label>
+                <textarea id="input-interest" required></textarea>
+                <div class="button-container">
+                    <button type="submit">Guardar</button>
+                    <button type="button" onclick="window.location.href='../frontend/index-admin.html'">Volver</button>
+
+                </div>
+            </form>
+            <div id="message"></div>
+        </div>
+    </main>
+    <div id="dynamicModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <form id="modalForm"></form>
+            <button onclick="addItem()">actualizar</button>
+        </div>
+    </div>
+    <script src="/frontend/js/verifylogin.js"></script>
+    <script src="/frontend/js/config.js"></script>
+    
+    <script src="/frontend/js/update_user.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

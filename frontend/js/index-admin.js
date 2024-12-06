@@ -16,10 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const profileCard = document.createElement('div');
                     profileCard.classList.add('profile-card');
                     profileCard.innerHTML = `
-                        <div class="profile-content">
+                         <div class="profile-content">
                             <h2>${profile.name}</h2>
                             <h3 class="profile-subtitle">${profile.description}</h3>
                             <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
+                            <button class="buttonActualizar" data-id="${profile.id}" class="button-link" onclick="redirectToUpdate(${profile.id})">Actualizar</button>
                             <button class="buttonBorrar" data-id="${profile.id}" onclick="deleteUser(event)">Borrar</button>
                         </div>
                     `;
@@ -31,3 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error al obtener perfiles:', error));
 });
+
+function redirectToUpdate(profileId) {
+    window.location.href = `/frontend/actualizar-perfil.html?id=${profileId}`;
+} 

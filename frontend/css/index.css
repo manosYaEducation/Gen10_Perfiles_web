@@ -432,7 +432,7 @@ button:hover {
 .button-link,
 .buttonBorrar {
     display: inline-block;
-    padding: 8px 16px;
+    padding: 8px 26px;
     border-radius: 4px;
     color: #fff;
     text-decoration: none;
@@ -611,7 +611,7 @@ footer p {
     }
     .button-link,
     .buttonBorrar {
-        padding: 6px 12px;
+        padding: 6px 26px;
         font-size: 0.9em;
     }
     .create-profile {
@@ -634,4 +634,22 @@ footer p {
     .logo img.icon {
         width: 30px; /* Ajuste en tamaño para pantallas pequeñas */
     }
+}
+
+
+
+/* boton-actualizar */
+.buttonActualizar {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    margin: 5px 0;
+}
+.buttonActualizar {
+    background-color: #24de33;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
 }
