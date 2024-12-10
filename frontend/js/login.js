@@ -32,7 +32,7 @@ loginF.addEventListener('submit', async (event) => {
                 sessionStorage.setItem('sessionPermanent', 'false');
             }
             const localURL = 'http://127.0.0.1:5501/frontend/index-admin.html';
-            const fallbackURL = 'https://gen10.alphadocere.cl/frontend/index-admin.html';
+            const fallbackURL = 'https://krative.alphadocere.cl/frontend/index-admin.html';
             fetch(localURL, { method: 'HEAD' })
                 .then(() => {
                     window.location.href = localURL;

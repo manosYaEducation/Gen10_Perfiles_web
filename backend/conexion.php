@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
-$environment = $_ENV['ENVIRONMENT'] ?? 'local';
+$environment = $_ENV['ENVIRONMENT'] ?? 'production';
 
 if($environment === 'production') {  
     $host = $_ENV['PROD_DB_HOST'];
