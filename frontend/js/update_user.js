@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <input type="date" class="input-education-endDate" value="${edu.endDate || ''}">
                     <label>Institución:</label>
                     <input type="text" class="input-education-institution" value="${edu.institution || ''}" placeholder="Institución">
+                    <img src="${profile.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${profile.name}">
                 `;
                 educationContainer.appendChild(educationItem);
             });
