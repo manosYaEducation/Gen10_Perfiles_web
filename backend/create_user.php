@@ -30,7 +30,43 @@ try {
     ]);
     $profileid = $conn -> lastInsertId(); // Obtiene el ID del perfil recién insertado
 
-    // Inserta en la tabla `experience`
+    // Inserta en la tabla `experience`  
+    if (!empty($data->image)) {
+        // Obtener la imagen en Base64 desde el JSON
+        $base64Imagen = $data->image;
+    
+        // Validar formato de Base64 y determinar tipo de archivo
+        if (strpos($base64Imagen, 'data:image/png;base64,') === 0) {
+            $tipoArchivo = 'image/png';
+            $base64Imagen = str_replace('data:image/png;base64,', '', $base64Imagen);
+        } elseif (strpos($base64Imagen, 'data:image/jpeg;base64,') === 0) {
+            $tipoArchivo = 'image/jpeg';
+            $base64Imagen = str_replace('data:image/jpeg;base64,', '', $base64Imagen);
+        } else {
+            throw new Exception("Formato de imagen no soportado.");
+        }
+    
+        // Decodificar la imagen de Base64 a binarios
+        $binariosImagen = base64_decode($base64Imagen);
+        if ($binariosImagen === false) {
+            throw new Exception("No se pudo decodificar la imagen Base64.");
+        }
+    
+        // Crear un nombre único para la imagen
+        $nombreArchivo = 'imagen' . time() . '.png';
+    
+        // Preparar la consulta SQL para guardar la imagen
+        $stmt = $conn->prepare("INSERT INTO imagenes (profileid, nombre, imagen, tipo) VALUES (:profileid, :nombre, :imagen, :tipo)");
+        $stmt->bindParam(':profileid', $profileid, PDO::PARAM_INT);
+        $stmt->bindParam(':nombre', $nombreArchivo, PDO::PARAM_STR);
+        $stmt->bindParam(':imagen', $binariosImagen, PDO::PARAM_LOB);
+        $stmt->bindParam(':tipo', $tipoArchivo, PDO::PARAM_STR);
+    
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            throw new Exception("Error al guardar la imagen en la base de datos.");
+        }
+    }
     
 foreach ($data->experience as $exp) {
     $stmtExperience = $conn->prepare("INSERT INTO experience (profileid, title, startDate, endDate) VALUES (?, ?, ?, ?)");
@@ -53,7 +89,6 @@ foreach ($data->experience as $exp) {
             $edu->educationEndDate
         ]);
     }
-   
 
     // Inserta en la tabla `social`
     $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
