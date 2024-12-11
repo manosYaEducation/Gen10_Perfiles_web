@@ -10,6 +10,11 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $profile_id = intval($_GET['id']);  
     if ($profile_id > 0) {     
         try {        
+            $sqlDeleteImages = "DELETE FROM imagenes WHERE profileid = :id";
+            $stmtImages = $conn->prepare($sqlDeleteImages);
+            $stmtImages->bindParam(':id', $profile_id, PDO::PARAM_INT);
+            $stmtImages->execute();
+            
             $sql = "DELETE FROM profile WHERE id = :id";
             $stmt = $conn->prepare($sql);  
             $stmt->bindParam(':id', $profile_id, PDO::PARAM_INT);
