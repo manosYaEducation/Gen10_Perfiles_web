@@ -669,3 +669,33 @@ footer p {
     border: none;
     cursor: pointer;
 }
+
+.button-vermas {
+    text-decoration: none;
+    display: inline-block; 
+    padding: 8px 16px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s; 
+    color: #ffffff; 
+    background-color: #142402; 
+    font-family: "Poppins", sans-serif;
+    font-weight: 600; 
+    font-style: italic; 
+    text-align: center; 
+}
+
+.button-vermas:hover {
+    background-color: hsl(142, 16%, 23%);
+    color: white; 
+}
+.redi {
+    color: #314438; /* Verde oscuro por defecto */
+    text-decoration: none; /* Sin subrayado */
+  }
+  
+  .redi:hover,
+  .redi:focus {
+    color: rgb(90, 100, 90); /* Verde claro al pasar el mouse o enfocar */
+    text-decoration: underline; /* Subrayado opcional para énfasis */
+  }
+  
