@@ -609,6 +609,27 @@ footer p {
     .hero-text p {
         width: 90%;
     }
+    .hero2 {
+        padding: 30px 10px;
+        min-height: auto;
+    }
+    .hero-content2 {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    .hero-text2 {
+        max-width: 100%;
+    }
+    .hero-text2 h1 {
+        font-size: 1.8em;
+    }
+    .hero-text2 p {
+        width: 90%;
+    }
+    .hero-image2 img {
+        max-width: 300px;
+    }
     .hero-image img {
         max-width: 300px;
     }
@@ -746,4 +767,90 @@ footer p {
 
 .login-btn:hover {
     background: #45a049;
+}
+
+.prf1 {
+    opacity: 0.5; /* Reduce la opacidad al 50% */
+    color: #777; /* Color gris tenue */
+    font-size: 16px; /* Ajusta el tamaño de letra si lo prefieres */
+    transition: opacity 0.3s ease; /* Agrega una transición para suavizar el cambio */
+}
+
+.prf1:hover {
+    opacity: 1; /* Restaura la opacidad al 100% al pasar el cursor */
+    color: #000; /* Cambia a negro completo al hacer hover */
+}
+.btnr {
+    background-color: #4CAF4F; /* Color de fondo del botón */
+    border: none; /* Sin borde */
+    color: white; /* Texto en blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Centra el texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Permite el ajuste como un bloque en línea */
+    font-size: 16px; /* Tamaño del texto */
+    margin: 5px 2px; /* Espaciado externo */
+    cursor: pointer; /* Cambia el cursor a pointer */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+}
+
+.btnr:hover {
+    background-color: #45a044; /* Color más oscuro al hacer hover */
+}
+
+.hero2 {
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background: #ffffff;
+    min-height: 860px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+}
+
+.hero-content2 {
+    display: flex;
+    align-items: center;
+    max-width: 1440px;
+    width: 100%;
+    gap: 20px;
+    flex-direction: row-reverse;
+}
+
+.hero-text2{
+    max-width: 46%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-text2 h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+    color: #314438;
+}
+
+.hero-text2 p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    width: 66%;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #314438;
+}
+
+.hero-image2 img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
 }
