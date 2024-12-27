@@ -721,3 +721,29 @@ footer p {
     margin: 0;
     padding: 0;
 }
+
+.nav-links a {
+    text-decoration: none;
+    color: #394149;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #4CAF50;
+}
+
+.login-btn {
+    background: #4CAF50;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #45a049;
+}
