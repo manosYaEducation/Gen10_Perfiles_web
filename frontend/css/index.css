@@ -192,7 +192,7 @@ nav {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    background: #e0e0e0;
+    background: rgb(243, 240, 237);
     min-height: 860px;
     background-size: cover;
     background-position: center;
@@ -309,7 +309,6 @@ button:hover {
     margin: 0px;
     flex-direction: column;
     min-height: 920px;
-    background-color: #000;
 }
 
 .info-container {
@@ -540,15 +539,6 @@ footer p {
     .hero-image img {
         max-width: 400px;
     }
-    .hero-text2 h1 {
-        font-size: 2em;
-    }
-    .hero-text2 p {
-        width: 80%;
-    }
-    .hero-image2 img {
-        max-width: 400px;
-    }
     .profile-card {
         width: 400px; 
         height: auto; 
@@ -620,27 +610,6 @@ footer p {
         width: 90%;
     }
     .hero-image img {
-        max-width: 300px;
-    }
-    .hero2 {
-        padding: 30px 10px;
-        min-height: auto;
-    }
-    .hero-content2 {
-        flex-direction: column;
-        text-align: center;
-        gap: 10px;
-    }
-    .hero-text2 {
-        max-width: 100%;
-    }
-    .hero-text2 h1 {
-        font-size: 1.8em;
-    }
-    .hero-text2 p {
-        width: 90%;
-    }
-    .hero-image2 img {
         max-width: 300px;
     }
     .profiles-section {
@@ -729,76 +698,26 @@ footer p {
     color: rgb(90, 100, 90); /* Verde claro al pasar el mouse o enfocar */
     text-decoration: underline; /* Subrayado opcional para énfasis */
   }
-  
-  .prf1 {
-    opacity: 0.5; /* Reduce la opacidad al 50% */
-    color: #777; /* Color gris tenue */
-    font-size: 16px; /* Ajusta el tamaño de letra si lo prefieres */
-    transition: opacity 0.3s ease; /* Agrega una transición para suavizar el cambio */
-}
 
   /* css navbar */
 
-.btnr:hover {
-    background-color: #45a044; /* Color más oscuro al hacer hover */
-}
-
-.hero2 {
-    padding: 50px 20px;
+  .navbar-container {
     display: flex;
-    justify-content: center;
-    overflow: hidden;
-    background: #ffffff;
-    min-height: 860px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-}
-
-.hero-content2 {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    max-width: 1440px;
-    width: 100%;
-    gap: 20px;
-    flex-direction: row-reverse;
+    padding: 1rem 5rem;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.hero-text2{
-    max-width: 46%;
+.nav-logo {
+    height: 100px;
+}
+
+.nav-links {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hero-text2 h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: italic;
-    color: #314438;
-}
-
-.hero-text2 p {
-    font-size: 1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    width: 66%;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: #314438;
-}
-
-.hero-image2 img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 8px;
-}
-
-.login-btn:hover {
-    background: #45a049;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
