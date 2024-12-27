@@ -737,24 +737,7 @@ footer p {
     transition: opacity 0.3s ease; /* Agrega una transición para suavizar el cambio */
 }
 
-.prf1:hover {
-    opacity: 1; /* Restaura la opacidad al 100% al pasar el cursor */
-    color: #000; /* Cambia a negro completo al hacer hover */
-}
-.btnr {
-    background-color: #4CAF4F; /* Color de fondo del botón */
-    border: none; /* Sin borde */
-    color: white; /* Texto en blanco */
-    padding: 10px 20px; /* Espaciado interno */
-    text-align: center; /* Centra el texto */
-    text-decoration: none; /* Sin subrayado */
-    display: inline-block; /* Permite el ajuste como un bloque en línea */
-    font-size: 16px; /* Tamaño del texto */
-    margin: 5px 2px; /* Espaciado externo */
-    cursor: pointer; /* Cambia el cursor a pointer */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
-}
+  /* css navbar */
 
 .btnr:hover {
     background-color: #45a044; /* Color más oscuro al hacer hover */
@@ -814,4 +797,8 @@ footer p {
     max-width: 500px;
     height: auto;
     border-radius: 8px;
+}
+
+.login-btn:hover {
+    background: #45a049;
 }
