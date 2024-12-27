@@ -699,7 +699,7 @@ footer p {
     text-decoration: underline; /* Subrayado opcional para énfasis */
   }
 
-  /* navbar */
+  /* css navbar */
 
   .navbar-container {
     display: flex;
@@ -747,4 +747,3 @@ footer p {
 .login-btn:hover {
     background: #45a049;
 }
-  
