@@ -77,7 +77,7 @@
 
 .evento-info h2 {
   font-size: 24px;
-  color: #333;
+  color: #4CAF50;
 }
 
 .evento-info p {
@@ -299,4 +299,8 @@
     width: 100%;
     height: auto;
     max-width: 1200px;
+}
+
+#titulo-evento {
+    color: #4CAF50;
 }
