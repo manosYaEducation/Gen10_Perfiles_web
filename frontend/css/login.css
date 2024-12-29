@@ -119,3 +119,36 @@ h1 {
 .forgot-password:hover {
     text-decoration: underline;
 }
+
+/* boton de regresar al inicio */
+.back-to-top {
+    position: absolute; /* Cambiado de fixed a absolute */
+    top: 30px; /* Cambiado de bottom a top */
+    left: 30px;
+    width: 40px; /* Reducido un poco el tamaño */
+    height: 40px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-decoration: none; /* Por si usas un enlace <a> */
+}
+
+.back-to-top .arrow {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.back-to-top:hover {
+    background: #45a049;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
