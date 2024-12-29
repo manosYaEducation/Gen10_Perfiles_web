@@ -1,5 +1,3 @@
-
-
 .carrusel{
   display: flex;
   align-items: center;
@@ -72,7 +70,7 @@
 }
 
 .evento-info {
-  margin-top: 20px;
+  margin-top: 5px;
   text-align: center;
   font-family: Arial, sans-serif;
 }
@@ -120,9 +118,9 @@
 
 .evento-info {
   max-width: 100%;
-  min-height: 100vh;
+  min-height: 85vh;
   margin: 0;
-  padding: 4rem 8rem;
+  padding: 1rem 2rem;
   background: #f8f9fa;
   display: flex;
   flex-direction: column;
@@ -194,4 +192,111 @@
       padding: 1rem 2rem;
       font-size: 1rem;
   }
+}
+
+/*testimonios*/
+
+.testimonios-galeria {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.galeria-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.galeria-item {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.imagen-descripcion {
+    padding: 1rem;
+    background: #f5f5f5;
+    margin: 0;
+}
+
+.testimonios-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testimonio {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.testimonio-foto {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonio-contenido h3 {
+    margin: 0;
+    color: #333;
+}
+
+.cargo {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.comentario {
+    font-style: italic;
+    color: #444;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .testimonio {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .testimonio-foto {
+        margin: 0 auto;
+    }
+}
+
+.participantes {
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.participantes h2 {
+    margin-bottom: 30px;
+    
+}
+
+.logos-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logos-img {
+    width: 100%;
+    height: auto;
+    max-width: 1200px;
 }
