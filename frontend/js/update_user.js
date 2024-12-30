@@ -16,6 +16,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const form = document.getElementById('userForm');
 
+    // Agregar el manejo de la imagen
+    const imageInput = document.getElementById('input-image');
+    const imagePreview = document.getElementById('image-preview');
+    let base64Image = null;
+
+    imageInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                base64Image = e.target.result;
+                imagePreview.innerHTML = `<img src="${base64Image}" alt="Vista previa" style="max-width: 200px;">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
     // Cargar los datos actuales del usuario en el formulario
     try {
         const response = await fetch(`${window.API_URL_PHP}read_user.php?id=${id}`);
@@ -80,10 +97,16 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <input type="date" class="input-education-endDate" value="${edu.endDate || ''}">
                     <label>Institución:</label>
                     <input type="text" class="input-education-institution" value="${edu.institution || ''}" placeholder="Institución">
-                    <img src="${profile.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${profile.name}">
+                   
                 `;
                 educationContainer.appendChild(educationItem);
             });
+        }
+
+        // Mostrar la imagen actual si existe
+        if (profile.image) {
+            imagePreview.innerHTML = `<img src="${profile.image}" alt="Foto de perfil actual" style="max-width: 200px;">`;
+            base64Image = profile.image;
         }
 
     } catch (error) {
@@ -127,7 +150,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 startDate: item.querySelector('.input-education-startDate').value.trim(),
                 endDate: item.querySelector('.input-education-endDate').value.trim(),
                 institution: item.querySelector('.input-education-institution').value.trim(),
-            }))
+            })),
+            image: base64Image // Agregar la imagen al objeto
         };
 
         try {

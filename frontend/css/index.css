@@ -302,134 +302,111 @@ button:hover {
 /* Profiles */
 
 .profiles-section {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    flex-direction: column;
-    min-height: 920px;
+    background-color: #000000;
+    padding: 30px 0;
+    color: white;
+    
 }
 
 .info-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    padding: 20px;
-    color: white;
+    margin-bottom: 50px;
 }
 
 .info-title {
     font-size: 2em;
-    margin-bottom: 10px;
-    color: #314438;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-}
-
-.info-subtitle {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #314438;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-}
-
-.icons-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    color: #314438;
-}
-
-.icons-container i {
-    font-size: 1.5em;
-    color: #314438;
+    margin-bottom: 15px;
 }
 
 .profiles-column {
-    list-style: none;
-    padding: 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.profile-section {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 100%;
+    justify-content: space-between;
+    margin-bottom: 80px;
+    gap: 50px;
+    
 }
 
-
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 450px;
-    margin: 8px;
-    color: white;
-    box-sizing: border-box;
-}
-
-
-
-
-.profile-content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* .profile-card img {
-    width: 100px;
-    height: 100px;
+.profile-image-container {
+    flex: 0 0 40%;
+    max-width: 200px;
     border-radius: 50%;
-    margin-bottom: 15px;
-} */
+    overflow: hidden;
+    border: 3px solid #4CAF4F;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff10;
+}
 
-.profile-content h2 {
-    font-size: 1.3em;
-    margin: 10px 0 10px;
-    color: #314438;
-    font-family: "Poppins", sans-serif;
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-image-container:hover img {
+    transform: scale(1.05);
+}
+
+.profile-text-container {
+    flex: 0 0 50%;
+}
+
+.profile-text-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.profile-text-container p {
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.perfil {
+    display: inline-block;
+    background-color: #4CAF4F;
+    color: white;
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 5px;
     font-weight: 500;
-    font-style: italic;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
-.profile-subtitle {
-    font-size: 0.9em;
-    margin: 20px 0 10px;
-    color: #314438;
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-    height: 250px;
+.perfil:hover {
+    background-color: #3d8c40;
 }
 
-.profile-content p {
-    font-size: 0.7em;
-    margin: 0 0 15px;
-    color: #314438;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
+@media (max-width: 768px) {
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+        margin-bottom: 60px;
+    }
 
-.profile-content h3 {
-    font-size: 0.9em;
-    margin: 10px 0 10px;
-    color: #314438;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    padding: 16px;
-}
+    .profile-image-container {
+        max-width: 300px;
+        margin: 0 auto;
+    }
 
+    .profile-text-container h2 {
+        font-size: 1.8em;
+    }
+}
 
 .button-link,
 .buttonBorrar {
@@ -710,14 +687,14 @@ footer p {
     color: white; 
 }
 .redi {
-    color: #314438; /* Verde oscuro por defecto */
-    text-decoration: none; /* Sin subrayado */
+    color: #314438; 
+    text-decoration: none; 
   }
   
   .redi:hover,
   .redi:focus {
-    color: rgb(90, 100, 90); /* Verde claro al pasar el mouse o enfocar */
-    text-decoration: underline; /* Subrayado opcional para énfasis */
+    color: rgb(90, 100, 90); 
+    text-decoration: underline; 
   }
 
   /* css navbar */
@@ -770,29 +747,27 @@ footer p {
 }
 
 .prf1 {
-    opacity: 0.5; /* Reduce la opacidad al 50% */
-    color: #777; /* Color gris tenue */
-    font-size: 16px; /* Ajusta el tamaño de letra si lo prefieres */
-    transition: opacity 0.3s ease; /* Agrega una transición para suavizar el cambio */
+    opacity: 0.5; 
+    color: #777; 
+    transition: opacity 0.3s ease; 
 }
-
 .prf1:hover {
-    opacity: 1; /* Restaura la opacidad al 100% al pasar el cursor */
-    color: #000; /* Cambia a negro completo al hacer hover */
+    opacity: 1; 
+    color: #000; 
 }
 .btnr {
-    background-color: #4CAF4F; /* Color de fondo del botón */
-    border: none; /* Sin borde */
-    color: white; /* Texto en blanco */
-    padding: 10px 20px; /* Espaciado interno */
-    text-align: center; /* Centra el texto */
-    text-decoration: none; /* Sin subrayado */
-    display: inline-block; /* Permite el ajuste como un bloque en línea */
-    font-size: 16px; /* Tamaño del texto */
-    margin: 5px 2px; /* Espaciado externo */
-    cursor: pointer; /* Cambia el cursor a pointer */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+    background-color: #4CAF4F; 
+    border: none; 
+    color: white; 
+    padding: 10px 20px;
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 5px 2px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
 }
 
 .btnr:hover {

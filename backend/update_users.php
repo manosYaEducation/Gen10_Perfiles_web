@@ -73,6 +73,43 @@ try {
         $stmt->execute([$userId, $edu['title'], $edu['startDate'], $edu['endDate'], $edu['institution']]);
     }
 
+    // Actualizar la imagen si se proporciona una nueva
+    if (isset($data['image']) && $data['image']) {
+        // Obtener el tipo de imagen y los datos base64
+        if (strpos($data['image'], 'data:image/png;base64,') === 0) {
+            $tipoArchivo = 'image/png';
+            $base64Imagen = str_replace('data:image/png;base64,', '', $data['image']);
+        } elseif (strpos($data['image'], 'data:image/jpeg;base64,') === 0) {
+            $tipoArchivo = 'image/jpeg';
+            $base64Imagen = str_replace('data:image/jpeg;base64,', '', $data['image']);
+        } else {
+            throw new Exception("Formato de imagen no soportado.");
+        }
+
+        // Decodificar la imagen
+        $binariosImagen = base64_decode($base64Imagen);
+        if ($binariosImagen === false) {
+            throw new Exception("No se pudo decodificar la imagen Base64.");
+        }
+
+        // Crear nombre único para la imagen
+        $nombreArchivo = 'imagen_' . time() . '.png';
+
+        // Primero intentar actualizar si existe
+        $stmtCheckImage = $conn->prepare("SELECT id FROM imagenes WHERE profileid = ?");
+        $stmtCheckImage->execute([$userId]);
+        
+        if ($stmtCheckImage->rowCount() > 0) {
+            // Actualizar imagen existente
+            $stmt = $conn->prepare("UPDATE imagenes SET nombre = ?, imagen = ?, tipo = ? WHERE profileid = ?");
+            $stmt->execute([$nombreArchivo, $binariosImagen, $tipoArchivo, $userId]);
+        } else {
+            // Insertar nueva imagen
+            $stmt = $conn->prepare("INSERT INTO imagenes (profileid, nombre, imagen, tipo) VALUES (?, ?, ?, ?)");
+            $stmt->execute([$userId, $nombreArchivo, $binariosImagen, $tipoArchivo]);
+        }
+    }
+
     // Confirmar transacción
     $conn->commit();
 

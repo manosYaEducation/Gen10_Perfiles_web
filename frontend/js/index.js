@@ -11,26 +11,38 @@
             .then(data => {
                 if (data.success) {
                     const profilesColumn = document.querySelector('.profiles-column');
-                    profilesColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
+                    profilesColumn.innerHTML = '';
 
-                    // Mostrar todos los perfiles
-                    data.profiles.forEach(profile => {
-                        const profileCard = document.createElement('div')
-                        profileCard.classList.add('profile-card');
+                    data.profiles.forEach((profile, index) => {
+                        const isEven = index % 2 === 0;
+                        const profileSection = document.createElement('div');
+                        profileSection.className = 'profile-section';
                         
-                        profileCard.innerHTML = `
-                            <div class="profile-content">
-                                <div class="profile-image">
-                                    <img src="${profile.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${profile.name}">
+                        profileSection.innerHTML = `
+                            ${isEven ? `
+                                <div class="profile-image-container">
+                                    <img src="${profile.image || './assets/img/default-profile.png'}" alt="${profile.name}">
                                 </div>
-                                <h2>${profile.name}</h2>
-                                <h3 class="profile-subtitle">${profile.phrase}</h3>
-                                <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
-                                
-
-                            </div>
+                                <div class="profile-text-container">
+                                    <h2>${profile.name}</h2>
+                                    <p>${profile.phrase}</p>
+                                    <p>${profile.description}</p>
+                                    <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="perfil">Ver Perfil</a>
+                                </div>
+                            ` : `
+                                <div class="profile-text-container">
+                                    <h2>${profile.name}</h2>
+                                    <p>${profile.phrase}</p>
+                                    <p>${profile.description}</p>
+                                    <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="perfil">Ver Perfil</a>
+                                </div>
+                                <div class="profile-image-container">
+                                    <img src="${profile.image || './assets/img/default-profile.png'}" alt="${profile.name}">
+                                </div>
+                            `}
                         `;
-                        profilesColumn.appendChild(profileCard);
+                        
+                        profilesColumn.appendChild(profileSection);
                     });
                 } else {
                     console.error('No se pudieron obtener los perfiles:', data.message);

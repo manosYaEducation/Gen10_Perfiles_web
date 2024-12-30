@@ -1,4 +1,3 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,7 +9,7 @@ body {
 .encabezado-seccion {
     text-align: center;
     padding: 20px 20px 40px;
-    background-color: #F3F0ED;
+    background-color: #ffffff;
     position: relative;
     margin-bottom: 50px;
     margin-top: -20px;
@@ -18,7 +17,7 @@ body {
 
 .encabezado-seccion h2 {
     font-size: 3rem;
-    color: #333;
+    color: #4D4D4D;
     margin: 0;
     padding-bottom: 50px;
     position: relative;
@@ -28,7 +27,7 @@ body {
 .linea-decorativa {
     width: 200px;
     height: 4px;
-    background-color: #37722b;
+    background-color: #4CAF4F;
     margin: 0 auto;
     
 }
@@ -36,7 +35,7 @@ body {
 
 .proyectos-destacados {
     padding: 150px 100px;
-    background-color: #F3F0ED;
+    background-color: #ffffff;
     text-align: center;
 }
 
@@ -44,84 +43,95 @@ body {
 .proyectos-destacados h2 {
     font-size: 2.5rem;
     margin-bottom: 30px;
-    color: #314438;
+    color: #4D4D4D;
     font-family: "Poppins", sans-serif;
 }
 
 
 .contenedor-proyectos {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .tarjeta-proyecto {
-    background-color: #F4F4F9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-radius: 25px;
     overflow: hidden;
-    width: 300px;
-    transition: transform 0.3s;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 500px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .tarjeta-proyecto:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
-
 
 .tarjeta-proyecto img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    transition: transform 0.3s ease;
 }
 
+.tarjeta-proyecto:hover img {
+    transform: scale(1.05);
+}
+
+.tarjeta-proyecto a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+}
 
 .info-proyecto {
-    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 25px 25px 0 0;
+    transition: transform 0.3s ease;
 }
 
+.tarjeta-proyecto:hover .info-proyecto {
+    transform: translateY(-5px);
+}
 
 .info-proyecto h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #314438;
+    font-size: 1.4rem;
+    color: #4CAF4F;
+    margin-bottom: 0.8rem;
 }
-
 
 .info-proyecto p {
     font-size: 1rem;
-    color: #666;
-    margin-bottom: 15px;
+    color: #717171;
+    margin-bottom: 1rem;
+    line-height: 1.5;
 }
 
 
-.boton-ver-mas {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #314438;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    font-size: 1rem;
-}
 
-
-.boton-ver-mas:hover {
-    background-color: #142402;
-}
-
-/* Estilos responsivos para pantallas pequeñas */
 @media (max-width: 768px) {
-    .tarjeta-proyecto {
-        width: 100%;
-        max-width: 350px;
+    .contenedor-proyectos {
+        grid-template-columns: 1fr;
     }
-
-    .proyectos-destacados h2 {
-        font-size: 2rem;
+    
+    .tarjeta-proyecto {
+        max-width: 600px;
+        margin: 0 auto;
     }
 }

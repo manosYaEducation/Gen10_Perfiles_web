@@ -26,6 +26,12 @@
                 <input type="text" id="input-phone" required>
                 <label for="input-phrase">Frase de Perfil:</label>
                 <input type="text" id="input-phrase" placeholder="Ingresa una frase que te represente" required>
+                <h3>Foto de Perfil</h3>
+                <label for="input-image" class="image-upload">
+                    <i class="fas fa-upload"></i> Actualizar Imagen
+                </label>
+                <input type="file" id="input-image" name="foto" accept="image/*" style="display: none;">
+                <div id="image-preview"></div>
                 <h3>Descripción</h3>
                 <label for="input-description">Descripción:</label>
                 <textarea id="input-description" required></textarea>
