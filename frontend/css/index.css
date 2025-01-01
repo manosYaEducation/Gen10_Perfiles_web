@@ -829,3 +829,29 @@ footer p {
     height: auto;
     border-radius: 8px;
 }
+
+
+.nav-links li a {
+    position: relative;
+    transition: all 0.3s ease;
+    color: #314438; /* Color verde oscuro que ya usas en tu página */
+}
+
+.nav-links li a:hover {
+    color: #4CAF4F; /* Color verde más claro que ya usas */
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #4CAF4F;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
