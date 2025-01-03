@@ -26,7 +26,7 @@ body {
 
 .linea-decorativa {
     width: 200px;
-    height: 4px;
+    height: 2px;
     background-color: #4CAF4F;
     margin: 0 auto;
     
@@ -96,7 +96,7 @@ body {
 
 .info-proyecto {
     position: absolute;
-    bottom: 0;
+    bottom: -40px;
     left: 0;
     right: 0;
     background: white;
@@ -107,7 +107,7 @@ body {
 }
 
 .tarjeta-proyecto:hover .info-proyecto {
-    transform: translateY(-5px);
+    transform: translateY(-25px);
 }
 
 .info-proyecto h3 {
@@ -135,3 +135,17 @@ body {
         margin: 0 auto;
     }
 }
+
+.pr-2 {
+        font-size: 1.2em;
+        line-height: 1.6;
+        color: #717171;
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .pr-2 {
+        font-size: 1.4rem;
+        line-height: 1.4;
+    }
+    
