@@ -1,0 +1,267 @@
+.create-profile {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: orange;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    width: fit-content;
+    text-align: center;
+}
+
+.create-profile:hover {
+    background-color: rgb(138, 90, 2);
+}
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .headernav {
+        flex-direction: column;
+        text-align: center;
+    }
+    .headernav li {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .profiles-section {
+        padding: 10px;
+    }
+    .profile-card {
+        width: 100%; 
+        height: auto; 
+        margin: 10px 0; 
+    }
+    .info-title,
+    .info-subtitle {
+        font-size: 1.5em;
+        text-align: center;
+    }
+    .button-link,
+    .buttonBorrar {
+        padding: 6px 26px;
+        font-size: 0.9em;
+    }
+    .create-profile {
+        padding: 8px 16px;
+    }
+    /* Ajustes para el navbar en pantallas pequeñas */
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .headernav {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+    .headernav li {
+        margin-top: 10px;
+    }
+}
+
+
+
+/* boton-actualizar */
+.buttonActualizar {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    margin: 5px 0;
+}
+.buttonActualizar {
+    background-color: #24de33;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+body {
+    font-family: poppins, sans-serif;
+    width: 100%;
+    min-width: 100%;
+    overflow-x: hidden;
+    margin: 0 auto;
+    height: auto;
+    background-color: #f1efef;
+}
+
+header {
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    background-color: white;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    max-width: 1000px;
+    width: 1440px;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 110px; 
+    height: auto;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.headernav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.headernav li {
+    margin-left: 20px; 
+}
+
+.headernav li a.button-53 {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: #314438;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.headernav li a.button-53:hover {
+    background-color: hsl(142, 16%, 23%);
+    color: white;
+}
+
+.profiles-column {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 280px;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #f0f0f0;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-content h2 {
+    color: #333;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.profile-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #05310b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+    background-color: #357abd;
+}
+
+.buttonActualizar {
+    background-color: #2ecc71;
+    padding: 8px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.buttonActualizar:hover {
+    background-color: #27ae60;
+}
+
+.buttonBorrar {
+    background-color: #e74c3c;
+    padding: 8px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.buttonBorrar:hover {
+    background-color: #c0392b;
+}
+
+.info-container {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.info-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+}
