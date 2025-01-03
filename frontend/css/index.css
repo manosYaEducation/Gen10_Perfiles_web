@@ -819,7 +819,6 @@ footer p {
     border-radius: 8px;
 }
 
-<<<<<<< HEAD
 
 .nav-links li a {
     position: relative;
@@ -844,7 +843,7 @@ footer p {
 
 .nav-links li a:hover::after {
     width: 100%;
-=======
+}
 .hero-text2 {
     flex: 1;
     display: flex;
@@ -866,5 +865,4 @@ footer p {
 #hero-paragraph {
     font-size: 1.5rem;
     line-height: 1.4;
->>>>>>> Features/index-css-parte2
 }
