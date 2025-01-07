@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reseña</title>
+    <link rel="stylesheet" href="./css/resenas.css">
+
+
+
+
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Nueva Reseña</h1>
+        <div>
+        <form class="form-group1">
+            <label for="name">Nombre</label><br>
+            <input type="text" id="name" name="name" value=""><br><br>
+            <label for="company">Empresa</label><br>
+            <input type="text" id="company" name="company" value=" "><br><br>
+
+            <label for="name">Calificación</label>
+        </form>    
+            <!-- rating-->
+            <input class="rating" type="radio" id="star" name="rating" value="5" />    
+            <label for="star" class="star input1 input2">★</label>            
+            <br><br>
+     
+        <form class="form-group1">
+            <label  for="comment">Comentarios</label><br>
+ 
+            <input  class="comment1" type="text" id="comment" name="comment" value=""><br><br>
+
+            <!-- Subir una foto -->
+            <label for="photo">Subir una foto</label><br><br>
+            <input  class="comment1" type="file" id="photo" name="photo" value="" accept="image/*"><br><br>
+            <!-- Botones de cancelar y enviar reseñas-->
+            <button onclick="window.location.href='../index.html'" class="cancel-button" type="button">Cancelar</button> 
+            <button class="send-button" type="submit">Enviar reseña</button>
+
+        </form>    
+
+        </div>  
+
+
+    </div>
+
+</body>
+</html>
