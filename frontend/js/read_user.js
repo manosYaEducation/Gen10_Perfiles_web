@@ -12,9 +12,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Información personal
         document.getElementById('name-hero').textContent = profile.basic.name;
         document.getElementById('personal-information-hero').innerHTML = `
-            <p>Location: ${profile.basic.location}</p>
-            <p>Phone: ${profile.basic.phone}</p>
-            <p>Email: ${profile.basic.email}</p>
+            <p>${profile.basic.location}</p>
+            <p>${profile.basic.phone}</p>
+            <p>${profile.basic.email}</p>
         `;
         document.getElementById('description-hero').textContent = profile.basic.description;
         // Experiencia
@@ -54,7 +54,30 @@ document.addEventListener("DOMContentLoaded", async function () {
         socialLinksElement.innerHTML = profile.social.map(social => `
             <a href="${social.url}" target="_blank">${social.platform || 'Plataforma no disponible'}</a>
         `).join(', ');
+        // Reviews
+        const reviewsSection = document.getElementById('p-review-section'); 
+        if (profile.reviews && Array.isArray(profile.reviews)) {
+            reviewsSection.innerHTML = profile.reviews.map(review => `
+                <div class="review-card">
+                    <div class="review-header">
+                        <h3 class="review-name">${review.nameClient || 'Nombre no disponible'}</h3>
+                        <div class="review-company-info">
+                            <p class="review-position">${review.position || 'Cargo no disponible'}</p>
+                            <p class="review-company">${review.company || 'Compañía no disponible'}</p>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <span class="rating">${review.rating || 'Rating no disponible'}</span> 
+                    </div>
+                    <div class="review-comments">
+                        <p>${review.comments || 'Comentarios no disponibles'}</p>
+                    </div>
+               </div>
+            `).join('');
+        } else {
+            reviewsSection.innerHTML = '<p>No hay reseñas disponibles.</p>';}
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
+    
 });
