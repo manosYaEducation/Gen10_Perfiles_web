@@ -1,4 +1,4 @@
-/* General styles */
+/* Estilos generales de la página */
 body {
     margin: 24px;
     padding: 0;
@@ -11,33 +11,49 @@ body {
     margin: 0 auto;
 }
 
+h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* Navbar */
 .navbar {
     position: fixed;
     top: 0;
+    left: 0; 
     width: 100%;
-    height: 60px;
+    height: 70px; 
     display: flex;
     justify-content: center;
-    padding: 0 24px;
-    z-index: 1000;
+    align-items: center; 
+    padding: 10px 24px; 
     background: rgba(255, 255, 255, 0.16);
-    border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(3.3px);
-    -webkit-backdrop-filter: blur(3.3px);
     border: 1px solid rgba(255, 255, 255, 1);
 }
 
-.navbar-brand {
-    color: white;
-    font-size: 24px;
+.navbar-brand, .nav-link, .volver-link {
+    color: black;
     text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    color: white;
 }
 
 .navbar-toggler {
     border: none;
     background: none;
     color: white;
+    display: none;
 }
 
 .navbar-nav {
@@ -47,55 +63,35 @@ body {
     padding-left: 0;
 }
 
-#navbarResponsive {
-    font-weight: 700;
-}
-
-.nav-item {
+.nav-item, .nav-volver {
     margin-left: 16px;
 }
 
-.nav-link {
-    color: black;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
+.nav-link:hover, .volver-link:hover {
     color: #ffc107;
 }
 
-h1, h2, h3, p {
-    margin: 0;
-    padding: 0;
-}
-
-/* HERO SECTION */
+/* Sección del hero */
 #about {
-    padding: 80px 0;
+    padding: 30px 0;
     margin-top: 80px;
     font-size: 24px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-#resume-section-hero, 
-#experience, 
-#education,
-#interest,
-#skills,
-#social {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 }
 
+#personal-information-hero{
+    font-size: 18px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+}
+
 #description-hero {
-    width: 60%;
+    font-size: 16px;
+    padding: 20px;
 }
 
 #image-profile {
@@ -109,15 +105,6 @@ h1, h2, h3, p {
     margin: 36px;
 }
 
-#personal-information-hero {
-    font-size: 20px;
-}
-
-#description-hero {
-    font-size: 16px;
-    padding: 20px;
-}
-
 #social-icons-hero {
     display: flex;
     justify-content: center;
@@ -127,8 +114,8 @@ h1, h2, h3, p {
 .social-icon {
     display: flex;
     margin: 12px;
-    transition: transform 0.3s, margin 0.3s;
     color: black;
+    transition: transform 0.3s, margin 0.3s;
 }
 
 .social-icon:hover {
@@ -136,105 +123,46 @@ h1, h2, h3, p {
     margin: 0 20px;
 }
 
-/* EXPERIENCE */
-#experience-title, 
-#title-education {
+/* Experiencia, educacación, intereses, habilidaddes, redes sociales y reseña */
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+section h2 {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 24px;
 }
 
-#experience-section, 
-#timeline {
+#experience-section, #timeline {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-#experience-sub-section, 
-.timeline-item {
-    margin: 0;
-    width: 300px;
-    min-width: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+.timeline-item, .skill-section, .social-section, .interest-section {
+    width: 100%;
+    max-width: 800px;
     padding: 20px;
     border-radius: 8px;
- 
 }
 
-#experience-sub-title, 
-.timeline-content h3 {
-    font-size: 20px;
-    color: #333;
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: center;
+.timeline-content h3, .subheading, ul li {
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
 }
 
 .text-primary {
     color: #a47148;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    font-size: 16px;
-    color: #555;
-}
-
-.subheading {
-    font-weight: bold;
-}
-
-/* Sección de habilidades */
-.skill-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    width: 100%;
-    max-width: 800px;
-}
-
-.skill-section h2 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 24px;
-}
-
-#p-skill-section {
-    font-size: 18px;
-    color: #555;
-}
-
-
-/* Sección de redes sociales */
-.social-section, 
-.interest-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    width: 100%;
-    max-width: 800px;
-}
-
-.social-section h2, 
-.interest-section h2 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 24px;
-}
-
+/* Social Links */
 #social-links {
     display: flex;
     flex-direction: column;
@@ -253,9 +181,69 @@ ul li {
     color: #0056b3;
 }
 
-#p-interest-section {
+/* Estilo para la tarjeta */
+.p-review-section {
+    display: flex;
+}
+
+.review-card {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.review-name {
     font-size: 18px;
-    color: #555;
+    font-weight: bold;
+    margin: 0;
+}
+
+.review-company-info {
+    display: flex;
+    font-size: 13px;
+    color: #777;
+    padding: 10px;
+    margin-bottom: 10px;
+    gap: 15px;
+    justify-content: center;
+}
+
+.review-comments {
+    margin-top: 5px;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.review-card:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/*Botón para agregar reseña*/
+.add-review-button {
+    background-color: #a47148; 
+    align-content: center;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Movimiento del botón al hacer click*/
+.add-review-button:active {
+    background-color: #8a5f3b; 
+    box-shadow: 0 2px 4px #333;
+    transform: translateY(2px);
 }
 
 /* Responsive adjustments */
@@ -273,19 +261,3 @@ ul li {
     }
 }
 
-
-.nav-volver{
-    margin-left: 16px;
-    
-}
-
-.volver-link {
-    color: black;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.volver-link:hover {
-    color: #ffc107;
-}

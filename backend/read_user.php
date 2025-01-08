@@ -50,6 +50,11 @@ try {
         $stmtImage->execute([$profileid]);
         $imageData = $stmtImage->fetch(PDO::FETCH_ASSOC);
 
+        // Recupera las reseñas
+        $stmtReview = $conn->prepare("SELECT  nameClient , position, company, rating, comments FROM review WHERE profileid = ?");
+        $stmtReview->execute([$profileid]);
+        $review = $stmtReview->fetchAll(PDO::FETCH_ASSOC);
+
         $image = null;
         if ($imageData) {
             // Convierte la imagen en base64
@@ -66,6 +71,7 @@ try {
                 'skill' => $skill,
                 'interest' => $interest,
                 'social' => $social,
+                'review' => $review,
                 
             ]
         ];
