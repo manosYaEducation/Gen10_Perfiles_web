@@ -6,46 +6,60 @@
     <title>Reseña</title>
     <link rel="stylesheet" href="./css/resenas.css">
 
-
-
-
 </head>
 <body>
-    
     <div class="container">
         <h1>Nueva Reseña</h1>
-        <div>
         <form class="form-group1">
+
             <label for="name">Nombre</label><br>
-            <input type="text" id="name" name="name" value=""><br><br>
+            <input type="text" id="name" name="name" value="" required><br><br>          <!-- ID de el nombre: name -->
             <label for="company">Empresa</label><br>
-            <input type="text" id="company" name="company" value=" "><br><br>
+            <input type="text" id="company" name="company" value="" required><br><br>   <!-- ID de la empresa: company  -->
 
-            <label for="name">Calificación</label>
-        </form>    
-            <!-- rating-->
-            <input class="rating" type="radio" id="star" name="rating" value="5" />    
-            <label for="star" class="star input1 input2">★</label>            
-            <br><br>
-     
-        <form class="form-group1">
-            <label  for="comment">Comentarios</label><br>
- 
-            <input  class="comment1" type="text" id="comment" name="comment" value=""><br><br>
+            <div class="rating">
+                <label for="rating">Calificación</label><br>    
+                <img class="star" data-value="1" src="../assets/img/star001.png" alt="1 estrella">
+                <img class="star" data-value="2" src="../assets/img/star001.png" alt="2 estrellas">
+                <img class="star" data-value="3" src="../assets/img/star001.png" alt="3 estrellas">
+                <img class="star" data-value="4" src="../assets/img/star001.png" alt="4 estrellas">
+                <img class="star" data-value="5" src="../assets/img/star001.png" alt="5 estrellas">
+              </div><br><br>
+              
+            <label>Comentarios</label><br>
+            <textarea class="comment1" name="comment" id="comment" required> </textarea>
 
-            <!-- Subir una foto -->
+            <!--Subir una foto -->
             <label for="photo">Subir una foto</label><br><br>
-            <input  class="comment1" type="file" id="photo" name="photo" value="" accept="image/*"><br><br>
-            <!-- Botones de cancelar y enviar reseñas-->
-            <button onclick="window.location.href='../index.html'" class="cancel-button" type="button">Cancelar</button> 
-            <button class="send-button" type="submit">Enviar reseña</button>
-
-        </form>    
-
-        </div>  
-
-
+<!--             <img src="../assets/img/upload.png" alt=""> -->
+            <input  class="comment1" type="file" id="photo" name="photo" value="" accept="image/*" ><br><br>
+            <br>
+            <!-- Botones de cancelar y enviar reseñas -->
+            <button onclick="window.location.href='../index.html'" class="cancel-button" type="button">Cancelar</button>  <!-- modificar -->
+            <button class="send-button" type="submit">Enviar reseña</button> 
+        </form>
+        
     </div>
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingDisplay = document.getElementById('rating-display');
+        let selectedRating = 0;
+    
+        stars.forEach(star => {
+          star.addEventListener('click', () => {
+            selectedRating = star.getAttribute('data-value');
+            stars.forEach(s => s.src = '../assets/img/star001.png');
+            for (let i = 0; i < selectedRating; i++) {
+              stars[i].src = '../assets/img/star.png';
+            }
+
+            console.log("En la consola, mi calificacion es: ", selectedRating)
+            
+          });
+        });
+
+        const dropArea = document.getElementById('dropArea');
+    </script>
 
 </body>
 </html>

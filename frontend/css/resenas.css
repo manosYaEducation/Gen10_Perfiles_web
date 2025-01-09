@@ -74,13 +74,30 @@ h1 {
     float: right;
     position: relative;
 }
+
+
 .rating {
-    cursor: pointer;
-
+    justify-content: left;
 }
-
-.star {
-    font-size: 30px;    
-    color: #DCD50A;       
-    cursor: pointer;     
+.rating img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;       
+}
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+input, textarea {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.form-group1 label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #000000;
+    font-size: 1rem;
 }
