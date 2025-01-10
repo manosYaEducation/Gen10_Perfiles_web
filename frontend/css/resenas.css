@@ -30,12 +30,7 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
-.form-group1 label {
-    display: block;         
-    margin-bottom: 0.5rem;  
-    color: #666;    
-    font-size: 0.9rem;
-}
+
 .form-group1 input {
     width: 100%;
     padding: 0.8rem;
@@ -46,7 +41,6 @@ h1 {
 }
 .comment1 { 
     height: 165px
-
 }
 
 .cancel-button {

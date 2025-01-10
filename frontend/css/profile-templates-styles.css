@@ -219,6 +219,13 @@ section h2 {
     transform: translateY(-2px);
     transition: all 0.3s ease;
 }
+.reviews-column {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
+}
 
 /*Botón para agregar reseña*/
 .add-review-button {
