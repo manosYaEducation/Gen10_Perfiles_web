@@ -51,7 +51,7 @@ try {
         $imageData = $stmtImage->fetch(PDO::FETCH_ASSOC);
 
         // Recupera las reseñas
-        $stmtReview = $conn->prepare("SELECT  nameClient , position, company, rating, comments FROM review WHERE profileid = ?");
+        $stmtReview = $conn->prepare("SELECT statusid, profileid, nameClient , company, rating, comments, date_review FROM review WHERE profileid = ?");
         $stmtReview->execute([$profileid]);
         $review = $stmtReview->fetchAll(PDO::FETCH_ASSOC);
 

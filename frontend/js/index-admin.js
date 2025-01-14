@@ -35,6 +35,34 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => console.error('Error al obtener perfiles:', error));
+
+
+        // fetch(`${window.API_URL_PHP}read_reviews.php`)
+        // .then(response => response.json())
+        // .then(data => {
+        //     if (data.success) {
+        //         const tbReviews = document.getElementById('tbReviews');
+        //         tbReviews.innerHTML = ''; 
+
+        //         data.reviews.forEach(review => {
+        //             const row = document.createElement('tr');
+        //             row.innerHTML = `
+        //             <tr>
+        //                 <td>pa él</td>
+        //                 <td>${review.nameClient}</td>
+        //                 <td>${review.position}</td>
+        //                 <td>${review.company}</td>
+        //                 <td>${review.rating}</td>
+        //                 <td>${review.comment}</td>
+        //                 <td>vio</td>
+        //             </tr>`;
+        //             tbReviews.appendChild(row);
+        //         });
+        //     } else {
+        //         console.error('No se pudieron obtener las reseñas:', data.message);
+        //     }
+        // })
+        // .catch(error => console.error('Error al obtener reseñas:', error));
 });
 
 function redirectToUpdate(profileId) {

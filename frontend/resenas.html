@@ -10,12 +10,12 @@
 <body>
     <div class="container">
         <h1>Nueva Reseña</h1>
-        <form class="form-group1">
+        <form id="reviewForm" class="form-group1" onsubmit="registerReview(); return false;">
 
             <label for="name">Nombre</label><br>
-            <input type="text" id="name" name="name" value="" required><br><br>          <!-- ID de el nombre: name -->
+            <input type="text" id="input-nameClient" name="name" value="" required><br><br>          <!-- ID de el nombre: name -->
             <label for="company">Empresa</label><br>
-            <input type="text" id="company" name="company" value="" required><br><br>   <!-- ID de la empresa: company  -->
+            <input type="text" id="input-company" name="company" value="" required><br><br>   <!-- ID de la empresa: company  -->
 
             <div class="rating">
                 <label for="rating">Calificación</label><br>    
@@ -27,19 +27,15 @@
               </div><br><br>
               
             <label>Comentarios</label><br>
-            <textarea class="comment1" name="comment" id="comment" required> </textarea>
-
-            <!--Subir una foto -->
-            <label for="photo">Subir una foto</label><br><br>
-<!--             <img src="../assets/img/upload.png" alt=""> -->
-            <input  class="comment1" type="file" id="photo" name="photo" value="" accept="image/*" ><br><br>
-            <br>
+            <textarea class="comment1" name="comments" id="input-comments" required> </textarea>
             <!-- Botones de cancelar y enviar reseñas -->
             <button onclick="history.back()" class="cancel-button" type="button">Cancelar</button>  <!-- modificar -->
-            <button class="send-button" type="submit">Enviar reseña</button> 
+            <button id="submitReview" class="send-button" type="submit">Enviar reseña</button> 
         </form>
         
     </div>
+    <div id="console-log" style="background-color: #f1f1f1; padding: 10px; margin-top: 20px;"></div>
+    <script src="./js/config.js"></script>
     <script src="./js/resenas.js"></script>
 
 </body>

@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="review-header">
                         <h3 class="review-name">${review.nameClient || 'Nombre no disponible'}</h3>
                         <div class="review-company-info">
-                            <p class="review-position">${review.position || 'Cargo no disponible'}</p>
                             <p class="review-company">${review.company || 'Compañía no disponible'}</p>
                         </div>
                     </div>
@@ -86,6 +85,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
-    
-    
+
 });

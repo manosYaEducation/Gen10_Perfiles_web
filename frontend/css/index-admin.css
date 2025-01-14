@@ -263,5 +263,25 @@ nav {
 
 .info-title {
     font-size: 2em;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.tableReview {
+    align-items: center;
+    margin: 25px; 
+    width: 80%; 
+    border-collapse: collapse;
+    font-size: 15px;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+    background-color: #fff; 
+}
+
+.reviews-section {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    padding: 50px;
 }
