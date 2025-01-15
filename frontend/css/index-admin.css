@@ -14,6 +14,7 @@
 .create-profile:hover {
     background-color: rgb(138, 90, 2);
 }
+
 @media (max-width: 768px) {
     header {
         padding: 10px;
@@ -33,6 +34,14 @@
         padding: 10px;
     }
     .profile-card {
+        width: 100%; 
+        height: auto; 
+        margin: 10px 0; 
+    }
+    .review-section {
+        padding: 10px;
+    }
+    .review-card {
         width: 100%; 
         height: auto; 
         margin: 10px 0; 
@@ -266,6 +275,7 @@ nav {
     margin-bottom: 10px;
 }
 
+
 .tableReview {
     align-items: center;
     margin: 25px; 
@@ -284,4 +294,42 @@ nav {
     align-items: center; 
     flex-direction: column;
     padding: 50px;
+}
+
+/*  */
+.review-column {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.review-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 290px;
+    transition: transform 0.3s ease;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.review-content h2 {
+    color: #333;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.review-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
 }
