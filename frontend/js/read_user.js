@@ -70,11 +70,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="review-header">
                         <h3 class="review-name">${review.nameClient || 'Nombre no disponible'}</h3>
                         <div class="review-company-info">
-                            <p class="review-company">${review.company || 'Compañía no disponible'}</p>
+                            <p class="review-company">${review.company || 'Empresa no disponible'}</p>
                         </div>
                     </div>
                     <div class="review-rating">
-                        <span class="rating">${review.rating || 'Rating no disponible'}</span> 
+                        <span class="rating">${review.rating || 'Valoración no disponible'}</span> 
                     </div>
                     <div class="review-comments">
                         <p>${review.comments || 'Comentarios no disponibles'}</p>

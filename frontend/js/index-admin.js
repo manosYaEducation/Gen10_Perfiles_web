@@ -123,11 +123,6 @@ function redirectToUpdate(profileId) {
 <button class="buttonBorrar" data-id="${profile.id}" onclick="deleteUser(event)">Borrar</button> */
 
 
-
-
-
-
-
 /* const reviewsSection = document.getElementById('p-adminReview-section'); 
 const reviewsData = profile.review || [];
     reviewsSection.innerHTML = reviewsData.map(review => `
@@ -146,12 +141,6 @@ const reviewsData = profile.review || [];
             </div>
        </div>
     `).join(''); */
-
-
-
-
-
-
 
 
 

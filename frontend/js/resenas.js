@@ -8,8 +8,23 @@ stars.forEach(star => {
     for (let i = 0; i < selectedRating; i++) {
       stars[i].src = '../assets/img/star.png';
     }
-    console.log("En la consola, mi calificacion es: ", selectedRating)
+    console.log("En la consola, mi calificacion es: ", selectedRating);
   });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileId = urlParams.get('id');
+  
+  const profileIdInput = document.getElementById('input-profileid');
+  if (profileIdInput) {
+      profileIdInput.value = profileId;
+  }
+
+  const addReviewLink = document.getElementById('add-review-link');
+  if (addReviewLink) {
+      addReviewLink.href = `../resenas.html?id=${profileId}`;
+  }
 });
 
 const registerReview = async () => {
@@ -17,11 +32,12 @@ const registerReview = async () => {
   const nameClient = document.getElementById("input-nameClient").value;
   const company = document.getElementById("input-company").value;
   const comments = document.getElementById("input-comments").value;
-  console.log({ nameClient, company, comments, selectedRating }); 
+  const profileId = document.getElementById("input-profileid").value;
+  console.log({ nameClient, company, comments, selectedRating,}); 
 
   const review = {
     statusid: 1,
-    profileid: 1, 
+    profileid: profileId, 
     nameClient,
     company,
     comments,
@@ -37,8 +53,10 @@ const registerReview = async () => {
     body: JSON.stringify(review)
 })
 .then(response => response.json())
+.then(() => {
+  window.history.back()
+})
 .catch(error => {
     console.error("Error:", error);
-
 });
 }
