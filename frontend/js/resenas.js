@@ -8,7 +8,6 @@ stars.forEach(star => {
     for (let i = 0; i < selectedRating; i++) {
       stars[i].src = '../assets/img/star.png';
     }
-    console.log("En la consola, mi calificacion es: ", selectedRating);
   });
 });
 
@@ -28,13 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const registerReview = async () => {
-  console.log("Botón de enviar clickeado"); 
+  //Se obtienen los elementos del html mediante su ID
+  //y con ello sus elementos
   const nameClient = document.getElementById("input-nameClient").value;
   const company = document.getElementById("input-company").value;
   const comments = document.getElementById("input-comments").value;
   const profileId = document.getElementById("input-profileid").value;
-  console.log({ nameClient, company, comments, selectedRating,}); 
 
+  //Se crea un objeto con los datos del formulario
   const review = {
     statusid: 1,
     profileid: profileId, 
@@ -45,6 +45,7 @@ const registerReview = async () => {
     date_review: new Date()
   };
 
+  //Se envía la petición POST al servidor
   fetch(API_URL_PHP + 'create_review.php', {
     method: 'POST',
     headers: {
@@ -52,11 +53,21 @@ const registerReview = async () => {
     },
     body: JSON.stringify(review)
 })
+  //Se obtiene la respuesta del servidor
 .then(response => response.json())
 .then(() => {
-  window.history.back()
+    //Si la respuesta es exitosa, se muestra un mensaje para el usuario
+    const modal = document.getElementById('successModal');
+    modal.showModal();
 })
 .catch(error => {
     console.error("Error:", error);
-});
+});}
+
+//Se obtiene el botón de cerrar del modal
+function closeModal() {
+    const modal = document.getElementById('successModal');
+    modal.close();
+    //Regresa a la página del perfil
+    window.history.back();
 }
