@@ -53,6 +53,9 @@ const registerReview = async () => {
     body: JSON.stringify(review)
 })
 .then(response => response.json())
+.then(() => {
+  window.history.back()
+})
 .catch(error => {
     console.error("Error:", error);
 });
