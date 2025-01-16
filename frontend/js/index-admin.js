@@ -67,8 +67,9 @@ fetch(`${window.API_URL_PHP}read_reviews.php`)
             reviewCard.innerHTML = `
 
             <div class="review-content">
-               <h2>${review.nameClient}</h2>
-                <h3 class="review-subtitle">${review.comments}</h3>
+               <h2>${review.nameClient}&nbsp&nbsp&nbsp&nbsp - &nbsp&nbsp&nbsp&nbsp<span class="company" >${review.company}</span></h2>
+
+                <h3 class="review-comments">${review.comments}</h3>
            </div>
        `;
         reviewsColumn.appendChild(reviewCard);

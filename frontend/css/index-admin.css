@@ -297,7 +297,7 @@ nav {
 }
 
 /*  */
-.review-column {
+.reviews-column {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
@@ -310,11 +310,12 @@ nav {
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    width: 290px;
+    width: 450px;
     transition: transform 0.3s ease;
     text-align: center;
     margin-bottom: 0.5rem;
 }
+
 
 .review-card:hover {
     transform: translateY(-5px);
@@ -325,11 +326,17 @@ nav {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
+    text-align: left;
+
 }
 
-.review-subtitle {
+.review-comments {
     color: #666;
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
     font-weight: 400;
+}
+
+.company {
+    color: #A47148;
 }
