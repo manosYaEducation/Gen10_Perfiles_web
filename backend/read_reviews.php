@@ -8,7 +8,16 @@ include 'conexion.php';
 
 try {
 /*     foreach */
-    $stmt = $conn->prepare("SELECT statusid, profileid, nameClient, company, rating, comments, date_review FROM review");    
+    $stmt = $conn->prepare("SELECT R.statusid, 
+R.profileid, 
+R.nameClient, 
+R.company, 
+R.rating, 
+R.comments, 
+R.date_review, 
+B.name AS nombre_perfil, 
+C.status AS estado_reseña
+FROM review R LEFT JOIN profile B ON R.profileid = B.id LEFT JOIN STATUS C ON R.statusid = C.id_status;");    
     $stmt->execute();
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (!$reviews){ 

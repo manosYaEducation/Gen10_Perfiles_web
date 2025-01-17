@@ -57,22 +57,41 @@ fetch(`${window.API_URL_PHP}read_reviews.php`)
             `;
             profilesColumn.appendChild(profileCard);
         });      */
+
+        
         const reviewsColumn = document.querySelector('.reviews-column');
         reviewsColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
  
         data.data.reviews.forEach(review => {
-            /* console.log(rev) */
             const reviewCard = document.createElement('div');
             reviewCard.classList.add('review-card');
+            const numberRating = review.rating;
             reviewCard.innerHTML = `
-
             <div class="review-content">
-               <h2>${review.nameClient}&nbsp&nbsp&nbsp&nbsp - &nbsp&nbsp&nbsp&nbsp<span class="company" >${review.company}</span></h2>
-
-                <h3 class="review-comments">${review.comments}</h3>
+            <div>
+               <h2>${review.nameClient}&nbsp&nbsp&nbsp&nbsp - &nbsp&nbsp&nbsp&nbsp
+               <span class="company" >${review.company}</span></h2>
+               <h3>Para: ${review.nombre_perfil}</h3> 
+               <h2 id="numberRating">${review.rating}</h2>   <div id="imgRating"></div>
+               <br>
+            </div>
+            <div>
+               <h3 class="review-comments">${review.comments}</h3>
            </div>
+           <div> <h4>${review.estado_reseña}</h4></div>
        `;
-        reviewsColumn.appendChild(reviewCard);
+
+        const imgRatingContainer = reviewCard.querySelector('#imgRating');
+
+  for (let i = 0; i < numberRating; i++) {
+    const estrella = document.createElement('img');
+    estrella.src = "../assets/img/star.png"; // URL de la estrella
+    estrella.alt = "Estrella";
+    imgRatingContainer.appendChild(estrella); // Añadir cada estrella al contenedor
+  }
+
+  // Finalmente, agregar el reviewCard al contenedor principal (app)
+  document.getElementById('app').appendChild(reviewCard);
 
         })
         console.log(data)
@@ -83,6 +102,7 @@ fetch(`${window.API_URL_PHP}read_reviews.php`)
         console.log(data)
     }    
 }) 
+
 /*.then(data => {
     if (data.success) {
          const profilesColumn = document.querySelector('.review-column');
