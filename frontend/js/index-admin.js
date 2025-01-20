@@ -37,28 +37,28 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error al obtener perfiles:', error));
     
         
-fetch(`${window.API_URL_PHP}read_reviews.php`)
-/* .then(response => console.log(response)) */
-.then(response => response.json())
-/* .then(data => console.log(data))  */
-.then(data => {
-    if (data.success){
-/*      const profilesColumn = document.querySelector('.profiles-column');
-        profilesColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
-        // Mostrar todos los perfiles
-        data.review.forEach(review => {
-            const profileCard = document.createElement('div');
-            profileCard.classList.add('review-card');
-            profileCard.innerHTML = `
-                 <div class="review-content">
-                    <h2>${review.nameClient}</h2>
-        
-                </div>
-            `;
-            profilesColumn.appendChild(profileCard);
-        });      */
-
-        
+    fetch(`${window.API_URL_PHP}read_reviews.php`)
+    /* .then(response => console.log(response)) */
+    .then(response => response.json())
+    /* .then(data => console.log(data))  */
+    .then(data => {
+        if (data.success){
+    /*      const profilesColumn = document.querySelector('.profiles-column');
+            profilesColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
+            // Mostrar todos los perfiles
+            data.review.forEach(review => {
+                const profileCard = document.createElement('div');
+                profileCard.classList.add('review-card');
+                profileCard.innerHTML = `
+                     <div class="review-content">
+                        <h2>${review.nameClient}</h2>
+            
+                    </div>
+                `;
+                profilesColumn.appendChild(profileCard);
+            });      */
+    
+            
         const reviewsColumn = document.querySelector('.reviews-column');
         reviewsColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
  
@@ -68,17 +68,27 @@ fetch(`${window.API_URL_PHP}read_reviews.php`)
             const numberRating = review.rating;
             reviewCard.innerHTML = `
             <div class="review-content">
-            <div>
-               <h2>${review.nameClient}&nbsp&nbsp&nbsp&nbsp - &nbsp&nbsp&nbsp&nbsp
-               <span class="company" >${review.company}</span></h2>
-               <h3>Para: ${review.nombre_perfil}</h3> 
-               <h2 id="numberRating">${review.rating}</h2>   <div id="imgRating"></div>
-               <br>
-            </div>
-            <div>
-               <h3 class="review-comments">${review.comments}</h3>
-           </div>
-           <div> <h4>${review.estado_reseña}</h4></div>
+        <div>
+            <h2>${review.nameClient}
+            <span class="company">${review.company}</span></h2>
+            <h3>Para: ${review.nombre_perfil}</h3>
+            <h2 id="numberRating">${review.rating}</h2>
+            <div id="imgRating"></div>
+            <br>
+        </div>
+        <div>
+            <h3 class="review-comments">${review.comments}</h3>
+        </div>
+        <div class="review-status">
+            <h4>Estado de la reseña</h4>
+            <select id="review-status-${review.id}" onchange="updateReview(${review.id})">
+                <option value="1" ${review.estado_reseña === 'pendiente' ? 'selected' : ''}>Pendiente</option>
+                <option value="2" ${review.estado_reseña === 'aprobada' ? 'selected' : ''}>Aprobada</option>
+                <option value="3" ${review.estado_reseña === 'rechazada' ? 'selected' : ''}>Rechazada</option>
+            </select>
+        <h4>${review.estado_reseña}</h4>
+        </div>
+    </div>
        `;
 
         const imgRatingContainer = reviewCard.querySelector('#imgRating');
@@ -96,6 +106,8 @@ fetch(`${window.API_URL_PHP}read_reviews.php`)
         })
         console.log(data)
 /*         console.error('No se pudieron obtener los perfiles:'); */
+
+    fetch(`${window.API_URL_PHP}update_review.php`)
     }
     else {
         /* console.error('No se pudieron obtener los perfiles:'); */
@@ -135,7 +147,33 @@ function redirectToUpdate(profileId) {
     window.location.href = `/frontend/actualizar-perfil.html?id=${profileId}`;
 }
 
+function updateReview(reviewId) {
+    const selectElement = document.getElementById(`review-status-${reviewId}`);
+    console.log('el id de la review es:'+reviewId)
+    const selectedStatus = selectElement.value;
+    console.log('el estado seleccionado es:'+selectedStatus)
 
+    fetch(`${window.API_URL_PHP}update_review.php`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: reviewId,
+            statusid: selectedStatus
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        if (data.success) {
+            console.log('Reseña actualizada correctamente');
+        } else {
+            console.error('Error al actualizar la reseña:', data.message);
+        }
+    })
+    .catch(error => console.error('Error :', error));
+}
 
 /* botones crud van en la linea 61 debajo del h3 */
 /* <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>

@@ -8,7 +8,8 @@ include 'conexion.php';
 
 try {
 /*     foreach */
-    $stmt = $conn->prepare("SELECT R.statusid, 
+    $stmt = $conn->prepare("SELECT R.id,
+R.statusid, 
 R.profileid, 
 R.nameClient, 
 R.company, 
