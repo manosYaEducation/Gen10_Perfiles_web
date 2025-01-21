@@ -68,20 +68,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const numberRating = review.rating;
             reviewCard.innerHTML = `
             <div class="review-content">
-        <div>
-            <h2>${review.nameClient}
-            <span class="company">${review.company}</span></h2>
-            <h3>Para: ${review.nombre_perfil}</h3>
+            <div class="container header">
+                <h2">${review.nameClient}  &nbsp &nbsp</h2>
+                <span class="company">  &nbsp &nbsp${review.company}</span>
+                <h3>Para: ${review.nombre_perfil}</h3>
+            </div>
             <h2 id="numberRating">${review.rating}</h2>
             <div id="imgRating"></div>
-            <br>
         </div>
         <div>
-            <h3 class="review-comments">${review.comments}</h3>
+            <p class="review-comments">${review.comments}</p>
         </div>
         <div class="review-status">
             <h4>Estado de la reseña</h4>
             <select id="review-status-${review.id}" onchange="updateReview(${review.id})">
+                <option>Cambio de estado</option>
                 <option value="1" ${review.estado_reseña === 'pendiente' ? 'selected' : ''}>Pendiente</option>
                 <option value="2" ${review.estado_reseña === 'aprobada' ? 'selected' : ''}>Aprobada</option>
                 <option value="3" ${review.estado_reseña === 'rechazada' ? 'selected' : ''}>Rechazada</option>
@@ -104,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('app').appendChild(reviewCard);
 
         })
-        console.log(data)
+
 /*         console.error('No se pudieron obtener los perfiles:'); */
 
     fetch(`${window.API_URL_PHP}update_review.php`)

@@ -63,9 +63,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join(', ');
 
         // Reviews
+        const starFilled = 'http://127.0.0.1:5501/assets/img/star.png';
+        const starEmpty = 'http://127.0.0.1:5501/assets/img/star001.png';
+        
         const reviewsSection = document.getElementById('p-review-section'); 
         const reviewsData = profile.review || [];
-            reviewsSection.innerHTML = reviewsData.map(review => `
+        reviewsSection.innerHTML = reviewsData.map(review => {
+            const rating = review.rating || 0; // Calificación del 1 al 5
+                const starImages = Array.from({ length: 5 }) // Generar 5 elementos para estrellas
+                    .map((_, index) => 
+                        `<img src="${index < rating ? starFilled : starEmpty}" alt="star" class="star-icon" />`
+                    )
+                    .join('');                
+                
+            return    `
                 <div class="review-card">
                     <div class="review-header">
                         <h3 class="review-name">${review.nameClient || 'Nombre no disponible'}</h3>
@@ -73,14 +84,14 @@ document.addEventListener("DOMContentLoaded", async function () {
                             <p class="review-company">${review.company || 'Empresa no disponible'}</p>
                         </div>
                     </div>
-                    <div class="review-rating">
-                        <span class="rating">${review.rating || 'Valoración no disponible'}</span> 
-                    </div>
+            <div class="review-rating">
+                <span class="rating">${starImages}</span> 
+            </div>
                     <div class="review-comments">
                         <p>${review.comments || 'Comentarios no disponibles'}</p>
                     </div>
                </div>
-            `).join('');
+            `}).join('');
         
     } catch (error) {
         console.error("Error al obtener los datos:", error);

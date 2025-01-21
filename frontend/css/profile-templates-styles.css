@@ -263,3 +263,7 @@ section h2 {
     }
 }
 
+.review-rating img{
+    width: 25px;
+    height: 25px;    
+}

@@ -38,7 +38,15 @@
     <section class="reviews-section" id="reviews">
         <div class="info-container">
             <h1 class="info-title">Reseñas</h1>
-            
+            <div>
+                <label>Filtrar reseñas:</label>
+                <select id="filter-reviews" onchange="filterReviews()">
+                    <option value="todas">Todas</option>
+                    <option value="pendiente">Pendientes</option>
+                    <option value="aprobada">Aprobadas</option>
+                    <option value="rechazada">Rechazadas</option>
+                </select>
+            </div>
         </div>
         <div class="reviews-column">            
         </div>
@@ -55,4 +63,4 @@
     <script src="../frontend/js/index-admin.js"></script>
 </body>
 
-</html> 
+</html>
