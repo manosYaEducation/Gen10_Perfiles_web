@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
             reviewCard.innerHTML = `
             <div class="review-content">
             <div class="container header">
-                <h2">${review.nameClient}  &nbsp &nbsp</h2>
-                <span class="company">  &nbsp &nbsp${review.company}</span>
+                <h2">${review.nameClient}&nbsp&nbsp&nbsp&nbsp</h2>
+                <span class="company">@${review.company}</span>
                 <h3>Para: ${review.nombre_perfil}</h3>
             </div>
             <h2 id="numberRating">${review.rating}</h2>

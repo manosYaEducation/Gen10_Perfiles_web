@@ -370,7 +370,13 @@ span{
     font-size: 1.25rem;
 }
 
-
 #numberRating {
     display: none;
+}
+h4 {
+    text-align: center;
+}
+select{
+    align-items: center;
+    margin-left: 10px;
 }
