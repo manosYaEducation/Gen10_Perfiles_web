@@ -62,11 +62,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById('input-social-url').value = profile.social ? profile.social[0]?.url || '' : '';
         
         // Cargar Habilidades e Intereses
-        document.getElementById('input-skill').value = profile.skills || ''; // Si hay habilidades
-        document.getElementById('input-interest').value = profile.interests || ''; // Si hay intereses
+        document.getElementById('input-skill').value = profile.skill || ''; // Si hay habilidades
+        document.getElementById('input-interest').value = profile.interest || ''; // Si hay intereses
 
         // Agregar experiencia y educación al formulario si aplica
+    
         const experienceContainer = document.getElementById('experience-container');
+        experienceContainer.innerHTML = ''; 
         if (profile.experience) {
             profile.experience.forEach(exp => {
                 const experienceItem = document.createElement('div');
@@ -75,15 +77,60 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <label>Título de la experiencia:</label>
                     <input type="text" class="input-experience-title" value="${exp.title || ''}" placeholder="Título">
                     <label>Fecha de inicio:</label>
-                    <input type="date" class="input-experience-startDate" value="${exp.startDate || ''}">
+                    <input type="date" class="input-experience-startDate" value="${exp.startdate || ''}">
                     <label>Fecha de finalización:</label>
-                    <input type="date" class="input-experience-endDate" value="${exp.endDate || ''}">
+                    <input type="date" class="input-experience-endDate" value="${exp.enddate || ''}">
+                    
                 `;
                 experienceContainer.appendChild(experienceItem);
+                
             });
         }
-
+        //agraga nueva experiencia si es el usuario quiere 
+        document.getElementById('addExperience').addEventListener('click', () => {
+            const container = document.getElementById('experience-container');
+            const experienceItem = document.createElement('div');
+            experienceItem.classList.add('experience-item');
+            experienceItem.innerHTML = `
+                <label>Título de la experiencia:</label>
+                <input type="text" class="input-experience-title" placeholder="Título">
+                <label>Fecha de inicio:</label>
+                <input type="date" class="input-experience-startDate">
+                <label>Fecha de finalización:</label>
+                <input type="date" class="input-experience-endDate">
+                <button type="button" class="remove-btn">Eliminar</button>
+            `;
+            container.appendChild(experienceItem);
+        
+            experienceItem.querySelector('.remove-btn').addEventListener('click', () => {
+                container.removeChild(experienceItem);
+            });
+        });
+    //Agrega nueva experiencia si es nesecario
+    document.getElementById('addEducation').addEventListener('click', () => {
+        const container = document.getElementById('education-container');
+        const educationItem = document.createElement('div');
+        educationItem.classList.add('education-item');
+        educationItem.innerHTML = `
+            <label>Título:</label>
+            <input type="text" class="input-education-title" placeholder="Título">
+            <label>Fecha de inicio:</label>
+            <input type="date" class="input-education-startDate">
+            <label>Fecha de finalización:</label>
+            <input type="date" class="input-education-endDate">
+            <label>Institución:</label>
+            <input type="text" class="input-education-institution" placeholder="Institución">
+            <button type="button" class="remove-btn">Eliminar</button>
+        `;
+        container.appendChild(educationItem);
+    
+        educationItem.querySelector('.remove-btn').addEventListener('click', () => {
+            container.removeChild(educationItem);
+        });
+    });
+    // LLna el formulario de educacion si existe informacion previa
         const educationContainer = document.getElementById('education-container');
+         educationContainer.innerHTML = ''; 
         if (profile.education) {
             profile.education.forEach(edu => {
                 const educationItem = document.createElement('div');
@@ -92,17 +139,18 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <label>Título:</label>
                     <input type="text" class="input-education-title" value="${edu.title || ''}" placeholder="Título">
                     <label>Fecha de inicio:</label>
-                    <input type="date" class="input-education-startDate" value="${edu.startDate || ''}">
+                    <input type="date" class="input-education-startDate" value="${edu.startdate || ''}">
                     <label>Fecha de finalización:</label>
-                    <input type="date" class="input-education-endDate" value="${edu.endDate || ''}">
+                    <input type="date" class="input-education-endDate" value="${edu.enddate || ''}">
                     <label>Institución:</label>
                     <input type="text" class="input-education-institution" value="${edu.institution || ''}" placeholder="Institución">
                    
                 `;
                 educationContainer.appendChild(educationItem);
+
             });
         }
-
+    
         // Mostrar la imagen actual si existe
         if (profile.image) {
             imagePreview.innerHTML = `<img src="${profile.image}" alt="Foto de perfil actual" style="max-width: 200px;">`;
