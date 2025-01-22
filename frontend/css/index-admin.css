@@ -277,102 +277,11 @@ nav {
 }
 
 
-
+/* SECCION DE RESEÑAS */
 .reviews-section {
-/*     display: flex;
-    flex-wrap: wrap; */
-/*     justify-content: center;  */
-/*     align-items: center;  */
-/*     flex-direction: column; */
     padding: 50px;
 }
 
-
-.reviews-column {
-    gap: 2rem;
-/*     justify-content: center; */
-    padding: 1rem;
-/*     box-sizing: border-box */
-}
-
-.review-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    width: 370px;
-    transition: transform 0.3s ease;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    flex-direction: column; /* Apila los elementos verticalmente */
-    display: flex;
-    flex-direction: column;
-    text-align: justify;
-    align-items: center;
-    
-}
-#imgRating img {
-    width: 25px;
-    height: 25px;    
-}
-
-.review-card:hover {
-    transform: translateY(-5px);
-}
-.review-content h2 {
-    color: #333;
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-}
-
-.review-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; 
-    gap: 1rem;
-}
-
-.review-comments {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
-    word-wrap: break-word;
-}
-#reviews{
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    margin: -17px;  
-    font-size: 15px;
-    border-radius: 5px;
-    overflow: hidden;
-}
-.company {
-    color: #A47148;
-}
-.container {
-
-    padding: 16px;
-    border-radius: 1px;
-    display: flex;
-    flex-direction: column;
-    gap: 1px; /* Espaciado entre secciones */
-    width: 100%;
-    text-align: center;
-    
-}
-h3{
-    font-size: 0.9rem;
-}
-span{
-    font-size: 1.25rem;
-}
-
-#numberRating {
-    display: none;
-}
 h4 {
     text-align: center;
 }
@@ -380,3 +289,28 @@ select{
     align-items: center;
     margin-left: 10px;
 }
+
+table {
+    width: 85%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+    margin-bottom: 150px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+}
+td{
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+.rating {
+    width: 15px;
+    height: 15px;
+}
+
+/* FINALIZA BLOQUE DE ESTILO PARA LAS RESEÑAS */

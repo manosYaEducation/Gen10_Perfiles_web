@@ -42,17 +42,27 @@
                 <label>Filtrar reseñas:</label>
                 <select id="filter-reviews" onchange="filterReviews()">
                     <option value="todas">Todas</option>
-                    <option value="pendiente">Pendientes</option>
-                    <option value="aprobada">Aprobadas</option>
-                    <option value="rechazada">Rechazadas</option>
+                    <option value="1">Pendientes</option>
+                    <option value="2">Aprobadas</option>
+                    <option value="3">Rechazadas</option>
                 </select>
             </div>
         </div>
-        <div class="reviews-column">            
-        </div>
-        <div id="app" class="review-content">
 
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Desarrollador</th>
+                    <th>Empresa</th>
+                    <th>Comentario</th>
+                    <th>Valoración</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbReviews"></tbody>
+        </table>
         
     </section>
 

@@ -1,10 +1,10 @@
 <?php
 
-// Se incluye método PUT para actualizar parcialmente la reseña
+// Se incluye método PATCH para actualizar parcialmente la reseña
 // de esta manera nos aseguramos que solo se cambie el estado y no el contenido que corresponde al cliente
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, PUT, OPTIONS");
+header("Access-Control-Allow-Methods: POST, PATCH, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 
