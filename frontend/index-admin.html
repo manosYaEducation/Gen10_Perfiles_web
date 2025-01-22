@@ -63,8 +63,13 @@
             </thead>
             <tbody id="tbReviews"></tbody>
         </table>
-        
     </section>
+
+    <dialog id="confirmationDialog" class="modal">
+        <p id="dialogMessage">¿Estás seguro de que deseas realizar esta acción?</p>
+        <button id="confirm-button"onclick="confirmAction()">Confirmar</button>
+        <button id="cancel-button"onclick="closeDialog()">Cancelar</button>
+    </dialog>
 
     <script src="../frontend/js/verifylogin.js"></script>
     <script src="../frontend/js/config.js"></script>
