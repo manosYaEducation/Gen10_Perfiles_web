@@ -292,7 +292,21 @@ select{
     border-radius: 4px;
     width: 120px;
 }
-
+.confirmButton {
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #2ecc71;
+    margin-right: 10px;
+    border: none;
+}
+.cancelButton{
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #e74c3c;
+    border: none;
+}
 table {
     margin: 0 auto;
     border-collapse: collapse;
@@ -326,4 +340,14 @@ td{
     width: 15px;
     height: 15px;
 }
+.modal {
+    padding: 50px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    text-align: center;
+}
+.modal::backdrop {
+    background: #00000066;
+};
 /* FINALIZA BLOQUE DE ESTILO PARA LAS RESEÑAS */
