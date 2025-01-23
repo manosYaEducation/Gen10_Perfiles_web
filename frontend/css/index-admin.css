@@ -288,10 +288,12 @@ h4 {
 select{
     align-items: center;
     margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 120px;
 }
 
 table {
-    width: 85%;
     margin: 0 auto;
     border-collapse: collapse;
     background: white;
@@ -300,8 +302,20 @@ table {
     }
 th {
     padding: 10px;
+    width: 1px;
     border: 1px solid #ddd;
     font-weight: bold;
+}
+.td-large{
+    width: 800px;
+    overflow-wrap: break-word;
+    max-width: 800px;
+}
+.td-medium{
+    width: 245px;
+}
+.td-small{
+    width: 4px;
 }
 td{
     padding: 10px;
@@ -312,5 +326,4 @@ td{
     width: 15px;
     height: 15px;
 }
-
 /* FINALIZA BLOQUE DE ESTILO PARA LAS RESEÑAS */
