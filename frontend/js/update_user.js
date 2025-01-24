@@ -221,8 +221,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                     icon: 'success',
                     title: 'Perfil actualizado con éxito',
                     showConfirmButton: false,
-                    timer: 1500,
-                });
+                    timer: 1500, 
+                    willClose: () => {history.back();}
+            });
+
             } else {
                 console.error("Error al actualizar perfil:", result.message);
                 Swal.fire({
