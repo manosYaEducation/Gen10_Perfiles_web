@@ -80,10 +80,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <input type="date" class="input-experience-startDate" value="${exp.startdate || ''}">
                     <label>Fecha de finalización:</label>
                     <input type="date" class="input-experience-endDate" value="${exp.enddate || ''}">
-                    
+                    <button type="button" class="remove-btn">Eliminar</button>
                 `;
                 experienceContainer.appendChild(experienceItem);
-                
+
+                experienceItem.querySelector('.remove-btn').addEventListener('click', () => {
+                    experienceContainer.removeChild(experienceItem);
+                });
             });
         }
         //agraga nueva experiencia si es el usuario quiere 
@@ -144,10 +147,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <input type="date" class="input-education-endDate" value="${edu.enddate || ''}">
                     <label>Institución:</label>
                     <input type="text" class="input-education-institution" value="${edu.institution || ''}" placeholder="Institución">
-                   
+                    <button type="button" class="remove-btn">Eliminar</button>
                 `;
                 educationContainer.appendChild(educationItem);
 
+                educationItem.querySelector('.remove-btn').addEventListener('click', () => {
+                    educationContainer.removeChild(educationItem);
+                });
             });
         }
     

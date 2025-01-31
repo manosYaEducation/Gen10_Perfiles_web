@@ -69,7 +69,7 @@ textarea {
 button[type="submit"] {
   background-color: #4CAF50;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -90,10 +90,10 @@ button[type="submit"]{
   border-radius: 5px;
   cursor: pointer;
   margin-right: 0;
+  margin-bottom: 30px;
 }
 button[type="submit"]:hover {
   background-color: #3e8e41;
-  
 }
 
 button[type="button"]{
@@ -104,10 +104,10 @@ button[type="button"]{
   cursor: pointer;
   margin-right: 0;
   background-color: #916e3a;
+  margin-bottom: 30px;
 }
 button[type="button"]:hover {
   background-color: #614510;
-  
 }
 
 #experience-section, #education-section {
