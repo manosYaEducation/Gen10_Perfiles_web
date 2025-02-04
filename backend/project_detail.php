@@ -1,83 +1,72 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header('Content-Type: application/json');
-
 include 'conexion.php';
 
-// Obtener el ID del proyecto desde la URL
-$id_proyecto = isset($_GET['id']) ? intval($_GET['id']) : 0;
+// Consulta para obtener todos los proyectos y sus detalles
+$sql = "SELECT p.id_proyecto, p.titulo_proyecto, p.fecha, p.ubicacion, p.contenido_proyecto, 
+               d.tipo, d.descripcion, d.detalle 
+        FROM proyectos p
+        LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
+        ORDER BY p.id_proyecto, 
+                 FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'testimonio', 'enlace')";
 
-if ($id_proyecto <= 0) {
-    echo json_encode(['success' => false, 'message' => 'ID de proyecto inválido']);
-    exit();
-}
+$stmt = $conn->prepare($sql);
+$stmt->execute();
+$datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-try {
-    // Consulta del proyecto
-    $stmt = $conn->prepare("SELECT id_proyecto, titulo_proyecto, fecha, ubicacion, contenido_proyecto 
-                            FROM proyectos WHERE id_proyecto = ?");
-    $stmt->execute([$id_proyecto]);
-    $proyecto = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$proyecto) {
-        echo json_encode(['success' => false, 'message' => 'Proyecto no encontrado']);
-        exit();
+// Agrupar los datos por proyecto
+$proyectos = [];
+foreach ($datos as $fila) {
+    $id_proyecto = $fila['id_proyecto'];
+    
+    if (!isset($proyectos[$id_proyecto])) {
+        $proyectos[$id_proyecto] = [
+            'id_proyecto' => $fila['id_proyecto'],
+            'titulo' => $fila['titulo_proyecto'],
+            'fecha' => $fila['fecha'],
+            'ubicacion' => $fila['ubicacion'],
+            'contenido' => $fila['contenido_proyecto'],
+            'detalles' => [
+                'parrafos' => [],
+                'imagenes' => [],
+                'participantes' => [],
+                'testimonios' => [],
+                'enlaces' => []
+            ]
+        ];
     }
 
-    // Obtener detalles del proyecto
-    $stmt = $conn->prepare("SELECT tipo, descripcion, detalle FROM proyectos_detalles WHERE id_proyecto = ?");
-    $stmt->execute([$id_proyecto]);
-    $detalles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Estructura organizada
-    $resultado = [
-        'titulo' => $proyecto['titulo_proyecto'],
-        'fecha' => $proyecto['fecha'],
-        'ubicacion' => $proyecto['ubicacion'],
-        'contenido' => $proyecto['contenido_proyecto'],
-        'detalles' => [
-            'parrafos' => [],
-            'imagenes' => [],
-            'participantes' => [],
-            'testimonios' => [],
-            'enlaces' => []
-        ]
-    ];
-
-    foreach ($detalles as $detalle) {
-        switch ($detalle['tipo']) {
-            case 'parrafo':
-                $resultado['detalles']['parrafos'][] = $detalle['descripcion'];
-                break;
-            case 'imagen':
-                $resultado['detalles']['imagenes'][] = $detalle['detalle']; // URL
-                break;
-            case 'participante':
-                $resultado['detalles']['participantes'][] = [
-                    'id' => $detalle['descripcion'],
-                    'nombre' => $detalle['detalle']
-                ];
-                break;
-            case 'testimonio':
-                $resultado['detalles']['testimonios'][] = [
-                    'autor' => $detalle['descripcion'],
-                    'contenido' => $detalle['detalle']
-                ];
-                break;
-            case 'enlace':
-                $resultado['detalles']['enlaces'][] = [
-                    'descripcion' => $detalle['descripcion'],
-                    'url' => $detalle['detalle']
-                ];
-                break;
-        }
+    // Clasificar detalles por tipo
+    switch ($fila['tipo']) {
+        case 'parrafo':
+            $proyectos[$id_proyecto]['detalles']['parrafos'][] = $fila['descripcion'];
+            break;
+        case 'imagen':
+            $proyectos[$id_proyecto]['detalles']['imagenes'][] = $fila['detalle']; // URL de la imagen
+            break;
+        case 'participante':
+            $proyectos[$id_proyecto]['detalles']['participantes'][] = [
+                'id' => $fila['descripcion'],
+                'nombre' => $fila['detalle']
+            ];
+            break;
+        case 'testimonio':
+            $proyectos[$id_proyecto]['detalles']['testimonios'][] = [
+                'autor' => $fila['descripcion'],
+                'contenido' => $fila['detalle']
+            ];
+            break;
+        case 'enlace':
+            $proyectos[$id_proyecto]['detalles']['enlaces'][] = [
+                'descripcion' => $fila['descripcion'],
+                'url' => $fila['detalle']
+            ];
+            break;
     }
-
-    echo json_encode(['success' => true, 'proyecto' => $resultado]);
-
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'Error en la base de datos: ' . $e->getMessage()]);
 }
+
+header('Content-Type: application/json');
+echo json_encode(array_values($proyectos), JSON_UNESCAPED_UNICODE);
+exit;
+
 ?>
+

@@ -8,15 +8,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     try {
-        const response = await fetch(`http://localhost/Gen10_Perfiles_web/backend/project_read.php?id=${idProyecto}`);
+        const response = await fetch(`http://localhost/Gen10_Perfiles_web/backend/project_detail.php?id=${idProyecto}`);
         const data = await response.json();
 
-        if (!data.success) {
-            document.getElementById("proyecto-container").innerHTML = `<p>Error: ${data.message}</p>`;
+        if (!data || data.length === 0) {
+            document.getElementById("proyecto-container").innerHTML = `<p>Error: No se encontraron datos para este proyecto.</p>`;
             return;
         }
-
-        const proyecto = data.proyecto;
+        
+        const proyecto = data[0];
 
         let contenidoHTML = `
             <h2>${proyecto.titulo}</h2>
