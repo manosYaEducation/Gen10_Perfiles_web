@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@500&family=Open+Sans:wght@400&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 80px;
+            padding: 0;
+            background-color: #f1cece;
+        }
+
+        .proyecto-timeline {
+            background-color: aquamarine;
+            display: grid;
+            grid-template-columns: 150px 50px auto;
+            align-items: center;
+            position: relative;
+            margin: 0;
+            min-height: 90px; 
+        }
+
+        .proyecto-linea {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; 
+        }
+
+        .proyecto-linea::before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background-color: #7e7e7e;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .proyecto-linea::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border: 3px solid #e20707;
+            border-radius: 50%;
+            position: absolute;
+            top: 34%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .proyecto-fecha{
+        background-color: rgb(255, 127, 238);
+        text-align: end;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        position: relative;
+        top: -16px;
+        }
+
+        .proyecto-tarjeta{
+        background-color: aliceblue;
+        border-top: solid 15px #7e7e7ed5;
+        }
+
+        .proyecto-titulo{
+        background-color: rgb(255, 236, 131);
+        font-family: 'Poppins', sans-serif;
+        font-size: 22px;
+        font-weight: 500;
+        color: black;
+        }
+
+        .proyecto-descripcion{
+        background-color: rgb(77, 95, 255);
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+  <h1>Lista de Proyectos</h1>
+  <div id="contenedor-proyecto"></div>  
+  <script src="./js/project-read.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Detalle de Proyecto</title>
+    <script>
+        function actualizarFormulario() {
+            let tipo = document.getElementById("tipo").value;
+            document.getElementById("descripcionLabel").textContent = "Descripción:";
+            document.getElementById("detalleLabel").textContent = "Detalle:";
+            
+            document.getElementById("detalle").style.display = "block";
+            document.getElementById("detalleLabel").style.display = "block";
+
+            if (tipo === "parrafo") {
+                document.getElementById("descripcionLabel").textContent = "Texto del párrafo:";
+                document.getElementById("detalle").style.display = "none";
+                document.getElementById("detalleLabel").style.display = "none";
+            } else if (tipo === "imagen") {
+                document.getElementById("descripcionLabel").textContent = "Descripción de la imagen:";
+                document.getElementById("detalleLabel").textContent = "URL de la imagen:";
+            } else if (tipo === "participante") {
+                document.getElementById("descripcionLabel").textContent = "ID del participante:";
+                document.getElementById("detalleLabel").textContent = "Nombre del participante:";
+            } else if (tipo === "testimonio") {
+                document.getElementById("descripcionLabel").textContent = "Autor del testimonio:";
+                document.getElementById("detalleLabel").textContent = "Testimonio:";
+            } else if (tipo === "enlace") {
+                document.getElementById("descripcionLabel").textContent = "Descripción del enlace:";
+                document.getElementById("detalleLabel").textContent = "URL del enlace:";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Agregar Detalle de Proyecto</h2>
+    <form action="/guardar_detalle_proyecto" method="POST">
+        <label for="tipo">Tipo de detalle:</label>
+        <select id="tipo" name="tipo" onchange="actualizarFormulario()">
+            <option value="parrafo">Párrafo</option>
+            <option value="imagen">Imagen</option>
+            <option value="participante">Participante</option>
+            <option value="testimonio">Testimonio</option>
+            <option value="enlace">Enlace</option>
+        </select>
+
+        <label id="descripcionLabel" for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion" required>
+
+        <label id="detalleLabel" for="detalle">Detalle:</label>
+        <input type="text" id="detalle" name="detalle">
+
+        <label for="id_proyecto">ID del Proyecto:</label>
+        <input type="number" id="id_proyecto" name="id_proyecto" required>
+
+        <button type="submit">Guardar Detalle</button>
+    </form>
+</body>
+</html>
