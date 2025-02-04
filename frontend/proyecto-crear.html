@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Detalle de Proyecto</title>
-    <script>
-        function actualizarFormulario() {
-            let tipo = document.getElementById("tipo").value;
-            document.getElementById("descripcionLabel").textContent = "Descripción:";
-            document.getElementById("detalleLabel").textContent = "Detalle:";
-            
-            document.getElementById("detalle").style.display = "block";
-            document.getElementById("detalleLabel").style.display = "block";
-
-            if (tipo === "parrafo") {
-                document.getElementById("descripcionLabel").textContent = "Texto del párrafo:";
-                document.getElementById("detalle").style.display = "none";
-                document.getElementById("detalleLabel").style.display = "none";
-            } else if (tipo === "imagen") {
-                document.getElementById("descripcionLabel").textContent = "Descripción de la imagen:";
-                document.getElementById("detalleLabel").textContent = "URL de la imagen:";
-            } else if (tipo === "participante") {
-                document.getElementById("descripcionLabel").textContent = "ID del participante:";
-                document.getElementById("detalleLabel").textContent = "Nombre del participante:";
-            } else if (tipo === "testimonio") {
-                document.getElementById("descripcionLabel").textContent = "Autor del testimonio:";
-                document.getElementById("detalleLabel").textContent = "Testimonio:";
-            } else if (tipo === "enlace") {
-                document.getElementById("descripcionLabel").textContent = "Descripción del enlace:";
-                document.getElementById("detalleLabel").textContent = "URL del enlace:";
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Proyecto</title>
+  <link rel="stylesheet" href="./css/proyecto-crear.css">
 </head>
 <body>
-    <h2>Agregar Detalle de Proyecto</h2>
-    <form action="/guardar_detalle_proyecto" method="POST">
-        <label for="tipo">Tipo de detalle:</label>
-        <select id="tipo" name="tipo" onchange="actualizarFormulario()">
-            <option value="parrafo">Párrafo</option>
-            <option value="imagen">Imagen</option>
-            <option value="participante">Participante</option>
-            <option value="testimonio">Testimonio</option>
-            <option value="enlace">Enlace</option>
-        </select>
+  <h2>Crear Proyecto</h2>
+  <form id="form-proyecto" action="http://localhost/Gen10_Perfiles_web/backend/project_create.php" method="POST" enctype="multipart/form-data">
+    <label>Título Tarjeta:</label>
+    <input type="text" name="titulo_tarjeta" required class="campo">
 
-        <label id="descripcionLabel" for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion" name="descripcion" required>
+    <label>Descripción Tarjeta:</label>
+    <textarea name="descripcion_tarjeta" required class="campo"></textarea>
 
-        <label id="detalleLabel" for="detalle">Detalle:</label>
-        <input type="text" id="detalle" name="detalle">
+    <label>Título Proyecto:</label>
+    <input type="text" name="titulo_proyecto" required class="campo">
 
-        <label for="id_proyecto">ID del Proyecto:</label>
-        <input type="number" id="id_proyecto" name="id_proyecto" required>
+    <label>Fecha:</label>
+    <input type="date" name="fecha" required class="campo">
 
-        <button type="submit">Guardar Detalle</button>
-    </form>
+    <label>Ubicación (Opcional):</label>
+    <input type="text" name="ubicacion" class="campo">
+
+    <label>Contenido del Proyecto:</label>
+    <textarea name="contenido_proyecto" required class="campo"></textarea>
+
+    <h3>Párrafos</h3>
+    <div id="contenedor-parrafos"></div>
+    <button type="button" onclick="agregarCampoParrafo()">Agregar Párrafo</button>
+
+    <h3>Imágenes</h3>
+    <input type="file" id="input-imagenes" multiple class="campo" accept="image/*">
+    <div id="preview-imagenes"></div>
+
+    <h3>Participantes</h3>
+    <input type="text" id="input-buscar-participante" placeholder="Buscar participante..." class="campo">
+    <div id="listado-profile" class="hidden"></div>
+    <button type="button" id="btn-agregar-participante" disabled>Agregar Participante</button>
+    <div id="lista-participantes"></div>
+
+    <h3>Testimonios</h3>
+    <div id="contenedor-testimonios"></div>
+    <button type="button" onclick="agregarCampoTestimonio()">Agregar Testimonio</button>
+
+    <h3>Enlaces</h3>
+    <div id="contenedor-enlaces"></div>
+    <button type="button" onclick="agregarCampoEnlace()">Agregar Enlace</button>
+
+    <button type="submit">Crear Proyecto</button>
+  </form>
+
+  <!-- Modal para confirmar o informar error -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <div class="modal-buttons">
+        <button id="modal-create-another">Crear otro proyecto</button>
+        <button id="modal-view-project">Ver proyecto creado</button>
+        <button id="modal-close">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/project-create.js"></script>
 </body>
 </html>

@@ -3,11 +3,13 @@ include 'conexion.php';
 
 // Consulta para obtener todos los proyectos y sus detalles
 $sql = "SELECT p.id_proyecto, p.titulo_proyecto, p.fecha, p.ubicacion, p.contenido_proyecto, 
-               d.tipo, d.descripcion, d.detalle 
+       d.tipo, d.descripcion, d.detalle 
         FROM proyectos p
         LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
+        WHERE p.id_proyecto = idProyecto
         ORDER BY p.id_proyecto, 
-                 FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'testimonio', 'enlace')";
+                FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'testimonio', 'enlace');
+        ";
 
 $stmt = $conn->prepare($sql);
 $stmt->execute();

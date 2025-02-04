@@ -1,13 +1,34 @@
 /* -------------------------
+ * Variables globales
+ * ------------------------- */
+let selectedImages = []; // Archivos de imágenes seleccionados
+let listaGlobalParticipantes = [];
+let participantesSeleccionados = [];
+
+/* -------------------------
  * Manejo de Párrafos
  * ------------------------- */
 function agregarCampoParrafo() {
     const contenedor = document.getElementById("contenedor-parrafos");
+    const divParrafo = document.createElement("div");
+    divParrafo.className = "parrafo-container";
+    
     const nuevoParrafo = document.createElement("textarea");
     nuevoParrafo.name = "parrafos[]";
     nuevoParrafo.required = true;
     nuevoParrafo.className = "campo";
-    contenedor.appendChild(nuevoParrafo);
+    
+    const btnEliminar = document.createElement("button");
+    btnEliminar.type = "button";
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.className = "btn-delete";
+    btnEliminar.onclick = () => {
+        divParrafo.remove();
+    };
+
+    divParrafo.appendChild(nuevoParrafo);
+    divParrafo.appendChild(btnEliminar);
+    contenedor.appendChild(divParrafo);
 }
 
 /* -------------------------
@@ -15,8 +36,8 @@ function agregarCampoParrafo() {
  * ------------------------- */
 function agregarCampoTestimonio() {
     const contenedor = document.getElementById("contenedor-testimonios");
-    const nuevoDiv = document.createElement("div");
-    nuevoDiv.className = "campo";
+    const divTestimonio = document.createElement("div");
+    divTestimonio.className = "campo";
 
     const nuevoAutor = document.createElement("input");
     nuevoAutor.name = "autores_testimonios[]";
@@ -29,9 +50,18 @@ function agregarCampoTestimonio() {
     nuevoTestimonio.placeholder = "Escribe el testimonio";
     nuevoTestimonio.required = true;
 
-    nuevoDiv.appendChild(nuevoAutor);
-    nuevoDiv.appendChild(nuevoTestimonio);
-    contenedor.appendChild(nuevoDiv);
+    const btnEliminar = document.createElement("button");
+    btnEliminar.type = "button";
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.className = "btn-delete";
+    btnEliminar.onclick = () => {
+        divTestimonio.remove();
+    };
+
+    divTestimonio.appendChild(nuevoAutor);
+    divTestimonio.appendChild(nuevoTestimonio);
+    divTestimonio.appendChild(btnEliminar);
+    contenedor.appendChild(divTestimonio);
 }
 
 /* -------------------------
@@ -39,8 +69,8 @@ function agregarCampoTestimonio() {
  * ------------------------- */
 function agregarCampoEnlace() {
     const contenedor = document.getElementById("contenedor-enlaces");
-    const nuevoDiv = document.createElement("div");
-    nuevoDiv.className = "campo";
+    const divEnlace = document.createElement("div");
+    divEnlace.className = "campo";
 
     const nuevaDescripcion = document.createElement("input");
     nuevaDescripcion.name = "descripciones_enlaces[]";
@@ -54,35 +84,76 @@ function agregarCampoEnlace() {
     nuevoEnlace.placeholder = "URL del enlace";
     nuevoEnlace.required = true;
 
-    nuevoDiv.appendChild(nuevaDescripcion);
-    nuevoDiv.appendChild(nuevoEnlace);
-    contenedor.appendChild(nuevoDiv);
+    const btnEliminar = document.createElement("button");
+    btnEliminar.type = "button";
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.className = "btn-delete";
+    btnEliminar.onclick = () => {
+        divEnlace.remove();
+    };
+
+    divEnlace.appendChild(nuevaDescripcion);
+    divEnlace.appendChild(nuevoEnlace);
+    divEnlace.appendChild(btnEliminar);
+    contenedor.appendChild(divEnlace);
 }
 
-/* ========================================================
- * MANEJO de PARTICIPANTES: Búsqueda y selección
- * ======================================================== */
+/* -------------------------
+ * Manejo de Imágenes
+ * ------------------------- */
+document.getElementById("input-imagenes").addEventListener("change", function(event) {
+    const files = Array.from(event.target.files);
+    // Se agregan los archivos seleccionados al array global
+    selectedImages = selectedImages.concat(files);
+    // Se limpia el input para poder volver a seleccionar
+    event.target.value = "";
+    renderizarImagenes();
+});
 
-// Lista global de participantes obtenidos del servidor
-let listaGlobalParticipantes = [];
-let participantesSeleccionados = []; // IDs de participantes ya agregados
+function renderizarImagenes() {
+    const preview = document.getElementById("preview-imagenes");
+    preview.innerHTML = "";
+    selectedImages.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const divImagen = document.createElement("div");
+            divImagen.className = "imagen-preview";
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "150px";
+            // Botón para eliminar la imagen
+            const btnEliminar = document.createElement("button");
+            btnEliminar.type = "button";
+            btnEliminar.textContent = "Eliminar";
+            btnEliminar.className = "btn-delete";
+            btnEliminar.onclick = () => {
+                selectedImages.splice(index, 1);
+                renderizarImagenes();
+            };
+            divImagen.appendChild(img);
+            divImagen.appendChild(btnEliminar);
+            preview.appendChild(divImagen);
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
-// Cargar participantes desde el servidor
+/* -------------------------
+ * Manejo de Participantes: Búsqueda y selección
+ * ------------------------- */
 async function cargarParticipantes() {
     try {
-        const response = await fetch("http://localhost/Gen10_Perfiles_web/backend/find_participant.php");
+        const response = await fetch("http://localhost/Gen10_Perfiles_web/backend/project_participant.php");
         listaGlobalParticipantes = await response.json();
     } catch (error) {
         console.error("Error al obtener participantes:", error);
     }
 }
 
-// Filtra participantes basados en el texto ingresado
 function filtrarParticipantes(texto) {
     return listaGlobalParticipantes.filter(p => p.name.toLowerCase().includes(texto.toLowerCase()));
 }
 
-// Muestra sugerencias de participantes
 function mostrarSugerencias(participantesFiltrados) {
     const participantesBox = document.getElementById("listado-profile");
     participantesBox.innerHTML = "";
@@ -111,7 +182,6 @@ function mostrarSugerencias(participantesFiltrados) {
     participantesBox.style.display = "block";
 }
 
-// Agregar participante a la lista
 function agregarParticipanteSeleccionado() {
     const inputBuscar = document.getElementById("input-buscar-participante");
     const nombreSeleccionado = inputBuscar.value;
@@ -128,86 +198,132 @@ function agregarParticipanteSeleccionado() {
     const nuevoDiv = document.createElement("div");
     nuevoDiv.className = "participante-item";
     nuevoDiv.textContent = nombreSeleccionado;
-
-    // Campo oculto para el formulario
+    
+    // Input oculto para enviar el dato
     const hiddenInput = document.createElement("input");
     hiddenInput.type = "hidden";
+    // Se envía como participantes[id] => nombre
     hiddenInput.name = `participantes[${idSeleccionado}]`;
     hiddenInput.value = nombreSeleccionado;
-
     nuevoDiv.appendChild(hiddenInput);
+
+    // Botón para eliminar el participante
+    const btnEliminar = document.createElement("button");
+    btnEliminar.type = "button";
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.className = "btn-delete";
+    btnEliminar.onclick = () => {
+        nuevoDiv.remove();
+        participantesSeleccionados = participantesSeleccionados.filter(id => id !== idSeleccionado);
+    };
+    nuevoDiv.appendChild(btnEliminar);
+
     divLista.appendChild(nuevoDiv);
 
-    // Reset del input
+    // Resetea el input de búsqueda
     inputBuscar.value = "";
-    inputBuscar.removeAttribute("data-selected-id");
+    delete inputBuscar.dataset.selectedId;
     document.getElementById("btn-agregar-participante").disabled = true;
 }
 
-// Evento al cargar la página
-window.addEventListener("DOMContentLoaded", () => {
-    cargarParticipantes();
-
+/* Ocultar sugerencias si se hace clic fuera */
+document.addEventListener("click", function(event) {
     const inputBuscar = document.getElementById("input-buscar-participante");
-    const btnAgregar = document.getElementById("btn-agregar-participante");
-
-    inputBuscar.addEventListener("focus", () => {
-        if (!inputBuscar.value) {
-            mostrarSugerencias(listaGlobalParticipantes);
-        }
-    });
-
-    inputBuscar.addEventListener("input", () => {
-        const texto = inputBuscar.value.trim();
-        mostrarSugerencias(texto ? filtrarParticipantes(texto) : listaGlobalParticipantes);
-        btnAgregar.disabled = true;
-    });
-
-    btnAgregar.addEventListener("click", agregarParticipanteSeleccionado);
+    const listado = document.getElementById("listado-profile");
+    if (!inputBuscar.contains(event.target) && !listado.contains(event.target)) {
+        listado.style.display = "none";
+    }
 });
 
-/* ========================================================
- * Enviar datos correctamente al backend
- * ======================================================== */
+document.getElementById("input-buscar-participante").addEventListener("input", () => {
+    const texto = document.getElementById("input-buscar-participante").value.trim();
+    if (texto) {
+        mostrarSugerencias(filtrarParticipantes(texto));
+    } else {
+        document.getElementById("listado-profile").style.display = "none";
+    }
+    document.getElementById("btn-agregar-participante").disabled = true;
+});
 
-document.querySelector("form").addEventListener("submit", function (e) {
-    let participantes = {};
-    document.querySelectorAll("#lista-participantes .participante-item").forEach((div) => {
-        let id = div.querySelector("input").name.match(/\d+/)[0];
-        let nombre = div.querySelector("input").value;
-        participantes[id] = nombre;
+document.getElementById("btn-agregar-participante").addEventListener("click", agregarParticipanteSeleccionado);
+
+/* -------------------------
+ * Envío del formulario y manejo del modal
+ * ------------------------- */
+document.getElementById("form-proyecto").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const form = this;
+    const formData = new FormData(form);
+
+    // Agregar imágenes seleccionadas manualmente
+    selectedImages.forEach(file => {
+        formData.append("imagenes[]", file);
     });
 
-    let enlaces = {};
-    document.querySelectorAll("#contenedor-enlaces .campo").forEach((div) => {
-        let descripcion = div.children[0].value;
-        let enlace = div.children[1].value;
-        enlaces[descripcion] = enlace;
-    });
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData
+        });
+        
+        // Verifica el Content-Type para asegurarse de que es JSON
+        const contentType = response.headers.get("content-type");
+        let result;
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+            result = await response.json();
+        } else {
+            // Si no es JSON, lee el texto para depuración y lanza un error controlado
+            const text = await response.text();
+            console.error("Respuesta no JSON recibida:", text);
+            throw new Error("La respuesta del servidor no es JSON. Revise los errores en el backend.");
+        }
+        
+        mostrarModal(result);
+    } catch (error) {
+        console.error("Error al enviar el formulario:", error);
+        mostrarModal({ success: false, message: "Error al enviar el formulario: " + error.message });
+    }
+});
 
-    let testimonios = {};
-    document.querySelectorAll("#contenedor-testimonios .campo").forEach((div) => {
-        let autor = div.children[0].value;
-        let testimonio = div.children[1].value;
-        testimonios[autor] = testimonio;
-    });
 
-    // Crear inputs ocultos para enviar los datos correctamente
-    const hiddenParticipantes = document.createElement("input");
-    hiddenParticipantes.type = "hidden";
-    hiddenParticipantes.name = "participantes";
-    hiddenParticipantes.value = JSON.stringify(participantes);
-    this.appendChild(hiddenParticipantes);
+/* Función para mostrar el modal de respuesta */
+function mostrarModal(data) {
+    const modal = document.getElementById("modal");
+    const modalMessage = document.getElementById("modal-message");
+    modalMessage.textContent = data.message || "Respuesta del servidor";
+    modal.classList.remove("hidden");
 
-    const hiddenEnlaces = document.createElement("input");
-    hiddenEnlaces.type = "hidden";
-    hiddenEnlaces.name = "enlaces";
-    hiddenEnlaces.value = JSON.stringify(enlaces);
-    this.appendChild(hiddenEnlaces);
+    // Botón: Crear otro proyecto (resetea el formulario)
+    document.getElementById("modal-create-another").onclick = () => {
+        document.getElementById("form-proyecto").reset();
+        selectedImages = [];
+        renderizarImagenes();
+        document.getElementById("contenedor-parrafos").innerHTML = "";
+        document.getElementById("contenedor-testimonios").innerHTML = "";
+        document.getElementById("contenedor-enlaces").innerHTML = "";
+        document.getElementById("lista-participantes").innerHTML = "";
+        participantesSeleccionados = [];
+        modal.classList.add("hidden");
+    };
 
-    const hiddenTestimonios = document.createElement("input");
-    hiddenTestimonios.type = "hidden";
-    hiddenTestimonios.name = "testimonios";
-    hiddenTestimonios.value = JSON.stringify(testimonios);
-    this.appendChild(hiddenTestimonios);
+    // Botón: Ver proyecto creado (redirige si hay ID del proyecto)
+    document.getElementById("modal-view-project").onclick = () => {
+        if(data.success && data.id) {
+            window.location.href = `http://localhost/Gen10_Perfiles_web/project_view.php?id=${data.id}`;
+        } else {
+            alert("No hay proyecto para ver.");
+        }
+    };
+
+    // Botón: Cerrar el modal
+    document.getElementById("modal-close").onclick = () => {
+        modal.classList.add("hidden");
+    };
+}
+
+/* -------------------------
+ * Inicialización
+ * ------------------------- */
+document.addEventListener("DOMContentLoaded", function () {
+    cargarParticipantes();
 });
