@@ -11,7 +11,7 @@ body {
   background-color: #f9f9f9;
   color: #333;
   line-height: 1.6;
-  padding: 20px;
+  
 }
 
 /* Contenedor principal del formulario */
@@ -27,7 +27,7 @@ form#form-proyecto {
 /* Estilos para títulos y etiquetas */
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin: 20px;
 }
 
 h3 {

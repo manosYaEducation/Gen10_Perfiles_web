@@ -1,17 +1,27 @@
 <?php
+header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 include 'conexion.php';
 
-// Consulta para obtener todos los proyectos y sus detalles
+// Verificar si se proporciona un ID de proyecto en la URL
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    echo json_encode(["error" => "ID de proyecto no proporcionado"]);
+    exit;
+}
+
+$id_proyecto = intval($_GET['id']); // Convertir a entero para evitar inyección SQL
+
+// Consulta para obtener el proyecto con el ID proporcionado
 $sql = "SELECT p.id_proyecto, p.titulo_proyecto, p.fecha, p.ubicacion, p.contenido_proyecto, 
-       d.tipo, d.descripcion, d.detalle 
+               d.tipo, d.descripcion, d.detalle 
         FROM proyectos p
         LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
-        WHERE p.id_proyecto = idProyecto
-        ORDER BY p.id_proyecto, 
-                FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'testimonio', 'enlace');
-        ";
+        WHERE p.id_proyecto = :id
+        ORDER BY FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'testimonio', 'enlace')";
 
 $stmt = $conn->prepare($sql);
+$stmt->bindParam(':id', $id_proyecto, PDO::PARAM_INT);
 $stmt->execute();
 $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

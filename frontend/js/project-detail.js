@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const params = new URLSearchParams(window.location.search);
-    const idProyecto = params.get("id");
+    const idProyecto = new URL(window.location.href).searchParams.get("id");
+
+
 
     if (!idProyecto) {
         document.getElementById("proyecto-container").innerHTML = "<p>Error: No se proporcionó un ID de proyecto.</p>";
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (proyecto.detalles.participantes.length > 0) {
             contenidoHTML += `<h3>Participantes</h3><ul>`;
             proyecto.detalles.participantes.forEach(participante => {
-                contenidoHTML += `<li>${participante.nombre} (ID: ${participante.id})</li>`;
+                contenidoHTML += `<li>${participante.nombre}</li>`;
             });
             contenidoHTML += `</ul>`;
         }

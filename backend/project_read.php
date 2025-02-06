@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 include 'conexion.php';
 
 // Consulta para obtener todos los proyectos y sus detalles

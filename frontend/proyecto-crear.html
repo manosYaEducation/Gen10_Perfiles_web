@@ -5,8 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crear Proyecto</title>
   <link rel="stylesheet" href="./css/proyecto-crear.css">
+  <link href="../frontend/css/index-admin.css" rel="stylesheet" />
+
 </head>
-<body>
+<body>  
+  <header>
+    <nav>
+        <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+        <div class="navbar" id="navbar">
+            <ul class="headernav">
+                <li><a class="button-crud-proyectos" href="proyectos-admin.html">Regresar</a></li>
+                <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+  </header>
   <h2>Crear Proyecto</h2>
   <form id="form-proyecto" action="http://localhost/Gen10_Perfiles_web/backend/project_create.php" method="POST" enctype="multipart/form-data">
     <label>Título Tarjeta:</label>

@@ -66,22 +66,35 @@ try {
 
     // Guardar Imágenes (permitiendo subir múltiples imágenes)
     if (!empty($_FILES['imagenes']['name'][0])) {
-        // Usamos ruta absoluta para la carpeta destino
         $carpeta_destino = __DIR__ . "/../assets/proyectos-img/";
+
+        // Verificar si la carpeta existe, si no, crearla
         if (!is_dir($carpeta_destino)) {
             mkdir($carpeta_destino, 0777, true);
         }
+
+        // Limpiar el nombre del proyecto para usarlo en los nombres de archivo
+        $nombre_limpio = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($titulo_proyecto));
+        $contador = 1; // Inicializamos el contador para enumerar las imágenes
+
         foreach ($_FILES['imagenes']['tmp_name'] as $key => $tmp_name) {
             if (!empty($tmp_name)) {
-                $nombre_archivo = basename($_FILES['imagenes']['name'][$key]);
+                // Obtener la extensión del archivo (ej: .jpg, .png)
+                $extension = pathinfo($_FILES['imagenes']['name'][$key], PATHINFO_EXTENSION);
+
+                // Generar el nuevo nombre de archivo con numeración
+                $nombre_archivo = "{$nombre_limpio}-" . str_pad($contador, 2, "0", STR_PAD_LEFT) . ".{$extension}";
                 $ruta_destino = $carpeta_destino . $nombre_archivo;
+
+                // Mover el archivo a la carpeta destino
                 if (move_uploaded_file($tmp_name, $ruta_destino)) {
                     $stmt = $conn->prepare("
                         INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
                         VALUES ('imagen', ?, ?, ?)
                     ");
-                    // Se guarda el nombre y la ruta (puedes almacenar la ruta relativa si lo prefieres)
                     $stmt->execute([$nombre_archivo, $ruta_destino, $id_proyecto]);
+
+                    $contador++; // Incrementar el número de la imagen
                 }
             }
         }

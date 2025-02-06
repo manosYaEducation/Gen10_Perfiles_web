@@ -1,11 +1,8 @@
 async function cargarProyectos() {
     try {
         const response = await fetch("http://localhost/Gen10_Perfiles_web/backend/project_read.php");
-        const text = await response.text(); // Obtener la respuesta como texto para inspeccionarla
-
-        console.log("Respuesta del servidor:", text); // <-- Esto imprimirá lo que realmente devuelve
-
-        const proyectos = JSON.parse(text); // Convertir manualmente a JSON
+        const text = await response.text(); 
+        const proyectos = JSON.parse(text); // Convertir a JSON
 
         mostrarProyectos(proyectos);
     } catch (error) {
@@ -13,8 +10,6 @@ async function cargarProyectos() {
         document.getElementById("contenedor-proyecto").innerHTML = `<p style="color: red;">Error al cargar los proyectos.</p>`;
     }
 }
-
-
 
 function mostrarProyectos(proyectos) {
     const contenedor = document.getElementById("contenedor-proyecto");
