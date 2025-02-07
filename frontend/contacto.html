@@ -10,8 +10,7 @@
     <link rel="icon" href="../assets/img/letra-k (1).png" type="image/x-icon">
     <title>Formulario de Contacto</title>
 </head>
-<body >
-
+<body>
 
     <header>
         <nav>
@@ -35,20 +34,15 @@
     <div class="container-general">
         <div class="contacto-container">
             <div class="redes-sociales">
-                <h3>Comunicate con nosotros:</h3>
+                <h3>Comunícate con nosotros:</h3>
                 <div class="social-icons">
-                    <a href="https://wa.me/945429495" target="_blank"><i class="fab fa-whatsapp social-icon"  ></i></a>
-                    
-                    
+                    <a href="https://wa.me/945429495" target="_blank"><i class="fab fa-whatsapp social-icon"></i></a>                      
                 </div>
             </div>
 
-
             <div class="info-contacto">    
                 <div class="detalles-contacto">
-                    <h2>INFORMACIÓN DE CONTACTO</h2>
-                    
-                    
+                    <h2>INFORMACIÓN DE CONTACTO</h2>                   
                     <p><i class="fas fa-envelope"></i> Email: kreativegen10@gmail.com</p>
                 </div>
             </div>
@@ -57,45 +51,83 @@
         <h1>Contacto</h1>
         <div class="contacto-container">
             <div class="contacto-section">
-                <form action="https://formsubmit.co/e06825095b59278ee7084f6aba49bf6c" method="POST" >
+                <form id="contactForm" action="https://formsubmit.co/kreativegen10@gmail.com" method="POST" novalidate>
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_subject" value="Nuevo mensaje de contacto">
+                    <input type="hidden" name="_next" value="http://127.0.0.1:5501/frontend/contacto.html">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
                 
+                    <div class="form-group">
+                        <label for="email">Correo electrónico:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
                 
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Correo electrónico:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="tel" id="telefono" name="telefono" 
-                        placeholder="+56912345678"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label for="asunto">Asunto:</label>
-                    <input type="text" id="asunto" name="asunto" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-                </div>
-
-                <button type="submit" value="Enviar"><i class="fas fa-envelope"></i> Enviar</button>
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="http://127.0.0.1:5501/frontend/contacto.html">
-            </form>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono:</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="+56912345678" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="asunto">Asunto:</label>
+                        <input type="text" id="asunto" name="asunto" required>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                    </div>
+                
+                    <button type="submit"><i class="fas fa-envelope"></i> Enviar</button>
+                </form>                
+            </div>   
         </div>
-   
     </div>
-    
-    
-</body>
 
+    <!-- Modal de éxito -->
+    <dialog id="successModal" class="modal">
+        <h2>¡Mensaje enviado exitosamente!</h2>
+        <p>Agradecemos que se haya puesto en contacto con nosotros. Revisaremos su mensaje y responderemos a la brevedad.</p>
+        <button class="accept-button" onclick="closeModal()">Aceptar</button>
+    </dialog>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita el envío inmediato del formulario
+            
+            const formData = new FormData(this); // Captura los datos del formulario
+            
+            fetch("https://formsubmit.co/kreativegen10@gmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Si la respuesta es exitosa, se muestra un mensaje para el usuario
+                    const modal = document.getElementById('successModal');
+                    modal.showModal();
+
+                    // Limpiar el formulario después de enviarlo
+                    document.getElementById("contactForm").reset();
+                } else {
+                    throw new Error("Error al enviar el formulario");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Hubo un error al enviar el mensaje. Inténtelo nuevamente.");
+            });
+        });
+
+        // Función para cerrar el modal
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            modal.close();
+            window.location.href = "http://127.0.0.1:5501/frontend/contacto.html"; // Redireccionar después de cerrar el modal
+        }
+    </script>
+</body>
 </html>
