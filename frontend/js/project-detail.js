@@ -1,80 +1,107 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    const params = new URLSearchParams(window.location.search);
     const idProyecto = new URL(window.location.href).searchParams.get("id");
-
-
+    console.log("ID del proyecto:", idProyecto);
 
     if (!idProyecto) {
-        document.getElementById("proyecto-container").innerHTML = "<p>Error: No se proporcionó un ID de proyecto.</p>";
+        console.error("No se proporcionó un ID de proyecto.");
         return;
     }
 
     try {
         const response = await fetch(`http://localhost/Gen10_Perfiles_web/backend/project_detail.php?id=${idProyecto}`);
         const data = await response.json();
+        console.log("Datos recibidos:", data);
 
         if (!data || data.length === 0) {
-            document.getElementById("proyecto-container").innerHTML = `<p>Error: No se encontraron datos para este proyecto.</p>`;
+            console.error("No se encontraron datos para este proyecto.");
             return;
         }
-        
-        const proyecto = data[0];
 
-        let contenidoHTML = `
-            <h2>${proyecto.titulo}</h2>
-            <p><strong>Fecha:</strong> ${proyecto.fecha}</p>
-            <p><strong>Ubicación:</strong> ${proyecto.ubicacion}</p>
-            <p><strong>Descripción:</strong> ${proyecto.contenido}</p>
+        const proyecto = data[0];
+        const contenedor = document.getElementById("proyecto-container");
+        contenedor.innerHTML = ""; // Limpiar contenido previo
+
+        //Sección de información del evento
+        let html = `
+            <div id="evento" class="evento-info">
+                <h2 id="titulo-evento">${proyecto.titulo || "Sin título"}</h2>
+                <p id="descripcion-evento">${proyecto.contenido || "Sin descripción disponible."}</p>
         `;
 
         // Párrafos
-        if (proyecto.detalles.parrafos.length > 0) {
-            contenidoHTML += `<h3>Párrafos</h3><ul>`;
-            proyecto.detalles.parrafos.forEach(parrafo => {
-                contenidoHTML += `<li>${parrafo}</li>`;
-            });
-            contenidoHTML += `</ul>`;
+        if (proyecto.detalles?.parrafos?.length > 0) {
+            html += `
+                    ${proyecto.detalles.parrafos.map(p => `<p id="descripcion-detallada">${p}</p>`).join("")}
+            `;
+        }
+        html += `</div>`;
+
+        // 🔹 Galería de imágenes
+        if (proyecto.detalles?.imagenes?.length > 0) {
+            html += `
+                <section class="testimonios-galeria">
+                    <h2>Galería del Evento</h2>
+                    <div class="galeria-container">
+                        ${proyecto.detalles.imagenes.map(img => `<img src="${img}" class="imagen-galeria" alt="Imagen del proyecto">`).join("")}
+                    </div>
+                </section>
+            `;
         }
 
-        // Imágenes
-        if (proyecto.detalles.imagenes.length > 0) {
-            contenidoHTML += `<h3>Imágenes</h3>`;
-            proyecto.detalles.imagenes.forEach(img => {
-                contenidoHTML += `<img src="${img}" class="imagen" alt="Imagen del proyecto">`;
-            });
+        // 🔹 Testimonios
+        if (proyecto.detalles?.testimonios?.length > 0) {
+            html += `
+                <section class="testimonios">
+                    <h2>Testimonios de Asistentes</h2>
+                    <div class="testimonios-container">
+                        ${proyecto.detalles.testimonios.map(testimonio => `
+                            <div class="testimonio">
+                                <div class="testimonio-contenido">
+                                    <h3>${testimonio.autor}</h3>
+                                    <p class="comentario">"${testimonio.contenido}"</p>
+                                </div>
+                            </div>
+                        `).join("")}
+                    </div>
+                </section>
+            `;
         }
 
-        // Participantes
-        if (proyecto.detalles.participantes.length > 0) {
-            contenidoHTML += `<h3>Participantes</h3><ul>`;
-            proyecto.detalles.participantes.forEach(participante => {
-                contenidoHTML += `<li>${participante.nombre}</li>`;
-            });
-            contenidoHTML += `</ul>`;
+        // 🔹 Participantes
+        if (proyecto.detalles?.participantes?.length > 0) {
+            html += `
+                <section class="participantes">
+                    <h2>Participantes</h2>
+                    <div class="logos-container">
+                        ${proyecto.detalles.participantes.map(participante => `
+                            <div class="participante">
+                                <h3>${participante.nombre}</h3>
+                                <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+                            </div>
+                        `).join("")}
+                    </div>
+                </section>
+            `;
         }
 
-        // Testimonios
-        if (proyecto.detalles.testimonios.length > 0) {
-            contenidoHTML += `<h3>Testimonios</h3>`;
-            proyecto.detalles.testimonios.forEach(testimonio => {
-                contenidoHTML += `<blockquote>
-                                    <p>${testimonio.contenido}</p>
-                                    <footer><strong>- ${testimonio.autor}</strong></footer>
-                                  </blockquote>`;
-            });
+        // 🔹 Enlaces Relacionados
+        if (proyecto.detalles?.enlaces?.length > 0) {
+            html += `
+                <section class="enlaces">
+                    <h2>Enlaces Relacionados</h2>
+                    <div class="enlaces-container">
+                        ${proyecto.detalles.enlaces.map(enlace => `
+                            <p><a href="${enlace.url}" target="_blank">${enlace.descripcion}</a></p>
+                        `).join("")}
+                    </div>
+                </section>
+            `;
         }
 
-        // Enlaces
-        if (proyecto.detalles.enlaces.length > 0) {
-            contenidoHTML += `<h3>Enlaces</h3><ul>`;
-            proyecto.detalles.enlaces.forEach(enlace => {
-                contenidoHTML += `<li><a href="${enlace.url}" target="_blank">${enlace.descripcion}</a></li>`;
-            });
-            contenidoHTML += `</ul>`;
-        }
+        // Agregar todo el HTML al contenedor
+        contenedor.innerHTML = html;
 
-        document.getElementById("proyecto-container").innerHTML = contenidoHTML;
     } catch (error) {
-        document.getElementById("proyecto-container").innerHTML = `<p>Error al obtener el proyecto.</p>`;
+        console.error("Error en la petición:", error);
     }
 });

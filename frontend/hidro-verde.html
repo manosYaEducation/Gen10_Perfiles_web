@@ -29,112 +29,77 @@
                 <a href="./login.html" class="login-btn">Ir a panel de administración →</a>
             </div>
         </nav>
-    </header>
-  
-    
-
-    
+    </header>   
     
     <div id="evento" class="evento-info">
-        <h2 id="titulo-evento">La nueva energía
-            viene de Magallanes</h2>
-        <p id="descripcion-evento">
-            Los días 22 y 23 de noviembre, en Luxury Cars, dentro de la Zona Franca de Punta Arenas, se llevo a cabo la Segunda Feria Educativa de Hidrógeno Verde de Magallanes. Un encuentro ciudadano entre la industria y la comunidad, en torno al Hidrógeno Verde y su potencial para la mitigación del cambio climático, y el desarrollo económico y social de la región.
-        </p>
-        <p id="descripcion-detallada">
-            Una convocatoria amplia a la industria, las universidades, los centros de formación y a toda nuestra comunidad magallánica para ser parte de la construcción de este nuevo futuro.
-      </div>
 
-      <!-- Nueva sección de testimonios y galería -->
-      <section class="testimonios-galeria">
-        <h2>Galería del Evento</h2>
-        <div class="galeria-container">
-            <div class="galeria-item">
-                <img src="../assets/hidrogeno-verde/participantes_hidrogenoverde.jpeg" alt="Exposición Hidrógeno Verde">
-                <p class="imagen-descripcion">Participantes  de la feria </p>
-            </div>
-            <div class="galeria-item">
-                <img src="../assets/hidrogeno-verde/estudiante_hidrogenoverde.png" alt="Participantes del evento">
-                <p class="imagen-descripcion">Estudiantes interactuando con participantes  de  la feria</p>
-            </div>
-            <div class="galeria-item">
-                <img src="../assets/hidrogeno-verde/flyer-hidrogeno.png" alt="Demostración práctica">
-                <p class="imagen-descripcion">Anuncio del evento</p>
-            </div>
-        </div>
+        <h2 id="titulo-evento">{titulo_proyecto}</h2>
+        <p id="descripcion-evento">{contenido_proyecto}</p>
+        <p id="descripcion-detallada">{parrafo}</div>
 
-        <h2>Testimonios de Asistentes</h2>
-        <div class="testimonios-container">
-            <div class="testimonio">
-                <div class="testimonio-contenido">
-                    <h3>Ariel Mancilla</h3>
-                    <p class="cargo">Analista programador</p>
-                    <p class="comentario">"El evento superó mis expectativas. La información sobre las nuevas tecnologías en hidrógeno verde fue muy valiosa para nuestros proyectos futuros."</p>
+        <!-- Nueva sección de testimonios y galería -->
+        <section class="testimonios-galeria">
+            <h2>Galería del Evento</h2>
+            <div class="galeria-container">
+                <div class="galeria-item">
+                    <!-- Aquí irían las imágenes -->
                 </div>
             </div>
 
-            <div class="testimonio">
-                <div class="testimonio-contenido">
-                    <h3>Erick Caicheo</h3>
-                    <p class="cargo">Analista programador</p>
-                    <p class="comentario">"Excelente organización y contenido muy relevante. Las conexiones que hicimos serán fundamentales para el desarrollo de energías limpias en la región."</p>
+            <h2>Testimonios de Asistentes</h2> <!-- Aquí irían los testimonios -->
+            <div class="testimonios-container">
+                <div class="testimonio">
+                    <div class="testimonio-contenido">
+                        <h3>Ariel Mancilla</h3>
+                        <p class="comentario">"El evento superó mis expectativas. La información sobre las nuevas tecnologías en hidrógeno verde fue muy valiosa para nuestros proyectos futuros."</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="testimonio">
-                <div class="testimonio-contenido">
-                    <h3>Sebastián Santana</h3>
-                    <p class="cargo">Analista programador</p>
-                    <p class="comentario">"Una experiencia enriquecedora que nos permitió conocer los últimos avances en tecnología de hidrógeno verde y establecer importantes contactos en la industria."</p>
+        <section class="participantes"> <!-- Aquí irían los participantes -->
+            <h2>{nombre.participante}</h2>
+            <div class="logos-container">
+                <!-- Aquí irían la imagen de los participantes-->        
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <img src="../assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
+                    <p class="copyright">Copyright © 2024</p>
+                    <p>Todos los derechos reservados por  empresa Kreative.</p>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="participantes">
-        <h2>Participantes</h2>
-        <div class="logos-container">
-            <img src="../assets/img/Participantes_hidrogeno.PNG" alt="Logos de empresas participantes" class="logos-img">
-        </div>
-    </section>
-
-      <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
-                <p class="copyright">Copyright © 2024</p>
-                <p>Todos los derechos reservados por  empresa Kreative.</p>
-            </div>
-
-            <div class="footer-section">
-                <h3>Compañía</h3>
-                <ul>
-                   
-                    <li><a href="./frontend/contacto.html">Contáctanos</a></li>
-                    <li><a href="./frontend/sec-equipo.html">Nuestro equipo</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Redes sociales</h3>
+                <div class="footer-section">
+                    <h3>Compañía</h3>
                     <ul>
-                        <li><a href="https://wa.me/945429495"  target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-                        
-                    </ul>
-                
-            </div>
-            <div class="footer-section">
-                <h3>Información de contacto</h3>
-                <ul>
                     
-                    <li>Email: kreativegen10@gmail.com</li>
-                </ul>
+                        <li><a href="./frontend/contacto.html">Contáctanos</a></li>
+                        <li><a href="./frontend/sec-equipo.html">Nuestro equipo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Redes sociales</h3>
+                        <ul>
+                            <li><a href="https://wa.me/945429495"  target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                            
+                        </ul>
+                    
+                </div>
+                <div class="footer-section">
+                    <h3>Información de contacto</h3>
+                    <ul>
+                        
+                        <li>Email: kreativegen10@gmail.com</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </footer>
-    <script src="../frontend/js/config.js"></script>
-    
-    <script src="../frontend/js/charla-mg.js"></script>
-    
+        </footer>
+    </div>   
+    <script src="../frontend/js/config.js"></script>    
+    <script src="../frontend/js/project-detail.js"></script>    
 </body>
 
 </html>

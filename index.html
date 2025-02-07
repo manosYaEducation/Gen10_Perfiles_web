@@ -6,7 +6,7 @@
     <title>Equipo Profesional Gen10 Alpha Docere</title>
     <link href="./frontend/css/index.css" rel="stylesheet" />
     <link rel="stylesheet" href="./frontend/css/footer.css">
-    <link rel="stylesheet" href="./frontend/css/proyectos.css">
+    <link rel="stylesheet" href="./frontend/css/proyectos-timeline.css">
     <link rel="icon" href="./assets/img/letra-k (1).png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +32,8 @@
             </div>
         </nav>
     </header>
+    
+    
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
@@ -70,48 +72,24 @@
             </div>
     </section>
     </section>
-    
     <section class="proyectos-destacados" id="proyectos">
-        <div class="encabezado-seccion">
-        <h2>Proyectos Destacados</h2>
-        <!-- <div class="linea-decorativa"></div> -->
-        <p class="pr-2">En Kreative estamos comprometidos con todos nuestros proyectos, buscando entregar un producto de alta calidad buscando satisfacer y plasmar las necesidades e ideas de nuestros clientes</p>
-    </div>
+        <div class="contenedor-flex">
+            <!-- Presentación de Proyectos -->
+            <div class="presentacion-proyectos">
+                <h2>Proyectos Destacados</h2>
+                <p>En Kreative nos comprometemos con cada uno de nuestros proyectos, buscando entregar un producto de alta calidad y plasmando las necesidades e ideas de nuestros clientes.</p>
+            </div>    
     
-        <div class="contenedor-proyectos">
-            
-            <div class="tarjeta-proyecto">
-                <img src="./assets/img/requerimientos.png" alt="Proyecto 1">
-                <div class="info-proyecto">
-                    <h3>Toma de requerimientos</h3>
-                    <p>Realizamos la toma de requerimientos mediante una serie de preguntas estructuradas y la aplicación de los métodos SMART y DUMB. </p>
-                    <!-- <button class="boton-ver-mas">Ver más</button> -->
-                </div>
-            </div>
-
-            
-            <div class="tarjeta-proyecto">
-                <a href="frontend/charla-magallanes.html" style="text-decoration: none; color: inherit;">
-                    <img src="./assets/img/charlamarketing.jpg" alt="Proyecto 2">
-                    <div class="info-proyecto">
-                        <h3>Charla de marketing</h3>
-                        <p >Participamos en esta charla realizada en el Hub Fpyme, donde también tuvimos la oportunidad de ofrecer nuestro servicio de fotografía.</p>
-                    </div>
-                </a>
-            </div>
-
-            
-            <div class="tarjeta-proyecto">
-                <a href="frontend/hidro-verde.html" style="text-decoration: none; color: inherit;">
-                    <img src="./assets/img/hidrogenoverde.jpg" alt="Proyecto 3">
-                    <div class="info-proyecto">
-                        <h3>Feria de hidrógeno verde</h3>
-                        <p>Estuvimos presentes en el evento como asistentes en el uso de pantallas inmersivas, brindando apoyo tanto a los alumnos como al público en general para que pudieran familiarizarse y aprovechar esta tecnología </p>
-                    </div>
-                </a>
+            <!-- Línea Decorativa -->
+            <div class="linea-separadora"></div> 
+    
+            <!-- Timeline de Proyectos -->
+            <div class="proyectos-timeline">     
+                <div id="contenedor-proyecto"></div>  
             </div>
         </div>
     </section>
+    
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -147,7 +125,7 @@
     </footer>
 <script src="./frontend/js/config.js"></script>
 <script src="./frontend/js/index.js"></script>
-
+<script src="./frontend/js/project-read.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,198 @@
+.evento-info {
+    margin-top: 5px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    min-height: 85vh;
+    margin: 0;
+    padding: 1rem 2rem;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.evento-info a:hover {
+    background-color: #0056b3;
+}
+
+/* Proyecto.titulo */
+.evento-info h2 {
+    font-size: 24px;
+    color: #4CAF50;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+    width: 100%;
+}
+
+.evento-info p {
+    font-size: 18px;
+    color: #636E72;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    text-align: justify;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Proyecto.contenido */
+#descripcion-evento {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Proyecto.detalles.parrafos */
+#descripcion-detallada {
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 15px;
+    color: #555;
+    line-height: 1.5;
+    border-left: 4px solid #4CAF50;
+    padding-left: 2rem;
+    margin: 3rem 0;
+    max-width: 1200px;
+    width: 100%;
+}
+
+
+#link-video {
+display: inline-block;
+background: #4CAF50;
+color: white;
+padding: 1.2rem 3rem;
+border-radius: 30px;
+text-decoration: none;
+font-weight: 600;
+margin-top: 2rem;
+font-size: 1.2rem;
+transition: all 0.3s ease;
+}
+
+#link-video:hover {
+background: #45a049;
+transform: translateY(-2px);
+box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/*testimonios*/
+
+.testimonios-galeria {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.galeria-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.galeria-item {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.imagen-descripcion {
+    padding: 1rem;
+    background: #f5f5f5;
+    margin: 0;
+}
+
+.testimonios-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.testimonio {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.testimonio-foto {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonio-contenido h3 {
+    margin: 0;
+    color: #333;
+}
+
+.cargo {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.comentario {
+    font-style: italic;
+    color: #444;
+    line-height: 1.6;
+}
+
+.participantes {
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.participantes h2 {
+    margin-bottom: 30px;
+    
+}
+
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    .evento-info {
+        padding: 2rem;
+    }
+
+    .evento-info h2 {
+        font-size: 2rem;
+    }
+
+    .evento-info p {
+        font-size: 1rem;
+    }
+
+    #link-video {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+
+    .testimonio {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .testimonio-foto {
+        margin: 0 auto;
+    }
+}
+
