@@ -18,7 +18,7 @@ R.comments,
 R.date_review, 
 B.name AS nombre_perfil, 
 C.status AS estado_reseña
-FROM review R LEFT JOIN profile B ON R.profileid = B.id LEFT JOIN STATUS C ON R.statusid = C.id_status;");    
+FROM review R LEFT JOIN profile B ON R.profileid = B.id LEFT JOIN status C ON R.statusid = C.id_status;");    
     $stmt->execute();
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if (!$reviews){ 
