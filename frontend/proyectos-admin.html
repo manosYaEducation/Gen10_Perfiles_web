@@ -8,42 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header>
-        <nav>
-            <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
-            <div class="navbar" id="navbar">
-                <ul class="headernav">
-                    <li><a class="button-crud-proyectos" href="../frontend/index-admin.html">Regresar al Inicio</a></li>
-                    <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-
-    <section class="projects-section">
-        <div class="info-container">
-            <button class="create-project-btn" onclick="window.location.href='proyecto-crear.html'">Crear nuevo proyecto</button>
-            <h1 class="info-title">Lista de Proyectos</h1>
-        </div>
-
-        <!-- Tabla de proyectos -->
-        <table class="project-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre del Proyecto</th>
-                    <th>Descripción del Proyecto</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tablaProyectos">
-                <!-- Los proyectos se cargan dinámicamente aquí -->
-            </tbody>
-        </table>
-    </section>
-
     <style>
         .projects-section {
             max-width: 1200px;
@@ -118,11 +82,45 @@
             background-color: #d9534f;
         }
     </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+            <div class="navbar" id="navbar">
+                <ul class="headernav">
+                    <li><a class="button-crud-proyectos" href="../frontend/index-admin.html">Regresar al Inicio</a></li>
+                    <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="projects-section">
+        <div class="info-container">
+            <button class="create-project-btn" onclick="window.location.href='proyecto-crear.html'">Crear nuevo proyecto</button>
+            <h1 class="info-title">Lista de Proyectos</h1>
+        </div>
+
+        <!-- Tabla de proyectos -->
+        <table class="project-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Proyecto</th>
+                    <th>Descripción del Proyecto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProyectos">
+                <!-- Los proyectos se cargan dinámicamente aquí -->
+            </tbody>
+        </table>
+    </section>   
     
     <script src="./js/project-admin.js"></script>
     <script src="./js/config.js"></script>    
     <script src="../frontend/js/logout.js"></script>
-    <script src="../frontend/js/index-admin.js"></script>
 
 </body>
 </html>

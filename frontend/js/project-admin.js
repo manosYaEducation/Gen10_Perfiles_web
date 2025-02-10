@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         tabla.innerHTML = ""; // Limpiar la tabla antes de agregar nuevos datos
-
+    
         proyectos.forEach(proyecto => {
             const fila = document.createElement("tr");
             fila.innerHTML = `
@@ -38,15 +38,29 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             tabla.appendChild(fila);
         });
-
-        // Asignar eventos a los botones de eliminación
+    
+        // Asignar eventos a los botones de "Eliminar"
         document.querySelectorAll(".delete-btn").forEach(button => {
             button.addEventListener("click", () => {
                 const idProyecto = button.getAttribute("data-id");
                 eliminarProyecto(idProyecto);
             });
         });
+    
+        // Asignar eventos a los botones de "Ver"
+        document.querySelectorAll(".ver-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const idProyecto = button.getAttribute("data-id");
+    
+                if (idProyecto) {
+                    window.location.href = `proyecto-admin-detalle.html?id=${idProyecto}`;
+                } else {
+                    console.error("Error: No se encontró el ID del proyecto.");
+                }
+            });
+        });
     }
+    
 
     /* -------------------------
      * Eliminar un proyecto (DELETE)
@@ -55,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!confirm("¿Estás seguro de eliminar este proyecto?")) return;
 
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL_PHP}project_admin.php?id_proyecto=${id}`, {
                 method: "DELETE",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `id_proyecto=${id}`
+                headers: { "Content-Type": "application/json" }
             });
+            
 
             if (!response.ok) throw new Error("Error al eliminar el proyecto");
             const resultado = await response.json();

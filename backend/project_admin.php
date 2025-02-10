@@ -87,16 +87,17 @@ function actualizarProyecto($conn) {
 
 // Función para eliminar un proyecto
 function eliminarProyecto($conn) {
-    parse_str(file_get_contents("php://input"), $data);
+    // Obtener el ID del proyecto desde la URL
+    $id_proyecto = $_GET['id_proyecto'] ?? null;
 
-    if (!isset($data['id_proyecto'])) {
+    if (!$id_proyecto) {
         echo json_encode(["mensaje" => "ID del proyecto requerido"]);
         return;
     }
 
     $sql = "DELETE FROM proyectos WHERE id_proyecto = :id";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $data['id_proyecto']);
+    $stmt->bindParam(':id', $id_proyecto, PDO::PARAM_INT);
 
     if ($stmt->execute()) {
         echo json_encode(["mensaje" => "Proyecto eliminado correctamente"]);
