@@ -21,13 +21,13 @@
                         profileSection.innerHTML = `
                             ${isEven ? `
                                 <div class="profile-image-container">
-                                    <img src="${profile.image || './assets/img/default-profile.png'}" alt="${profile.name}">
+                                    <img src="${profile.imagen || './assets/img/default-profile.png'}" alt="${profile.name}">
                                 </div>
                                 <div class="profile-text-container">
                                     <h2>${profile.name}</h2>
                                     <p>${profile.phrase}</p>
                                     <p>${profile.description}</p>
-                                    <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="perfil">Ver Perfil</a>
+                                    <a href="/Gen10_Perfiles_web/frontend/perfiles/profile-template.html?id=${profile.id}" class="perfil">Ver Perfil</a>
                                 </div>
                             ` : `
                                 <div class="profile-text-container">

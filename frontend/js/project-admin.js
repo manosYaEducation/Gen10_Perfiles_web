@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const API_URL = "http://localhost/Gen10_Perfiles_web/backend/project_admin.php";
 
     obtenerProyectos(); // Cargar proyectos al iniciar
 
@@ -8,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * ------------------------- */
     async function obtenerProyectos() {
         try {
-            const response = await fetch(API_URL);
+            const response = await fetch(API_URL_PHP +  "project_admin.php");
             if (!response.ok) throw new Error("Error al obtener proyectos");
             const proyectos = await response.json();
             mostrarProyectosEnTabla(proyectos);
@@ -70,4 +69,24 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error al eliminar el proyecto:", error);
         }
     }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Selecciona todos los botones con la clase "ver-btn"
+    const botonesVer = document.querySelectorAll(".ver-btn");
+
+    botonesVer.forEach(boton => {
+        boton.addEventListener("click", function () {
+            // Obtiene el id del proyecto desde el atributo data-id
+            const idProyecto = this.getAttribute("data-id");
+
+            // Verifica si el idProyecto es válido
+            if (idProyecto) {
+                console.log("Redirigiendo a:", `frontend/proyecto-admin-detalle.html?id=${idProyecto}`);
+                window.location.href = `frontend/proyecto-admin-detalle.html?id=${idProyecto}`;
+            } else {
+                console.error("Error: No se encontró el ID del proyecto.");
+            }
+        });
+    });
 });

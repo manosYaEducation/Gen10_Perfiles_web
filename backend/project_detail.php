@@ -53,14 +53,34 @@ foreach ($datos as $fila) {
             $proyectos[$id_proyecto]['detalles']['parrafos'][] = $fila['descripcion'];
             break;
         case 'imagen':
-            $proyectos[$id_proyecto]['detalles']['imagenes'][] = $fila['detalle']; // URL de la imagen
-            break;
-        case 'participante':
-            $proyectos[$id_proyecto]['detalles']['participantes'][] = [
-                'id' => $fila['descripcion'],
-                'nombre' => $fila['detalle']
+            $proyectos[$id_proyecto]['detalles']['imagenes'][] = [
+                'descripcion' => $fila['descripcion'],
+                'url' => $fila['detalle']
             ];
             break;
+        case 'participante':
+            $id_participante = $fila['detalle'];
+        
+            // **Consulta para obtener la imagen desde la base de datos**
+            $sqlImg = "SELECT imagen FROM imagenes WHERE profileid = :profileid LIMIT 1";
+            $stmtImg = $conn->prepare($sqlImg);
+            $stmtImg->bindParam(':profileid', $id_participante, PDO::PARAM_INT);
+            $stmtImg->execute();
+            $imagen = $stmtImg->fetch(PDO::FETCH_ASSOC);
+        
+            // **Convertir BLOB a Base64**
+            $imagen_base64 = "/Gen10_Perfiles_Web/assets/profile/default-profile.png"; // Imagen por defecto
+            if ($imagen && !empty($imagen['imagen'])) {
+                $imagen_base64 = "data:image/jpeg;base64," . base64_encode($imagen['imagen']);
+            }
+        
+            $proyectos[$id_proyecto]['detalles']['participantes'][] = [
+                'id' => $id_participante,
+                'nombre' => $fila['descripcion'],
+                'imagen' => $imagen_base64
+            ];
+            break;
+            
         case 'testimonio':
             $proyectos[$id_proyecto]['detalles']['testimonios'][] = [
                 'autor' => $fila['descripcion'],

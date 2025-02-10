@@ -98,14 +98,15 @@ function agregarCampoEnlace() {
     contenedor.appendChild(divEnlace);
 }
 
-/* -------------------------
- * Manejo de Imágenes
- * ------------------------- */
+
 document.getElementById("input-imagenes").addEventListener("change", function(event) {
     const files = Array.from(event.target.files);
-    // Se agregan los archivos seleccionados al array global
-    selectedImages = selectedImages.concat(files);
-    // Se limpia el input para poder volver a seleccionar
+    
+    files.forEach(file => {
+        selectedImages.push({ file: file, descripcion: "" });
+    });
+
+    // Limpiar el input para poder volver a seleccionar
     event.target.value = "";
     renderizarImagenes();
 });
@@ -113,14 +114,27 @@ document.getElementById("input-imagenes").addEventListener("change", function(ev
 function renderizarImagenes() {
     const preview = document.getElementById("preview-imagenes");
     preview.innerHTML = "";
-    selectedImages.forEach((file, index) => {
+
+    selectedImages.forEach((item, index) => {
         const reader = new FileReader();
         reader.onload = function(e) {
             const divImagen = document.createElement("div");
             divImagen.className = "imagen-preview";
+
             const img = document.createElement("img");
             img.src = e.target.result;
             img.style.maxWidth = "150px";
+
+            // Campo de texto para la descripción
+            const inputDescripcion = document.createElement("input");
+            inputDescripcion.type = "text";
+            inputDescripcion.placeholder = "Descripción de la imagen";
+            inputDescripcion.className = "input-descripcion";
+            inputDescripcion.value = item.descripcion;
+            inputDescripcion.oninput = function() {
+                selectedImages[index].descripcion = inputDescripcion.value;
+            };
+
             // Botón para eliminar la imagen
             const btnEliminar = document.createElement("button");
             btnEliminar.type = "button";
@@ -130,20 +144,24 @@ function renderizarImagenes() {
                 selectedImages.splice(index, 1);
                 renderizarImagenes();
             };
+
             divImagen.appendChild(img);
+            divImagen.appendChild(inputDescripcion);
             divImagen.appendChild(btnEliminar);
             preview.appendChild(divImagen);
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(item.file);
     });
 }
+
+
 
 /* -------------------------
  * Manejo de Participantes: Búsqueda y selección
  * ------------------------- */
 async function cargarParticipantes() {
     try {
-        const response = await fetch("http://localhost/Gen10_Perfiles_web/backend/project_participant.php");
+        const response = await fetch(API_URL_PHP +  "project_participant.php");
         listaGlobalParticipantes = await response.json();
     } catch (error) {
         console.error("Error al obtener participantes:", error);
@@ -256,8 +274,9 @@ document.getElementById("form-proyecto").addEventListener("submit", async functi
     const formData = new FormData(form);
 
     // Agregar imágenes seleccionadas manualmente
-    selectedImages.forEach(file => {
-        formData.append("imagenes[]", file);
+    selectedImages.forEach((item, index) => {
+        formData.append("imagenes[]", item.file);
+        formData.append(`descripciones[]`, item.descripcion);
     });
 
     try {

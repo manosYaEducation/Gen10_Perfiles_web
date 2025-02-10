@@ -53,6 +53,9 @@ try {
 
     $id_proyecto = $conn->lastInsertId(); // ID del proyecto recién insertado
 
+    //Peso máximo de las imágenes
+    $peso_maximo = 2 * 1024 * 1024;
+
     // Guardar Párrafos (vienen como array desde name="parrafos[]")
     if (!empty($_POST['parrafos']) && is_array($_POST['parrafos'])) {
         foreach ($_POST['parrafos'] as $parrafo) {
@@ -66,7 +69,8 @@ try {
 
     // Guardar Imágenes (permitiendo subir múltiples imágenes)
     if (!empty($_FILES['imagenes']['name'][0])) {
-        $carpeta_destino = __DIR__ . "/../assets/proyectos-img/";
+        // Definir la carpeta de destino al mismo nivel que el backend
+        $carpeta_destino = dirname(__DIR__) . "/assets/proyectos-img/";
 
         // Verificar si la carpeta existe, si no, crearla
         if (!is_dir($carpeta_destino)) {
@@ -75,30 +79,48 @@ try {
 
         // Limpiar el nombre del proyecto para usarlo en los nombres de archivo
         $nombre_limpio = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($titulo_proyecto));
-        $contador = 1; // Inicializamos el contador para enumerar las imágenes
+        $contador = 1; // Inicia el contador para enumerar las imágenes
 
         foreach ($_FILES['imagenes']['tmp_name'] as $key => $tmp_name) {
             if (!empty($tmp_name)) {
                 // Obtener la extensión del archivo (ej: .jpg, .png)
                 $extension = pathinfo($_FILES['imagenes']['name'][$key], PATHINFO_EXTENSION);
 
+                // Validar el tamaño del archivo
+                if ($peso_archivo > $peso_maximo) {
+                    if (ob_get_length()) { ob_clean(); }
+                    echo json_encode([
+                        'success' => false, 
+                        'message' => "La imagen '{$$_FILES['imagenes']['name'][$key]}' supera el tamaño máximo permitido de 2 MB."
+                    ]);
+                    exit();
+                }
+
                 // Generar el nuevo nombre de archivo con numeración
                 $nombre_archivo = "{$nombre_limpio}-" . str_pad($contador, 2, "0", STR_PAD_LEFT) . ".{$extension}";
                 $ruta_destino = $carpeta_destino . $nombre_archivo;
 
+                // Obtener la descripción de la imagen (si existe en el formulario)
+                $descripcion = !empty($_POST['descripciones'][$key]) ? $_POST['descripciones'][$key] : "Sin descripción";
+
                 // Mover el archivo a la carpeta destino
                 if (move_uploaded_file($tmp_name, $ruta_destino)) {
+                    // Guardar la ruta relativa en la base de datos
+                    $ruta_relativa = "/Gen10_Perfiles_Web/assets/proyectos-img/" . $nombre_archivo;
+
+                    // Insertar en la base de datos
                     $stmt = $conn->prepare("
                         INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
                         VALUES ('imagen', ?, ?, ?)
                     ");
-                    $stmt->execute([$nombre_archivo, $ruta_destino, $id_proyecto]);
+                    $stmt->execute([$descripcion, $ruta_relativa, $id_proyecto]);
 
                     $contador++; // Incrementar el número de la imagen
                 }
             }
         }
     }
+
 
     // Guardar Participantes (enviados como participantes[id_participante] => nombre)
     if (!empty($_POST['participantes']) && is_array($_POST['participantes'])) {

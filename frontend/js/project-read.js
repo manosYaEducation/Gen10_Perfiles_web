@@ -1,6 +1,6 @@
 async function cargarProyectos() {
     try {
-        const response = await fetch("http://localhost/Gen10_Perfiles_web/backend/project_read.php");
+        const response = await fetch(API_URL_PHP + "/project_read.php");
         const text = await response.text(); 
         const proyectos = JSON.parse(text); // Convertir a JSON
 
