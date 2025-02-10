@@ -21,7 +21,7 @@
                         profileSection.innerHTML = `
                             ${isEven ? `
                                 <div class="profile-image-container">
-                                    <img src="${profile.imagen || './assets/img/default-profile.png'}" alt="${profile.name}">
+                                    <img src="${profile.imagen}" alt="${profile.name}">
                                 </div>
                                 <div class="profile-text-container">
                                     <h2>${profile.name}</h2>

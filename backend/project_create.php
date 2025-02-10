@@ -129,7 +129,7 @@ try {
                 INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
                 VALUES ('participante', ?, ?, ?)
             ");
-            $stmt->execute([$id_participante, $nombre_participante, $id_proyecto]);
+            $stmt->execute([$nombre_participante, $id_participante, $id_proyecto]);
         }
     }
 

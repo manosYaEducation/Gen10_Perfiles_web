@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         //Sección de información del evento
         let html = `
             <div id="evento" class="evento-info">
-                <h2 id="titulo-evento">${proyecto.titulo || "Sin título"}</h2>
-                <p id="descripcion-evento">${proyecto.contenido || "Sin descripción disponible."}</p>
+                <h2 id="titulo-evento">${proyecto.titulo}</h2>
+                <p id="descripcion-evento">${proyecto.contenido}</p>
         `;
 
         // Párrafos
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         ${proyecto.detalles.imagenes.map(img => `                            
                             <div class="galeria-item">
                                 <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto">
-                                <p class="descripcion-imagen">${img.descripcion || 'Sin descripción'}</p>
+                                <p class="descripcion-imagen">${img.descripcion}</p>
                             </div>                            
                         `).join("")}
                         
@@ -140,7 +140,7 @@ document.addEventListener("click", function (event) {
 function abrirModal(indice) {
     modal.style.display = "flex";
     modalImg.src = imagenes[indice].src;
-    modalDescripcion.textContent = imagenes[indice].nextElementSibling.textContent || "Sin descripción";
+    modalDescripcion.textContent = imagenes[indice].nextElementSibling.textContent;
 }
 
 // Cerrar el modal cuando se presiona la "X"

@@ -119,8 +119,9 @@
 .imagen-galeria {
     width: 100%;
     max-width: 390px; /* Para que no se expanda demasiado */
-    height: auto;
+    height: 250px;
     border-radius: 10px;
+    object-fit: contain;
 }
 
 /* Descripción */
@@ -128,8 +129,10 @@
     font-size: 1rem;
     font-weight: 300;
     color: #333;
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
+    padding-left: 19px;
+    padding-right: 19px;
 }
 
 
@@ -151,7 +154,8 @@
 
 /* Imagen dentro del modal */
 .modal-contenido {
-    width: 60%;
+    width: 50%;
+    height: 69%;
     object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
@@ -347,7 +351,7 @@
 
 /* Nombre del participante */
 .nombre-participante {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     font-size: 18px;
     font-weight: bold;
     color: #333;
