@@ -13,7 +13,7 @@ if (!isset($_GET['id']) || empty($_GET['id'])) {
 $id_proyecto = intval($_GET['id']); // Convertir a entero para evitar inyección SQL
 
 // Consulta para obtener el proyecto con el ID proporcionado
-$sql = "SELECT p.id_proyecto, p.titulo_proyecto, p.fecha, p.ubicacion, p.contenido_proyecto, 
+$sql = "SELECT p.id_proyecto,p.titulo_tarjeta, p.titulo_proyecto, p.descripcion_tarjeta, p.fecha, p.ubicacion, p.contenido_proyecto, 
                d.tipo, d.descripcion, d.detalle 
         FROM proyectos p
         LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
@@ -34,6 +34,8 @@ foreach ($datos as $fila) {
         $proyectos[$id_proyecto] = [
             'id_proyecto' => $fila['id_proyecto'],
             'titulo' => $fila['titulo_proyecto'],
+            'titulo_tarjeta' => $fila['titulo_tarjeta'],
+            'descripcion_tarjeta' => $fila['descripcion_tarjeta'],
             'fecha' => $fila['fecha'],
             'ubicacion' => $fila['ubicacion'],
             'contenido' => $fila['contenido_proyecto'],

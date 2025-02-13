@@ -34,6 +34,6 @@ FROM review R LEFT JOIN profile B ON R.profileid = B.id LEFT JOIN status C ON R.
 
 }
 catch (PDOException $e) {
-    echo json_encode(['success' => false, 'message' => 'error de ejemplo']);
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 ?>
