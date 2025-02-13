@@ -62,29 +62,6 @@ function crearProyecto($conn) {
     }
 }
 
-// Función para actualizar un proyecto
-function actualizarProyecto($conn) {
-    $data = json_decode(file_get_contents("php://input"), true);
-
-    if (!isset($data['id_proyecto']) || !isset($data['titulo_tarjeta']) || !isset($data['descripcion_tarjeta']) || !isset($data['fecha'])) {
-        echo json_encode(["mensaje" => "Datos incompletos"]);
-        return;
-    }
-
-    $sql = "UPDATE proyectos SET titulo_tarjeta = :titulo, descripcion_tarjeta = :descripcion, fecha = :fecha WHERE id_proyecto = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':titulo', $data['titulo_tarjeta']);
-    $stmt->bindParam(':descripcion', $data['descripcion_tarjeta']);
-    $stmt->bindParam(':fecha', $data['fecha']);
-    $stmt->bindParam(':id', $data['id_proyecto']);
-
-    if ($stmt->execute()) {
-        echo json_encode(["mensaje" => "Proyecto actualizado correctamente"]);
-    } else {
-        echo json_encode(["mensaje" => "Error al actualizar el proyecto"]);
-    }
-}
-
 // Función para eliminar un proyecto
 function eliminarProyecto($conn) {
     // Obtener el ID del proyecto desde la URL

@@ -59,6 +59,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         });
+
+        // Asignar eventos a los botones de "Editar"
+        document.querySelectorAll(".edit-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const idProyecto = button.getAttribute("data-id");
+
+                if (idProyecto) {
+                    window.location.href = `proyecto-actualizar.html?id=${idProyecto}`;
+                } else {
+                    console.error("Error: No se encontró el ID del proyecto.");
+                }
+            });
+        });
     }
     
 
@@ -83,24 +96,4 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error al eliminar el proyecto:", error);
         }
     }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Selecciona todos los botones con la clase "ver-btn"
-    const botonesVer = document.querySelectorAll(".ver-btn");
-
-    botonesVer.forEach(boton => {
-        boton.addEventListener("click", function () {
-            // Obtiene el id del proyecto desde el atributo data-id
-            const idProyecto = this.getAttribute("data-id");
-
-            // Verifica si el idProyecto es válido
-            if (idProyecto) {
-                console.log("Redirigiendo a:", `frontend/proyecto-admin-detalle.html?id=${idProyecto}`);
-                window.location.href = `frontend/proyecto-admin-detalle.html?id=${idProyecto}`;
-            } else {
-                console.error("Error: No se encontró el ID del proyecto.");
-            }
-        });
-    });
 });
