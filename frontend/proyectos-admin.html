@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyectos - Gen10 Alpha Docere</title>
+    <link href="../frontend/css/index-admin.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        .projects-section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .info-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .create-project-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .create-project-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos de la tabla */
+        .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .project-table th, .project-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .project-table th {
+            background-color: #f4f4f4;
+        }
+
+        .project-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .project-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+        }
+
+        .ver-btn {
+            background-color: #4eb5f0;
+            margin-right: 7px;
+        }
+
+        .edit-btn {
+            background-color: #f0ad4e;
+            margin-right: 7px;
+        }
+
+        .delete-btn {
+            background-color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+            <div class="navbar" id="navbar">
+                <ul class="headernav">
+                    <li><a class="button-crud-proyectos" href="../frontend/index-admin.html">Regresar al Inicio</a></li>
+                    <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="projects-section">
+        <div class="info-container">
+            <button class="create-project-btn" onclick="window.location.href='proyecto-crear.html'">Crear nuevo proyecto</button>
+            <h1 class="info-title">Lista de Proyectos</h1>
+        </div>
+
+        <!-- Tabla de proyectos -->
+        <table class="project-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Proyecto</th>
+                    <th>Descripción del Proyecto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProyectos">
+                <!-- Los proyectos se cargan dinámicamente aquí -->
+            </tbody>
+        </table>
+    </section>   
+    
+    <script src="./js/project-admin.js"></script>
+    <script src="./js/config.js"></script>    
+    <script src="../frontend/js/logout.js"></script>
+
+</body>
+</html>
