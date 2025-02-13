@@ -123,6 +123,48 @@ button[type="submit"] i {
     margin-right: 0.5rem;
 }
 
+/* Estilos del Modal */
+.modal {
+    padding: 40px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.678);
+    text-align: center;
+    max-width: 500px;
+    background: white;
+    font-family: Arial, sans-serif;
+    margin-top: 18%;
+    margin-left: 38%;
+}
+
+.modal p {
+    margin-top: 20px;
+}
+
+/* Fondo oscuro cuando el modal está activo */
+.modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Botón de aceptar dentro del modal */
+.accept-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745; 
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.accept-button:hover {
+    background-color: #218838; 
+}
+
+
+
 
 @media (max-width: 768px) {
     .contacto-container {
@@ -133,5 +175,10 @@ button[type="submit"] i {
     .info-contacto,
     .contacto-section {
         width: 100%;
+    }
+
+    .modal {
+        max-width: 90%;
+        margin-left: 5%;
     }
 }

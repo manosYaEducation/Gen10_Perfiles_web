@@ -63,8 +63,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         `).join(', ');
 
         // Reviews
-        const starFilled = 'http://127.0.0.1:5501/assets/img/star.png';
-        const starEmpty = 'http://127.0.0.1:5501/assets/img/star001.png';
+        const starFilled = 'https://kreative.alphadocere.cl/assets/img/star.png';
+        const starEmpty = 'https://kreative.alphadocere.cl/assets/img/star001.png';
         
         const reviewsSection = document.getElementById('p-review-section'); 
         const reviewsData = profile.review || [];
