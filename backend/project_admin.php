@@ -17,10 +17,6 @@ switch ($method) {
         crearProyecto($conn);
         break;
 
-    case 'PUT': // Actualizar un proyecto existente
-        actualizarProyecto($conn);
-        break;
-
     case 'DELETE': // Eliminar un proyecto
         eliminarProyecto($conn);
         break;

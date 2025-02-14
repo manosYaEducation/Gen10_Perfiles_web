@@ -31,8 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${proyecto.titulo_tarjeta}</td>
                 <td>${proyecto.descripcion_tarjeta}</td>
                 <td>
-                    <button class="action-btn ver-btn" data-id="${proyecto.id_proyecto}">Ver</button>
-                    <button class="action-btn edit-btn" data-id="${proyecto.id_proyecto}">Editar</button>
+                    <button class="action-btn ver-btn" data-id="${proyecto.id_proyecto}">Ver</button>                    
                     <button class="action-btn delete-btn" data-id="${proyecto.id_proyecto}">Eliminar</button>
                 </td>
             `;
@@ -97,3 +96,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
+//<button class="action-btn edit-btn" data-id="${proyecto.id_proyecto}">Editar</button>
