@@ -328,7 +328,7 @@ function mostrarModal(data) {
     // Botón: Ver proyecto creado (redirige si hay ID del proyecto)
     document.getElementById("modal-ver-proyecto").onclick = () => {
         if(data.success && data.id) {
-            window.location.href = API_URL +`frontend/proyecto-admin-detalle.html?id=${data.id}`;
+            window.location.href = API_URL +`/frontend/proyecto-admin-detalle.html?id=${data.id}`;
         } else {
             alert("No hay proyecto para ver.");
         }
