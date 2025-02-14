@@ -19,7 +19,9 @@ loginF.addEventListener('submit', async (event) => {
         });
         // Log de la respuesta
         const result = await response.json();
-        if (response.ok && result.status === 'success') {            
+        if (response.ok && result.status === 'success') {
+
+            
             if (mantenerSesion) {
                 localStorage.setItem('userLoggedIn', 'true');
                 localStorage.setItem('username', username);
@@ -28,8 +30,16 @@ loginF.addEventListener('submit', async (event) => {
                 sessionStorage.setItem('userLoggedIn', 'true');
                 sessionStorage.setItem('username', username);
                 sessionStorage.setItem('sessionPermanent', 'false');
-            }        
-            window.location.href = API_URL + "frontend/index-admin.html";        
+            }
+            const localURL = 'http://127.0.0.1:5501/frontend/index-admin.html';
+            const fallbackURL = 'https://kreative.alphadocere.cl/frontend/index-admin.html';
+            fetch(localURL, { method: 'HEAD' })
+                .then(() => {
+                    window.location.href = localURL;
+                })
+                .catch(() => {
+                    window.location.href = fallbackURL;
+                });
         } else {
             alert(result.message || 'Usuario o contraseña incorrectos.');
         }
