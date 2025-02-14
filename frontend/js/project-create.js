@@ -313,7 +313,7 @@ function mostrarModal(data) {
     modal.classList.remove("hidden");
 
     // Botón: Crear otro proyecto (resetea el formulario)
-    document.getElementById("modal-create-another").onclick = () => {
+    document.getElementById("modal-crear-otro").onclick = () => {
         document.getElementById("form-proyecto").reset();
         selectedImages = [];
         renderizarImagenes();
@@ -326,17 +326,12 @@ function mostrarModal(data) {
     };
 
     // Botón: Ver proyecto creado (redirige si hay ID del proyecto)
-    document.getElementById("modal-view-project").onclick = () => {
+    document.getElementById("modal-ver-proyecto").onclick = () => {
         if(data.success && data.id) {
-            window.location.href = `http://localhost/Gen10_Perfiles_web/project_view.php?id=${data.id}`;
+            window.location.href = API_URL +`frontend/proyecto-admin-detalle.html?id=${data.id}`;
         } else {
             alert("No hay proyecto para ver.");
         }
-    };
-
-    // Botón: Cerrar el modal
-    document.getElementById("modal-close").onclick = () => {
-        modal.classList.add("hidden");
     };
 }
 
