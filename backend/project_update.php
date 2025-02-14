@@ -42,8 +42,8 @@ try {
         'id_proyecto' => $data['id_proyecto']
     ]);
 
-    // Eliminar detalles para evitar superposición 
-    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto";
+    // Modificar la eliminación para excluir participantes
+    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo != 'participante'";
     $stmtLimpiar = $conn->prepare($sqlLimpiar);
     $stmtLimpiar->execute([':id_proyecto' => $data['id_proyecto']]);
 
@@ -113,19 +113,28 @@ try {
         }
     }
 
-    // Insertar participantes actualizados
-    if (!empty($data['participantes'])) {
-        $sqlParticipantes = "INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion, detalle) 
-                            VALUES (:id_proyecto, 'participante', :nombre, :id_participante)";
-        $stmtParticipantes = $conn->prepare($sqlParticipantes);
+    // Actualizar participantes (primero eliminar los existentes)
+    if (isset($data['participantes'])) {
+        // Eliminar participantes existentes
+        $sqlEliminarParticipantes = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo = 'participante'";
+        $stmtEliminarParticipantes = $conn->prepare($sqlEliminarParticipantes);
+        $stmtEliminarParticipantes->execute([':id_proyecto' => $data['id_proyecto']]);
+
+        $participantes = is_string($data['participantes']) ? json_decode($data['participantes'], true) : $data['participantes'];
         
-        foreach ($data['participantes'] as $participante) {
-            if (isset($participante['id']) && isset($participante['nombre'])) {
-                $stmtParticipantes->execute([
-                    ':id_proyecto' => $data['id_proyecto'],
-                    ':nombre' => $participante['nombre'],
-                    ':id_participante' => $participante['id']
-                ]);
+        if (!empty($participantes)) {
+            $sqlParticipantes = "INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion, detalle) 
+                                VALUES (:id_proyecto, 'participante', :nombre, :id_participante)";
+            $stmtParticipantes = $conn->prepare($sqlParticipantes);
+            
+            foreach ($participantes as $participante) {
+                if (!empty($participante['id'])) {
+                    $stmtParticipantes->execute([
+                        ':id_proyecto' => $data['id_proyecto'],
+                        ':nombre' => $participante['nombre'],
+                        ':id_participante' => $participante['id']
+                    ]);
+                }
             }
         }
     }

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         cargarImagenes(project.detalles.imagenes);
 
         // Cargar participantes
-        cargarParticipantes(project.detalles.participantes);
+        cargarParticipantesExistentes(project.detalles.participantes);
 
         // Cargar testimonios
         cargarTestimonios(project.detalles.testimonios);
@@ -55,10 +55,10 @@ document.addEventListener("DOMContentLoaded", async function () {
         event.preventDefault(); 
         try {
             const formData = nuevosDatos();
-            // Convertir FormData a un objeto regular
+            // Convertir FormData a un objeto
             const data = {};
             for (let [key, value] of formData.entries()) {
-                // Manejar arrays
+
                 if (key.endsWith('[]')) {
                     const cleanKey = key.slice(0, -2);
                     if (!data[cleanKey]) {
@@ -95,6 +95,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.error("Error:", error);
         }
     });
+
+    await cargarParticipantes();
 });
 
 function cargarImagenes(imagenes) {
@@ -113,19 +115,17 @@ function cargarImagenes(imagenes) {
     });
 }
 
-function cargarParticipantes(participantes) {
-    const listaParticipantes = document.getElementById('lista-participantes');
-    listaParticipantes.innerHTML = '';
+function cargarParticipantesExistentes(participantes) {
     participantes.forEach(participante => {
-        const participanteElement = document.createElement('div');
-        participanteElement.className = 'participante-item';
-        participanteElement.innerHTML = `
-            <img src="${participante.imagen}" alt="${participante.nombre}">
+        participantesSeleccionados.add(participante.id);
+        const divParticipante = document.createElement("div");
+        divParticipante.className = "participante-item";
+        divParticipante.innerHTML = `
             <span>${participante.nombre}</span>
             <input type="hidden" name="participantes[]" value="${participante.id}">
-            <button type="button" onclick="eliminarParticipante(this)">Eliminar</button>
+            <button type="button" class="btn-delete" onclick="eliminarParticipante(this, '${participante.id}')">Eliminar</button>
         `;
-        listaParticipantes.appendChild(participanteElement);
+        document.getElementById("lista-participantes").appendChild(divParticipante);
     });
 }
 
@@ -199,8 +199,9 @@ function eliminarImagen(boton) {
     boton.parentElement.remove();
 }
 
-function eliminarParticipante(boton) {
-    boton.parentElement.remove();
+function eliminarParticipante(boton, id) {
+    participantesSeleccionados.delete(id);
+    boton.closest('.participante-item').remove();
 }
 
 function nuevosDatos() {
@@ -230,9 +231,15 @@ function nuevosDatos() {
     }
 
     // Recuperar participantes
-    document.querySelectorAll('input[name="participantes[]"]').forEach(participante => {
-        formData.append('participantes[]', participante.value);
+    const participantes = [];
+    document.querySelectorAll('input[name="participantes[]"]').forEach(input => {
+        const participanteDiv = input.closest('.participante-item');
+        participantes.push({
+            id: input.value,
+            nombre: participanteDiv.querySelector('span').textContent
+        });
     });
+    formData.append('participantes', JSON.stringify(participantes));
 
     // Recuperar testimonios
     const testimoniosAutor = document.querySelectorAll('input[name="testimonios_autor[]"]');
@@ -251,4 +258,113 @@ function nuevosDatos() {
     }
     
     return formData;
+}
+
+/* -------------------------
+ * Variables globales
+ * ------------------------- */
+let listaGlobalParticipantes = [];
+let participantesSeleccionados = new Set();
+
+/* -------------------------
+ * Manejo de Participantes
+ * ------------------------- */
+async function cargarParticipantes() {
+    try {
+        const response = await fetch(`${window.API_URL_PHP}project_participant.php`);
+        if (!response.ok) throw new Error('Error al obtener participantes');
+        listaGlobalParticipantes = await response.json();
+        
+        // Configurar el buscador de participantes
+        configurarBuscadorParticipantes();
+    } catch (error) {
+        console.error("Error al cargar participantes:", error);
+    }
+}
+
+function configurarBuscadorParticipantes() {
+    const inputBuscar = document.getElementById("input-buscar-participante");
+    const listadoProfile = document.getElementById("listado-profile");
+    const btnAgregar = document.getElementById("btn-agregar-participante");
+
+    inputBuscar.addEventListener("input", () => {
+        const texto = inputBuscar.value.trim();
+        if (texto) {
+            const filtrados = listaGlobalParticipantes.filter(p => 
+                p.name.toLowerCase().includes(texto.toLowerCase())
+            );
+            mostrarSugerencias(filtrados);
+        } else {
+            listadoProfile.style.display = "none";
+        }
+        btnAgregar.disabled = true;
+    });
+
+    btnAgregar.addEventListener("click", agregarParticipanteSeleccionado);
+}
+
+function mostrarSugerencias(participantesFiltrados) {
+    const listadoProfile = document.getElementById("listado-profile");
+    listadoProfile.innerHTML = "";
+
+    if (participantesFiltrados.length === 0) {
+        listadoProfile.style.display = "none";
+        return;
+    }
+
+    participantesFiltrados.forEach(part => {
+        if (!participantesSeleccionados.has(part.id.toString())) {
+            const item = document.createElement("div");
+            item.className = "participante-item";
+            item.innerHTML = `
+                <span>${part.name}</span>
+            `;
+            item.dataset.id = part.id;
+            item.dataset.name = part.name;
+
+            item.addEventListener("click", () => seleccionarParticipante(part));
+            listadoProfile.appendChild(item);
+        }
+    });
+
+    listadoProfile.style.display = participantesFiltrados.length ? "block" : "none";
+}
+
+function seleccionarParticipante(participante) {
+    const inputBuscar = document.getElementById("input-buscar-participante");
+    inputBuscar.value = participante.name;
+    inputBuscar.dataset.selectedId = participante.id;
+    inputBuscar.dataset.selectedName = participante.name;
+    document.getElementById("btn-agregar-participante").disabled = false;
+    document.getElementById("listado-profile").style.display = "none";
+}
+
+function agregarParticipanteSeleccionado() {
+    const inputBuscar = document.getElementById("input-buscar-participante");
+    const id = inputBuscar.dataset.selectedId;
+    const nombre = inputBuscar.dataset.selectedName;
+
+    if (!id || participantesSeleccionados.has(id)) {
+        alert("Este participante ya fue agregado o no es válido.");
+        return;
+    }
+
+    participantesSeleccionados.add(id);
+
+    const listaParticipantes = document.getElementById("lista-participantes");
+    const divParticipante = document.createElement("div");
+    divParticipante.className = "participante-item";
+    divParticipante.innerHTML = `
+        <span>${nombre}</span>
+        <input type="hidden" name="participantes[]" value="${id}">
+        <button type="button" class="btn-delete" onclick="eliminarParticipante(this, '${id}')">Eliminar</button>
+    `;
+
+    listaParticipantes.appendChild(divParticipante);
+
+    // Limpiar el input y deshabilitar el botón
+    inputBuscar.value = "";
+    delete inputBuscar.dataset.selectedId;
+    delete inputBuscar.dataset.selectedName;
+    document.getElementById("btn-agregar-participante").disabled = true;
 }
