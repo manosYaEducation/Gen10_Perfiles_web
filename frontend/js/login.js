@@ -32,13 +32,13 @@ loginF.addEventListener('submit', async (event) => {
                 sessionStorage.setItem('sessionPermanent', 'false');
             }
             const localURL = 'http://localhost/Gen10_Perfiles_web/frontend/index-admin.html';
-/*             const fallbackURL = 'https://kreative.alphadocere.cl/frontend/index-admin.html'; */
+            const fallbackURL = 'https://kreative.alphadocere.cl/frontend/index-admin.html';
             fetch(localURL, { method: 'HEAD' })
                 .then(() => {
                     window.location.href = localURL;
                 })
                 .catch(() => {
-/*                     window.location.href = fallbackURL; */
+                    window.location.href = fallbackURL;
                 });
         } else {
             alert(result.message || 'Usuario o contraseña incorrectos.');
