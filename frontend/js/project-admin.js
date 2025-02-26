@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>
                     <button class="action-btn ver-btn" data-id="${proyecto.id_proyecto}">Ver</button>                    
                     <button class="action-btn delete-btn" data-id="${proyecto.id_proyecto}">Eliminar</button>
+                    <button class="action-btn edit-btn" data-id="${proyecto.id_proyecto}">Editar</button>
                 </td>
             `;
             tabla.appendChild(fila);

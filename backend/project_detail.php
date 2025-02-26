@@ -71,7 +71,7 @@ foreach ($datos as $fila) {
             $imagen = $stmtImg->fetch(PDO::FETCH_ASSOC);
         
             // **Convertir BLOB a Base64**
-            $imagen_base64 = "/Gen10_Perfiles_Web/assets/profile/default-profile.png"; // Imagen por defecto
+            $imagen_base64 = "../assets/profile/default-profile.png"; // Imagen por defecto /* Gen10 */
             if ($imagen && !empty($imagen['imagen'])) {
                 $imagen_base64 = "data:image/jpeg;base64," . base64_encode($imagen['imagen']);
             }

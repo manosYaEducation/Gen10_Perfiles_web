@@ -37,7 +37,19 @@
         <p id="descripcion-modal" class="descripcion-modal"></p>
         <span class="flecha derecha">&#10095;</span> <!-- Flecha derecha -->
     </div>
-
+    <table class="project-table" style="visibility: hidden;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Proyecto</th>
+                <th>Descripción del Proyecto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaProyectos">
+            
+        </tbody>
+    </table>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -75,6 +87,5 @@
     <script src="./js/project-admin.js"></script>
     <script src="./js/config.js"></script>    
     <script src="../frontend/js/logout.js"></script>
-    <script src="../frontend/js/index-admin.js"></script>
 </body>
 </html>

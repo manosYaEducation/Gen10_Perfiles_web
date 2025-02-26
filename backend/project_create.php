@@ -106,7 +106,7 @@ try {
                 // Mover el archivo a la carpeta destino
                 if (move_uploaded_file($tmp_name, $ruta_destino)) {
                     // Guardar la ruta relativa en la base de datos
-                    $ruta_relativa = "/Gen10_Perfiles_Web/assets/proyectos-img/" . $nombre_archivo;
+                    $ruta_relativa = "../assets/proyectos-img/" . $nombre_archivo; /* Gen10 */
 
                     // Insertar en la base de datos
                     $stmt = $conn->prepare("
