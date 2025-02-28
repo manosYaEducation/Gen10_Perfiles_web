@@ -13,7 +13,9 @@
     justify-content: space-between; /* Espaciado uniforme */
     gap: 50px;
     max-width: 1370px;
+
     margin: auto;
+    margin-top: 150px;
     padding: 20px;
 }
 @media (max-width: 800px) {

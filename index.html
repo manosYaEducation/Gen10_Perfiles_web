@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Equipo Profesional Gen10 Alpha Docere</title>
     <link href="./frontend/css/index.css" rel="stylesheet" />
+    <link href="./frontend/css/contacto.css" rel="stylesheet">
     <link rel="stylesheet" href="./frontend/css/footer.css">
     <link rel="stylesheet" href="./frontend/css/proyectos-timeline.css">
     <link rel="icon" href="./assets/img/letra-k (1).png" type="image/x-icon">
@@ -24,7 +25,7 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="#perfiles">Nuestro equipo</a></li>
                     <li><a href="#pro">Proyectos</a></li>
-                    <li><a href="frontend/contacto.html">Contacto</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </div>
             <div class="nav-right">
@@ -49,6 +50,7 @@
             </div>
         </div>
     </section>
+
     <section class="hero2">
         <div class="hero-content2">
             <div class="hero-left">
@@ -72,7 +74,6 @@
             </div>
     </section>
     </section>
-
     <section class="proyectos-destacados" id="proyectos">
         <div id="pro"></div>
         <div class="contenedor-flex">
@@ -91,6 +92,72 @@
             </div>
         </div>
     </section>
+
+    <section id="cont">
+        <div id="contacto"></div>
+        <div class="container-general">
+<!--             <div class="contacto-container">
+                <div class="redes-sociales">
+                    <h3>Comunícate con nosotros:</h3>
+                    <div class="social-icons">
+                        <a href="https://wa.me/945429495" target="_blank"><i class="fab fa-whatsapp social-icon"></i></a>                      
+                    </div>
+                </div>
+    
+                <div class="info-contacto">    
+                    <div class="detalles-contacto">
+                        <h2>INFORMACIÓN DE CONTACTO</h2>                   
+                        <p><i class="fas fa-envelope"></i> Email: kreativegen10@gmail.com</p>
+                    </div>
+                </div>
+            </div> -->
+    
+            <h1>Contacto</h1>
+            <div class="contacto-container">
+                <div class="contacto-section">
+                    <form id="contactForm" action="https://formsubmit.co/kreativegen10@gmail.com" method="POST" novalidate>
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="Nuevo mensaje de contacto">
+                        <input type="hidden" name="_next" value="http://127.0.0.1:5501/frontend/contacto.html">
+                        
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="email">Correo electrónico:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+56912345678" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="asunto">Asunto:</label>
+                            <input type="text" id="asunto" name="asunto" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje:</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        </div>
+                    
+                        <button type="submit"><i class="fas fa-envelope"></i> Enviar</button>
+                    </form>                
+                </div>   
+            </div>
+        </div>
+    
+        <!-- Modal de éxito -->
+        <dialog id="successModal" class="modal">
+            <h2>¡Mensaje enviado exitosamente!</h2>
+            <p>Agradecemos que se haya puesto en contacto con nosotros. Revisaremos su mensaje y responderemos a la brevedad.</p>
+            <button class="accept-button" onclick="closeModal()">Aceptar</button>
+        </dialog>
+    </section>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-brand">
@@ -103,8 +170,8 @@
                 <h3>Compañía</h3>
                 <ul>
                    
-                    <li><a href="./frontend/contacto.html">Contáctanos</a></li>
-                    <li><a href="./frontend/sec-equipo.html">Nuestro equipo</a></li>
+                    <li><a href="#contacto">Contáctanos</a></li>
+                    <li><a href="#perfiles">Nuestro equipo</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -123,10 +190,12 @@
                 </ul>
             </div>
         </div>
+    
     </footer>
 <script src="./frontend/js/config.js"></script>
 <script src="./frontend/js/index.js"></script>
 <script src="./frontend/js/project-read.js"></script>
+<script src="./frontend/js/contacto.js"></script>
 </body>
 
 </html>
