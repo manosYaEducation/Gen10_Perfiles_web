@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         const project = result[0];
 
         // Llenar campos 
-        document.getElementById('titulo_tarjeta').value = project.titulo_tarjeta || '';
-        document.getElementById('descripcion_tarjeta').value = project.descripcion_tarjeta || '';
-        document.getElementById('titulo_proyecto').value = project.titulo || '';
-        document.getElementById('fecha').value = project.fecha || '';
-        document.getElementById('ubicacion').value = project.ubicacion || '';
-        document.getElementById('contenido_proyecto').value = project.contenido || '';
+        document.getElementById('titulo_tarjeta').value = project.titulo_tarjeta;
+        document.getElementById('descripcion_tarjeta').value = project.descripcion_tarjeta;
+        document.getElementById('titulo_proyecto').value = project.titulo;
+        document.getElementById('fecha').value = project.fecha;
+        document.getElementById('ubicacion').value = project.ubicacion;
+        document.getElementById('contenido_proyecto').value = project.contenido ;
 
         // Cargar párrafos
         const contenedorParrafos = document.getElementById('contenedor-parrafos');
@@ -55,27 +55,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         event.preventDefault(); 
         try {
             const formData = nuevosDatos();
-            // Convertir FormData a un objeto
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-
-                if (key.endsWith('[]')) {
-                    const cleanKey = key.slice(0, -2);
-                    if (!data[cleanKey]) {
-                        data[cleanKey] = [];
-                    }
-                    data[cleanKey].push(value);
-                } else {
-                    data[key] = value;
-                }
-            }
             
             const response = await fetch(`${window.API_URL_PHP}project_update.php`, {
-                method: 'PUT',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                method: 'POST', // Cambiamos a POST para manejar archivos
+                body: formData  // Enviamos FormData directamente
+                // Removemos los headers porque FormData establece automáticamente el Content-Type correcto
             });
             
             if (!response.ok) {
@@ -97,22 +81,26 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     await cargarParticipantes();
+
+    // Agregar evento para manejo de imágenes
+    document.getElementById("input-imagenes").addEventListener("change", function(event) {
+        const files = Array.from(event.target.files);
+        
+        files.forEach(file => {
+            selectedImages.push({ file: file, descripcion: "" });
+        });
+    
+        // Limpiar el input para poder volver a seleccionar
+        event.target.value = "";
+        renderizarImagenes();
+    });
 });
 
+let existingImages = []; // Nueva variable global para las imágenes existentes
+
 function cargarImagenes(imagenes) {
-    const previewImagenes = document.getElementById('preview-imagenes');
-    previewImagenes.innerHTML = '';
-    imagenes.forEach(imagen => {
-        const imgContainer = document.createElement('div');
-        imgContainer.className = 'imagen-preview';
-        imgContainer.innerHTML = `
-            <img src="${imagen.url}" alt="${imagen.descripcion}">
-            <input type="text" value="${imagen.descripcion}" name="imagenes_descripcion[]">
-            <input type="hidden" value="${imagen.url}" name="imagenes_url[]">
-            <button type="button" onclick="eliminarImagen(this)">Eliminar</button>
-        `;
-        previewImagenes.appendChild(imgContainer);
-    });
+    existingImages = imagenes; // Guardar las imágenes existentes
+    renderizarImagenes();
 }
 
 function cargarParticipantesExistentes(participantes) {
@@ -208,7 +196,7 @@ function nuevosDatos() {
     const formData = new FormData();
     const idProyecto = new URLSearchParams(window.location.search).get('id');
 
-    // Agregar datos al formData
+    // Datos básicos del proyecto
     formData.append('id_proyecto', idProyecto);
     formData.append('titulo_tarjeta', document.getElementById('titulo_tarjeta').value);
     formData.append('descripcion_tarjeta', document.getElementById('descripcion_tarjeta').value);
@@ -217,18 +205,32 @@ function nuevosDatos() {
     formData.append('ubicacion', document.getElementById('ubicacion').value);
     formData.append('contenido_proyecto', document.getElementById('contenido_proyecto').value);
 
-    // Recuperar párrafos
+    // Párrafos
     document.querySelectorAll('textarea[name="parrafos[]"]').forEach(parrafo => {
         formData.append('parrafos[]', parrafo.value);
     });
 
-    // Recuperar imágenes (URLs y descripciones)
-    const imagenesUrl = document.querySelectorAll('input[name="imagenes_url[]"]');
-    const imagenesDesc = document.querySelectorAll('input[name="imagenes_descripcion[]"]');
-    for (let i = 0; i < imagenesUrl.length; i++) {
-        formData.append('imagenes_url[]', imagenesUrl[i].value);
-        formData.append('imagenes_descripcion[]', imagenesDesc[i].value);
-    }
+    // Imágenes existentes
+    const imagenesExistentes = [];
+    document.querySelectorAll('.imagen-preview').forEach(div => {
+        const urlInput = div.querySelector('input[name="imagenes_existentes_url[]"]');
+        const descInput = div.querySelector('input[name="imagenes_existentes_descripcion[]"]');
+        
+        if (urlInput && descInput) {
+            imagenesExistentes.push({
+                url: urlInput.value,
+                descripcion: descInput.value
+            });
+        }
+    });
+    
+    formData.append('imagenes_existentes', JSON.stringify(imagenesExistentes));
+
+    // Imágenes nuevas
+    selectedImages.forEach((item, index) => {
+        formData.append(`imagenes[]`, item.file); // Cambio clave: nombre del campo
+        formData.append(`descripciones[]`, item.descripcion || ''); // Cambio clave: nombre del campo
+    });
 
     // Recuperar participantes
     const participantes = [];
@@ -263,6 +265,7 @@ function nuevosDatos() {
 /* -------------------------
  * Variables globales
  * ------------------------- */
+let selectedImages = [];
 let listaGlobalParticipantes = [];
 let participantesSeleccionados = new Set();
 
@@ -367,4 +370,67 @@ function agregarParticipanteSeleccionado() {
     delete inputBuscar.dataset.selectedId;
     delete inputBuscar.dataset.selectedName;
     document.getElementById("btn-agregar-participante").disabled = true;
+}
+
+function renderizarImagenes() {
+    const preview = document.getElementById("preview-imagenes");
+    preview.innerHTML = "";
+
+    // Primero renderizar las imágenes nuevas seleccionadas
+    selectedImages.forEach((item, index) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const divImagen = document.createElement("div");
+            divImagen.className = "imagen-preview";
+
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "150px";
+
+            const inputDescripcion = document.createElement("input");
+            inputDescripcion.type = "text";
+            inputDescripcion.placeholder = "Descripción de la imagen";
+            inputDescripcion.className = "input-descripcion";
+            inputDescripcion.value = item.descripcion;
+            inputDescripcion.oninput = function() {
+                selectedImages[index].descripcion = inputDescripcion.value;
+            };
+
+            const btnEliminar = document.createElement("button");
+            btnEliminar.type = "button";
+            btnEliminar.textContent = "Eliminar";
+            btnEliminar.className = "btn-delete";
+            btnEliminar.onclick = () => {
+                selectedImages.splice(index, 1);
+                renderizarImagenes();
+            };
+
+            divImagen.appendChild(img);
+            divImagen.appendChild(inputDescripcion);
+            divImagen.appendChild(btnEliminar);
+            preview.appendChild(divImagen);
+        };
+        reader.readAsDataURL(item.file);
+    });
+
+    // Luego renderizar las imágenes existentes
+    if (existingImages && existingImages.length > 0) {
+        existingImages.forEach(imagen => {
+            const divImagen = document.createElement("div");
+            divImagen.className = "imagen-preview";
+            divImagen.innerHTML = `
+                <img src="${imagen.url}" alt="${imagen.descripcion}" style="max-width: 150px;">
+                <input type="text" class="input-descripcion" name="imagenes_existentes_descripcion[]" value="${imagen.descripcion}">
+                <input type="hidden" name="imagenes_existentes_url[]" value="${imagen.url}">
+                <button type="button" class="btn-delete">Eliminar</button>
+            `;
+
+            divImagen.querySelector('.btn-delete').addEventListener('click', () => {
+                existingImages = existingImages.filter(img => img.url !== imagen.url);
+                divImagen.remove();
+            });
+
+            preview.appendChild(divImagen);
+        });
+    }
 }
