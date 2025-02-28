@@ -138,7 +138,7 @@ try {
                 $descripcion = !empty($data['descripciones'][$key]) ? $data['descripciones'][$key] : "Sin descripción";
 
                 if (move_uploaded_file($tmp_name, $ruta_destino)) {
-                    $ruta_relativa = "/Gen10_Perfiles_Web/assets/proyectos-img/" . $nombre_archivo;
+                    $ruta_relativa = "../assets/proyectos-img/" . $nombre_archivo;
                     
                     $stmt = $conn->prepare("
                         INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion, detalle) 
