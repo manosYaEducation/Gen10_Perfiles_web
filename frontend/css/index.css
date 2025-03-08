@@ -1,5 +1,7 @@
 /* TODO PULIR CADA ESTILO UNO POR UNO */
-
+html {
+    scroll-behavior: smooth;
+  }
 .poppins-thin {
     font-family: "Poppins", sans-serif;
     font-weight: 100;
@@ -124,7 +126,7 @@ body {
 }
 
 header {
-    color: white;
+    color: rgb(172, 182, 169);
     padding: 10px 20px;
     width: 100%;
     margin: 0 auto;
@@ -199,6 +201,8 @@ nav {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+
     
 }
 
@@ -208,15 +212,24 @@ nav {
     max-width: 1440px;
     width: 100%;
     gap: 20px;
-    
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeIn 2s ease-in-out 0.3s forwards; /* Retraso de 2 segundos */
 }
-
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 .hero-text{
     max-width: 46%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: justify;
+
 }
 
 .hero-text h1 {
@@ -319,6 +332,7 @@ button:hover {
 .info-title {
     font-size: 2em;
     margin-bottom: 15px;
+    color: rgb(194 220 203);;
 }
 
 .profiles-column {
@@ -802,7 +816,7 @@ footer p {
 
 .hero2 {
     padding: 50px 20px;
-    background: #ffffff;
+    background: rgb(194 220 203);
 }
 
 .hero-content2 {
@@ -811,6 +825,8 @@ footer p {
     margin: 0 auto;
     gap: 60px;
     align-items: center;
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeIn 2s ease-in-out 1s forwards; /* Retraso de 2 segundos */
 }
 
 .hero-left {
