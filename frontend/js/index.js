@@ -4,13 +4,15 @@
             console.error('API_URL_PHP no está definida');
             return;
         }
+        
         const menuIcon = document.getElementById('menu-icon');
         const navLinks = document.getElementById('nav-links');
         
-        // Añade un evento de clic al ícono del menú
+
         menuIcon.addEventListener('click', () => {
-            navLinks.classList.toggle('active'); // Alternar la clase 'active'
+            navLinks.classList.toggle('active');
         });
+
         // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
         fetch(`${window.API_URL_PHP}read_user.php`)
             .then(response => response.json())
