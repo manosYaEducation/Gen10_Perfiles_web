@@ -1,6 +1,8 @@
 /* TODO PULIR CADA ESTILO UNO POR UNO */
 html {
     scroll-behavior: smooth;
+    min-width: 320px;
+    width: 100%;
   }
 .poppins-thin {
     font-family: "Poppins", sans-serif;
@@ -128,21 +130,21 @@ body {
 header {
     color: rgb(172, 182, 169);
     padding: 10px 20px;
-    width: 100%;
+/*     width: 100%; */
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     flex-wrap: wrap;
-    min-width: 670px;
+/*     min-width: 670px; */
 }
 
 nav {
     display: flex;
     align-items: center;
     max-width: 1000px;
-    width: 1440px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -229,7 +231,7 @@ nav {
     flex-direction: column;
     align-items: center;
     text-align: justify;
-
+    
 }
 
 .hero-text h1 {
@@ -762,6 +764,7 @@ footer p {
     text-decoration: none;
     font-weight: 500;
     transition: background-color 0.3s ease;
+    margin-right: 50px;
 }
 @media (max-width: 922px) {
     .login-btn {
@@ -770,7 +773,6 @@ footer p {
     .login-btn::before {
         content: "→";
         font-size: 16px;
-        
     }
 }
 .login-btn:hover {
@@ -780,11 +782,6 @@ footer p {
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     border-radius: 4px;
-
-
-
-
-
 }
 .prf1 {
     opacity: 0.5; 
@@ -811,12 +808,12 @@ footer p {
 }
 
 .btnr:hover {
-    background-color: #45a044; /* Color más oscuro al hacer hover */
+    background-color: #539652; /* Color más oscuro al hacer hover */
 }
 
 .hero2 {
     padding: 50px 20px;
-    background: rgb(194 220 203);
+    background: rgb(147, 175, 166);
 }
 
 .hero-content2 {
@@ -885,24 +882,27 @@ footer p {
 .hero-text2 {
     flex: 1;
     display: flex;
-    align-items: center;
+    text-align: justify;
 }
 
 .hero-text2 p {
     font-size: 1.2em;
     line-height: 1.6;
-    color: #717171;
-    text-align: center;
+    color: #444557;
+    text-align: justify;
+    font-weight: 501;
     font-family: "Poppins", sans-serif;
 }
 
 #hero-paragraph2 {
     font-size: 1.5rem;
     line-height: 1.4;
+    text-align: justify;
 }
 #hero-paragraph {
     font-size: 1.5rem;
     line-height: 1.4;
+    text-align: justify;
 }
 .cursive{
     font-style: italic;

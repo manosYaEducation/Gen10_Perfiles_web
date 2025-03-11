@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@500&family=Open+Sans:wght@400&display=swap');
-
+html {
+    scroll-behavior: smooth;
+    min-width: 320px;
+    width: 100%;
+  }
 /*Bloque completo de sección proyectos*/
 .proyectos-destacados {
     padding: 50px 80px;
@@ -17,11 +21,6 @@
     margin: auto;
     margin-top: 150px;
     padding: 20px;
-}
-@media (max-width: 800px) {
-    .contenedor-flex {
-        margin-left: -4rem;
-    }
 }
 
 /* Presentación de proyectos */
@@ -149,3 +148,70 @@
     margin-bottom: 20px;
     padding-left: 5px;
 }
+
+@media  (min-width: 320px) and (max-width: 799px) {
+    .contenedor-flex {
+        display: grid;
+        align-items: center;
+        margin: auto;
+        padding: 2px;
+    }
+    .presentacion-proyectos {
+        text-align: center;
+        max-width: 100%;
+    }
+    .proyectos-destacados h2 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        color: #000000;
+        font-family: "Poppins", sans-serif;
+    }
+    .presentacion-proyectos p {
+        font-size: 0.75rem;
+        line-height: 1.4;
+        color: #717171;
+        margin-right: 23px;
+        margin-left: 10px;
+    }
+    .linea-separadora {
+        width: 0px;
+        display: none;
+    }
+    .proyectos-destacados {
+        padding: 5px 5px;
+        background-color: #ffffff;
+    }
+    .proyecto-timeline {
+        display: grid;
+        grid-template-columns: 90px 30px auto;
+        align-items:start;
+        margin: 0;
+        min-height: 90px; 
+        margin-right: 23px;
+    }
+    .proyecto-fecha{
+        color: #4CAF4F;
+        text-align: end;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 2px;  
+        margin-right: 3px;
+    }
+    .proyecto-titulo{
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #4D4D4D;
+        padding: 3px;
+    }
+    
+    .proyecto-descripcion{
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        margin-top: 5px;
+        margin-bottom: 13px;
+        padding-left: 1px;
+    }
+  }
