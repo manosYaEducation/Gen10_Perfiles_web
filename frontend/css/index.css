@@ -130,14 +130,12 @@ body {
 header {
     color: rgb(172, 182, 169);
     padding: 10px 20px;
-/*     width: 100%; */
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     flex-wrap: wrap;
-/*     min-width: 670px; */
 }
 
 nav {
@@ -203,8 +201,6 @@ nav {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-
     
 }
 
@@ -744,6 +740,7 @@ footer p {
     padding: 0;
 }
 
+
 .nav-links a {
     text-decoration: none;
     color: #394149;
@@ -756,25 +753,7 @@ footer p {
     color: #4CAF50;
 }
 
-.login-btn {
-    background: #4CAF50;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-    margin-right: 50px;
-}
-@media (max-width: 922px) {
-    .login-btn {
-        font-size: 0px; 
-    }
-    .login-btn::before {
-        content: "→";
-        font-size: 16px;
-    }
-}
+
 .login-btn:hover {
     background: #45a049;
 }
@@ -913,4 +892,81 @@ p{
 }
 #cont{
     background-color:#dddddd46;
+}
+
+#login-btn {
+    background: #4CAF50;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-right: 50px;
+}
+@media (max-width: 990px) {
+    #login-btn {
+        font-size: 0px; 
+    }
+    #login-btn::before {
+        content: "→";
+        font-size: 16px;
+    }
+}
+
+.menu-icon {
+    display: none; 
+    cursor: pointer;
+}
+
+.menu-icon i {
+    color: #314438; 
+    font-size: 30px;
+}
+
+@media (max-width: 740px) {
+    .menu-icon {
+        display: block; 
+    }
+
+    .nav-links {
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        background-color: #ffffff;
+        position: absolute;
+        top: 70px; 
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links.active {
+        display: flex; 
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .nav-links li a {
+        color: #314438; 
+        font-size: 1.2em;
+    }
+
+    .nav-links li .login-btn {
+        background-color: #4CAF50; 
+        color: white; 
+        padding: 10px 20px; 
+        border-radius: 4px; 
+        text-decoration: none; 
+        display: inline-block; 
+        margin-top: 10px;
+    }
+
+    .nav-links li .login-btn:hover {
+        background-color: #45a049; 
+    }
 }
