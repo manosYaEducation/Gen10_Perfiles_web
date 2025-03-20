@@ -132,7 +132,16 @@ try {
             $stmt->execute([$nombre_participante, $id_participante, $id_proyecto]);
         }
     }
-
+        // Guardar Clientes (enviados como clientes[id_cliente] => nombre)
+    if (!empty($_POST['cliente']) && is_array($_POST['cliente'])) {
+        foreach ($_POST['cliente'] as $id_cliente => $nombre_cliente) {
+            $stmt = $conn->prepare("
+                INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
+                VALUES ('cliente', ?, ?, ?)
+            ");
+            $stmt->execute([$nombre_cliente, $id_cliente, $id_proyecto]);
+        }
+    }
     // Guardar Enlaces (descripciones_enlaces[] y enlaces[])
     if (!empty($_POST['descripciones_enlaces']) && is_array($_POST['descripciones_enlaces'])
         && !empty($_POST['enlaces']) && is_array($_POST['enlaces'])) {

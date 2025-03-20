@@ -431,6 +431,7 @@ function mostrarModal(data) {
         document.getElementById("contenedor-parrafos").innerHTML = "";
         document.getElementById("contenedor-testimonios").innerHTML = "";
         document.getElementById("contenedor-enlaces").innerHTML = "";
+        document.getElementById("lista-clientes").innerHTML = "";
         document.getElementById("lista-participantes").innerHTML = "";
         participantesSeleccionados = [];
         modal.classList.add("hidden");

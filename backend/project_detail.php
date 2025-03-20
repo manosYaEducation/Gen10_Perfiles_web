@@ -18,7 +18,7 @@ $sql = "SELECT p.id_proyecto,p.titulo_tarjeta, p.titulo_proyecto, p.descripcion_
         FROM proyectos p
         LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
         WHERE p.id_proyecto = :id
-        ORDER BY FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'testimonio', 'enlace')";
+        ORDER BY FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'cliente', 'testimonio', 'enlace')";
 
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':id', $id_proyecto, PDO::PARAM_INT);
@@ -43,6 +43,7 @@ foreach ($datos as $fila) {
                 'parrafos' => [],
                 'imagenes' => [],
                 'participantes' => [],
+                'cliente' => [],
                 'testimonios' => [],
                 'enlaces' => []
             ]
@@ -82,7 +83,14 @@ foreach ($datos as $fila) {
                 'imagen' => $imagen_base64
             ];
             break;
-            
+            /*  */
+        case 'cliente':
+            $proyectos[$id_proyecto]['detalles']['cliente'][] = [
+                'id' => $fila['detalle'],
+                'name' => $fila['descripcion']
+            ];
+            break;
+                        
         case 'testimonio':
             $proyectos[$id_proyecto]['detalles']['testimonios'][] = [
                 'autor' => $fila['descripcion'],
