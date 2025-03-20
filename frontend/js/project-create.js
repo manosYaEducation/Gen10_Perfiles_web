@@ -2,6 +2,8 @@
  * Variables globales
  * ------------------------- */
 let selectedImages = []; // Archivos de imágenes seleccionados
+let listaGlobalClientes = [];
+let clientesSeleccionados = [];
 let listaGlobalParticipantes = [];
 let participantesSeleccionados = [];
 
@@ -153,15 +155,124 @@ function renderizarImagenes() {
         reader.readAsDataURL(item.file);
     });
 }
+/* -------------------------
+ * Manejo de Clientes: Búsqueda y selección
+ * ------------------------- */
+async function cargarClientes() {
+    try {
+        const response = await fetch(API_URL_PHP +  "project_cliente.php");
+        console.log(response)
+        listaGlobalClientes = await response.json();
+    } catch (error) {
+        console.error("Error al obtener clientes:", error);
+    }
+}
+function filtrarClientes(textoC) {
+    return listaGlobalClientes.filter(p => p.name.toLowerCase().includes(textoC.toLowerCase()));
+}
+function mostrarSugerenciasC(clientesFiltrados) {
+    const clientesBox = document.getElementById("listado-client");
+    clientesBox.innerHTML = "";
+
+    if (clientesFiltrados.length === 0) {
+        clientesBox.style.display = "none";
+        return;
+    }
+
+    clientesFiltrados.forEach(part => {
+        const item = document.createElement("div");
+        item.className = "cliente-item";
+        item.textContent = part.name;
+        item.dataset.id = part.id;
+
+        item.addEventListener("click", () => {
+            document.getElementById("input-buscar-cliente").value = part.name;
+            document.getElementById("input-buscar-cliente").dataset.selectedIdC = part.id;
+            document.getElementById("btn-agregar-cliente").disabled = false;
+            clientesBox.style.display = "none";
+        });
+
+        clientesBox.appendChild(item);
+    });
+
+    clientesBox.style.display = "block";
+}
+
+function agregarClienteSeleccionado() {
+    const inputBuscarC = document.getElementById("input-buscar-cliente");
+    const nombreSeleccionadoC = inputBuscarC.value;
+    const idSeleccionadoC = inputBuscarC.dataset.selectedIdC;
+
+    if (!idSeleccionadoC || clientesSeleccionados.includes(idSeleccionadoC)) {
+        alert("Este cliente ya fue agregado o no es válido.");
+        return;
+    }
+
+    clientesSeleccionados.push(idSeleccionadoC);
+
+    const divListaC = document.getElementById("lista-clientes");
+    const nuevoDivC = document.createElement("div");
+    nuevoDivC.className = "cliente-item";
+    nuevoDivC.textContent = nombreSeleccionadoC;
+    
+    // Input oculto para enviar el dato
+    const hiddenInputC = document.createElement("input");
+    hiddenInputC.type = "hidden";
+    // Se envía como participantes[id] => nombre
+    hiddenInputC.name = `clientes[${idSeleccionadoC}]`;
+    hiddenInputC.value = nombreSeleccionadoC;
+    nuevoDivC.appendChild(hiddenInputC);
+
+    // Botón para eliminar el participante
+    const btnEliminarC = document.createElement("button");
+    btnEliminarC.type = "button";
+    btnEliminarC.textContent = "Eliminar";
+    btnEliminarC.className = "btn-delete";
+    btnEliminarC.onclick = () => {
+        nuevoDivC.remove();
+        clientesSeleccionados = clientesSeleccionados.filter(idC => idC !== idSeleccionadoC);
+    };
+    nuevoDivC.appendChild(btnEliminarC);
+
+    divListaC.appendChild(nuevoDivC);
+
+    // Resetea el input de búsqueda
+    inputBuscarC.value = "";
+    delete inputBuscarC.dataset.selectedIdC;
+    document.getElementById("btn-agregar-cliente").disabled = true;
+}
+
+/* Ocultar sugerencias si se hace clic fuera */
+document.addEventListener("click", function(event) {
+    const inputBuscarC = document.getElementById("input-buscar-cliente");
+    const listadoC = document.getElementById("listado-client");
+    if (!inputBuscarC.contains(event.target) && !listadoC.contains(event.target)) {
+        listadoC.style.display = "none";
+    }
+});
+
+document.getElementById("input-buscar-cliente").addEventListener("input", () => {
+    const textoC = document.getElementById("input-buscar-cliente").value.trim();
+    if (textoC) {
+        mostrarSugerenciasC(filtrarClientes(textoC));
+    } else {
+        document.getElementById("listado-client").style.display = "none";
+    }
+    document.getElementById("btn-agregar-cliente").disabled = true;
+});
+
+document.getElementById("btn-agregar-cliente").addEventListener("click", agregarClienteSeleccionado);
 
 
-
+/*  */
 /* -------------------------
  * Manejo de Participantes: Búsqueda y selección
  * ------------------------- */
 async function cargarParticipantes() {
     try {
         const response = await fetch(API_URL_PHP +  "project_participant.php");
+        
+        console.log(response)
         listaGlobalParticipantes = await response.json();
     } catch (error) {
         console.error("Error al obtener participantes:", error);
@@ -340,4 +451,5 @@ function mostrarModal(data) {
  * ------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
     cargarParticipantes();
+    cargarClientes();
 });

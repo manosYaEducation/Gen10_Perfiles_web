@@ -99,7 +99,15 @@ button:disabled {
   justify-content: space-between;
   align-items: center;
 }
-
+.cliente-item {
+  padding: 10px;
+  background: #f3f3f3;
+  margin: 5px 0;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 /* Estilo para previsualización de imágenes */
 .imagen-preview {
   position: relative;
@@ -137,6 +145,20 @@ button:disabled {
   cursor: pointer;
 }
 #listado-profile .participante-item:hover {
+  background-color: #f0f0f0;
+}
+#listado-client {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+#listado-client .client-item {
+  cursor: pointer;
+}
+#listado-client .client-item:hover {
   background-color: #f0f0f0;
 }
 
