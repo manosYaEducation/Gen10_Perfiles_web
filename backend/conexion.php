@@ -21,8 +21,8 @@ if($environment === 'production') {
     $nameDb = $_ENV['DEV_DB_NAME'];
 }
 
-
-$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
+// Corregir la cadena DSN (sin incluir user y password ahí)
+$dsn = "mysql:host=$host;port=$port;dbname=$nameDb";
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

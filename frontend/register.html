@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Kreative</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/register.css">
+    <link rel="icon" href="../assets/img/letra-k (1).png" type="image/x-icon">
+    <style>
+        .required::after {
+            content: " *";
+            color: #e53935;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-logo">
+            <img src="../assets/img/kreativenofondo.png" alt="Logo" class="avatar">
+        </div>
+
+        <h1>Crear cuenta</h1>
+
+        <form class="register-form">
+            <!-- Sección de datos de usuario -->
+            <div class="form-section">
+                <h2 class="section-title">Información de cuenta</h2>
+
+                <div class="form-group">
+                    <label for="email" class="required">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="required">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    <div class="input-note">La contraseña debe tener al menos 8 caracteres</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword" class="required">Confirmar contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword"
+                        placeholder="Confirmar contraseña" required>
+                </div>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- Sección de datos de cliente -->
+            <div class="form-section">
+                <h2 class="section-title">Información personal</h2>
+
+                <div class="photo-container">
+                    <div class="photo-circle" id="photoPreview">
+                        <img id="previewImg" src="../assets/img/user-placeholder.png" alt="Foto de perfil">
+                    </div>
+                    <input type="file" id="photoUpload" name="photo" accept="image/*" style="display: none;">
+                    <button type="button" class="upload-button" id="uploadPhotoBtn">Subir foto</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="required">Nombre completo</label>
+                    <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company" class="required">Empresa</label>
+                    <input type="text" id="company" name="company" placeholder="Nombre de tu empresa" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Ubicación</label>
+                    <input type="text" id="location" name="location" placeholder="Ciudad, País">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+56 9 1234 5678">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Descripción o biografía</label>
+                    <textarea id="description" name="description" rows="3"
+                        placeholder="Cuéntanos sobre ti o tu empresa"></textarea>
+                </div>
+            </div>
+
+            <button class="login-button" type="submit" id="submitBtn">Registrarse</button>
+
+            <!-- Enlace de inicio de sesión -->
+            <div class="account-link-container">
+                ¿Ya tienes una cuenta? <a href="login.html" class="account-link">Iniciar sesión</a>
+            </div>
+        </form>
+    </div>
+    <div id="back-to-top" class="back-to-top">
+        <a href="../index.html" class="arrow">←</a>
+    </div>
+
+    <!-- Script para el registro -->
+    <script src="./js/register.js"></script>
+</body>
+
+</html>
