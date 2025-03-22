@@ -133,8 +133,8 @@ try {
         }
     }
         // Guardar Clientes (enviados como clientes[id_cliente] => nombre)
-    if (!empty($_POST['cliente']) && is_array($_POST['cliente'])) {
-        foreach ($_POST['cliente'] as $id_cliente => $nombre_cliente) {
+    if (!empty($_POST['clientes']) && is_array($_POST['clientes'])) {
+        foreach ($_POST['clientes'] as $id_cliente => $nombre_cliente) {
             $stmt = $conn->prepare("
                 INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
                 VALUES ('cliente', ?, ?, ?)

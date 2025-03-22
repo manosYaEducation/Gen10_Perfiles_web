@@ -47,7 +47,7 @@ try {
     ]);
 
     // Modificar la eliminación para excluir participantes e imágenes
-    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo NOT IN ('participante', 'imagen')";
+    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo NOT IN ('participante', 'imagen', 'cliente')";
     $stmtLimpiar = $conn->prepare($sqlLimpiar);
     $stmtLimpiar->execute([':id_proyecto' => $data['id_proyecto']]);
 
@@ -212,6 +212,29 @@ try {
             }
         }
     }
+        // Actualizar clientes (primero eliminar los existentes)
+    if (isset($data['clientes'])) {
+        $sqlEliminarClientes = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo = 'cliente'";
+        $stmtEliminarClientes = $conn->prepare($sqlEliminarClientes);
+        $stmtEliminarClientes->execute([':id_proyecto' => $data['id_proyecto']]);    
+        $clientes = is_string($data['clientes']) ? json_decode($data['clientes'], true) : $data['clientes'];
+           
+        if (!empty($clientes)) {
+            $sqlClientes = "INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
+                                VALUES ('cliente', :nombre, :id_cliente, :id_proyecto)";
+            $stmtClientes = $conn->prepare($sqlClientes);
+          
+           foreach ($clientes as $cliente) {
+               if (!empty($cliente['id'])) {
+                $stmtClientes->execute([
+                    ':nombre' => $cliente['name'],
+                    ':id_cliente' => $cliente['id'],
+                    ':id_proyecto' => $data['id_proyecto']
+                    ]);
+                }
+            }
+          }
+        }
 
     $conn->commit();
 

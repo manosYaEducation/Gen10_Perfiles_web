@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Cargar imágenes
         cargarImagenes(project.detalles.imagenes);
 
+        // Cargar clientes
+        cargarClientesExistentes(project.detalles.cliente);
+
         // Cargar participantes
         cargarParticipantesExistentes(project.detalles.participantes);
 
@@ -79,8 +82,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.error("Error:", error);
         }
     });
+/*     await Promise.all([cargarParticipantes(), cargarClientes()]); */
 
     await cargarParticipantes();
+    await cargarClientes();
 
     // Agregar evento para manejo de imágenes
     document.getElementById("input-imagenes").addEventListener("change", function(event) {
@@ -101,6 +106,20 @@ let existingImages = []; // Nueva variable global para las imágenes existentes
 function cargarImagenes(imagenes) {
     existingImages = imagenes; // Guardar las imágenes existentes
     renderizarImagenes();
+}
+
+function cargarClientesExistentes(cliente) {
+    cliente.forEach(cliente => {
+        clientesSeleccionados.add(cliente.id);
+        const divCliente = document.createElement("div");
+        divCliente.className = "cliente-item";
+        divCliente.innerHTML = `
+            <span>${cliente.name}</span>
+            <input type="hidden" name="clientes[]" value="${cliente.id}">
+            <button type="button" class="btn-delete" onclick="eliminarCliente(this, '${cliente.id}')">Eliminar</button>
+        `;
+        document.getElementById("lista-clientes").appendChild(divCliente);
+    });
 }
 
 function cargarParticipantesExistentes(participantes) {
@@ -186,6 +205,10 @@ function eliminarCampo(boton) {
 function eliminarImagen(boton) {
     boton.parentElement.remove();
 }
+function eliminarCliente(boton, id) {
+    clientesSeleccionados.delete(id);
+    boton.closest('.cliente-item').remove();
+}
 
 function eliminarParticipante(boton, id) {
     participantesSeleccionados.delete(id);
@@ -231,6 +254,16 @@ function nuevosDatos() {
         formData.append(`imagenes[]`, item.file); // Cambio clave: nombre del campo
         formData.append(`descripciones[]`, item.descripcion || ''); // Cambio clave: nombre del campo
     });
+    // Recuperar clientes
+    const clientes = [];
+    document.querySelectorAll('input[name="clientes[]"]').forEach(input => {
+        const clienteDiv = input.closest('.cliente-item');
+        clientes.push({
+            id: input.value,
+            name: clienteDiv.querySelector('span').textContent
+        });
+    });
+    formData.append('clientes', JSON.stringify(clientes));
 
     // Recuperar participantes
     const participantes = [];
@@ -266,12 +299,26 @@ function nuevosDatos() {
  * Variables globales
  * ------------------------- */
 let selectedImages = [];
+let listaGlobalClientes = [];
 let listaGlobalParticipantes = [];
+let clientesSeleccionados = new Set();
 let participantesSeleccionados = new Set();
 
 /* -------------------------
  * Manejo de Participantes
  * ------------------------- */
+async function cargarClientes() {
+    try {
+        const response = await fetch(`${window.API_URL_PHP}project_cliente.php`);
+        if (!response.ok) throw new Error('Error al obtener clientes');
+        listaGlobalClientes = await response.json();
+        
+        // Configurar el buscador de participantes
+        configurarBuscadorClientes();
+    } catch (error) {
+        console.error("Error al cargar clientes:", error);
+    }
+}
 async function cargarParticipantes() {
     try {
         const response = await fetch(`${window.API_URL_PHP}project_participant.php`);
@@ -284,7 +331,26 @@ async function cargarParticipantes() {
         console.error("Error al cargar participantes:", error);
     }
 }
+function configurarBuscadorClientes() {
+    const inputBuscarC = document.getElementById("input-buscar-cliente");
+    const listadoProfileC = document.getElementById("listado-client");
+    const btnAgregarC = document.getElementById("btn-agregar-cliente");
 
+    inputBuscarC.addEventListener("input", () => {
+        const textoC = inputBuscarC.value.trim();
+        if (textoC) {
+            const filtrados = listaGlobalClientes.filter(p => 
+                p.name.toLowerCase().includes(textoC.toLowerCase())
+            );
+            mostrarSugerenciasC(filtrados);
+        } else {
+            listadoProfileC.style.display = "none";
+        }
+        btnAgregarC.disabled = true;
+    });
+
+    btnAgregarC.addEventListener("click", agregarClienteSeleccionado);
+}
 function configurarBuscadorParticipantes() {
     const inputBuscar = document.getElementById("input-buscar-participante");
     const listadoProfile = document.getElementById("listado-profile");
@@ -305,7 +371,32 @@ function configurarBuscadorParticipantes() {
 
     btnAgregar.addEventListener("click", agregarParticipanteSeleccionado);
 }
+function mostrarSugerenciasC(clientesFiltrados) {
+    const listadoProfileC = document.getElementById("listado-client");
+    listadoProfileC.innerHTML = "";
 
+    if (clientesFiltrados.length === 0) {
+        listadoProfileC.style.display = "none";
+        return;
+    }
+
+    clientesFiltrados.forEach(part => {
+        if (!clientesSeleccionados.has(part.id.toString())) {
+            const item = document.createElement("div");
+            item.className = "cliente-item";
+            item.innerHTML = `
+                <span>${part.name}</span>
+            `;
+            item.dataset.id = part.id;
+            item.dataset.name = part.name;
+
+            item.addEventListener("click", () => seleccionarCliente(part));
+            listadoProfileC.appendChild(item);
+        }
+    });
+
+    listadoProfileC.style.display = clientesFiltrados.length ? "block" : "none";
+}
 function mostrarSugerencias(participantesFiltrados) {
     const listadoProfile = document.getElementById("listado-profile");
     listadoProfile.innerHTML = "";
@@ -332,7 +423,14 @@ function mostrarSugerencias(participantesFiltrados) {
 
     listadoProfile.style.display = participantesFiltrados.length ? "block" : "none";
 }
-
+function seleccionarCliente(cliente) {
+    const inputBuscarC = document.getElementById("input-buscar-cliente");
+    inputBuscarC.value = cliente.name;
+    inputBuscarC.dataset.selectedId = cliente.id;
+    inputBuscarC.dataset.selectedName = cliente.name;
+    document.getElementById("btn-agregar-cliente").disabled = false;
+    document.getElementById("listado-client").style.display = "none";
+}
 function seleccionarParticipante(participante) {
     const inputBuscar = document.getElementById("input-buscar-participante");
     inputBuscar.value = participante.name;
@@ -341,6 +439,39 @@ function seleccionarParticipante(participante) {
     document.getElementById("btn-agregar-participante").disabled = false;
     document.getElementById("listado-profile").style.display = "none";
 }
+
+function agregarClienteSeleccionado() {
+    const inputBuscarC = document.getElementById("input-buscar-cliente");
+    const id = inputBuscarC.dataset.selectedId;
+    const name = inputBuscarC.dataset.selectedName;
+
+    if (!id || clientesSeleccionados.has(id)) {
+        alert("Este cliente ya fue agregado o no es válido.");
+        return;
+    }
+
+    clientesSeleccionados.add(id);
+
+    const listaClientes = document.getElementById("lista-clientes");
+    const divParticipanteC = document.createElement("div");
+    divParticipanteC.className = "cliente-item";
+    divParticipanteC.innerHTML = `
+        <span>${name}</span>
+        <input type="hidden" name="clientes[]" value="${id}">
+        <button type="button" class="btn-delete" onclick="eliminarCliente(this, '${id}')">Eliminar</button>
+    `;
+
+    listaClientes.appendChild(divParticipanteC);
+
+    // Limpiar el input y deshabilitar el botón
+    inputBuscarC.value = "";
+    delete inputBuscarC.dataset.selectedId;
+    delete inputBuscarC.dataset.selectedName;
+    document.getElementById("btn-agregar-cliente").disabled = true;
+}
+  
+
+
 
 function agregarParticipanteSeleccionado() {
     const inputBuscar = document.getElementById("input-buscar-participante");
