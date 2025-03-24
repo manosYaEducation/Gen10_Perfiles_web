@@ -50,22 +50,25 @@ try {
         $stmtImage->execute([$profileid]);
         $imageData = $stmtImage->fetch(PDO::FETCH_ASSOC);
 
-        // Recupera las reseñas
-        $stmtReview = $conn->prepare("SELECT statusid, profileid, nameClient , company, rating, comments, date_review FROM review WHERE profileid = ? AND statusid = 2");
-        $stmtReview->execute([$profileid]);
-        $review = $stmtReview->fetchAll(PDO::FETCH_ASSOC);
-
         $image = null;
         if ($imageData) {
             // Convierte la imagen en base64
             $image = 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen']);
         }
 
+        // Recupera las reseñas
+        $stmtReview = $conn->prepare("SELECT statusid, profileid, nameClient , company, rating, comments, date_review FROM review WHERE profileid = ? AND statusid = 2");
+        $stmtReview->execute([$profileid]);
+        $review = $stmtReview->fetchAll(PDO::FETCH_ASSOC);
+
+        
+
         // Estructura la respuesta JSON para un perfil específico
         $response = [
             'success' => true,
             'data' => [
                 'basic' => $profile,
+                'image' => $image,  // Ahora la imagen está en `data`
                 'experience' => $experience,
                 'education' => $education,
                 'skill' => $skill,

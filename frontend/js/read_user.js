@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const result = await response.json();
         const profile = result.data;
 
+        // Mostrar imagen de perfil si existe
+        if (result.data.image) {
+            document.getElementById('profile_image').src = result.data.image;
+        }
+
         // Información personal
         document.getElementById('name-hero').textContent = profile.basic.name;
         document.getElementById('personal-information-hero').innerHTML = `
