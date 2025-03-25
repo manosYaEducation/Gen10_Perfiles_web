@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reseña</title>
+    <title>Nuevo cliente</title>
     <link rel="stylesheet" href="../frontend/css/crud-profile-styles.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
     <div class="container">
         <h1>Nuevo cliente</h1>
-        <form id="ClientForm" class="form-group1" onsubmit="registerClient(); return false;">
-            
-            <label>Foto de perfil:</label>
-            <label for="input-image" class="image-upload">
-                <i class="fas fa-upload"></i> Subir Imagen
-            </label>
+        <form id="ClientForm" class="form-group1">
+            <div class="image-upload-container">
+                <label for="input-image" class="image-upload-label">
+                    <div class="image-preview" id="image-preview">
+                        <i class="fas fa-camera"></i>
+                        <span>Subir foto</span>
+                    </div>
+                    <input type="file" id="input-image" name="foto" accept="image/*" style="display: none;">
+                </label>
+            </div>
 
             <label for="input-name">Nombre:</label>
             <input type="text" id="input-name" required>
 
             <label for="input-company">Empresa:</label>
-            <input type="text" id="input-name" required>
+            <input type="text" id="input-company" required>
 
             <label for="input-email">Correo Electrónico:</label>
             <input type="email" id="input-email" required>
@@ -31,22 +36,20 @@
 
             <label for="input-phone">Teléfono:</label>
             <input type="text" id="input-phone" required>
-              
-            <label>Descripción breve</label><br>
-            <textarea class="comment1" name="comments" id="input-comments" required> </textarea>
-            
-            <button onclick="history.back()" class="cancel-button" type="button">Cancelar</button>  
-            <button id="submitReview" class="send-button" type="submit">Crear cliente</button> 
+
+            <h3>Descripción</h3>
+            <label for="input-description">Descripción breve:</label>
+            <textarea id="input-description" required></textarea>
+
+            <div class="form-buttons">
+                <button onclick="history.back()" class="cancel-button" type="button">Cancelar</button>
+                <button id="submitReview" class="send-button" type="submit">Crear cliente</button> 
+            </div>
         </form>
-        
     </div>
-    <dialog id="successModal" class="modal">
-        <h2></h2>
-        <p></p>
-        <button class="accept-button" onclick="closeModal()">Aceptar</button>
-    </dialog>
-    
-    <script src="./js/config.js"></script>
-    <script src="./js/create-client.js"></script>
+
+    <script src="../frontend/js/config.js"></script>
+    <script src="../frontend/js/create-client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
