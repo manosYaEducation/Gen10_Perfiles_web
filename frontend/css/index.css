@@ -1,5 +1,9 @@
 /* TODO PULIR CADA ESTILO UNO POR UNO */
-
+html {
+    scroll-behavior: smooth;
+    min-width: 320px;
+    width: 100%;
+  }
 .poppins-thin {
     font-family: "Poppins", sans-serif;
     font-weight: 100;
@@ -124,9 +128,8 @@ body {
 }
 
 header {
-    color: white;
+    color: rgb(172, 182, 169);
     padding: 10px 20px;
-    width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -139,7 +142,7 @@ nav {
     display: flex;
     align-items: center;
     max-width: 1000px;
-    width: 1440px;
+    width: 100%;
     justify-content: space-between;
 }
 
@@ -207,14 +210,24 @@ nav {
     max-width: 1440px;
     width: 100%;
     gap: 20px;
-    
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeIn 2s ease-in-out 0.3s forwards; /* Retraso de 2 segundos */
 }
-
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 .hero-text{
     max-width: 46%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: justify;
+    
 }
 
 .hero-text h1 {
@@ -317,6 +330,7 @@ button:hover {
 .info-title {
     font-size: 2em;
     margin-bottom: 15px;
+    color: rgb(194 220 203);;
 }
 
 .profiles-column {
@@ -651,6 +665,8 @@ footer p {
     .logo img.icon {
         width: 30px; /* Ajuste en tamaño para pantallas pequeñas */
     }
+
+    
 }
 
 
@@ -724,6 +740,7 @@ footer p {
     padding: 0;
 }
 
+
 .nav-links a {
     text-decoration: none;
     color: #394149;
@@ -736,20 +753,15 @@ footer p {
     color: #4CAF50;
 }
 
-.login-btn {
-    background: #4CAF50;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
 
 .login-btn:hover {
     background: #45a049;
 }
-
+#idbtnlogin{
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    border-radius: 4px;
+}
 .prf1 {
     opacity: 0.5; 
     color: #777; 
@@ -775,12 +787,12 @@ footer p {
 }
 
 .btnr:hover {
-    background-color: #45a044; /* Color más oscuro al hacer hover */
+    background-color: #539652; /* Color más oscuro al hacer hover */
 }
 
 .hero2 {
     padding: 50px 20px;
-    background: #ffffff;
+    background: rgb(147, 175, 166);
 }
 
 .hero-content2 {
@@ -789,6 +801,8 @@ footer p {
     margin: 0 auto;
     gap: 60px;
     align-items: center;
+    opacity: 0; /* Inicialmente invisible */
+    animation: fadeIn 2s ease-in-out 1s forwards; /* Retraso de 2 segundos */
 }
 
 .hero-left {
@@ -847,22 +861,123 @@ footer p {
 .hero-text2 {
     flex: 1;
     display: flex;
-    align-items: center;
+    text-align: justify;
 }
 
 .hero-text2 p {
     font-size: 1.2em;
     line-height: 1.6;
-    color: #717171;
-    text-align: center;
+    color: #444557;
+    text-align: justify;
+    font-weight: 501;
     font-family: "Poppins", sans-serif;
 }
 
 #hero-paragraph2 {
     font-size: 1.5rem;
     line-height: 1.4;
+    text-align: justify;
 }
 #hero-paragraph {
     font-size: 1.5rem;
     line-height: 1.4;
+    text-align: justify;
+}
+.cursive{
+    font-style: italic;
+}
+
+p{
+    text-align: justify;
+}
+#cont{
+    background-color:#dddddd46;
+}
+
+#login-btn {
+    background: #4CAF50;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-right: 50px;
+}
+@media (max-width: 990px) {
+    #login-btn {
+        font-size: 0px; 
+    }
+    #login-btn::before {
+        content: "→";
+        font-size: 16px;
+    }
+}
+
+#login-btn1 {
+    background: #4CAF50;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-right: 7rem;
+}
+.menu-icon {
+    display: none; 
+    cursor: pointer;
+}
+
+.menu-icon i {
+    color: #314438; 
+    font-size: 30px;
+}
+
+@media (max-width: 740px) {
+    .menu-icon {
+        display: block; 
+    }
+
+    .nav-links {
+        display: none; 
+        flex-direction: column;
+        width: 100%;
+        background-color: #ffffff;
+        position: absolute;
+        top: 70px; 
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .nav-links.active {
+        margin-top: 15px;
+        display: flex; 
+        z-index: 1000;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .nav-links li a {
+        color: #314438; 
+        font-size: 1.2em;
+    }
+
+    .nav-links li .login-btn {
+        background-color: #4CAF50; 
+        color: white; 
+        padding: 10px 20px; 
+        border-radius: 4px; 
+        text-decoration: none; 
+        display: inline-block; 
+        margin-top: 10px;
+    }
+
+    .nav-links li .login-btn:hover {
+        background-color: #45a049; 
+    }
 }

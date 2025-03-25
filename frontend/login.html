@@ -1,50 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
     <link rel="stylesheet" href="./css/login.css">
-    
     <link rel="icon" href="../assets/img/letra-k (1).png" type="image/x-icon">
+    <style>
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos para las pestañas de inicio de sesión */
+        .login-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            text-align: center;
+            flex: 1;
+            color: #666;
+            position: relative;
+        }
+
+        .tab.active {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #4CAF50;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .qr-box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .qr-instructions {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo para el spinner de carga */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-left-color: #4CAF50;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Estilo para el botón de reintentar */
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
+
 <body>
     <div class="login-container">
         <div class="login-logo">
-            <img src="/assets/img/kreativenofondo.png" alt="Logo" class="avatar">
+            <img src="../assets/img/kreativenofondo.png" alt="Logo" class="avatar">
         </div>
-        
-        <h1>Iniciar sesión</h1>
-        
-        <form class="login-form">
-            <div class="form-group">
-                <label for="username">Usuario</label>
-                <input type="text" id="username" name="username" placeholder="Usuario" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <div class="password-input-container">
-                    <input type="password" id="password" name="password" placeholder="Contraseña" required>
-                    
-                </div>
-            </div>
 
-            <button class="login-button" type="submit">Iniciar sesión</button>
-            
-            <div class="form-footer">
-                <div class="remember-me">
-                    <input type="checkbox" id="mantenerSesion" name="mantenerSesion">
-                    <label for="mantenerSesion">Recordarme</label>
+        <h1>Iniciar Sesión</h1>
+
+        <!-- Pestañas de inicio de sesión -->
+        <div class="login-tabs">
+            <div class="tab active" id="email-tab">Email</div>
+            <div class="tab" id="qr-tab">Código QR</div>
+        </div>
+
+        <!-- Contenido de la pestaña de Email -->
+        <div class="tab-content active" id="email-content">
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="username">Usuario</label>
+                    <input type="text" id="username" name="username" placeholder="Usuario" required>
                 </div>
-                <!-- <a href="#" class="forgot-password">Recuperar contraseña</a> -->
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="password-input-container">
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                    </div>
+                </div>
+
+                <button class="login-button" type="submit">Iniciar sesión</button>
+
+                <div class="login-link">
+                    ¿No tienes una cuenta? <a href="register.html">Regístrate</a>
+                </div>
+
+                <div class="form-footer">
+                    <div class="remember-me">
+                        <input type="checkbox" id="mantenerSesion" name="mantenerSesion">
+                        <label for="mantenerSesion">Recordarme</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Contenido de la pestaña de QR -->
+        <div class="tab-content" id="qr-content">
+            <div class="qr-instructions">
+                <p>Escanea tu código QR:</p>
             </div>
-        </form>
+            <div class="qr-container">
+                <div class="qr-box" id="qr-scanner-area">
+                    <!-- Aquí se mostrará el área para escanear el QR -->
+                    <p>Haz clic en la pestaña "Código QR" para activar la cámara</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="back-to-top" class="back-to-top">
         <a href="../index.html" class="arrow">←</a>
     </div>
+
+    <!-- Biblioteca jsQR para escaneo de códigos QR -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+    <!-- Scripts de la aplicación -->
     <script src="./js/config.js"></script>
-    <script src="./js/login.js"></script>   
+    <script src="./js/login.js"></script>
+    <script src="./js/qr-scanner.js"></script>
 </body>
+
 </html>

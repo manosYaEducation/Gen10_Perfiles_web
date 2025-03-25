@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Proyecto</title>
+  <link rel="stylesheet" href="./css/proyecto-crear.css">
+  <link href="../frontend/css/index-admin.css" rel="stylesheet" />
+
+</head>
+<body>  
+  <header>
+    <nav>
+        <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+        <div class="navbar" id="navbar">
+            <ul class="headernav">
+                <li><a class="button-crud-proyectos" href="proyectos-admin.html">Regresar</a></li>
+                <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+  </header>
+  <h2>Crear Proyecto</h2>
+  <form id="form-proyecto" action="../backend/project_create.php" method="POST" enctype="multipart/form-data"> <!-- action="http://localhost/Gen10_Perfiles_web/backend/project_create.php"  -->
+    <label>Título Tarjeta:</label>
+    <input type="text" name="titulo_tarjeta" required class="campo" id="titulo_tarjeta">
+
+    <label>Descripción Tarjeta:</label>
+    <textarea name="descripcion_tarjeta" required class="campo" id="descripcion_tarjeta"></textarea>
+
+    <label>Título Proyecto:</label>
+    <input type="text" name="titulo_proyecto" required class="campo" id="titulo_proyecto">
+
+    <label>Fecha:</label>
+    <input type="date" name="fecha" required class="campo" id="fecha">
+
+    <label>Ubicación (Opcional):</label>
+    <input type="text" name="ubicacion" class="campo" id="ubicacion">
+
+    <label>Contenido del Proyecto:</label>
+    <textarea name="contenido_proyecto" required class="campo"></textarea>
+
+    <h3>Párrafos</h3>
+    <div id="contenedor-parrafos"></div>
+    <button type="button" onclick="agregarCampoParrafo()">Agregar Párrafo</button>
+
+    <h3>Imágenes</h3>
+    <input type="file" id="input-imagenes" multiple class="campo" accept="image/*">
+    <div id="preview-imagenes"></div>
+    <input type="hidden" name="imagenes_json" id="imagenes-json">
+
+
+    <h3>Participantes</h3>
+    <input type="text" id="input-buscar-participante" placeholder="Buscar participante..." class="campo">
+    <div id="listado-profile" class="hidden"></div>
+    <button type="button" id="btn-agregar-participante" disabled>Agregar Participante</button>
+    <div id="lista-participantes"></div>
+
+    <h3>Testimonios</h3>
+    <div id="contenedor-testimonios"></div>
+    <button type="button" onclick="agregarCampoTestimonio()">Agregar Testimonio</button>
+
+    <h3>Enlaces</h3>
+    <div id="contenedor-enlaces"></div>
+    <button type="button" onclick="agregarCampoEnlace()">Agregar Enlace</button>
+
+    <button type="submit">Crear Proyecto</button>
+  </form>
+
+  <!-- Modal para confirmar o informar error -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <div class="modal-buttons">
+        <button id="modal-crear-otro">Crear otro proyecto</button>
+        <button id="modal-ver-proyecto">Ver proyecto creado</button>
+        <button id="btn-cerrar" style="text-decoration: none;">
+          <a href="proyectos-admin.html" class="boton">Cerrar</a>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/project-create.js"></script>
+  <script src="./js/config.js"></script>
+</body>
+</html>

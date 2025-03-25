@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Proyecto</title>
+    
+    <link href="../frontend/css/proyecto-detalle.css" rel="stylesheet" />    
+    <link href="../frontend/css/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../frontend/css/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="../assets/img/letra-k (1).png" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+            <div class="navbar" id="navbar">
+                <ul class="headernav">
+                    <li><a class="button-crud-proyectos" href="../frontend/index-admin.html">Inicio</a></li>
+                    <li><a class="button-crud-proyectos" href="proyectos-admin.html">Regresar a Proyectos</a></li>                    
+                    <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="proyecto-container">
+        <p>Cargando datos del proyecto...</p>
+    </div>
+    
+    <!-- Modal para ver imágenes en grande -->
+    <div id="modal-imagen" class="modal">
+        <span class="cerrar-modal">&times;</span>
+        <span class="flecha izquierda">&#10094;</span> <!-- Flecha izquierda -->
+        <img class="modal-contenido" id="imagen-modal">
+        <p id="descripcion-modal" class="descripcion-modal"></p>
+        <span class="flecha derecha">&#10095;</span> <!-- Flecha derecha -->
+    </div>
+    <table class="project-table" style="visibility: hidden;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre del Proyecto</th>
+                <th>Descripción del Proyecto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaProyectos">
+            
+        </tbody>
+    </table>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
+                <p class="copyright">Copyright © 2024</p>
+                <p>Todos los derechos reservados por  empresa Kreative.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Compañía</h3>
+                <ul>
+                   
+                    <li><a href="../index.html#contacto">Contáctanos</a></li>
+                    <li><a href="../index.html#perfiles">Nuestro equipo</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Redes sociales</h3>
+                    <ul>
+                        <li><a href="https://wa.me/945429495"  target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                        
+                    </ul>
+                
+            </div>
+            <div class="footer-section">
+                <h3>Información de contacto</h3>
+                <ul>
+                    
+                    <li>Email: kreativegen10@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="./js/project-admin-detail.js"></script>
+    <script src="./js/project-admin.js"></script>
+    <script src="./js/config.js"></script>    
+    <script src="../frontend/js/logout.js"></script>
+</body>
+</html>

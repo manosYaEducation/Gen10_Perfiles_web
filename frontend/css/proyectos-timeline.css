@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@500&family=Open+Sans:wght@400&display=swap');
+html {
+    scroll-behavior: smooth;
+    min-width: 320px;
+    width: 100%;
+  }
+/*Bloque completo de sección proyectos*/
+.proyectos-destacados {
+    padding: 50px 80px;
+    background-color: #ffffff;
+}
+
+/* Contenedor principal con flexbox */
+.contenedor-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espaciado uniforme */
+    gap: 50px;
+    max-width: 1370px;
+
+    margin: auto;
+    margin-top: 150px;
+    padding: 20px;
+}
+
+/* Presentación de proyectos */
+.presentacion-proyectos {
+    flex: 1; /* Ocupa un espacio proporcional */
+    max-width: 400px;
+    text-align: left;
+}
+
+/* Título sección */
+.proyectos-destacados h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #000000;
+    font-family: "Poppins", sans-serif;
+}
+
+.presentacion-proyectos p {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: #717171;
+}
+
+/* Línea separadora */
+.linea-separadora {
+    width: 2px;
+    height: 100%;
+    min-height: 250px; 
+    background: linear-gradient(to bottom, #4CAF4F, #7e7e7e); 
+    flex-shrink: 0; 
+    border-radius: 2px;
+}
+
+/* Proyectos Timeline */
+.proyectos-timeline {
+    flex: 2; 
+    max-width: 700px;
+}
+
+
+/* Grid Timeline Poryectos */
+.proyecto-timeline {
+    display: grid;
+    grid-template-columns: 150px 50px auto;
+    align-items:start;
+    margin: 0;
+    min-height: 90px; 
+}
+
+/* Línea del timeline */
+.proyecto-linea {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+}
+
+.proyecto-linea::before {
+    content: "";
+    position: absolute;
+    width: 2.5px;
+    height: 100%;
+    background-color: #7e7e7e;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.proyecto-linea::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border: 2px solid #4CAF4F;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3),
+    0 0 10px #4caf4f86;
+}
+
+/* Fecha del proyecto */
+.proyecto-fecha{
+    color: #4CAF4F;
+    text-align: end;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 4px;  
+    margin-right: 5px;
+}
+
+/* Espacio que contiene cada título y descrpción del proyecto*/
+.proyecto-tarjeta {
+    flex: 1;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    max-width: 450px;
+    margin-top: 0;
+}
+
+.proyecto-tarjeta:hover {
+    background: rgb(243, 240, 237);
+    transition:  0.1s ease;
+    transform: translateY(-2px);
+}
+
+/* Título del proyecto*/
+.proyecto-titulo{
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #4D4D4D;
+    padding: 5px;
+}
+
+.proyecto-descripcion{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding-left: 5px;
+}
+
+@media  (min-width: 320px) and (max-width: 799px) {
+    .contenedor-flex {
+        display: grid;
+        align-items: center;
+        margin: auto;
+        padding: 2px;
+    }
+    .presentacion-proyectos {
+        text-align: center;
+        max-width: 100%;
+    }
+    .proyectos-destacados h2 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        color: #000000;
+        font-family: "Poppins", sans-serif;
+    }
+    .presentacion-proyectos p {
+        font-size: 0.75rem;
+        line-height: 1.4;
+        color: #717171;
+        margin-right: 23px;
+        margin-left: 10px;
+    }
+    .linea-separadora {
+        width: 0px;
+        display: none;
+    }
+    .proyectos-destacados {
+        padding: 5px 5px;
+        background-color: #ffffff;
+    }
+    .proyecto-timeline {
+        display: grid;
+        grid-template-columns: 90px 30px auto;
+        align-items:start;
+        margin: 0;
+        min-height: 90px; 
+        margin-right: 23px;
+    }
+    .proyecto-fecha{
+        color: #4CAF4F;
+        text-align: end;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        margin-top: 2px;  
+        margin-right: 3px;
+    }
+    .proyecto-titulo{
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: #4D4D4D;
+        padding: 3px;
+    }
+    
+    .proyecto-descripcion{
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+        font-weight: 400;
+        margin-top: 5px;
+        margin-bottom: 13px;
+        padding-left: 1px;
+    }
+  }

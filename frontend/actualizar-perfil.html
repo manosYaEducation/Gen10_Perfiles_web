@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Perfil</title>
-    <link rel="stylesheet" href="/frontend/css/crud-profile-styles.css">
+    <link rel="stylesheet" href="./css/crud-profile-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <body>
     <header>
@@ -44,6 +44,7 @@
                     <input type="date" class="input-experience-startDate">
                     <label>Fecha de finalización:</label>
                     <input type="date" class="input-experience-endDate">
+                    <button type="button" class="remove-btn">Eliminar</button>
                   </div>
                 </div>
                 <h2>Educación <button type="button" id="addEducation">+</button></h2>
@@ -57,6 +58,7 @@
                     <input type="date" class="input-education-endDate">
                     <label>Institución:</label>
                     <input type="text" class="input-education-institution" placeholder="Institución">
+                    <button type="button" class="remove-btn">Eliminar</button>
                   </div>
                 </div>
                 <h3>Habilidades</h3>
@@ -88,10 +90,10 @@
             <button onclick="addItem()">actualizar</button>
         </div>
     </div>
-    <script src="/frontend/js/verifylogin.js"></script>
-    <script src="/frontend/js/config.js"></script>
+    <script src="./js/verifylogin.js"></script>
+    <script src="./js/config.js"></script>
     
-    <script src="/frontend/js/update_user.js"></script>
+    <script src="./js/update_user.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>

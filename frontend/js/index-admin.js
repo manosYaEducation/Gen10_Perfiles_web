@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h2>${profile.name}</h2>
                             
                             <h3 class="profile-subtitle">${profile.phrase}</h3>
-                            <a href="/frontend/perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
+                            <a href="./perfiles/profile-template.html?id=${profile.id}" class="button-link">Perfil</a>
                             <button class="buttonActualizar" data-id="${profile.id}" class="button-link" onclick="redirectToUpdate(${profile.id})">Actualizar</button>
                             <button class="buttonBorrar" data-id="${profile.id}" onclick="deleteUser(event)">Borrar</button>
                         </div>
@@ -120,7 +120,7 @@ function filterReviews() {
 }
 
 function redirectToUpdate(profileId) {
-    window.location.href = `/frontend/actualizar-perfil.html?id=${profileId}`;
+    window.location.href = `./actualizar-perfil.html?id=${profileId}`;
 }
 
 function changeStatus(reviewId) {

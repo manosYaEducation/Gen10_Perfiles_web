@@ -41,7 +41,7 @@ try {
 
 }catch (PDOException $e) {
     //En caso de error se envía mensaje de error
-    echo json_encode(['success' => false, 'message' => 'error de ejemplo']);
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
 }
 
 ?>
