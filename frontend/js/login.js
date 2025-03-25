@@ -29,66 +29,106 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Mostrar indicador de carga
     const submitBtn = loginForm.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn.textContent;
+    const originalBtnText = submitBtn.textContent || "Iniciar sesión";
     submitBtn.textContent = "Procesando...";
     submitBtn.disabled = true;
 
     try {
-      // URL directa de producción
-      const response = await fetch(
-        "https://systemauth.alphadocere.cl/login.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: username, // Usamos el campo de username como email
-            password: password,
-          }),
-        }
-      );
+      // Usar la URL de la API definida en config.js
+      const apiUrl = window.API_URL_PHP || "http://localhost:3000/backend/";
+      const loginEndpoint = apiUrl + "login.php";
+
+      console.log("Enviando solicitud a:", loginEndpoint);
+
+      const response = await fetch(loginEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: username,
+          password: password,
+        }),
+        credentials: "include", // Añadir esto para mantener cookies entre solicitudes
+      });
 
       console.log("Estado de respuesta:", response.status);
 
-      const result = await response.json();
-      console.log("Datos de respuesta:", result);
+      // Verificar el Content-Type para diagnosticar problemas
+      const contentType = response.headers.get("Content-Type");
+      console.log("Content-Type de respuesta:", contentType);
+
+      // Primero obtener la respuesta como texto para depuración
+      const responseText = await response.text();
+      console.log("Respuesta como texto:", responseText);
+
+      let result;
+      try {
+        // Intentar parsear como JSON
+        result = JSON.parse(responseText);
+        console.log("Datos de respuesta (parseados manualmente):", result);
+      } catch (parseError) {
+        console.error("Error al parsear JSON:", parseError);
+        alert(
+          "Error: La respuesta del servidor no es JSON válido. Contacta al administrador."
+        );
+        return;
+      }
 
       if (result.success) {
-        // Guardar token JWT y datos del usuario
+        // Sistema nuevo - guardar token JWT y datos del usuario
         if (mantenerSesion) {
-          localStorage.setItem("jwt_token", result.token);
-          localStorage.setItem("user_id", result.user_id);
+          localStorage.setItem("jwt_token", result.token || "");
+          localStorage.setItem("user_id", result.user_id || "");
           localStorage.setItem("user_email", username);
-          localStorage.setItem("user_type", result.user_type);
+          localStorage.setItem("user_type", result.user_type || "client");
           localStorage.setItem("sessionPermanent", "true");
+
+          // Sistema antiguo - para compatibilidad
+          localStorage.setItem("userLoggedIn", "true");
+          localStorage.setItem("username", username);
         } else {
-          sessionStorage.setItem("jwt_token", result.token);
-          sessionStorage.setItem("user_id", result.user_id);
+          sessionStorage.setItem("jwt_token", result.token || "");
+          sessionStorage.setItem("user_id", result.user_id || "");
           sessionStorage.setItem("user_email", username);
-          sessionStorage.setItem("user_type", result.user_type);
+          sessionStorage.setItem("user_type", result.user_type || "client");
           sessionStorage.setItem("sessionPermanent", "false");
+
+          // Sistema antiguo - para compatibilidad
+          sessionStorage.setItem("userLoggedIn", "true");
+          sessionStorage.setItem("username", username);
         }
 
         // Redireccionar según el tipo de usuario
+        let redirectUrl;
+
         if (result.user_type === "admin") {
-          window.location.href = "dashboard.html"; // Panel de administrador
+          redirectUrl = "index-admin.html";
         } else if (result.user_type === "client") {
           // Si es la primera vez que inicia sesión, enviarlo a completar perfil
-          if (result.profile_completed === false) {
-            window.location.href = "client-profile.html";
-          } else {
-            window.location.href = "client-dashboard.html"; // Dashboard de cliente
-          }
+          redirectUrl =
+            result.profile_completed === false
+              ? "client-profile.html"
+              : "client-dashboard.html";
         } else {
-          window.location.href = "dashboard.html"; // Por defecto
+          redirectUrl = "index-admin.html"; // Por defecto
         }
+
+        console.log("Redirigiendo a:", redirectUrl);
+
+        // Pequeño retraso para asegurar que los datos de la sesión se guarden antes de redirigir
+        setTimeout(() => {
+          window.location.href = redirectUrl;
+        }, 100);
       } else {
         alert(result.error || "Usuario o contraseña incorrectos.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Hubo un error al procesar tu solicitud. Inténtalo nuevamente.");
+      alert(
+        "Hubo un error al procesar tu solicitud. Inténtalo nuevamente. Error: " +
+          error.message
+      );
     } finally {
       // Restaurar el botón
       submitBtn.textContent = originalBtnText;
@@ -101,25 +141,33 @@ document.addEventListener("DOMContentLoaded", function () {
     // Obtener la página actual
     const currentPage = window.location.pathname.split("/").pop();
 
-    // No redireccionar si estamos en register.html
-    if (currentPage === "register.html") {
+    // Lista de páginas públicas que no requieren redirección
+    const publicPages = ["register.html", "login.html", "index.html", ""];
+
+    // No redireccionar si estamos en una página pública
+    if (publicPages.includes(currentPage)) {
+      console.log("Página pública detectada, no se redirige");
       return;
     }
 
+    // Verificar sistema nuevo
     const token =
       localStorage.getItem("jwt_token") || sessionStorage.getItem("jwt_token");
+    // Verificar sistema antiguo
+    const userLoggedIn =
+      localStorage.getItem("userLoggedIn") ||
+      sessionStorage.getItem("userLoggedIn");
+
     const userType =
       localStorage.getItem("user_type") || sessionStorage.getItem("user_type");
 
-    if (token) {
-      // Redireccionar según el tipo de usuario
-      if (userType === "admin") {
-        window.location.href = "dashboard.html";
-      } else if (userType === "client") {
-        window.location.href = "client-dashboard.html";
-      } else {
-        window.location.href = "dashboard.html";
-      }
+    if (token || userLoggedIn) {
+      console.log("Sesión activa detectada para usuario tipo:", userType);
+      // Ya tenemos una sesión, no necesitamos hacer nada
+    } else {
+      console.log("No hay sesión activa, redirigiendo a login");
+      // No hay sesión, redirigir al login
+      window.location.href = "login.html";
     }
   }
 
