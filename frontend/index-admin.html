@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,32 +9,39 @@
     <link rel="stylesheet" href="../frontend/css/cliente.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <header>
         <nav>
-            <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+            <div class="nav-left">
+                <a href="../index.html" class="back-to-site">
+                    <i class="fas fa-arrow-left"></i> Volver al sitio
+                </a>
+                <img src="../assets/img/kreativenofondo.png" alt="Icono" class="icon">
+            </div>
             <div class="navbar" id="navbar">
                 <ul class="headernav">
                     <li><a class="button-crud-proyectos" href="../frontend/proyectos-admin.html">Proyectos</a></li>
                     <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
-                
                 </ul>
             </div>
         </nav>
     </header>
-    
+
     <section class="profiles-section" id="perfiles">
-            <div class="info-container">
-                <h1 class="info-title">Equipo de trabajadores</h1>
-                
-            </div>
-            <div class="profiles-column">            
-            </div>
-            <div class="profile-content">
-                <a href="../frontend/crud-profile.html" class="create-profile">Agregar Perfil</a>
-            </div>
+        <div class="info-container">
+            <h1 class="info-title">Equipo de trabajadores</h1>
+
+        </div>
+        <div class="profiles-column">
+        </div>
+        <div class="profile-content">
+            <a href="../frontend/crud-profile.html" class="create-profile">Agregar Perfil</a>
+        </div>
     </section>
 
     <section class="clientes-section" id="clientes">
@@ -78,7 +86,7 @@
 
     <dialog id="confirmationDialog" class="modal">
         <p id="dialogMessage">¿Estás seguro de que deseas realizar esta acción?</p>
-        <button id="confirmButton" class="confirmButton"onclick="confirmAction()">Confirmar</button>
+        <button id="confirmButton" class="confirmButton" onclick="confirmAction()">Confirmar</button>
         <button id="cancelButton" class="cancelButton" onclick="closeDialog()">Cancelar</button>
     </dialog>
 
@@ -88,6 +96,7 @@
     <script src="../frontend/js/delete_user.js"></script>
     <script src="../frontend/js/index-admin.js"></script>
     <script src="../frontend/js/read_client.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </body>
 
 </html>

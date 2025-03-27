@@ -21,55 +21,66 @@
         flex-direction: column;
         align-items: center;
     }
+
     .headernav {
         flex-direction: column;
         text-align: center;
     }
+
     .headernav li {
         margin-left: 0;
         margin-top: 10px;
     }
-    
+
     .profiles-section {
         padding: 10px;
     }
+
     .profile-card {
-        width: 100%; 
-        height: auto; 
-        margin: 10px 0; 
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
     }
+
     .review-section {
         padding: 10px;
     }
+
     .review-card {
-        width: 100%; 
-        height: auto; 
-        margin: 10px 0; 
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
     }
+
     .info-title,
     .info-subtitle {
         font-size: 1.5em;
         text-align: center;
     }
+
     .button-link,
     .buttonBorrar {
         padding: 6px 26px;
         font-size: 0.9em;
     }
+
     .create-profile {
         padding: 8px 16px;
     }
+
     /* Ajustes para el navbar en pantallas pequeñas */
     .navbar {
         flex-direction: column;
         align-items: center;
         width: 100%;
     }
+
     .headernav {
         flex-direction: column;
         text-align: center;
         width: 100%;
     }
+
     .headernav li {
         margin-top: 10px;
     }
@@ -86,6 +97,7 @@
     text-decoration: none;
     margin: 5px 0;
 }
+
 .buttonActualizar {
     background-color: #24de33;
     margin-right: 10px;
@@ -130,7 +142,7 @@ nav {
 }
 
 .icon {
-    width: 110px; 
+    width: 110px;
     height: auto;
 }
 
@@ -147,7 +159,7 @@ nav {
 }
 
 .headernav li {
-    margin-left: 20px; 
+    margin-left: 20px;
 }
 
 .headernav li a.button-53 {
@@ -173,6 +185,33 @@ nav {
     justify-content: center;
     padding: 2rem;
 }
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.back-to-site {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    color: #314438;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.back-to-site:hover {
+    background-color: #f0f0f0;
+    color: #4CAF50;
+}
+
+.back-to-site i {
+    margin-right: 8px;
+}
+
 
 .profile-card {
     background: white;
@@ -285,13 +324,15 @@ nav {
 h4 {
     text-align: center;
 }
-select{
+
+select {
     align-items: center;
     margin-left: 10px;
     cursor: pointer;
     border-radius: 4px;
     width: 120px;
 }
+
 .confirmButton {
     padding: 8px 16px;
     border-radius: 4px;
@@ -300,54 +341,80 @@ select{
     margin-right: 10px;
     border: none;
 }
-.cancelButton{
+
+.cancelButton {
     padding: 8px 16px;
     border-radius: 4px;
     color: #fff;
     background-color: #e74c3c;
     border: none;
 }
+
 table {
     margin: 0 auto;
     border-collapse: collapse;
     background: white;
     margin-bottom: 150px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
+}
+
 th {
     padding: 10px;
     width: 1px;
     border: 1px solid #ddd;
     font-weight: bold;
 }
-.td-large{
+
+.td-large {
     width: 800px;
     overflow-wrap: break-word;
     max-width: 800px;
 }
-.td-medium{
+
+.td-medium {
     width: 245px;
 }
-.td-small{
+
+.td-small {
     width: 4px;
 }
-td{
+
+td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
 }
+
 .rating {
     width: 15px;
     height: 15px;
 }
+
 .modal {
     padding: 50px;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
+
 .modal::backdrop {
     background: #00000066;
-};
+}
+
+;
 /* FINALIZA BLOQUE DE ESTILO PARA LAS RESEÑAS */
+@media (max-width: 768px) {
+    .nav-left {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .back-to-site {
+        margin-bottom: 10px;
+    }
+
+    .icon {
+        margin-left: 0;
+    }
+}
