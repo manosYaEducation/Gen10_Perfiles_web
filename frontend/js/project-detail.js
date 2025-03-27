@@ -103,7 +103,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </section>
             `;
         }
-    
+                // Clientes  <a href="/Gen10_Perfiles_web/frontend/perfiles/profile-template.html?id=${participante.id}" class="participante-enlace">
+        if (proyecto.detalles?.cliente?.length > 0) {
+            html += `
+                <section class="participantes">
+                    <h2>Cliente del proyecto</h2>
+                    <div class="participantes-container">
+                        ${proyecto.detalles.cliente.map(cliente => `
+                            <div class="participante">
+                                <a href="./clientes/client-template.html?id=${cliente.id}" class="participante-enlace">
+                                    <p class="nombre-participante">${cliente.name}</p>
+                                </a>
+                            </div>
+                        `).join("")}
+                    </div>
+                </section>
+            `;
+        }    
+
 
         // Agregar todo el HTML al contenedor
         contenedor.innerHTML = html;
