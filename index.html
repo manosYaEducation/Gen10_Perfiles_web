@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,  user-scalable=no" />
@@ -11,12 +12,15 @@
     <link rel="icon" href="./assets/img/letra-k (1).png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
     <header>
-        <nav >
+        <nav>
             <div class="nav-left">
                 <img src="./assets/img/kreative_transparent.png" alt="Kreative Logo" class="nav-logo">
             </div>
@@ -26,13 +30,34 @@
                     <li><a href="#perfiles">Nuestro equipo</a></li>
                     <li><a href="#pro">Proyectos</a></li>
                     <li><a href="#contacto">Contacto</a></li>
-                    <li><a href="frontend/login.html" class="login-btn" id="login-btn">Ir a panel de administración →</a></li>
+
+                    <!-- Login button (shows when not logged in) -->
+                    <li id="login-container">
+                        <a href="frontend/login.html" class="login-btn" id="login-btn">Ir a panel de administración
+                            →</a>
+                    </li>
+
+                    <!-- Profile dropdown (shows when logged in) -->
+                    <li id="profile-container" style="display: none;">
+                        <div class="profile-dropdown">
+                            <button class="profile-btn" id="profile-btn">
+                                <span id="profile-icon" class="profile-icon">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <span id="profile-name">Usuario</span>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="frontend/index-admin.html">Panel de administración</a>
+                                <a href="#" id="logout-btn">Cerrar sesión</a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
 
             <div class="menu-icon" id="menu-icon">
                 <i class="fas fa-bars"></i>
-                </div>
+            </div>
 
             <!-- <div class="nav-right" id="nav-right">
                 <a href="frontend/login.html" class="login-btn">Ir a panel de administración →</a>
@@ -40,16 +65,18 @@
 
         </nav>
     </header>
-    
+
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
                 <h1>Conoce al equipo Kreative</h1>
-                <p id="hero-paragraph"><!-- Alcanza tus metas! Descubre cómo nuestro equipo de profesionales comprometidos pueden convertir tus ideas en realidad. Contactanos hoy e impulsa tu negocio. -->
+                <p id="hero-paragraph">
+                    <!-- Alcanza tus metas! Descubre cómo nuestro equipo de profesionales comprometidos pueden convertir tus ideas en realidad. Contactanos hoy e impulsa tu negocio. -->
                     Descubre cómo nuestro equipo de profesionales está aquí para ayudarte a alcanzar tus metas.
-                    Contáctanos para saber más sobre nuestros servicios y cómo podemos colaborar juntos.</p>
-                    <p class="prf1">¿Dónde hacer crecer tu negocio digitalmente?</p>
-                    <a href="#perfiles"><button class="btnr" >Conoce a nuestro equipo profesional</button></a>
+                    Contáctanos para saber más sobre nuestros servicios y cómo podemos colaborar juntos.
+                </p>
+                <p class="prf1">¿Dónde hacer crecer tu negocio digitalmente?</p>
+                <a href="#perfiles"><button class="btnr">Conoce a nuestro equipo profesional</button></a>
             </div>
             <div class="hero-image">
                 <img src="./assets/img/img_soft.png" alt="Imagen de Bienvenida">
@@ -66,17 +93,22 @@
                 </div>
             </div>
             <div class="hero-text2">
-                <p id="hero-paragraph2 ">Nos especializamos en el desarrollo de software personalizado: creamos soluciones innovadoras, adapatadas a tus necesidades, optimizando procesos y potenciar tu crecimiento y experiencia de tus usuarios.</p>
+                <p id="hero-paragraph2 ">Nos especializamos en el desarrollo de software personalizado: creamos
+                    soluciones innovadoras, adapatadas a tus necesidades, optimizando procesos y potenciar tu
+                    crecimiento y experiencia de tus usuarios.</p>
             </div>
         </div>
     </section>
     <section class="profiles-section" id="perfiles">
-            <div class="info-container">
-                <h1 class="info-title">Equipo Kreative</h1>
-                <h3 class="info-subtitle cursive">Trabajamos contigo para lograr un producto que se adapte a tus necesidades y supere tus expectativas<!-- "Trabajamos en conjunto para lograr, junto a ti, un producto que cumpla tus necesidades" --></h3>
-            </div>
-            <div class="profiles-column">             
-            </div>
+        <div class="info-container">
+            <h1 class="info-title">Equipo Kreative</h1>
+            <h3 class="info-subtitle cursive">Trabajamos contigo para lograr un producto que se adapte a tus necesidades
+                y supere tus
+                expectativas<!-- "Trabajamos en conjunto para lograr, junto a ti, un producto que cumpla tus necesidades" -->
+            </h3>
+        </div>
+        <div class="profiles-column">
+        </div>
     </section>
     </section>
     <section class="proyectos-destacados" id="proyectos">
@@ -85,15 +117,16 @@
             <!-- Presentación de Proyectos -->
             <div class="presentacion-proyectos">
                 <h2>Hitos y Proyectos Recientes</h2>
-                <p>En Kreative nos comprometemos con cada uno de nuestros proyectos, buscando entregar un producto de alta calidad y plasmando las necesidades e ideas de nuestros clientes.</p>
-            </div>    
-    
+                <p>En Kreative nos comprometemos con cada uno de nuestros proyectos, buscando entregar un producto de
+                    alta calidad y plasmando las necesidades e ideas de nuestros clientes.</p>
+            </div>
+
             <!-- Línea Decorativa -->
-            <div class="linea-separadora"></div> 
-    
+            <div class="linea-separadora"></div>
+
             <!-- Timeline de Proyectos -->
-            <div class="proyectos-timeline">     
-                <div id="contenedor-proyecto"></div>  
+            <div class="proyectos-timeline">
+                <div id="contenedor-proyecto"></div>
             </div>
         </div>
     </section>
@@ -101,7 +134,7 @@
     <section id="cont">
         <div id="contacto"></div>
         <div class="container-general">
-<!--             <div class="contacto-container">
+            <!--             <div class="contacto-container">
                 <div class="redes-sociales">
                     <h3>Comunícate con nosotros:</h3>
                     <div class="social-icons">
@@ -116,50 +149,52 @@
                     </div>
                 </div>
             </div> -->
-    
+
             <h1>Contacto</h1>
             <div class="contacto-container">
                 <div class="contacto-section">
-                    <form id="contactForm" action="https://formsubmit.co/kreativegen10@gmail.com" method="POST" novalidate>
+                    <form id="contactForm" action="https://formsubmit.co/kreativegen10@gmail.com" method="POST"
+                        novalidate>
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="Nuevo mensaje de contacto">
                         <input type="hidden" name="_next" value="http://127.0.0.1:5501/frontend/contacto.html">
-                        
+
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input type="text" id="nombre" name="nombre" required>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="email">Correo electrónico:</label>
                             <input type="email" id="email" name="email" required>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="telefono">Teléfono:</label>
                             <input type="tel" id="telefono" name="telefono" placeholder="+56912345678" required>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="asunto">Asunto:</label>
                             <input type="text" id="asunto" name="asunto" required>
                         </div>
-                    
+
                         <div class="form-group">
                             <label for="mensaje">Mensaje:</label>
                             <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
                         </div>
-                    
+
                         <button type="submit"><i class="fas fa-envelope"></i> Enviar</button>
-                    </form>                
-                </div>   
+                    </form>
+                </div>
             </div>
         </div>
-    
+
         <!-- Modal de éxito -->
         <dialog id="successModal" class="modal">
             <h2>¡Mensaje enviado exitosamente!</h2>
-            <p>Agradecemos que se haya puesto en contacto con nosotros. Revisaremos su mensaje y responderemos a la brevedad.</p>
+            <p>Agradecemos que se haya puesto en contacto con nosotros. Revisaremos su mensaje y responderemos a la
+                brevedad.</p>
             <button class="accept-button" onclick="closeModal()">Aceptar</button>
         </dialog>
     </section>
@@ -168,39 +203,39 @@
             <div class="footer-brand">
                 <img src="./assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
                 <p class="copyright">Copyright © 2024</p>
-                <p>Todos los derechos reservados por  empresa Kreative.</p>
+                <p>Todos los derechos reservados por empresa Kreative.</p>
             </div>
 
             <div class="footer-section">
                 <h3>Compañía</h3>
                 <ul>
-                   
+
                     <li><a href="#contacto">Contáctanos</a></li>
                     <li><a href="#perfiles">Nuestro equipo</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Redes sociales</h3>
-                    <ul>
-                        <li><a href="https://wa.me/945429495"  target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-                        
-                    </ul>
-                
+                <ul>
+                    <li><a href="https://wa.me/945429495" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+
+                </ul>
+
             </div>
             <div class="footer-section">
                 <h3>Información de contacto</h3>
                 <ul>
-                    
+
                     <li>Email: kreativegen10@gmail.com</li>
                 </ul>
             </div>
         </div>
-    
+
     </footer>
-<script src="./frontend/js/config.js"></script>
-<script src="./frontend/js/index.js"></script>
-<script src="./frontend/js/project-read.js"></script>
-<script src="./frontend/js/contacto.js"></script>
+    <script src="./frontend/js/config.js"></script>
+    <script src="./frontend/js/index.js"></script>
+    <script src="./frontend/js/project-read.js"></script>
+    <script src="./frontend/js/contacto.js"></script>
 </body>
 
 </html>
