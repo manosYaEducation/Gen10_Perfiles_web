@@ -85,12 +85,12 @@ fetch(`${window.API_URL_PHP}read_client.php`)
 
                 // Crear contenedor para las tarjetas de clientes
                 const clientsContainer = document.createElement('div');
-                clientsContainer.className = 'clients-container';
+                clientsContainer.className = 'profile-container';
 
                 // Mostrar todos los clientes
                 data.clients.forEach(client => {
                     const clientCard = document.createElement('div');
-                    clientCard.classList.add('client-card');
+                    clientCard.classList.add('profile-card');
                     clientCard.innerHTML = `
                         <div class="client-info">
                             <div class="client-image">
@@ -98,7 +98,7 @@ fetch(`${window.API_URL_PHP}read_client.php`)
                             </div>
                             <h2>${client.name}</h2>
                             <h3 class="client-company">${client.company}</h3>
-                            <div class="client-actions">
+                            <div class="profile-actions">
                                 <a href="./clientes/client-template.html?id=${client.id}" class="button-link">Ver</a>
                                 <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
                                 <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
