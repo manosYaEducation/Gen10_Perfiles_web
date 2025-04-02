@@ -6,11 +6,11 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Resume-cliente</title>
-        <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />   
-        <link href="../css/profile-templates-styles.css" rel="stylesheet" />
+        <link href="./css/profile-templates-styles.css" rel="stylesheet" />
     </head>
     <body id="top">
         <nav class="navbar" id="sideNav">
@@ -64,8 +64,28 @@
         
         </div>      
         </div> 
-        <script src="../js/config.js"></script>
-        <script src="../js/read_client.js" crossorigin="anonymous"></script>
-        <script src="../js/resenas.js"></script>
+        <script src="./js/config.js"></script>
+        <script src="./js/read_client.js" crossorigin="anonymous"></script>
+        <script src="./js/resenas.js"></script>
+        <script src="./js/logout.js"></script>
+        <script src="./js/verifylogin.js"></script>
+        <!-- <script>
+            window.onload = function() {
+                const userLoggedIn = sessionStorage.getItem('userLoggedIn');
+                const estaLogueadoLocal = localStorage.getItem('userLoggedIn');
+                
+                if (!userLoggedIn && !estaLogueadoLocal) {
+                  window.location.href = 'login.html'; 
+                }
+              }
+            
+              function obtenerUsuario() {
+                return sessionStorage.getItem('username') || localStorage.getItem('username');
+            }
+            
+            
+            
+        </script> -->
+        
     </body>
 </html>

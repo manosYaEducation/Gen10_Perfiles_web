@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="participantes-container">
                         ${proyecto.detalles.cliente.map(cliente => `
                             <div class="participante">
-                                <a href="./clientes/client-template.html?id=${cliente.id}" class="participante-enlace">
+                                <a href="./client-template.html?id=${cliente.id}" class="participante-enlace">
                                     <p class="nombre-participante">${cliente.name}</p>
                                 </a>
                             </div>
