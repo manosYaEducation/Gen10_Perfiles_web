@@ -1,3 +1,5 @@
+
+
 .create-profile {
     display: block;
     margin: 20px auto;
@@ -400,21 +402,6 @@ td {
 
 .modal::backdrop {
     background: #00000066;
-}
-
-;
+};
 /* FINALIZA BLOQUE DE ESTILO PARA LAS RESEÑAS */
-@media (max-width: 768px) {
-    .nav-left {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 
-    .back-to-site {
-        margin-bottom: 10px;
-    }
-
-    .icon {
-        margin-left: 0;
-    }
-}
