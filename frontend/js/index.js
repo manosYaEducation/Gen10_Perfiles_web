@@ -15,15 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Check login status for profile display
   checkLoginStatus();
 
-  // Logout functionality
-  if (document.getElementById("logout-btn")) {
-    document
-      .getElementById("logout-btn")
-      .addEventListener("click", function (e) {
-        e.preventDefault();
-        logout();
-      });
-  }
 
   // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
   fetch(`${window.API_URL_PHP}read_user.php`)
