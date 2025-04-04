@@ -14,11 +14,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (result.data.image) {
             document.getElementById('profile_image').src = result.data.image;
         }
-
+        // METADATA
+        // CambiarNombre
+        var metadatanombre = document.querySelector('meta[name="author"]');
+        const nombreperfil =profile.basic.name;
+        metadatanombre.setAttribute("content", nombreperfil);
+        // console.log(metadatanombre.getAttribute("content")); --Confirmar Cambio en Consola
+     
         // Información personal
         document.getElementById('name-hero').textContent = profile.basic.name;
         document.getElementById('personal-information-hero').innerHTML = `
-            <p>${profile.basic.location}</p>
+            <p>${profile.basic.location}</p>    
             <p>${profile.basic.phone}</p>
             <p>${profile.basic.email}</p>
     
