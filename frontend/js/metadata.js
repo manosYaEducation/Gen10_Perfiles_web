@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             // CambiarImagen
              var metadataimg = document.querySelector('meta[property="og:img"]');
             const nombreimg = profile.basic.image;
-            metadataimg.setAttribute("content"   , nombreimg);              
+            metadataimg.setAttribute("content"   , imagen);              
             
             
         }
