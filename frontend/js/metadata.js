@@ -12,11 +12,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Mostrar imagen de perfil si existe
         if (result.data.image) {
+            var imagen = result.data.image;
             // METADATA
             // CambiarNombre
-            var metadatanombre = document.querySelector('meta[name="author"]');
-            const nombreperfil = profile.basic.name;
-            metadatanombre.setAttribute("content", nombreperfil);
+            // var metadatanombre = document.querySelector('meta[name="author"]');
+            // const nombreperfil = profile.basic.name;
+            // metadatanombre.setAttribute("content", nombreperfil);
+
+                // CambiarTitle
+            var metadatatitle = document.querySelector('meta[property="og:title"]');
+            const nombretitle = profile.basic.name;
+            metadatatitle.setAttribute("[Nombre]"   , nombretitle);
             // console.log(metadatanombre.getAttribute("content")); --Confirmar Cambio en Consola            
         }
     } catch (error) {
