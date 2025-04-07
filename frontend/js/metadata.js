@@ -22,7 +22,19 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // CambiarTitle
             var metadatatitle = document.querySelector('meta[property="og:title"]');
             const nombretitle = profile.basic.name;
-            metadatatitle.setAttribute("content"   , "Perfil de " + nombretitle +" - Kreative Alpha Docere");        
+            metadatatitle.setAttribute("content"   , "Perfil de " + nombretitle +" - Kreative Alpha Docere");  
+
+            // CambiarTitle
+            var metadataurl = document.querySelector('meta[property="og:url"]');
+            const nombreurl = profile.basic.id;
+            metadataurl.setAttribute("content"   , "http://localhost/Gen10_Perfiles_web/frontend/perfiles/profile-template.html?id="+nombreurl);
+              
+            // CambiarImagen
+             var metadataimg = document.querySelector('meta[property="og:img"]');
+            const nombreimg = profile.basic.image;
+            metadataimg.setAttribute("content"   , nombreimg);              
+            
+            
         }
     } catch (error) {
         console.error('Error al obtener los datos:', error);
