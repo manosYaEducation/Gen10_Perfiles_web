@@ -11,7 +11,8 @@ loginF.addEventListener("submit", async (event) => {
   }
 
   try {
-    const response = await fetch(API_URL_PHP + "login.php", {
+    // Aquí cambiamos la URL del endpoint a la nueva dirección
+    const response = await fetch("https://systemauth.alphadocere.cl/login.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,59 +24,56 @@ loginF.addEventListener("submit", async (event) => {
     });
 
     const result = await response.json();
-    console.log("Respuesta del servidor:", result); // Log para ver la respuesta completa
+    console.log("Respuesta del servidor:", result);
 
     if (result.success === true) {
       console.log("Login exitoso");
 
-      // Store login information
-      // En login.js - al iniciar sesión con éxito
+      // Almacenar información del login
       if (mantenerSesion) {
         localStorage.setItem("userLoggedIn", "true");
         localStorage.setItem("username", username);
         localStorage.setItem("sessionPermanent", "true");
-
-        // Store additional user data if available
-        if (result.user_id) {
-          localStorage.setItem("userId", result.user_id);
-        }
-        if (result.user_type) {
-          localStorage.setItem("userType", result.user_type);
-        }
+        
+        // Almacenar datos adicionales del usuario si están disponibles
         if (result.token) {
           localStorage.setItem("token", result.token);
+        }
+        if (result.user) {
+          localStorage.setItem("userId", result.user.id);
+          localStorage.setItem("userEmail", result.user.email);
+          localStorage.setItem("userName", result.user.nombre);
+          localStorage.setItem("userCiudad", result.user.ciudad);
         }
       } else {
         sessionStorage.setItem("userLoggedIn", "true");
         sessionStorage.setItem("username", username);
         sessionStorage.setItem("sessionPermanent", "false");
-
-        // También guarda lo mismo en localStorage para respaldo
+        
+        // También guardamos en localStorage como respaldo
         localStorage.setItem("userLoggedIn", "true");
         localStorage.setItem("username", username);
         localStorage.setItem("sessionPermanent", "false");
-
-        // Store additional user data if available
-        if (result.user_id) {
-          sessionStorage.setItem("userId", result.user_id);
-          localStorage.setItem("userId", result.user_id);
-        }
-        if (result.user_type) {
-          sessionStorage.setItem("userType", result.user_type);
-          localStorage.setItem("userType", result.user_type);
-        }
+        
+        // Almacenar datos adicionales del usuario si están disponibles
         if (result.token) {
           sessionStorage.setItem("token", result.token);
           localStorage.setItem("token", result.token);
         }
+        if (result.user) {
+          sessionStorage.setItem("userId", result.user.id);
+          localStorage.setItem("userId", result.user.id);
+          sessionStorage.setItem("userEmail", result.user.email);
+          localStorage.setItem("userEmail", result.user.email);
+          sessionStorage.setItem("userName", result.user.nombre);
+          localStorage.setItem("userName", result.user.nombre);
+          sessionStorage.setItem("userCiudad", result.user.ciudad);
+          localStorage.setItem("userCiudad", result.user.ciudad);
+        }
       }
 
-      // Redirigir primero a la página principal para mostrar el perfil
-      console.log("Redirigiendo a la página principal...");
+      // Redirigir al usuario
       window.location.href = "../index.html";
-
-      // Alternativa: Si prefieres ir directamente al admin, mantén esta línea y comenta la anterior
-      // window.location.href = "index-admin.html";
     } else {
       alert(result.error || "Usuario o contraseña incorrectos.");
     }
