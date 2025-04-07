@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                             <h2>${client.name}</h2>
                             <h3 class="client-company">${client.company}</h3>
                             <div class="profile-actions">
-                                <a href="./clientes/client-template.html?id=${client.id}" class="button-link">Ver</a>
+                                <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Ver</a>
                                 <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
                                 <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
                             </div>
