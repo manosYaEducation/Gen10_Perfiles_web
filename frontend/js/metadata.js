@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             // Cambiar URL
             const metadataurl = document.querySelector('meta[property="og:url"]');
-            metadataurl.setAttribute("content", "http://localhost/Gen10_Perfiles_web/frontend/perfiles/profile-template.html?id=" + profile.basic.id);
+            metadataurl.setAttribute("content", "https://kreative.alphadocere.cl/frontend/perfiles/profile-template.html?id=" + id);
 
             // Cambiar Imagen (asegúrate de usar "og:image")
             const metadataimg = document.querySelector('meta[property="og:image"]');

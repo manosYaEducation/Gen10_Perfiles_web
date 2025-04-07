@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // 2) URL dinámica (con encodeURIComponent)
                 const metaUrl = document.querySelector('meta[property="og:url"]');
                 if (metaUrl) {
-                    const dynamicUrl = `https://ms.alphadocere.cl/proyecto/${encodeURIComponent(proyecto.titulo_tarjeta)}`;
+                    const dynamicUrl = `https://kreative.alphadocere.cl/frontend/proyecto-detalle.html?id=${encodeURIComponent(id)}`;
                     metaUrl.setAttribute("content", dynamicUrl);
                 }
 
