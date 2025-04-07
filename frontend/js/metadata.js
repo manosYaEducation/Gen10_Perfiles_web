@@ -22,8 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // CambiarTitle
             var metadatatitle = document.querySelector('meta[property="og:title"]');
             const nombretitle = profile.basic.name;
-            metadatatitle.setAttribute("content"   , nombretitle);
-            // console.log(metadatanombre.getAttribute("content")); --Confirmar Cambio en Consola            
+            metadatatitle.setAttribute("content"   , "Perfil de " + nombretitle +" - Kreative Alpha Docere");        
         }
     } catch (error) {
         console.error('Error al obtener los datos:', error);
