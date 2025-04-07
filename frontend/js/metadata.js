@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // CambiarTitle
             var metadatatitle = document.querySelector('meta[property="og:title"]');
             const nombretitle = profile.basic.name;
-            metadatatitle.setAttribute("[Nombre]"   , nombretitle);
+            metadatatitle.setAttribute("content"   , nombretitle);
             // console.log(metadatanombre.getAttribute("content")); --Confirmar Cambio en Consola            
         }
     } catch (error) {
