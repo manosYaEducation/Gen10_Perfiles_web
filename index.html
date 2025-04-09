@@ -234,45 +234,6 @@
         </div>
 
     </footer>
-    <script>
-        // Función para cerrar sesión (específica para index.html)
-        function cerrarSesion() {
-            console.log("Cerrando sesión desde index.html...");
-
-            // Limpiar localStorage
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            localStorage.removeItem("userName");
-            localStorage.removeItem("username");
-            localStorage.removeItem("userLoggedIn");
-
-            // También limpiar sessionStorage para mayor seguridad
-            sessionStorage.removeItem("token");
-            sessionStorage.removeItem("user");
-            sessionStorage.removeItem("userName");
-            sessionStorage.removeItem("username");
-            sessionStorage.removeItem("userLoggedIn");
-
-            // Refrescar la página actual para mostrar estado de no autenticado
-            window.location.reload();
-        }
-
-        // Añadir el evento al botón de cerrar sesión cuando se carga la página
-        document.addEventListener("DOMContentLoaded", function () {
-            // Encuentra el botón de cerrar sesión en el menú desplegable
-            const logoutBtn = document.querySelector(".dropdown-content .button-53");
-
-            if (logoutBtn) {
-                console.log("Botón de logout encontrado en index.html");
-                logoutBtn.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    cerrarSesion();
-                });
-            } else {
-                console.log("No se encontró el botón de logout en index.html");
-            }
-        });
-    </script>
     <script src="./frontend/js/logout.js"></script>
     <script src="./frontend/js/config.js"></script>
     <script src="./frontend/js/index.js"></script>
