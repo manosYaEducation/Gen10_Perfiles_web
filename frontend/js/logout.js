@@ -1,30 +1,31 @@
+// Función para cerrar sesión (solo se ejecuta cuando el usuario hace clic)
 function cerrarSesion() {
-  // Limpiar tanto localStorage como sessionStorage
-  localStorage.clear();
-  sessionStorage.clear();
-  
-  // Redirigir a la página principal basándose en la ubicación actual
-  // Determinar dinámicamente la ruta correcta
+  console.log("Cerrando sesión manualmente...");
+
+  // Limpiar localStorage
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("username");
+  localStorage.removeItem("userLoggedIn");
+  // NO usar localStorage.clear() ya que podría eliminar otras configuraciones importantes
+
+  // También limpiar sessionStorage para mayor seguridad
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("user");
+  sessionStorage.removeItem("userName");
+  sessionStorage.removeItem("username");
+  sessionStorage.removeItem("userLoggedIn");
+
+  // Redirigir a la página principal
   const currentPath = window.location.pathname;
-  
-  if (currentPath.includes('/frontend/')) {
-    // Si estamos en alguna página dentro de /frontend/
+  console.log("Ruta actual:", currentPath);
+
+  if (currentPath.includes("/frontend/")) {
     window.location.href = "../index.html";
   } else {
-    // Si estamos en la raíz u otra ubicación
     window.location.href = "index.html";
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Buscar todos los botones o enlaces que tengan la clase "button-53" o un atributo onclick con "cerrarSesion"
-  const logoutButtons = document.querySelectorAll(".button-53, [onclick*='cerrarSesion']");
-  
-  if (logoutButtons.length > 0) {
-    logoutButtons.forEach(button => {
-      button.addEventListener("click", cerrarSesion);
-    });
-  } else {
-    console.warn("No se encontraron botones de cierre de sesión en el DOM.");
-  }
-});
+// NO añadir eventos automáticamente - confiar en el atributo onclick del HTML
