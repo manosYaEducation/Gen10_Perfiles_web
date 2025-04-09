@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 function cerrarSesion() {
-  sessionStorage.clear();
+  // sessionStorage.clear();
   localStorage.clear();
 
-  window.location.href = "./index.html";
+  window.location.href = "../index.html";
 }

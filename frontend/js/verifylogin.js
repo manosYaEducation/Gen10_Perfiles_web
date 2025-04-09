@@ -5,6 +5,7 @@ window.onload = function() {
   
   if (!userLoggedIn && !estaLogueadoLocal || !token) {
     window.location.href = 'login.html'; 
+    // console.log('me de volvio')
   }
 }
 
