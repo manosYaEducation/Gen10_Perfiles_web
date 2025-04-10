@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Verificar que la API_URL_PHP esté correctamente configurada
     if (!window.API_URL_PHP) {
         console.error('API_URL_PHP no está definida');
@@ -35,62 +35,62 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(error => console.error('Error al obtener perfiles:', error));
-    
+
 
     fetch(`${window.API_URL_PHP}read_reviews.php`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                data.data.reviews.forEach((review, index) => {
+                    const reviewTable = document.createElement('tr');
+                    reviewTable.classList.add('review-row'); 
 
-    .then(response => response.json())
+                    reviewTable.innerHTML = `
+                        <td class="td-medium">${review.nameClient}</td>
+                        <td class="td-medium">${review.nombre_perfil}</td>
+                        <td class="td-medium">${review.company}</td>
+                        <td class="td-large">${review.comments}</td>
+                        <td class="td-small">
+                            <div class="imgRating-${review.id}"></div>
+                        </td>
+                        <td class="status td-small" id="actualState">${review.estado_reseña}</td>
+                        <td class="td-small">
+                            <select id="review-status-${review.id}" onchange="changeStatus(${review.id})">
+                                <option>Cambiar estado</option>
+                                <option value="1" ${review.estado_reseña === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                                <option value="2" ${review.estado_reseña === 'Aprobada' ? 'selected' : ''}>Aprobada</option>
+                                <option value="3" ${review.estado_reseña === 'Rechazada' ? 'selected' : ''}>Rechazada</option>
+                            </select>
+                        </td>
+                    `;
+                    tbReviews.appendChild(reviewTable);
 
-    .then(data => {
-        if (data.success){
+                    // Inserta la fila en el cuerpo de la tabla
+                    /*                 console.log(reviewTable) */
+                    tbReviews.appendChild(reviewTable);
 
-            data.data.reviews.forEach(review => {
-                const reviewTable = document.createElement('tr');
-                reviewTable.innerHTML = `
-                    <td class="td-medium">${review.nameClient}</td>
-                    <td class="td-medium">${review.nombre_perfil}</td>
-                    <td class="td-medium">${review.company}</td>
-                    <td class="td-large">${review.comments}</td>
-                    <td class="td-small">
-                        <div class="imgRating-${review.id}"></div>
-                    </td>
-                    <td class="status td-small" id="actualState">${review.estado_reseña}</td>
-                    <td class="td-small">
-                        <select id="review-status-${review.id}" onchange="changeStatus(${review.id})">
-                            <option>Cambiar estado</option>
-                            <option value="1" ${review.estado_reseña === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
-                            <option value="2" ${review.estado_reseña === 'Aprobada' ? 'selected' : ''}>Aprobada</option>
-                            <option value="3" ${review.estado_reseña === 'Rechazada' ? 'selected' : ''}>Rechazada</option>
-                        </select>
-                    </td>
-                `;
+                    // Agregar estrellas en la valoración
+                    const imgRatingContainer = reviewTable.querySelector(`.imgRating-${review.id}`);
+                    const numberRating = review.rating;
+                    // Se itera sobre el valor de la valoración para agregar las estrellas
+                    for (let i = 0; i < numberRating; i++) {
+                        const estrella = document.createElement('img');
+                        // URL de la estrella
+                        estrella.src = "../assets/img/star.png";
+                        estrella.alt = "Estrella";
+                        estrella.classList.add('rating')
+                        imgRatingContainer.appendChild(estrella);
+                    }
+                });
 
-                // Inserta la fila en el cuerpo de la tabla
-/*                 console.log(reviewTable) */
-                tbReviews.appendChild(reviewTable); 
-            
-                // Agregar estrellas en la valoración
-                const imgRatingContainer = reviewTable.querySelector(`.imgRating-${review.id}`);
-                const numberRating = review.rating;
-                // Se itera sobre el valor de la valoración para agregar las estrellas
-                for (let i = 0; i < numberRating; i++) {
-                    const estrella = document.createElement('img');
-                    // URL de la estrella
-                    estrella.src = "../assets/img/star.png"; 
-                    estrella.alt = "Estrella";
-                    estrella.classList.add('rating')
-                    imgRatingContainer.appendChild(estrella);
-                }
-            });            
+                fetch(`${window.API_URL_PHP}update_review.php`)
+            }
+            else {
+                console.log(data)
+            }
+        })
 
-    fetch(`${window.API_URL_PHP}update_review.php`)
-    }
-    else {
-        console.log(data)
-    }    
-}) 
-
-.catch(error => console.error('Error al obtener reseñas:', error.message));
+        .catch(error => console.error('Error al obtener reseñas:', error.message));
 
 });
 function filterReviews() {
@@ -106,7 +106,7 @@ function filterReviews() {
             const status = statusCell.textContent.trim();  // Obtén el texto de la celda de estado
             if (filter === "todas") {
                 row.style.display = "";  // Muestra la fila si se seleccionan todas
-            } 
+            }
             // Si el estado de la fila coincide con el filtro, muestra la fila
             else if (status === filter) {
                 // Si el estado coincide con el filtro o el filtro es "todos", muestra la fila
@@ -125,8 +125,8 @@ function redirectToUpdate(profileId) {
 
 function changeStatus(reviewId) {
     const selectElement = document.getElementById(`review-status-${reviewId}`);
-    const originalStatus = selectElement.getAttribute('data-original-status'); 
-    const selectedStatus = selectElement.value; 
+    const originalStatus = selectElement.getAttribute('data-original-status');
+    const selectedStatus = selectElement.value;
 
     // Si el estado ha cambiado, abre la modal
     if (originalStatus !== selectedStatus) {
@@ -181,7 +181,7 @@ function confirmAction() {
             }
         })
         .catch(error => console.error('Error:', error));
-        modal.close();
+    modal.close();
 }
 
 function closeDialog() {
