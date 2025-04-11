@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <?php include '../../backend/MetadataPerfiles.php';?>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -11,21 +12,6 @@
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />   
         <link href="../css/profile-templates-styles.css" rel="stylesheet" />
-
-
-        <!-- Metadata Perfiles -->
-<meta property="og:type" content="profile" />
-<meta property="og:url" content="https://ms.alphadocere.cl/perfil/[nombre]" />
-<meta property="og:title" content="Perfil de [Nombre] - Kreative Alpha Docere" />
-<meta property="og:description" content="Innovación y creatividad al servicio de nuevas ideas." />
-<meta property="og:image" content="https://kreative.alphadocere.cl/assets/img/kreative_transparent.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="keywords" content="Innovación profesional, talento joven, soluciones creativas" />
-
-
-
-
-
     </head>
     <body id="top">
         <nav class="navbar" id="sideNav">
@@ -47,8 +33,11 @@
         <div class="container-fluid p-0">
             <section id="about">
                 <div id="resume-section-hero">
-                    <img src="" id="profile_image" class="imagen-participante">
-                    <h1 id="name-hero" class="mb-0"></h1>
+                    <img src="<?php echo htmlspecialchars($metaImage); ?>"
+                     id="profile_image"
+                     class="imagen-participante" 
+                     alt="Imagen de <?php echo htmlspecialchars($profile['name']); ?>">
+                    <h1 id="name-hero" class="mb-0"><?php echo htmlspecialchars($profile['name']); ?></h1>
                     <div id="personal-information-hero"></div>
                     <p id="description-hero"></p>
                     <!-- <div id="social-icons-hero">
@@ -110,7 +99,5 @@
         <script src="../js/config.js"></script>
         <script src="../js/read_user.js" crossorigin="anonymous"></script>
         <script src="../js/resenas.js"></script>
-        <script src="../js/metadata.js"></script>
-
     </body>
 </html>

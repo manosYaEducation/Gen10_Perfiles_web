@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <h2>${profile.name}</h2>
                                     <p>${profile.phrase}</p>
                                     <p>${profile.description}</p>
-                                    <a href="./frontend/perfiles/profile-template.html?id=${
+                                    <a href="./frontend/perfiles/profile-template.php?id=${
                                       profile.id
                                     }" class="perfil">Ver Perfil</a>
                                 </div>
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <h2>${profile.name}</h2>
                                     <p>${profile.phrase}</p>
                                     <p>${profile.description}</p>
-                                    <a href="./frontend/perfiles/profile-template.html?id=${
+                                    <a href="./frontend/perfiles/profile-template.php?id=${
                                       profile.id
                                     }" class="perfil">Ver Perfil</a>
                                 </div>

@@ -31,7 +31,7 @@ function mostrarProyectos(proyectos) {
                 <div class="proyecto-fecha">${proyecto.fecha}</div>
                 <div class="proyecto-linea"></div>
                 <div class="proyecto-tarjeta">
-                    <a href="frontend/proyecto-detalle.html?id=${proyecto.id_proyecto}" class="proyecto-titulo">${proyecto.titulo_tarjeta}</a>
+                    <a href="frontend/proyecto-detalle.php?id=${proyecto.id_proyecto}" class="proyecto-titulo">${proyecto.titulo_tarjeta}</a>
                     <p class="proyecto-descripcion">${proyecto.descripcion_tarjeta}</p>
                 </div>
             </div>

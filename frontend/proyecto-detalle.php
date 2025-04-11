@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <?php include '../backend/MetadataProyecto.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del Proyecto</title>
@@ -10,22 +11,10 @@
     <link rel="stylesheet" href="../frontend/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="../assets/img/letra-k (1).png" type="image/x-icon">
-
-
-    <!-- Metadata Proyectos -->
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://ms.alphadocere.cl/proyecto/[nombre-del-proyecto]" />
-<meta property="og:title" content="[Nombre del Proyecto] - Desarrollado por Kreative Alpha Docere" />
-<meta property="og:description" content="Ideas convertidas en impacto real." />
-<meta property="og:image" content="https://kreative.alphadocere.cl/assets/img/kreative_transparent.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="keywords" content="Innovación profesional, pruebas de concepto, soluciones creativas" />
-
-
 </head>
 <body>
     <header>
-        <nav >
+        <nav>
             <div class="nav-left">
                 <img src="../assets/img/kreative_transparent.png" alt="Kreative Logo" class="nav-logo">
             </div>
@@ -93,7 +82,5 @@
     <script src="../frontend/js/verifylogin.js"></script>
     <script src="../frontend/js/config.js"></script>
     <script src="../frontend/js/logout.js"></script>
-    <script src="../frontend/js/metadataProyecto.js"></script>
-
 </body>
 </html>

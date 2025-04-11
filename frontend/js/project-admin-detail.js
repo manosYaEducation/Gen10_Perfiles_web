@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             `;
         }
 
-        // Participantes  <a href="/Gen10_Perfiles_web/frontend/perfiles/profile-template.html?id=${participante.id}" class="participante-enlace">
+        // Participantes  <a href="/Gen10_Perfiles_web/frontend/perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
         if (proyecto.detalles?.participantes?.length > 0) {
             html += `
                 <section class="participantes">
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="participantes-container">
                         ${proyecto.detalles.participantes.map(participante => `
                             <div class="participante">
-                                <a href="./perfiles/profile-template.html?id=${participante.id}" class="participante-enlace">
+                                <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
                                     <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
                                     <p class="nombre-participante">${participante.nombre}</p>
                                 </a>
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </section>
             `;
         }
-        // Clientes  <a href="/Gen10_Perfiles_web/frontend/perfiles/profile-template.html?id=${participante.id}" class="participante-enlace">
+        // Clientes  <a href="/Gen10_Perfiles_web/frontend/perfil.php?id=${participante.id}" class="participante-enlace">
         if (proyecto.detalles?.cliente?.length > 0) {
             html += `
                 <section class="participantes">
