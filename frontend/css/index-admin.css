@@ -1,3 +1,32 @@
+/* Estilos para las filas de reseñas */
+.review-row {
+    transition: all 0.3s ease;
+    position: relative;
+    margin-bottom: 5px; /* Espacio entre filas normales */
+}
+
+/* Separador visual cada 3 reseñas */
+.review-separator {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.review-separator::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 15px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+}
+
+/* Estilo para hover */
+.review-row:hover {
+    background-color: #f9f9f9;
+}
 
 
 .create-profile {
@@ -17,80 +46,6 @@
     background-color: rgb(138, 90, 2);
 }
 
-@media (max-width: 768px) {
-    header {
-        padding: 10px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .headernav {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .headernav li {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-
-    .profiles-section {
-        padding: 10px;
-    }
-
-    .profile-card {
-        width: 100%;
-        height: auto;
-        margin: 10px 0;
-    }
-
-    .review-section {
-        padding: 10px;
-    }
-
-    .review-card {
-        width: 100%;
-        height: auto;
-        margin: 10px 0;
-    }
-
-    .info-title,
-    .info-subtitle {
-        font-size: 1.5em;
-        text-align: center;
-    }
-
-    .button-link,
-    .buttonBorrar {
-        padding: 6px 26px;
-        font-size: 0.9em;
-    }
-
-    .create-profile {
-        padding: 8px 16px;
-    }
-
-    /* Ajustes para el navbar en pantallas pequeñas */
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .headernav {
-        flex-direction: column;
-        text-align: center;
-        width: 100%;
-    }
-
-    .headernav li {
-        margin-top: 10px;
-    }
-}
-
-
-
-/* boton-actualizar */
 .buttonActualizar {
     display: inline-block;
     padding: 8px 16px;
@@ -214,7 +169,6 @@ nav {
     margin-right: 8px;
 }
 
-
 .profile-card {
     background: white;
     border-radius: 15px;
@@ -317,8 +271,6 @@ nav {
     margin-bottom: 10px;
 }
 
-
-/* SECCION DE RESEÑAS */
 .reviews-section {
     padding: 50px;
 }
@@ -402,6 +354,182 @@ td {
 
 .modal::backdrop {
     background: #00000066;
-};
-/* FINALIZA BLOQUE DE ESTILO PARA LAS RESEÑAS */
+}
 
+@media (max-width: 768px) {
+
+    .review-row {
+        margin-bottom: 15px;
+        border: 1px solid #0000003a;
+        border-radius: 5px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        background-color: #ffffff;
+    }
+    
+    
+
+    header {
+        padding: 10px 5px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .headernav {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+    }
+
+    .headernav li {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .profiles-section, .clientes-section, .reviews-section {
+        padding: 15px;
+    }
+
+    .profile-card {
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
+        max-width: 300px;
+        padding: 1rem 0.5rem;
+    }
+
+    .review-section {
+        padding: 10px;
+    }
+
+    .review-card {
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
+    }
+
+    .info-title, .info-subtitle {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .button-link, .buttonBorrar {
+        padding: 6px 26px;
+        font-size: 0.9em;
+    }
+
+    .create-profile {
+        padding: 12px 24px;
+        width: 90%;
+        font-size: 1.1em;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .nav-left {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .back-to-site {
+        margin-bottom: 10px;
+    }
+
+    .icon {
+        margin-left: 0;
+    }
+
+    .profiles-column {
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .client-content {
+        text-align: center;
+    }
+    
+    table, thead, tbody{
+        background-color: #f1efef;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        min-width: 70%;
+    }
+    
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        padding: 10px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 30%;
+        text-align: left;
+        font-size: 12px;
+        
+    }
+
+    td:before {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        overflow-wrap: break-word;
+    }
+
+    td:nth-of-type(1):before { content: "Cliente:"; }
+    td:nth-of-type(2):before { content: "Desarrollador:"; }
+    td:nth-of-type(3):before { content: "Empresa:"; }
+    td:nth-of-type(4):before { content: "Comentario:"; }
+    td:nth-of-type(5):before { content: "Valoración:"; }
+    td:nth-of-type(6):before { content: "Estado:"; }
+    td:nth-of-type(7):before { content: "Acciones:"; }
+
+    .td-large, .td-medium, .td-small {
+        width: 60%;
+        max-width: none;
+        overflow-wrap: break-word;
+        margin-bottom: 10px;
+
+    }
+
+    #filter-reviews {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .modal {
+        width: 90%;
+        max-width: none;
+        padding: 20px;
+    }
+
+
+    .confirmButton, .cancelButton {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    section {
+        margin-bottom: 30px;
+    }
+
+    .info-container {
+        margin-bottom: 30px;
+    }
+}
