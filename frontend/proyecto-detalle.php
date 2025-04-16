@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <?php include '../backend/MetadataProyecto.php'; ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del Proyecto</title>
@@ -13,7 +14,7 @@
 </head>
 <body>
     <header>
-        <nav >
+        <nav>
             <div class="nav-left">
                 <img src="../assets/img/kreative_transparent.png" alt="Kreative Logo" class="nav-logo">
             </div>

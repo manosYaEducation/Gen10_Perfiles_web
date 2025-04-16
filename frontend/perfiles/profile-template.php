@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <?php include '../../backend/MetadataPerfiles.php';?>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -32,8 +33,11 @@
         <div class="container-fluid p-0">
             <section id="about">
                 <div id="resume-section-hero">
-                    <img src="" id="profile_image" class="imagen-participante">
-                    <h1 id="name-hero" class="mb-0"></h1>
+                    <img src="<?php echo htmlspecialchars($metaImage); ?>"
+                     id="profile_image"
+                     class="imagen-participante" 
+                     alt="Imagen de <?php echo htmlspecialchars($profile['name']); ?>">
+                    <h1 id="name-hero" class="mb-0"><?php echo htmlspecialchars($profile['name']); ?></h1>
                     <div id="personal-information-hero"></div>
                     <p id="description-hero"></p>
                     <!-- <div id="social-icons-hero">

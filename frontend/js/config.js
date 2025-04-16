@@ -1,11 +1,16 @@
 window.API_URL = (window.location.hostname === 'localhost' || 
   window.location.hostname === '127.0.0.1')
-? 'http://localhost/Gen10_Perfiles_web/'
+? 'http://localhost/git/Gen10_Perfiles_web/'
 : 'https://kreative.alphadocere.cl';
 
 
 
 window.API_URL_PHP = (window.location.hostname === 'localhost' || 
   window.location.hostname === '127.0.0.1')
+<<<<<<< HEAD
 ? 'http://localhost/Gen10_Perfiles_web/backend/'
 : 'https://kreative.alphadocere.cl/backend/';
+=======
+? 'http://localhost/git/Gen10_Perfiles_web/backend/'
+: 'https://kreative.alphadocere.cl/backend/';
+>>>>>>> Feature/MGuerrero/07-04-2025-Metadatas
