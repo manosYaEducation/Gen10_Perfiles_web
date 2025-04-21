@@ -125,7 +125,21 @@
                 expectativas<!-- "Trabajamos en conjunto para lograr, junto a ti, un producto que cumpla tus necesidades" -->
             </h3>
         </div>
-        <div class="profiles-column">
+        <div class="carousel-container">
+            <button class="carousel-button prev" id="prevButton">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-wrapper">
+                <div class="profiles-carousel" id="profilesCarousel">
+                    <!-- Los perfiles se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+            <button class="carousel-button next" id="nextButton">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="carousel-indicators" id="carouselIndicators">
+            <!-- Los indicadores se generarán dinámicamente -->
         </div>
     </section>
     </section>
@@ -253,6 +267,7 @@
     <script src="./frontend/js/logout.js"></script>
     <script src="./frontend/js/config.js"></script>
     <script src="./frontend/js/index.js"></script>
+    <script src="./frontend/js/carousel.js"></script>
     <script src="./frontend/js/project-read.js"></script>
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
