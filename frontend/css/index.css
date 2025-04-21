@@ -1185,12 +1185,12 @@ p {
 }
 
 .profile-card {
-    min-width: calc(25% - 15px); /* 4 tarjetas por vista con gap */
-    flex: 0 0 calc(25% - 15px);
+    min-width: 220px;
+    flex: 0 0 220px;
     background: white;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 15px;
     margin: 10px 0;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1345,9 +1345,9 @@ p {
 
 @media (max-width: 480px) {
     .profile-card {
-        min-width: 220px;
+        min-width: 280px;
         flex: 0 0 220px;
-        padding: 15px;
+        padding: 39px;
     }
     
     .profile-image-container {
