@@ -18,11 +18,11 @@ document.getElementById("contactForm").addEventListener("submit", function(event
     let mensaje = formData.get("mensaje");
     // Creacion Variable Validacion Email
     let correoValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    console.log(correoValido);
+    // console.log(correoValido);
 
     // Creacion Variable Validacion telefono
     let telefonoValido = /^\+?[0-9\s\-()]{7,20}$/.test(telefono);
-    console.log(telefonoValido);    
+    // console.log(telefonoValido);    
 
     // Funcion para mostrar al usuario que campo falta dependiendo del else if de abajo que valida si la variable es nula o incorrecta
     function mostrarfaltante(campo){
