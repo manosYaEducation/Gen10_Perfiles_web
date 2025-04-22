@@ -87,8 +87,9 @@ try {
         // Agrego link whatsapp a cada uno de los $profiles luego de limpiar los numeros para posteriormente ser enviado conjunto los demas datos
         foreach ($profiles as &$profile){
             if(strpos($profile['phone'],'+56')=== 0){
-                $NewNum = substr($profile['phone'],3);
+                $NewNum = $profile['phone'];
                 $NewNum = str_replace(' ','',$NewNum);
+                $NewNum = substr($NewNum,3);
                 $profile['whatsapp'] = "https://wa.me/$NewNum";
             }
             else{
