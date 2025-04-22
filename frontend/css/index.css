@@ -1218,7 +1218,7 @@ p {
     object-fit: cover;
     transition: transform 0.5s ease;
 }
-
+/* icono whatsapp carrusel */
 #whatsapp{
     transition: none;
     z-index: 9999;
@@ -1227,12 +1227,12 @@ p {
     text-decoration: none;
 
 }
-
+/* icono whatsapp carrusel */
 #whatsapp a:hover{
     color:#24de33;
 
 }
-
+/* icono whatsapp carrusel */
 #whatsapp a{
     text-decoration: none;
     color: green ;
@@ -1360,7 +1360,7 @@ p {
         width: 40px;
         height: 40px;
     }
-
+    /* icono whatsapp carrusel */
     #whatsapp{
         transition: none;
         z-index: 9999;
@@ -1391,7 +1391,7 @@ p {
     .profile-text-container p {
         font-size: 0.9em;
     }
-
+    /* icono whatsapp carrusel */
     #whatsapp{
         transition: none;
         z-index: 9999;
