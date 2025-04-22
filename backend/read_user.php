@@ -80,9 +80,22 @@ try {
         ];
     } else {
         // Si no hay 'id', devuelve todos los perfiles
-        $stmt = $conn->prepare("SELECT id, name, description, phrase FROM profile");
+        $stmt = $conn->prepare("SELECT id, name, description, phrase, phone FROM profile");
         $stmt->execute();
         $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($profiles as &$profile){
+            if(strpos($profile['phone'],'+56')=== 0){
+                $NewNum = substr($profile['phone'],3);
+                $NewNum = str_replace(' ','',$NewNum);
+                $profile['whatsapp'] = "https://wa.me/$NewNum";
+            }
+            else{
+                $NewNum = $profile['phone'];
+                $NewNum = str_replace(' ','',$NewNum);
+                $profile['whatsapp'] = "https://wa.me/$NewNum";
+            }
+        }
 
         if (!$profiles) {
             echo json_encode(['success' => false, 'message' => 'No se encontraron perfiles']);

@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderProfiles() {
     if (!carousel) return;
-    
     carousel.innerHTML = "";
     profiles.forEach((profile) => {
       const profileCard = document.createElement("div");
@@ -73,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
       profileCard.innerHTML = `
         <div class="profile-image-container">
           <img src="${profile.image || "./assets/img/default-profile.png"}" alt="${profile.name}">
+          <p id="whatsapp"><a href="${profile.whatsapp}"><i class="fab fa-whatsapp fa-3x"></i></a></p>
         </div>
         <div class="profile-text-container">
           <h2>${profile.name}</h2>
@@ -254,4 +254,4 @@ document.addEventListener("DOMContentLoaded", function () {
       updateCarousel();
     }
   }
-}); 
+});
