@@ -1045,12 +1045,15 @@ footer p {
     font-size: 1.5rem;
     line-height: 1.4;
     text-align: left;
+    text-wrap: regular;
 }
 
 #hero-paragraph {
     font-size: 1.5rem;
     line-height: 1.4;
     text-align: left;
+    text-wrap: regular;
+
 }
 
 .cursive {
