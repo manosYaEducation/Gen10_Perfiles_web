@@ -1222,6 +1222,25 @@ p {
     object-fit: cover;
     transition: transform 0.5s ease;
 }
+/* icono whatsapp carrusel */
+#whatsapp{
+    transition: none;
+    z-index: 9999;
+    transform: translate(195%,125%);
+    position: absolute;
+    text-decoration: none;
+
+}
+/* icono whatsapp carrusel */
+#whatsapp a:hover{
+    color:#24de33;
+
+}
+/* icono whatsapp carrusel */
+#whatsapp a{
+    text-decoration: none;
+    color: green ;
+}
 
 .profile-card:hover .profile-image-container img {
     transform: scale(1.1);
@@ -1345,6 +1364,15 @@ p {
         width: 40px;
         height: 40px;
     }
+    /* icono whatsapp carrusel */
+    #whatsapp{
+        transition: none;
+        z-index: 9999;
+        transform: translate(170%,125%);
+        position: absolute;
+        text-decoration: none;
+    
+    }
 }
 
 @media (max-width: 480px) {
@@ -1366,5 +1394,14 @@ p {
     
     .profile-text-container p {
         font-size: 0.9em;
+    }
+    /* icono whatsapp carrusel */
+    #whatsapp{
+        transition: none;
+        z-index: 9999;
+        transform: translate(145%,105%);
+        position: absolute;
+        text-decoration: none;
+    
     }
 }

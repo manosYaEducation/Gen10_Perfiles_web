@@ -80,9 +80,24 @@ try {
         ];
     } else {
         // Si no hay 'id', devuelve todos los perfiles
-        $stmt = $conn->prepare("SELECT id, name, description, phrase FROM profile");
+        $stmt = $conn->prepare("SELECT id, name, description, phrase, phone FROM profile");
         $stmt->execute();
         $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Agrego link whatsapp a cada uno de los $profiles luego de limpiar los numeros para posteriormente ser enviado conjunto los demas datos
+        foreach ($profiles as &$profile){
+            if(strpos($profile['phone'],'+56')=== 0){
+                $NewNum = $profile['phone'];
+                $NewNum = str_replace(' ','',$NewNum);
+                $NewNum = substr($NewNum,3);
+                $profile['whatsapp'] = "https://wa.me/$NewNum";
+            }
+            else{
+                $NewNum = $profile['phone'];
+                $NewNum = str_replace(' ','',$NewNum);
+                $profile['whatsapp'] = "https://wa.me/$NewNum";
+            }
+        }
 
         if (!$profiles) {
             echo json_encode(['success' => false, 'message' => 'No se encontraron perfiles']);
