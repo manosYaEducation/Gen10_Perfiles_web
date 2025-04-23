@@ -21,8 +21,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             <p>${profile.basic.location}</p>
             <p>${profile.basic.phone}</p>
             <p>${profile.basic.email}</p>
-    
         `;
+        //funcionalidad: convertir el teléfono en enlace de Wsp
+        {
+            const infoDiv = document.getElementById('personal-information-hero');
+            const paragraphs = infoDiv.getElementsByTagName('p');
+            if (paragraphs.length >= 2) {
+                const phoneText = paragraphs[1].textContent.trim();
+                const digits = phoneText.replace(/\D/g, '');
+                if (digits) {
+                    paragraphs[1].innerHTML = `<a href="https://wa.me/${digits}" target="_blank">${phoneText}</a>`;
+                }
+            }
+        }
         document.getElementById('description-hero').textContent = profile.basic.description;
        
         // Experiencia
