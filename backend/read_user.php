@@ -80,7 +80,7 @@ try {
         ];
     } else {
         // Si no hay 'id', devuelve todos los perfiles
-        $stmt = $conn->prepare("SELECT id, name, description, phrase FROM profile ORDER BY id DESC");
+        $stmt = $conn->prepare("SELECT id, name, description, phrase FROM profile ORDER BY actividad DESC");
         $stmt->execute();
         $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
