@@ -1,4 +1,8 @@
-/* TODO PULIR CADA ESTILO UNO POR UNO */
+:root {
+    --cards-desktop: 3;
+    --gap-desktop: 14px;
+}
+
 html {
     scroll-behavior: smooth;
     min-width: 320px;
@@ -504,6 +508,8 @@ button:hover {
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 1.3rem;
+    text-align: left;
+    text-wrap: pretty;
 }
 
 .perfil {
@@ -1180,30 +1186,27 @@ p {
     padding: 20px 0;
 }
 
+@media (min-width: 1280px) {
+    .profile-card {
+        min-width: calc((100% - (var(--cards-desktop) - 1) * var(--gap-desktop)) / var(--cards-desktop));
+        flex: 0 0 calc((100% - (var(--cards-desktop) - 1) * var(--gap-desktop)) / var(--cards-desktop));
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin: 10px 0;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #eaeaea;
+    }
+}
+
 .profiles-carousel {
     display: flex;
     transition: transform 0.3s ease-out;
     gap: 20px;
     padding: 0 20px;
     will-change: transform;
-}
-
-.profile-card {
-    min-width: 220px;
-    flex: 0 0 220px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    margin: 10px 0;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #eaeaea;
-}
-
-.profile-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .profile-image-container {
