@@ -80,11 +80,7 @@ try {
         ];
     } else {
         // Si no hay 'id', devuelve todos los perfiles
-<<<<<<< HEAD
-        $stmt = $conn->prepare("SELECT id, name, description, phrase, phone FROM profile order by id desc");
-=======
-        $stmt = $conn->prepare("SELECT id, name, description, phrase FROM profile ORDER BY actividad DESC");
->>>>>>> Feature/MGuerrero/2025-04-23-OrdenarPerfilesPorID
+        $stmt = $conn->prepare("SELECT id, name, description, phrase, phone FROM profile order by actividad desc");
         $stmt->execute();
         $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
