@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentIndex = 0;
   let profiles = [];
-  let cardsPerView = 4; // Mostrar 4 tarjetas por vista por defecto
+  let cardsPerView = 3; // Mostrar 5 tarjetas por vista por defecto
   let isAnimating = false;
   let touchStartX = 0;
   let touchEndX = 0;
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (width < 1280) {
       cardsPerView = 3;
     } else {
-      cardsPerView = 4;
+      cardsPerView = 3; // Cambiado a 5 para escritorio
     }
     if (profiles.length > 0) {
       updateCarousel();
@@ -105,7 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const cardWidth = firstCard.offsetWidth;
     const gap = 20; // Gap entre tarjetas
-    const totalWidth = (cardWidth + gap) * cardsPerView;
+    // Se calcula el ancho total de las tarjetas visibles (solo se aplica gap entre ellas)
+    const totalWidth = cardWidth * cardsPerView + gap * (cardsPerView - 1);
     
     // Asegurarse de que currentIndex no exceda el máximo
     const maxIndex = Math.ceil(profiles.length / cardsPerView) - 1;
@@ -208,7 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
       
       const cardWidth = firstCard.offsetWidth;
       const gap = 20;
-      const totalWidth = (cardWidth + gap) * cardsPerView;
+      // Ajuste del cálculo para incluir gaps correctos
+      const totalWidth = cardWidth * cardsPerView + gap * (cardsPerView - 1);
       const baseTranslate = -currentIndex * totalWidth;
       
       // Aplicar la transformación con el arrastre usando requestAnimationFrame
