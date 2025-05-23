@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // Mostrar todos los clientes
                 data.clients.forEach(client => {
                     const clientCard = document.createElement('div');
-                    clientCard.classList.add('profile-card');
+                    clientCard.classList.add('client-card');
                     clientCard.innerHTML = `
                         <div class="client-info">
                             <div class="client-image">
@@ -97,10 +97,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                             </div>
                             <h2>${client.name}</h2>
                             <h3 class="client-company">${client.company}</h3>
-                            <div class="profile-actions">
-                                <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Ver</a>
-                                <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
-                                <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
+                            <div class="client-actions">
+                                <a href="../frontend/client-template.html?id=${client.id}" class="button-linkClient">Ver</a>
+                                <button class="buttonActualizarClient" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
+                                <button class="buttonBorrarClient" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
                             </div>
                         </div>
                     `;
