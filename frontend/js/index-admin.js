@@ -188,6 +188,21 @@ function closeDialog() {
     const modal = document.getElementById('confirmationDialog');
     modal.close();
 }
+document.getElementById('searchInput').addEventListener('input', function () {
+    const searchTerm = this.value.toLowerCase();
+    const cards = document.querySelectorAll('.profile-card'); // Ajusta al selector real si es distinto
+
+    cards.forEach(card => {
+        const name = card.querySelector('h2')?.textContent.toLowerCase();
+        if (name.includes(searchTerm)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+
+
 // document.addEventListener("DOMContentLoaded", function () {
 //     const logoutButton = document.querySelector(".button-53");
 //     // Verifica si el botón existe en el DOM antes de intentar agregar el eventListener
