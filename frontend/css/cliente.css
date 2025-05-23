@@ -3,8 +3,6 @@
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
-
-
 }
 
 .info-container {
@@ -18,7 +16,6 @@
     text-align: center;
 }
 
-<<<<<<< HEAD
 /* Estilo para que client-content se comporte como profiles-column */
 .client-content {
     display: flex;
@@ -32,49 +29,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-=======
-.buttonBorrarClient {
-    background-color: #e74c3c;
-   
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-    justify-content: center;
 }
-
-
-.buttonActualizarClient {
-    text-align: center;
-    padding: 8px 16px;
-    border-radius: 4px;
-    color: #fff;
-    text-decoration: none;
-    margin: 5px 0;
-    background-color: #27ae60;
-    margin-right: 10px;
-    border: none;
-    cursor: pointer;
-    
->>>>>>> Features/MiguelC/2025-05-23-CorrecionEstiloClientesAdminIndex
-}
-
-.button-linkClient {
-    display: inline-block;
-    padding: 8px 20px;
-    background-color: #05310b;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin: 5px;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease;
-    
-}
-
-
 
 /* .create-profile {
     display: inline-block;
@@ -96,35 +51,25 @@
 }
  */
 /* Estilos para el contenedor de las cards */
-.profile-container {
+.clients-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-    gap: 2rem;
-    width: 90%;
-    padding-left: 5%;
-    padding-right: 5%;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
 }
 
-    
 /* Estilos para cada card de cliente */
 .client-card {
     background: white;
-    border-top-left-radius: 20px;   
-    border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-    border-style:outset;
-    border-color: rgba(167, 168, 167, 0.288);
-
 }
-
 
 .client-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px #5aeb9b86;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .client-info {
@@ -151,16 +96,12 @@
     text-align: center;
 }
 
-
 .client-actions {
     display: flex;
     gap: 0.8rem;
     width: 100%;
     justify-content: center;
-    justify-items: center;
     flex-wrap: wrap;
-    max-width: 200px;
-
 }
 
 .client-actions .button-link,
@@ -183,17 +124,15 @@
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
     
-    /* .client-actions {
+    .client-actions {
         flex-direction: column;
         align-items: center;
-    } */
+    }
     
-    /* .client-actions .button-link,
-    .client-actions button,.client-actions a {
+    .client-actions .button-link,
+    .client-actions button {
         width: 100%;
-        max-width: 150px;
-
-    } */
+    }
 }
 
 @media (max-width: 480px) {
@@ -201,13 +140,13 @@
         padding: 1rem;
     }
     
-    .clients-container {    
+    .clients-container {
         grid-template-columns: 1fr;
     }
 }
 .client-image {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     margin: 0 auto 1rem;
     border-radius: 50%;
     overflow: hidden;
@@ -217,5 +156,5 @@
 .client-image img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: cover;
 }

@@ -255,7 +255,6 @@ nav {
     margin: 5px;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
-    justify-content: center;
 }
 
 .buttonBorrar:hover {
@@ -451,7 +450,6 @@ td {
 
     .client-content {
         text-align: center;
-       
     }
     
     table, thead, tbody{
