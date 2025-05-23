@@ -82,17 +82,26 @@ document.addEventListener("DOMContentLoaded", async function () {
                 // Mostrar todos los clientes
                 data.clients.forEach(client => {
                     const clientCard = document.createElement('div');
-                    clientCard.classList.add('profile-card');
+                    clientCard.classList.add('client-card');
                     clientCard.innerHTML = `
                         <div class="profile-content">
                             <div class="profile-image">
                                 <img src="${client.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${client.name}">
                             </div>
                             <h2>${client.name}</h2>
+<<<<<<< HEAD
                             <h3 class="profile-subtitle">${client.company || ''}</h3>
                             <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Perfil</a>
                             <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
                             <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
+=======
+                            <h3 class="client-company">${client.company}</h3>
+                            <div class="client-actions">
+                                <a href="../frontend/client-template.html?id=${client.id}" class="button-linkClient">Ver</a>
+                                <button class="buttonActualizarClient" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
+                                <button class="buttonBorrarClient" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
+                            </div>
+>>>>>>> Features/MiguelC/2025-05-23-CorrecionEstiloClientesAdminIndex
                         </div>
                     `;
                     clientsProfilesColumn.appendChild(clientCard);
