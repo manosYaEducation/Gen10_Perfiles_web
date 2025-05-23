@@ -9,8 +9,11 @@ async function createUser(event) {
     const description = document.getElementById('input-description').value;
     const phrase = document.getElementById('input-phrase').value;
     
-    const socialPlatform = document.getElementById('input-social-platform').value;
-    const socialUrl = document.getElementById('input-social-url').value;
+    const socialItems = document.querySelectorAll('.social-item');
+    const social = Array.from(socialItems).map(item => ({
+        platform: item.querySelector('.input-social-name').value.trim(),
+        url: item.querySelector('.input-social-url').value.trim()
+    }));
     const skill = document.getElementById('input-skill').value;
     const interest = document.getElementById('input-interest').value;
 
@@ -55,15 +58,12 @@ async function createUser(event) {
                 description,
                 phrase
             },
-            experience: experiences, 
-            education: educations,   
+            experience: experiences,
+            education: educations,
             skill,
-            social: {
-                socialPlatform,
-                socialUrl
-            },
+            social,
             interest,
-            image: imageBase64 
+            image: imageBase64
         };
 
         // Enviar los datos al servidor
@@ -146,4 +146,21 @@ document.getElementById('addEducation').addEventListener('click', () => {
     educationItem.querySelector('.remove-btn').addEventListener('click', () => {
         container.removeChild(educationItem);
     });
+});
+
+document.getElementById('addSocial').addEventListener('click', () => {
+    const container = document.getElementById('social-container');
+    const item = document.createElement('div');
+    item.classList.add('social-item');
+    item.innerHTML = `
+        <label>Nombre de la red:</label>
+        <input type="text" class="input-social-name" placeholder="Ej: Instagram">
+        <label>URL del perfil:</label>
+        <input type="url" class="input-social-url" placeholder="https://instagram.com/tu_usuario">
+        <button type="button" class="remove-btn">Eliminar</button>
+    `;
+    item.querySelector('.remove-btn').addEventListener('click', () => {
+        container.removeChild(item);
+    });
+    container.appendChild(item);
 });

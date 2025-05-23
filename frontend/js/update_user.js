@@ -58,13 +58,32 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById('input-phrase').value = profile.basic.phrase || '';
         document.getElementById('input-email').value = profile.basic.email || '';
         document.getElementById('input-description').value = profile.basic.description || '';
-        document.getElementById('input-social-platform').value = profile.social ? profile.social[0]?.platform || '' : '';
-        document.getElementById('input-social-url').value = profile.social ? profile.social[0]?.url || '' : '';
         
         // Cargar Habilidades e Intereses
         document.getElementById('input-skill').value = profile.skill || ''; // Si hay habilidades
         document.getElementById('input-interest').value = profile.interest || ''; // Si hay intereses
 
+        // Redes sociales (array)
+        const socialContainer = document.getElementById('social-container');
+        socialContainer.innerHTML = '';
+        if (profile.social && Array.isArray(profile.social)) {
+            profile.social.forEach(net => {
+                const item = document.createElement('div');
+                item.classList.add('social-item');
+                item.innerHTML = `
+                    <label>Nombre de la red:</label>
+                    <input type="text" class="input-social-name" value="${net.platform || ''}" placeholder="Ej: Instagram">
+                    <label>URL del perfil:</label>
+                    <input type="url" class="input-social-url" value="${net.url || ''}" placeholder="https://instagram.com/tu_usuario">
+                    <button type="button" class="remove-btn">Eliminar</button>
+                `;
+                item.querySelector('.remove-btn').addEventListener('click', () => {
+                    socialContainer.removeChild(item);
+                });
+                socialContainer.appendChild(item);
+            });
+        }
+        
         // Agregar experiencia y educación al formulario si aplica
     
         const experienceContainer = document.getElementById('experience-container');
@@ -188,10 +207,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                 description: document.getElementById('input-description').value.trim(),
                 phrase: document.getElementById('input-phrase').value.trim(),
             },
-            social: [{
-                platform: document.getElementById('input-social-platform').value.trim(),
-                url: document.getElementById('input-social-url').value.trim(),
-            }],
+            social: Array.from(document.querySelectorAll('.social-item')).map(item => ({
+                platform: item.querySelector('.input-social-name').value.trim(),
+                url: item.querySelector('.input-social-url').value.trim()
+            })),
             skills: document.getElementById('input-skill').value.trim(),
             interests: document.getElementById('input-interest').value.trim(),
             experience: Array.from(document.querySelectorAll('.experience-item')).map(item => ({
@@ -251,5 +270,22 @@ document.addEventListener("DOMContentLoaded", async function () {
                 confirmButtonColor: '#d33',
             });
         }
+    });
+    // Agregar nueva red social
+    document.getElementById('addSocial').addEventListener('click', function () {
+        const container = document.getElementById('social-container');
+        const item = document.createElement('div');
+        item.classList.add('social-item');
+        item.innerHTML = `
+            <label>Nombre de la red:</label>
+            <input type="text" class="input-social-name" placeholder="Ej: Instagram">
+            <label>URL del perfil:</label>
+            <input type="url" class="input-social-url" placeholder="https://instagram.com/tu_usuario">
+            <button type="button" class="remove-btn">Eliminar</button>
+        `;
+        item.querySelector('.remove-btn').addEventListener('click', () => {
+            container.removeChild(item);
+        });
+        container.appendChild(item);
     });
 });

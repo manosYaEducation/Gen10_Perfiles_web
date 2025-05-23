@@ -64,11 +64,16 @@
                 <h3>Habilidades</h3>
                 <label for="input-skill">Habilidades:</label>
                 <input type="text" id="input-skill" required> 
-                <h3>Redes Sociales</h3>
-                <label for="input-social-platform">Redes sociales:</label>
-                <input type="text" id="input-social-platform" required>
-                <label for="input-social-url">URL:</label>
-                <input type="url" id="input-social-url" required>
+                <h2>Redes Sociales <button type="button" id="addSocial">+</button></h2>
+                <div id="social-container">
+                  <div class="social-item">
+                    <label>Nombre de la red:</label>
+                    <input type="text" class="input-social-name" placeholder="Ej: Instagram">
+                    <label>URL del perfil:</label>
+                    <input type="url" class="input-social-url" placeholder="https://instagram.com/tu_usuario">
+                    <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Eliminar</button>
+                  </div>
+                </div>
                 
                 <h3>Intereses</h3>
                 <label for="input-interest">Intereses:</label>
