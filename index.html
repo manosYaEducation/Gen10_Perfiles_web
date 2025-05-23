@@ -9,6 +9,7 @@
     <link href="./frontend/css/contacto.css" rel="stylesheet">
     <link rel="stylesheet" href="./frontend/css/footer.css">
     <link rel="stylesheet" href="./frontend/css/proyectos-timeline.css">
+    <link rel="stylesheet" href="./frontend/css/clients-index.css">
     <link rel="icon" href="./assets/img/letra-k (1).png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,6 +144,31 @@
         </div>
     </section>
     </section>
+
+    <!-- Sección de Clientes -->
+    <section class="profiles-section" id="clientes">
+        <div class="info-container">
+            <h1 class="info-title">Nuestros Clientes</h1>
+            <h3 class="info-subtitle cursive">Empresas y personas que han confiado en nosotros para desarrollar sus proyectos</h3>
+        </div>
+        <div class="clients-carousel-container">
+            <button class="clients-carousel-button prev" id="clientsPrevButton">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="clients-carousel-wrapper">
+                <div class="clients-carousel" id="clientsCarousel">
+                    <!-- Los clientes se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+            <button class="clients-carousel-button next" id="clientsNextButton">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="clients-carousel-indicators" id="clientsCarouselIndicators">
+            <!-- Los indicadores se generarán dinámicamente -->
+        </div>
+    </section>
+
     <section class="proyectos-destacados" id="proyectos">
         <div id="pro"></div>
         <div class="contenedor-flex">
@@ -287,6 +313,7 @@
     <script src="./frontend/js/project-read.js"></script>
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
+    <script src="./frontend/js/clients-index.js"></script>
 </body>
 
 </html>

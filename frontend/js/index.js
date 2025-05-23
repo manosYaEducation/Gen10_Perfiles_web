@@ -78,6 +78,8 @@ document.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       e.stopPropagation();
       dropdownContent.classList.toggle("show");
+      // Añadir efecto brillante verde al botón cuando está activo
+      profileBtn.classList.toggle("profile-btn-active");
     });
 
     // Cerrar menú al hacer clic fuera
@@ -88,6 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
         !dropdownContent.contains(e.target)
       ) {
         dropdownContent.classList.remove("show");
+        // Quitar efecto brillante verde cuando se cierra el menú
+        profileBtn.classList.remove("profile-btn-active");
       }
     });
 

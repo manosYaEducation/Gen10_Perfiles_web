@@ -337,15 +337,15 @@ button:hover {
 .profile-dropdown .dropdown-content {
     display: none;
     position: absolute;
-    right: 0;
-    top: 100%;
+    right: 8px;
+    top: 90%;
     background-color: white;
     min-width: 200px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
     z-index: 1000;
-    margin-top: 5px;
+    margin-top: 6px;
     border: 1px solid #eaeaea;
 }
 
@@ -366,9 +366,14 @@ button:hover {
     transition: all 0.3s ease;
 }
 
-
 .profile-btn:hover {
     background-color: rgba(0, 0, 0, 0.03);
+}
+
+.profile-btn-active {
+    background-color: rgba(76, 175, 80, 0.2) !important;
+    box-shadow: 0 0 8px #4CAF50;
+    border: 1px solid #4CAF50;
 }
 
 .profile-icon {

@@ -1,0 +1,83 @@
+/* Estilos uniformes para todos los campos de entrada */
+
+/* Estilo base para todos los campos de entrada */
+.uniform-input {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el grupo de teléfono */
+.uniform-phone-group {
+    display: flex;
+    width: 100%;
+    height: 36px;
+    margin-bottom: 20px;
+}
+
+.uniform-prefix {
+    width: 80px;
+    height: 36px;
+    padding: 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.uniform-phone-number {
+    flex: 1;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Estilo para áreas de texto */
+.uniform-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    resize: vertical;
+}
+
+/* Estilos para estados de foco */
+.uniform-input:focus,
+.uniform-prefix:focus,
+.uniform-phone-number:focus,
+.uniform-textarea:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+/* Estilos para validación */
+.uniform-input.valid,
+.uniform-phone-number.valid,
+.uniform-textarea.valid {
+    border-color: #4CAF50;
+}
+
+.uniform-input.invalid,
+.uniform-phone-number.invalid,
+.uniform-textarea.invalid {
+    border-color: #f44336;
+}

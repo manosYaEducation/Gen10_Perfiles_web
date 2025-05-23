@@ -1,0 +1,72 @@
+/* Estilos para validación de formularios */
+
+.valid-input {
+    border: 2px solid #4CAF50 !important;
+    background-color: rgba(76, 175, 80, 0.05) !important;
+}
+
+.invalid-input {
+    border: 2px solid #f44336 !important;
+    background-color: rgba(244, 67, 54, 0.05) !important;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para el tooltip de ayuda */
+.input-container {
+    position: relative;
+    width: 100%;
+}
+
+.help-tooltip {
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #757575;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.help-tooltip:hover {
+    color: #4CAF50;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.8rem;
+}
+
+.help-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

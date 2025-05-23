@@ -1,0 +1,51 @@
+/* Estilos simples para el campo de teléfono */
+
+.simple-phone-group {
+    display: flex;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 36px;
+}
+
+.simple-prefix {
+    width: 80px;
+    padding: 0 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.simple-prefix:focus {
+    outline: none;
+    border-color: #4285f4;
+}
+
+.simple-phone-number {
+    flex: 1;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.simple-phone-number:focus {
+    outline: none;
+    border-color: #4285f4;
+}
+
+/* Estilos para validación */
+.simple-phone-number.valid {
+    border-color: #4CAF50;
+}
+
+.simple-phone-number.invalid {
+    border-color: #f44336;
+}
