@@ -320,3 +320,7 @@ textarea {
 .send-button:hover {
   background-color: #3a7bc8;
 }
+
+.social-item {
+  margin-bottom: 20px;
+}

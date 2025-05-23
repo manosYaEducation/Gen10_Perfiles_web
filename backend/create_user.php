@@ -90,13 +90,17 @@ foreach ($data->experience as $exp) {
         ]);
     }
 
-    // Inserta en la tabla `social`
-    $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
-    $stmtSocial->execute([
-        $profileid,
-        $data->social->socialPlatform,
-        $data->social->socialUrl
-    ]);
+    // Inserta múltiples redes sociales (array)
+    if (!empty($data->social) && is_array($data->social)) {
+        $stmtSocial = $conn->prepare("INSERT INTO social (profileid, platform, url) VALUES (?, ?, ?)");
+        foreach ($data->social as $net) {
+            $stmtSocial->execute([
+                $profileid,
+                $net->platform,
+                $net->url
+            ]);
+        }
+    }
 
     // Inserta en la tabla `skill`
     $stmtSkill = $conn->prepare("INSERT INTO skill (profileid, skill) VALUES (?, ?)");
