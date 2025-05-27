@@ -99,38 +99,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateCarousel() {
     if (!carousel) return;
-    
-    const firstCard = carousel.querySelector(".profile-card");
+
+    const firstCard = carousel.querySelector('.profile-card');
     if (!firstCard) return;
-    
+
     const cardWidth = firstCard.offsetWidth;
-    const gap = 20; // Gap entre tarjetas
+    const gap = 30; // Gap entre tarjetas
     // Se calcula el ancho total de las tarjetas visibles (solo se aplica gap entre ellas)
     const totalWidth = cardWidth * cardsPerView + gap * (cardsPerView - 1);
-    
+
+
     // Asegurarse de que currentIndex no exceda el máximo
     const maxIndex = Math.ceil(profiles.length / cardsPerView) - 1;
     if (currentIndex > maxIndex) {
       currentIndex = maxIndex;
     }
-    
+
     currentTranslate = -currentIndex * totalWidth;
     carousel.style.transform = `translateX(${currentTranslate}px)`;
+
     
     // Update indicators
-    const indicatorElements = document.querySelectorAll(".indicator");
+    const indicatorElements = document.querySelectorAll('.indicator');
     indicatorElements.forEach((indicator, index) => {
-      indicator.classList.toggle("active", index === currentIndex);
+      indicator.classList.toggle('active', index === currentIndex);
     });
-    
+
     // Actualizar estado de los botones
     if (prevButton && nextButton) {
       prevButton.disabled = currentIndex === 0;
       nextButton.disabled = currentIndex === maxIndex;
-      
+
       // Aplicar estilos visuales para botones deshabilitados
-      prevButton.style.opacity = currentIndex === 0 ? "0.5" : "1";
-      nextButton.style.opacity = currentIndex === maxIndex ? "0.5" : "1";
+      prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      nextButton.style.opacity = currentIndex === maxIndex ? '0.5' : '1';
     }
   }
 

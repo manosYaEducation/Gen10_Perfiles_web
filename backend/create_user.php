@@ -19,7 +19,7 @@ try {
     $conn->beginTransaction(); // Comienza la transacción
 
     // Inserta en la tabla `profile`
-    $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description,phrase) VALUES (?, ?, ?, ?, ?,?)");
+    $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description,phrase) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([
         $data->basic->name,
         $data->basic->location,

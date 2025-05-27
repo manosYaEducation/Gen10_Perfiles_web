@@ -1344,12 +1344,12 @@ p {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
     .profile-card {
         min-width: calc(100% - 20px); /* 1 tarjeta por vista */
-        flex: 0 0 calc(100% - 20px);
+        flex: 0 0 calc(100% - 20px); 
     }
-    
+
     .profile-image-container {
         width: 140px;
         height: 140px;
