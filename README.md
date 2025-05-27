@@ -24,6 +24,13 @@
 
 5. **¡Listo para comenzar!**
 
+## 🛠️ Tecnologías Utilizadas
+
+- **JavaScript** - 39.3%
+- **CSS** - 22.1%
+- **HTML** - 21.4%
+- **PHP** - 17.2%
+
 ## 🔒 Notas Importantes
 - ⚠️ **Nunca** subas el archivo `.env` al repositorio
 - 🔄 Mantén actualizado el archivo `.env.ejemplo` con cualquier cambio en las variables de entorno
