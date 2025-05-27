@@ -1,18 +1,6 @@
-# Gen10 - Sistema de Gestión de Perfiles
+# 🚀 Gen10 - Sistema de Gestión de Perfiles
 
-Bienvenido al sistema de gestión de perfiles de Gen10. Esta aplicación web facilita la administración de usuarios y clientes con una interfaz intuitiva y moderna.
-
-## Requisitos Previos
-
-- PHP 7.4 o superior
-- Composer
-- Servidor web (Apache/Nginx)
-- Base de datos MySQL/MariaDB
-- Node.js y NPM (para activos frontend)
-
-## Configuración del Entorno Local
-
-Sigue estos pasos para configurar el proyecto en tu máquina local:
+## 📋 Instalación Rápida
 
 1. **Clona el repositorio**
    ```bash
@@ -20,7 +8,7 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
    cd Gen10_Perfiles_web
    ```
 
-2. **Instala las dependencias de PHP**
+2. **Instala dependencias**
    ```bash
    composer install
    ```
@@ -30,52 +18,12 @@ Sigue estos pasos para configurar el proyecto en tu máquina local:
    cp .env.ejemplo .env
    ```
 
-4. **Configura las variables de entorno**
-   - Abre el archivo `.env` en tu editor de texto
-   - Configura las credenciales de la base de datos y otras variables necesarias
+4. **Edita el archivo `.env`**
+   - Configura tus credenciales locales
+   - Ajusta la configuración de producción según sea necesario
 
-5. **Genera una clave de aplicación**
-   ```bash
-   php artisan key:generate
-   ```
+5. **¡Listo para comenzar!**
 
-6. **Ejecuta las migraciones**
-   ```bash
-   php artisan migrate
-   ```
-
-7. **Inicia el servidor de desarrollo**
-   ```bash
-   php artisan serve
-   ```
-
-## Variables de Entorno Importantes
-
-Asegúrate de configurar correctamente estas variables en tu archivo `.env`:
-
-```
-APP_ENV=local
-APP_DEBUG=true
-APP_KEY=
-
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=gen10_perfiles
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-## Notas Importantes
-
-- **Nunca** subas el archivo `.env` al control de versiones
-- Mantén actualizado el archivo `.env.ejemplo` con cualquier nueva variable de entorno que se agregue al proyecto
-- Para entornos de producción, configura `APP_DEBUG=false` y `APP_ENV=production`
-
-## Licencia
-
-Este proyecto es de uso interno de Gen10. Todos los derechos reservados.
-
----
-
-Desarrollado con  por el equipo de Gen10
+## 🔒 Notas Importantes
+- ⚠️ **Nunca** subas el archivo `.env` al repositorio
+- 🔄 Mantén actualizado el archivo `.env.ejemplo` con cualquier cambio en las variables de entorno
