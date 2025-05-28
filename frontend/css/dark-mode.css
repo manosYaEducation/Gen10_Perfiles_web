@@ -1,0 +1,297 @@
+/* Dark mode styles */
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --nav-bg: #2d2d2d;
+    --card-bg: #2d2d2d;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .nav-links a {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .nav-links a:hover {
+    color: #4CAF50;
+}
+
+[data-theme="dark"] .nav-logo {
+    filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .menu-icon i {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .hero {
+    background: var(--bg-secondary);
+}
+
+[data-theme="dark"] .hero-text h1 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .hero-text p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .hero2 {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .hero-title2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .hero-text2 p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .profiles-section {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .info-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .info-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .carousel-container {
+    background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .profile-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .profile-text-container h2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .profile-text-container p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .carousel-button {
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .carousel-button:hover {
+    background: #4CAF50;
+    color: white;
+}
+
+[data-theme="dark"] .indicator {
+    background: var(--text-secondary);
+}
+
+[data-theme="dark"] .indicator:hover {
+    background: var(--text-primary);
+}
+
+[data-theme="dark"] .indicator.active {
+    background: #4CAF50;
+}
+
+[data-theme="dark"] #cont {
+    background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .contacto-container {
+    background-color: var(--card-bg);
+}
+
+[data-theme="dark"] .form-group label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .modal {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .footer {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .footer-section h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .footer-section ul li a {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .footer-section ul li a:hover {
+    color: #4CAF50;
+}
+
+[data-theme="dark"] .copyright {
+    color: var(--text-secondary);
+}
+
+/* Dark mode styles for clients section */
+[data-theme="dark"] #clientes {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] #clientes .info-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] #clientes .info-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .clients-carousel-container {
+    background: var(--bg-primary) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .clients-carousel {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .clients-carousel .profile-card {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .clients-carousel .profile-content h2,
+[data-theme="dark"] .clients-carousel .profile-content h3,
+[data-theme="dark"] .clients-carousel .profile-content p {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .clients-carousel-button {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .clients-carousel-button:hover {
+    background: #4CAF50;
+    color: white;
+}
+
+[data-theme="dark"] .clients-carousel-indicators .indicator {
+    background: var(--text-secondary);
+}
+
+[data-theme="dark"] .clients-carousel-indicators .indicator:hover {
+    background: var(--text-primary);
+}
+
+[data-theme="dark"] .clients-carousel-indicators .indicator.active {
+    background: #4CAF50;
+}
+
+/* Dark mode styles for profile content */
+[data-theme="dark"] .profile-content {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .profile-content h2,
+[data-theme="dark"] .profile-content h3,
+[data-theme="dark"] .profile-content p {
+    color: var(--text-primary);
+}
+
+/* Override inline styles in dark mode */
+[data-theme="dark"] h1[style*="color"],
+[data-theme="dark"] h2[style*="color"],
+[data-theme="dark"] h3[style*="color"],
+[data-theme="dark"] p[style*="color"],
+[data-theme="dark"] span[style*="color"],
+[data-theme="dark"] div[style*="color"] {
+    color: var(--text-primary) !important;
+}
+
+/* Dark mode styles for projects section */
+[data-theme="dark"] .proyectos-destacados {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .presentacion-proyectos h2 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .presentacion-proyectos p {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .linea-separadora {
+    background-color: var(--border-color);
+}
+
+[data-theme="dark"] .proyecto-timeline {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .proyecto-fecha {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .proyecto-linea {
+    background-color: var(--border-color);
+}
+
+[data-theme="dark"] .proyecto-tarjeta {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+[data-theme="dark"] .proyecto-tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: #4CAF50;
+}
+
+[data-theme="dark"] .proyecto-titulo {
+    color: var(--text-primary);
+    font-size: 1.2em;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .proyecto-titulo:hover {
+    color: #4CAF50;
+}
+
+[data-theme="dark"] .proyecto-descripcion {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95em;
+}
+
+/* Dark mode styles for contact section */
+[data-theme="dark"] #cont h1 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] #cont {
+    background-color: var(--bg-primary);
+} 
