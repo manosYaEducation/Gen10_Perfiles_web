@@ -1413,3 +1413,55 @@ p {
     
     }
 }
+
+/* Vision y Mision Section */
+.vision-mision {
+    padding: 80px 20px;
+    background-color: #f8f9fa;
+}
+
+.vision-mision-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+.vision-box, .mision-box, .valores-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.vision-box:hover, .mision-box:hover, .valores-box:hover {
+    transform: translateY(-5px);
+}
+
+.vision-box h2, .mision-box h2, .valores-box h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.vision-box p, .mision-box p, .valores-box p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .vision-mision-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .vision-box, .mision-box, .valores-box {
+        padding: 20px;
+    }
+}
