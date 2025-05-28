@@ -1053,21 +1053,11 @@ footer p {
     font-family: "Poppins", sans-serif;
 }
 .destacar {
-    border: 3px solid gold;
-    animation: resaltarBorde 1s ease;
-    animation: flash 0.6s ease-in-out;
-
-}
-@keyframes resaltarBorde {
-    0% {
-      border-color: gold;
-    }
-    100% {
-      border-color: transparent;
-    }
+    box-shadow: 0 0 20px rgba(68, 219, 131, 0.5)!important;
   }
+  
 
-
+  
 
 #hero-paragraph2 {
     font-size: 1.5rem;
