@@ -71,3 +71,15 @@ function closeModal() {
     //Regresa a la página del perfil
     window.history.back();
 }
+
+function DestacarNavbar(targetSection){
+  let NewTargetSection = document.getElementById(`${targetSection}`);
+ 
+   NewTargetSection.classList.add('destacar'); 
+ 
+   // Quitarla después de 1 segundo
+   setTimeout(() => {
+     NewTargetSection.classList.remove('destacar');
+   }, 3000);
+ }
+ 

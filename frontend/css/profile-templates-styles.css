@@ -70,7 +70,9 @@ ul {
 .nav-link:hover, .volver-link:hover {
     color: #ffc107;
 }
-
+.destacar{
+    box-shadow: 0 0 20px rgba(68, 219, 131, 0.5)!important;
+}
 /* Sección del hero */
 #about {
     padding: 30px 0;

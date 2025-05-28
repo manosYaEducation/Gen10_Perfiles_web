@@ -19,12 +19,12 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#about">Sobre mi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">Experiencia</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#education">Educación</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Habilidades</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#interests">Intereses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about" onclick="DestacarNavbar('about')">Sobre mi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience" onclick="DestacarNavbar('experience')">Experiencia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#education" onclick="DestacarNavbar('education')">Educación</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills" onclick="DestacarNavbar('skills')">Habilidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#interests" onclick="DestacarNavbar('interest')">Intereses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" onclick="DestacarNavbar('social')">Contacto</a></li>
                     <li class="nav-volver"><a class="volver-link" href="../../index.html">Volver al Inicio</a></li>
                 </ul>
             </div>
