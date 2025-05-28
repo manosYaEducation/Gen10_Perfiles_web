@@ -236,6 +236,145 @@
         body.dark-mode .proyecto-timeline:hover .proyecto-descripcion {
             color: #000000 !important;
         }
+        
+        /* Estilos sutiles para el footer en modo oscuro */
+        body.dark-mode .footer {
+            background-color: #121212;
+            border-top: 1px solid #2a2a2a;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .footer-section h3 {
+            color: #4CAF50;
+            text-shadow: 0 0 2px rgba(76, 175, 80, 0.3);
+        }
+        
+        body.dark-mode .footer-section a {
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .footer-section a:hover {
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .social-links a {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+        
+        body.dark-mode .social-links a:hover {
+            background-color: #2a2a2a;
+            border-color: #4CAF50;
+        }
+        
+        body.dark-mode .footer-brand {
+            position: relative;
+        }
+        
+        body.dark-mode .footer-logo {
+            filter: brightness(1.05);
+        }
+        
+        body.dark-mode .contact-info li {
+            color: #bbbbbb;
+        }
+        
+        body.dark-mode .contact-info .contacto-nombre {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .copyright {
+            background-color: #121212;
+            border-top: 1px solid #2a2a2a;
+            color: #aaaaaa;
+        }
+        
+        /* Estilos mejorados para la navbar */
+        body.dark-mode header {
+            background-color: #151515;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .nav-links a {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .nav-links a:hover {
+            background-color: #2a2a2a;
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .login-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        
+        body.dark-mode .login-btn:hover {
+            background-color: #3d8b40;
+        }
+        
+        /* Estilos mejorados para el menú desplegable */
+        body.dark-mode .profile-btn {
+            background-color: #121212;
+            color: #e0e0e0;
+            border: 1px solid #12121200;
+            transition: all 0.3s ease;
+        }   
+
+        
+        
+        body.dark-mode .profile-btn:hover {
+            background-color: #000000;
+            border-color: #4CAF50;
+        }
+        
+        body.dark-mode .dropdown-content {
+            background-color: #1e1e1e;
+            border: 1px solid #000000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-top: 0; /* Elimina el espacio entre el botón y el menú */
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            top: 100%;
+            left: 0;
+        }
+        
+        /* Clase para mostrar el menú desplegable */
+        .dropdown-content.show {
+            display: block;
+        }
+        
+        /* Estilos para el contenedor del menú desplegable */
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        body.dark-mode .dropdown-content a {
+            color: #e0e0e0;
+            border-bottom: 1px solid #333;
+        }
+        
+        body.dark-mode .dropdown-content a:hover {
+            background-color: #2a2a2a;
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .dropdown-content a.button-53 {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #333;
+        }
+        
+        body.dark-mode .dropdown-content a.button-53:hover {
+            background-color: #2a2a2a;
+            color: #ff5555;
+            border-color: #ff5555;
+        }
     </style>
 
     <!-- Metadata Principal -->
@@ -567,6 +706,50 @@
     <script src="./frontend/js/project-read.js"></script>
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
+    
+    <!-- Script para mejorar el menú desplegable -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileBtn = document.getElementById('profile-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            
+            if (profileBtn && dropdownContent) {
+                // Mostrar/ocultar menú al hacer clic
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdownContent.classList.toggle('show');
+                });
+                
+                // Mantener menú visible al hacer clic dentro de él
+                dropdownContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                // Mostrar menú al pasar el cursor sobre el botón
+                profileBtn.addEventListener('mouseenter', function() {
+                    dropdownContent.classList.add('show');
+                });
+                
+                // Mantener menú visible al pasar el cursor sobre él
+                dropdownContent.addEventListener('mouseenter', function() {
+                    dropdownContent.classList.add('show');
+                });
+                
+                // Ocultar menú al salir del área completa
+                const profileDropdown = document.querySelector('.profile-dropdown');
+                if (profileDropdown) {
+                    profileDropdown.addEventListener('mouseleave', function() {
+                        dropdownContent.classList.remove('show');
+                    });
+                }
+                
+                // Ocultar menú al hacer clic fuera
+                document.addEventListener('click', function() {
+                    dropdownContent.classList.remove('show');
+                });
+            }
+        });
+    </script>
     
     <!-- Script para manejar el hover de los proyectos -->
     <script>
