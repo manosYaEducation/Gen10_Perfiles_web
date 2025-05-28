@@ -1067,11 +1067,6 @@ footer p {
     }
   }
 
-  @keyframes flash {
-    0% { background-color: #fff9c4; }
-    50% { background-color: #ffeb3b; }
-    100% { background-color: transparent; }
-  }
 
 
 #hero-paragraph2 {
