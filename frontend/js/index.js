@@ -67,6 +67,17 @@ function logout() {
   window.location.href = "/index.html";
 }
 
+function DestacarNavbar(targetSection){
+ let NewTargetSection = document.getElementById(`${targetSection}`);
+
+  NewTargetSection.classList.add('destacar'); 
+
+  // Quitarla después de 1 segundo
+  setTimeout(() => {
+    NewTargetSection.classList.remove('destacar');
+  }, 3000);
+}
+
 // Agregar manejo de clics para el menú desplegable
 document.addEventListener("DOMContentLoaded", function () {
   const profileBtn = document.getElementById("profile-btn");

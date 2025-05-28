@@ -1052,6 +1052,27 @@ footer p {
     font-weight: 501;
     font-family: "Poppins", sans-serif;
 }
+.destacar {
+    border: 3px solid gold;
+    animation: resaltarBorde 1s ease;
+    animation: flash 0.6s ease-in-out;
+
+}
+@keyframes resaltarBorde {
+    0% {
+      border-color: gold;
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+
+  @keyframes flash {
+    0% { background-color: #fff9c4; }
+    50% { background-color: #ffeb3b; }
+    100% { background-color: transparent; }
+  }
+
 
 #hero-paragraph2 {
     font-size: 1.5rem;
