@@ -152,6 +152,10 @@
             color: var(--text-color);
         }
         
+        body.dark-mode .hero-text2 {
+            color: var(--text-color);
+        }
+        
         body.dark-mode .hero-image2 img {
             filter: brightness(0.9) contrast(1.1);
         }
@@ -164,11 +168,16 @@
             margin: 0 auto;
             overflow: hidden;
             padding: 20px 0;
-            background-color: #1d1d1da6;
+            background-color: rgba(29, 29, 29, 0.65);
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
+        
+        body.dark-mode .carousel-container {
+            background-color: rgba(20, 20, 20, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
         /* Estilos para la sección del equipo en modo oscuro */
         body.dark-mode .profiles-section {
             background-color: var(--bg-color);
@@ -236,7 +245,7 @@
         body.dark-mode .proyecto-tarjeta:hover .proyecto-descripcion,
         body.dark-mode .proyecto:hover .proyecto-descripcion,
         body.dark-mode .proyecto-timeline:hover .proyecto-descripcion {
-            color: #000000 !important;
+            color: #ffffff !important;
         }
         
         /* Estilos sutiles para el footer en modo oscuro */
@@ -377,6 +386,119 @@
             color: #ff5555;
             border-color: #ff5555;
         }
+        /* Estilos para la sección de visión-misión en modo oscuro */
+        body.dark-mode .vision-mision {
+            background-color: var(--bg-color);
+        }
+        
+        body.dark-mode .vision-box,
+        body.dark-mode .mision-box,
+        body.dark-mode .valores-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .vision-box h2,
+        body.dark-mode .mision-box h2,
+        body.dark-mode .valores-box h2 {
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .vision-box p,
+        body.dark-mode .mision-box p,
+        body.dark-mode .valores-box p {
+            color: var(--text-color);
+        }
+        
+        /* Estilos para la sección FAQ en modo oscuro */
+        body.dark-mode .faq-section {
+            background-color: var(--bg-color);
+        }
+        
+        body.dark-mode .faq-container {
+            background-color: var(--bg-color);
+        }
+        
+        body.dark-mode .faq-title,
+        body.dark-mode .faq-category h3 {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .faq-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+        
+        body.dark-mode .faq-question h4 {
+            color: #000000;
+        }
+        
+        body.dark-mode .faq-toggle {
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .faq-answer p {
+            color: #000000;
+        }
+        
+        /* Estilos para el modal de éxito en modo oscuro */
+        body.dark-mode .modal {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        body.dark-mode .modal h2,
+        body.dark-mode .modal p {
+            color: var(--text-color);
+        }
+        
+        body.dark-mode .accept-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        
+        body.dark-mode .accept-button:hover {
+            background-color: #3d8b40;
+        }
+        
+        /* Estilos para el botón de volver arriba en modo oscuro */
+        body.dark-mode #backToTopBtn {
+            background-color: #1e1e1e;
+            color: #4CAF50;
+            border: 1px solid #333;
+        }
+        
+        body.dark-mode #backToTopBtn:hover {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-color: #4CAF50;
+        }
+        
+        /* Estilos para la sección de clientes en modo oscuro */
+        body.dark-mode .clients-carousel-container {
+            background-color: rgba(20, 20, 20, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .clients-carousel-button {
+            background-color: #333333;
+            color: #ffffff;
+        }
+        
+        body.dark-mode .clients-carousel-button:hover {
+            background-color: #444444;
+        }
+        
+        body.dark-mode .clients-carousel-indicators button {
+            background-color: #555555;
+        }
+        
+        body.dark-mode .clients-carousel-indicators .active {
+            background-color: #239e34;
+        }
     </style>
 
     <!-- Metadata Principal -->
@@ -476,7 +598,7 @@
                 </div>
             </div>
             <div class="hero-text2">
-                <p id="hero-paragraph2 ">Nos especializamos en el desarrollo de software personalizado: creamos
+                <p id="hero-paragraph2">Nos especializamos en el desarrollo de software personalizado: creamos
                     soluciones innovadoras, adapatadas a tus necesidades, optimizando procesos y potenciar tu
                     crecimiento y experiencia de tus usuarios.</p>
             </div>
@@ -824,7 +946,7 @@
                 } else {
                     document.body.classList.remove('dark-mode');
                     darkModeIcon.classList.remove('fa-sun');
-                    darkModeIcon.classList.add('moon');
+                    darkModeIcon.classList.add('fa-moon');
                     darkModeToggle.classList.remove('dark');
                 }
             });
@@ -835,92 +957,7 @@
     <script src="./frontend/js/project-read.js"></script>
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
-<<<<<<< HEAD
     <script src="./frontend/js/clients-index.js"></script>
-=======
-    
-    <!-- Script para mejorar el menú desplegable -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const profileBtn = document.getElementById('profile-btn');
-            const dropdownContent = document.querySelector('.dropdown-content');
-            
-            if (profileBtn && dropdownContent) {
-                // Mostrar/ocultar menú al hacer clic
-                profileBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    dropdownContent.classList.toggle('show');
-                });
-                
-                // Mantener menú visible al hacer clic dentro de él
-                dropdownContent.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                
-                // Mostrar menú al pasar el cursor sobre el botón
-                profileBtn.addEventListener('mouseenter', function() {
-                    dropdownContent.classList.add('show');
-                });
-                
-                // Mantener menú visible al pasar el cursor sobre él
-                dropdownContent.addEventListener('mouseenter', function() {
-                    dropdownContent.classList.add('show');
-                });
-                
-                // Ocultar menú al salir del área completa
-                const profileDropdown = document.querySelector('.profile-dropdown');
-                if (profileDropdown) {
-                    profileDropdown.addEventListener('mouseleave', function() {
-                        dropdownContent.classList.remove('show');
-                    });
-                }
-                
-                // Ocultar menú al hacer clic fuera
-                document.addEventListener('click', function() {
-                    dropdownContent.classList.remove('show');
-                });
-            }
-        });
-    </script>
-    
-    <!-- Script para manejar el hover de los proyectos -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Seleccionar todos los elementos de proyecto
-            const proyectoItems = document.querySelectorAll('.proyecto-item');
-            
-            // Agregar eventos para cada proyecto
-            proyectoItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    // Seleccionar todos los elementos de texto dentro del proyecto
-                    const descripcion = this.querySelector('.proyecto-descripcion');
-                    if (descripcion) {
-                        descripcion.style.color = '#000000';
-                    }
-                    
-                    // También cambiar otros textos si es necesario
-                    const textos = this.querySelectorAll('p, span, h3, div');
-                    textos.forEach(texto => {
-                        texto.style.color = '#000000';
-                    });
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    // Restaurar colores al salir
-                    const descripcion = this.querySelector('.proyecto-descripcion');
-                    if (descripcion) {
-                        descripcion.style.color = '';
-                    }
-                    
-                    const textos = this.querySelectorAll('p, span, h3, div');
-                    textos.forEach(texto => {
-                        texto.style.color = '';
-                    });
-                });
-            });
-        });
-    </script>
->>>>>>> Feature/Docaranza/28-05-2025-BlackMode
 </body>
 
 </html>

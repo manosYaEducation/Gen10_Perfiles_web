@@ -5,6 +5,11 @@
     position: relative;
 }
 
+/* Estilos para el modo oscuro */
+body.dark-mode #clientes {
+    background-color: var(--bg-color);
+}
+
 #clientes .info-title {
     color: #000;
     margin-bottom: 15px;
@@ -13,6 +18,11 @@
 #clientes .info-subtitle {
     color: #000;
     margin-bottom: 40px;
+}
+
+body.dark-mode #clientes .info-title,
+body.dark-mode #clientes .info-subtitle {
+    color: #ffffff;
 }
 
 /* Estilos del carrusel de clientes */
@@ -26,6 +36,11 @@
     background: linear-gradient(to right, #ffffff, #f9f9f9, #ffffff);
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .clients-carousel-container {
+    background: linear-gradient(to right, #1e1e1e, #252525, #1e1e1e);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .clients-carousel-wrapper {
@@ -56,6 +71,12 @@
     transform: translateY(0);
     overflow: hidden;
     position: relative;
+}
+
+body.dark-mode .clients-carousel .profile-card {
+    background: #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .clients-carousel .profile-card::before {
@@ -92,6 +113,11 @@
     position: relative;
 }
 
+body.dark-mode .clients-carousel .profile-image {
+    border: 4px solid #333;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
 .clients-carousel .profile-card:hover .profile-image {
     border-color: #4CAF50;
     transform: scale(1.05);
@@ -108,7 +134,8 @@
     transform: scale(1.1);
 }
 
-.clients-carousel .profile-content h2 {
+.clients-carousel .profile-content h2,
+.clients-carousel .client-name {
     color: #000;
     font-size: 1.5rem;
     margin: 0.5rem 0;
@@ -116,16 +143,34 @@
     transition: color 0.3s ease;
 }
 
-.clients-carousel .profile-card:hover .profile-content h2 {
+body.dark-mode .clients-carousel .profile-content h2,
+body.dark-mode .clients-carousel .client-name {
+    color: #ffffff;
+}
+
+.clients-carousel .profile-card:hover .profile-content h2,
+.clients-carousel .profile-card:hover .client-name {
     color: #4CAF50;
 }
 
-.clients-carousel .profile-subtitle {
+body.dark-mode .clients-carousel .profile-card:hover .profile-content h2,
+body.dark-mode .clients-carousel .profile-card:hover .client-name {
+    color: #4CAF50;
+}
+
+.clients-carousel .profile-subtitle,
+.clients-carousel .client-company {
     color: #000;
     font-size: 1rem;
     margin-bottom: 1.5rem;
     font-weight: normal;
     opacity: 0.8;
+}
+
+body.dark-mode .clients-carousel .profile-subtitle,
+body.dark-mode .clients-carousel .client-company {
+    color: #bbbbbb;
+    opacity: 1;
 }
 
 .clients-carousel .button-link {
@@ -185,6 +230,12 @@
     z-index: 10;
     transition: all 0.3s ease;
     color: #4CAF50;
+}
+
+body.dark-mode .clients-carousel-button {
+    background: #333;
+    color: #e0e0e0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .clients-carousel-button:hover {
