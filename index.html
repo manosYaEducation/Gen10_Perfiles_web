@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./frontend/css/footer.css">
     <link rel="stylesheet" href="./frontend/css/proyectos-timeline.css">
     <link rel="stylesheet" href="./frontend/css/clients-index.css">
+    <link rel="stylesheet" href="./frontend/css/back-to-top.css">
     <link rel="icon" href="./assets/img/letra-k (1).png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,6 +119,24 @@
             </div>
         </div>
     </section>
+
+    <section class="vision-mision">
+        <div class="vision-mision-container">
+            <div class="vision-box">
+                <h2>Nuestra Visión</h2>
+                <p>Ser líderes en la transformación digital, impulsando la innovación y el desarrollo de soluciones tecnológicas que empoderen a las empresas y transformen ideas en realidades tangibles.</p>
+            </div>
+            <div class="mision-box">
+                <h2>Nuestra Misión</h2>
+                <p>Proporcionar soluciones de software personalizadas y de alta calidad, trabajando en estrecha colaboración con nuestros clientes para entender sus necesidades y ofrecer resultados que superen sus expectativas.</p>
+            </div>
+            <div class="valores-box">
+                <h2>¿Qué es Kreative?</h2>
+                <p>Somos un equipo de profesionales apasionados por la tecnología y la innovación. Nos especializamos en el desarrollo de software personalizado, creando soluciones que se adaptan perfectamente a las necesidades de cada cliente. Nuestro enfoque combina creatividad, experiencia técnica y compromiso con la excelencia para entregar productos que marcan la diferencia.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="profiles-section" id="perfiles">
         <div class="info-container">
             <h1 class="info-title">Equipo Kreative</h1>
@@ -185,6 +204,84 @@
             <!-- Timeline de Proyectos -->
             <div class="proyectos-timeline">
                 <div id="contenedor-proyecto"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <h2 class="faq-title">Preguntas Frecuentes</h2>
+            
+            <div class="faq-categories">
+                <div class="faq-category">
+                    <h3>Para Usuarios</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>¿Cómo puedo solicitar un proyecto?</h4>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Puedes contactarnos a través del formulario de contacto en nuestra página web, por WhatsApp o correo electrónico. Nuestro equipo te responderá para agendar una reunión y discutir los detalles de tu proyecto.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>¿Cuánto tiempo toma desarrollar un proyecto?</h4>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>El tiempo de desarrollo varía según la complejidad y alcance del proyecto. Durante la fase inicial de planificación, te proporcionaremos un cronograma detallado con los tiempos estimados.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>¿Qué tipo de proyectos desarrollan?</h4>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Desarrollamos una amplia gama de proyectos, incluyendo aplicaciones web, sistemas de gestión, plataformas educativas, sitios web corporativos y soluciones personalizadas según las necesidades de cada cliente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-category">
+                    <h3>Para Programadores</h3>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>¿Cómo puedo unirme al equipo?</h4>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Estamos constantemente buscando talento. Puedes enviar tu CV y portafolio a nuestro correo electrónico. Valoramos especialmente la pasión por la tecnología y la capacidad de trabajar en equipo.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>¿Qué tecnologías utilizan?</h4>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Trabajamos con un stack tecnológico moderno que incluye JavaScript, PHP, CSS y bases de datos SQL. También utilizamos herramientas de desarrollo ágil y metodologías modernas.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h4>¿Ofrecen oportunidades de aprendizaje?</h4>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Sí, fomentamos el crecimiento profesional continuo. Ofrecemos capacitación, mentorías y la oportunidad de trabajar en proyectos desafiantes que permiten desarrollar nuevas habilidades.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -306,6 +403,12 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Back to Top Button -->
+    <button type="button" id="backToTopBtn" title="Volver arriba" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="./frontend/js/logout.js"></script>
     <script src="./frontend/js/config.js"></script>
     <script src="./frontend/js/index.js"></script>
