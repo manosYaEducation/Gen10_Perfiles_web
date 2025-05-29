@@ -23,8 +23,8 @@
                     <li class="nav-item"><a class="nav-link" href="#experience" onclick="DestacarNavbar('experience')">Experiencia</a></li>
                     <li class="nav-item"><a class="nav-link" href="#education" onclick="DestacarNavbar('education')">Educación</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills" onclick="DestacarNavbar('skills')">Habilidades</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#interests" onclick="DestacarNavbar('interest')">Intereses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact" onclick="DestacarNavbar('social')">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#interests" onclick="DestacarNavbar('interests')">Intereses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact" onclick="DestacarNavbar('contact')">Contacto</a></li>
                     <li class="nav-volver"><a class="volver-link" href="../../index.html">Volver al Inicio</a></li>
                 </ul>
             </div>
