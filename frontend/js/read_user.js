@@ -108,7 +108,13 @@ document.addEventListener("DOMContentLoaded", async function () {
                     </div>
                </div>
             `}).join('');
-        
+    // Contacto
+    const contactSection = document.getElementById('contact-info-section');
+    contactSection.innerHTML = `
+        <p><strong>Correo:</strong> <a href="mailto:${profile.basic.email}">${profile.basic.email}</a></p>
+        <p><strong>Teléfono:</strong> <a href="https://wa.me/${profile.basic.phone.replace(/\D/g, '')}" target="_blank">${profile.basic.phone}</a></p>
+    `;
+
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }

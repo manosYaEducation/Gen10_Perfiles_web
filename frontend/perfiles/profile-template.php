@@ -64,17 +64,24 @@
                 </div>
             </section>
             <hr class="m-0" />
-            <section class="resume-section" id="interest">
+            <section class="resume-section" id="skills">
+                <div class="skill-section">
+                    <h2 class="mb-5">Habilidades</h2>
+                    <p id="p-skill-section"></p>
+                </div>
+            </section>
+            <hr class="m-0" />
+                        <section class="resume-section" id="interests">
                 <div class="interest-section">
                     <h2 class="mb-5">Intereses</h2>
                     <p id="p-interest-section"></p>
                 </div>
             </section>
             <hr class="m-0" />
-            <section class="resume-section" id="skills">
-                <div class="skill-section">
-                    <h2 class="mb-5">Habilidades</h2>
-                    <p id="p-skill-section"></p>
+            <section class="resume-section" id="contact">
+                <div class="contact-section">
+                    <h2 class="mb-5">Contacto</h2>
+                    <p id="contact-info-section"></p>
                 </div>
             </section>
             <hr class="m-0" />

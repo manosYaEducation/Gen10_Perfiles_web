@@ -279,3 +279,7 @@ section h2 {
     border: 3px solid #4CAF50; /* Color del borde */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+html {
+  scroll-padding-top: 90px; /* Ajusta según el alto del navbar */
+}
