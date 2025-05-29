@@ -1,0 +1,262 @@
+/* Estilos para la sección de clientes en la página principal */
+#clientes {
+    background-color: #fff;
+    padding: 50px 0;
+    position: relative;
+}
+
+#clientes .info-title {
+    color: #000;
+    margin-bottom: 15px;
+}
+
+#clientes .info-subtitle {
+    color: #000;
+    margin-bottom: 40px;
+}
+
+/* Estilos del carrusel de clientes */
+.clients-carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 30px 0;
+    background: linear-gradient(to right, #ffffff, #f9f9f9, #ffffff);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.clients-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.clients-carousel {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    gap: 30px;
+    padding: 0 20px;
+    will-change: transform;
+}
+
+/* Estilos de las tarjetas de clientes */
+.clients-carousel .profile-card {
+    flex: 0 0 300px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    text-align: center;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transform: translateY(0);
+    overflow: hidden;
+    position: relative;
+}
+
+.clients-carousel .profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.clients-carousel .profile-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.clients-carousel .profile-card:hover::before {
+    transform: scaleX(1);
+}
+
+.clients-carousel .profile-image {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #f0f0f0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.clients-carousel .profile-card:hover .profile-image {
+    border-color: #4CAF50;
+    transform: scale(1.05);
+}
+
+.clients-carousel .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.clients-carousel .profile-card:hover .profile-image img {
+    transform: scale(1.1);
+}
+
+.clients-carousel .profile-content h2 {
+    color: #000;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.clients-carousel .profile-card:hover .profile-content h2 {
+    color: #4CAF50;
+}
+
+.clients-carousel .profile-subtitle {
+    color: #000;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+.clients-carousel .button-link {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: 30px;
+    color: #fff;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    text-decoration: none;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.clients-carousel .button-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #8BC34A, #4CAF50);
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.clients-carousel .button-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+}
+
+.clients-carousel .button-link:hover::before {
+    opacity: 1;
+}
+
+/* Botones de navegación */
+.clients-carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #4CAF50;
+}
+
+.clients-carousel-button:hover {
+    background: #4CAF50;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+}
+
+.clients-carousel-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.clients-carousel-button.prev {
+    left: 20px;
+}
+
+.clients-carousel-button.next {
+    right: 20px;
+}
+
+/* Indicadores de página */
+.clients-carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+}
+
+.clients-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clients-indicator.active {
+    background-color: #4CAF50;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .clients-carousel-container {
+        padding: 20px 0;
+    }
+    
+    .clients-carousel .profile-card {
+        flex: 0 0 280px;
+        padding: 20px;
+    }
+    
+    .clients-carousel .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .clients-carousel-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .clients-carousel-button.prev {
+        left: 10px;
+    }
+    
+    .clients-carousel-button.next {
+        right: 10px;
+    }
+}

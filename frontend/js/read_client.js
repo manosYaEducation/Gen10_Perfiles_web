@@ -74,40 +74,29 @@ document.addEventListener("DOMContentLoaded", async function () {
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        const clientContent = document.querySelector(".client-content");
-        // Limpiar solo los clientes, manteniendo el botón "Agregar cliente"
-        const addButton = clientContent.querySelector(".create-profile");
-        clientContent.innerHTML = "";
-        if (addButton) {
-          clientContent.appendChild(addButton);
-        }
-
-                // Crear contenedor para las tarjetas de clientes
-                const clientsContainer = document.createElement('div');
-                clientsContainer.className = 'profile-container';
+        // Seleccionar el div profiles-column dentro de la sección de clientes
+        const clientsProfilesColumn = document.querySelector("#clientes .profiles-column");
+        // Limpiar el contenedor antes de agregar los clientes
+        clientsProfilesColumn.innerHTML = "";
 
                 // Mostrar todos los clientes
                 data.clients.forEach(client => {
                     const clientCard = document.createElement('div');
                     clientCard.classList.add('profile-card');
                     clientCard.innerHTML = `
-                        <div class="client-info">
-                            <div class="client-image">
+                        <div class="profile-content">
+                            <div class="profile-image">
                                 <img src="${client.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${client.name}">
                             </div>
                             <h2>${client.name}</h2>
-                            <h3 class="client-company">${client.company}</h3>
-                            <div class="profile-actions">
-                                <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Ver</a>
-                                <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
-                                <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
-                            </div>
+                            <h3 class="profile-subtitle">${client.company || ''}</h3>
+                            <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Perfil</a>
+                            <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
+                            <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
                         </div>
                     `;
-                    clientsContainer.appendChild(clientCard);
+                    clientsProfilesColumn.appendChild(clientCard);
                 });
-
-        clientContent.appendChild(clientsContainer);
       } else {
         console.error("No se pudieron obtener los clientes:", data.message);
       }
