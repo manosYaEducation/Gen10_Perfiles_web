@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="profile-image">
                                 <img src="${client.image || 'assets/img/default-profile.png'}" alt="${client.name}">
                             </div>
-                            <h2 style="color: #000;">${client.name}</h2>
-                            <h3 class="profile-subtitle" style="color: #000;">${client.company || ''}</h3>
+                            <h2 class="client-name">${client.name}</h2>
+                            <h3 class="profile-subtitle client-company">${client.company || ''}</h3>
                             <p class="profile-description">${client.description || ''}</p>
                         </div>
                     `;
