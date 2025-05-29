@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!firstCard) return;
     
     const cardWidth = firstCard.offsetWidth;
-    const gap = 20; // Gap entre tarjetas
+    const gap = 30; // Gap entre tarjetas
     // Se calcula el ancho total de las tarjetas visibles (solo se aplica gap entre ellas)
     const totalWidth = cardWidth * cardsPerView + gap * (cardsPerView - 1);
     
