@@ -19,19 +19,377 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <style>
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+        }
+        .dark-mode-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode-toggle.dark {
+            color: #ffd700;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: #1a1a1a;
+            --nav-hover: #333;
+            --border-color: #444;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        body.dark-mode header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .nav-links a,
+        body.dark-mode .nav-links button {
+            color: var(--text-color);
+        }
+
+        body.dark-mode .hero-text h1,
+        body.dark-mode .hero-text p,
+        body.dark-mode .info-title,
+        body.dark-mode .info-subtitle,
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode p,
+        body.dark-mode .prf1 {
+            color: var(--text-color);
+        }
+
+        body.dark-mode .profiles-section,
+        body.dark-mode .proyectos-destacados,
+        body.dark-mode #cont {
+            background-color: var(--bg-color);
+        }
+
+        body.dark-mode .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        body.dark-mode .contacto-container {
+            background-color: var(--card-bg);
+        }
+
+        body.dark-mode input,
+        body.dark-mode textarea {
+            background-color: #2d2d2d;
+            color: var(--text-color);
+            border-color: var(--border-color);
+        }
+
+        body.dark-mode .nav-links a:hover,
+        body.dark-mode .nav-links button:hover {
+            background-color: var(--nav-hover);
+        }
+        
+        /* Cambiar logo a blanco en modo oscuro */
+        body.dark-mode .nav-logo {
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Estilos para la sección hero en modo oscuro */
+        body.dark-mode .hero {
+            background-color: var(--bg-color);
+        }
+        
+        body.dark-mode .hero h1,
+        body.dark-mode .hero p,
+        body.dark-mode .prf1 {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .btnr {
+            background-color: #239e34;
+            color: white;
+            border: 2px solid #22973f;
+        }
+        
+        body.dark-mode .btnr:hover {
+            background-color: #1a692e;
+            border-color: #1a692e;
+        }
+        
+        body.dark-mode .hero-image img {
+            filter: brightness(0.9) contrast(1.1);
+        }
+        
+        /* Estilos para la sección hero2 en modo oscuro */
+        body.dark-mode .hero2 {
+            background-color: #1e1e1e;
+        }
+        
+        body.dark-mode .hero-title2 {
+            color: #ffffff;
+        }
+        
+        body.dark-mode #hero-paragraph2 {
+            color: var(--text-color);
+        }
+        
+        body.dark-mode .hero-image2 img {
+            filter: brightness(0.9) contrast(1.1);
+        }
+        
+        /* Estilos para el carrusel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 20px 0;
+            background-color: #1d1d1da6;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para la sección del equipo en modo oscuro */
+        body.dark-mode .profiles-section {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        body.dark-mode .info-title,
+        body.dark-mode .info-subtitle {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .cursive {
+            color: #bbbbbb;
+        }
+        
+        body.dark-mode .carousel-button {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+        }
+        
+        body.dark-mode .carousel-button:hover {
+            background-color: #444444;
+        }
+        
+        body.dark-mode .profile-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333333;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .profile-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        body.dark-mode .profile-name {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .profile-role {
+            color: #bbbbbb;
+        }
+        
+        body.dark-mode .carousel-indicators button {
+            background-color: #555555;
+            border: none;
+        }
+        
+        body.dark-mode .carousel-indicators .active {
+            background-color: #239e34;
+        }
+        
+        /* Estilos para el hover de los proyectos - Solución definitiva */
+        .proyecto-descripcion {
+            transition: color 0.3s ease !important;
+        }
+        
+        .proyecto-tarjeta:hover .proyecto-descripcion,
+        .proyecto:hover .proyecto-descripcion,
+        .proyecto-timeline:hover .proyecto-descripcion {
+            color: #000000 !important;
+        }
+        
+        body.dark-mode .proyecto-tarjeta:hover .proyecto-descripcion,
+        body.dark-mode .proyecto:hover .proyecto-descripcion,
+        body.dark-mode .proyecto-timeline:hover .proyecto-descripcion {
+            color: #000000 !important;
+        }
+        
+        /* Estilos sutiles para el footer en modo oscuro */
+        body.dark-mode .footer {
+            background-color: #121212;
+            border-top: 1px solid #2a2a2a;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .footer-section h3 {
+            color: #4CAF50;
+            text-shadow: 0 0 2px rgba(76, 175, 80, 0.3);
+        }
+        
+        body.dark-mode .footer-section a {
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .footer-section a:hover {
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .social-links a {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+        
+        body.dark-mode .social-links a:hover {
+            background-color: #2a2a2a;
+            border-color: #4CAF50;
+        }
+        
+        body.dark-mode .footer-brand {
+            position: relative;
+        }
+        
+        body.dark-mode .footer-logo {
+            filter: brightness(1.05);
+        }
+        
+        body.dark-mode .contact-info li {
+            color: #bbbbbb;
+        }
+        
+        body.dark-mode .contact-info .contacto-nombre {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .copyright {
+            background-color: #121212;
+            border-top: 1px solid #2a2a2a;
+            color: #aaaaaa;
+        }
+        
+        /* Estilos mejorados para la navbar */
+        body.dark-mode header {
+            background-color: #151515;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        body.dark-mode .nav-links a {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .nav-links a:hover {
+            background-color: #2a2a2a;
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .login-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        
+        body.dark-mode .login-btn:hover {
+            background-color: #3d8b40;
+        }
+        
+        /* Estilos mejorados para el menú desplegable */
+        body.dark-mode .profile-btn {
+            background-color: #151515;
+            color: #e0e0e0;
+            border: 1px solid #15151500;
+            transition: all 0.3s ease;
+        }   
+
+        
+        
+        body.dark-mode .profile-btn:hover {
+            background-color: #000000;
+            border-color: #4CAF50;
+        }
+        
+        body.dark-mode .dropdown-content {
+            background-color: #1e1e1e;
+            border: 1px solid #000000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin-top: 0; /* Elimina el espacio entre el botón y el menú */
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            width: 100%;
+            top: 100%;
+            left: 0;
+        }
+        
+        /* Clase para mostrar el menú desplegable */
+        .dropdown-content.show {
+            display: block;
+        }
+        
+        /* Estilos para el contenedor del menú desplegable */
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        body.dark-mode .dropdown-content a {
+            color: #e0e0e0;
+            border-bottom: 1px solid #333;
+        }
+        
+        body.dark-mode .dropdown-content a:hover {
+            background-color: #2a2a2a;
+            color: #4CAF50;
+        }
+        
+        body.dark-mode .dropdown-content a.button-53 {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #333;
+        }
+        
+        body.dark-mode .dropdown-content a.button-53:hover {
+            background-color: #2a2a2a;
+            color: #ff5555;
+            border-color: #ff5555;
+        }
+    </style>
 
     <!-- Metadata Principal -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://ms.alphadocere.cl" />
-<meta property="og:title" content="Impulsa la innovación con nosotros" />
-<meta property="og:description" content="Únete a Kreative Alpha Docere y desarrolla pruebas de concepto que transforman ideas en soluciones." />
-<meta property="og:image" content="https://kreative.alphadocere.cl/assets/img/kreative_transparent.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="keywords" content="Innovación profesional, pruebas de concepto, talento joven, soluciones creativas" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ms.alphadocere.cl" />
+    <meta property="og:title" content="Impulsa la innovación con nosotros" />
+    <meta property="og:description" content="Únete a Kreative Alpha Docere y desarrolla pruebas de concepto que transforman ideas en soluciones." />
+    <meta property="og:image" content="https://kreative.alphadocere.cl/assets/img/kreative_transparent.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="keywords" content="Innovación profesional, pruebas de concepto, talento joven, soluciones creativas" />
 
 
-<!-- A -->
-
+    <!-- A -->
 
 
 </head>
@@ -78,6 +436,11 @@
             <div class="menu-icon" id="menu-icon">
                 <i class="fas fa-bars"></i>
             </div>
+
+            <!-- Dark Mode Toggle -->
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
 
             <!-- <div class="nav-right" id="nav-right">
                 <a href="frontend/login.html" class="login-btn">Ir a panel de administración →</a>
@@ -396,10 +759,10 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div class="copyright-container">
-                <p class="copyright">Copyright © 2024 Kreative v. gen 13 Inicial 1| Todos los derechos reservados por empresa Kreative</p>
+                <p class="copyright">Copyright 2024 Kreative v. gen 13 Inicial 1| Todos los derechos reservados por empresa Kreative</p>
             </div>
         </div>
     </footer>
@@ -411,12 +774,153 @@
 
     <script src="./frontend/js/logout.js"></script>
     <script src="./frontend/js/config.js"></script>
+    <script>
+        // Dark Mode Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeIcon = darkModeToggle.querySelector('i');
+
+            // Check for saved user preference, if any
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeIcon.classList.remove('fa-moon');
+                darkModeIcon.classList.add('fa-sun');
+                darkModeToggle.classList.add('dark');
+            }
+
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                darkModeIcon.classList.toggle('fa-moon');
+                darkModeIcon.classList.toggle('fa-sun');
+                darkModeToggle.classList.toggle('dark');
+
+                // Save user preference
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+            });
+
+            // Detect system color scheme preference
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            // If no saved preference, use system preference
+            if (!savedMode && prefersDarkScheme.matches) {
+                document.body.classList.add('dark-mode');
+                darkModeIcon.classList.remove('fa-moon');
+                darkModeIcon.classList.add('fa-sun');
+                darkModeToggle.classList.add('dark');
+            }
+
+            // Listen for changes in system color scheme
+            prefersDarkScheme.addEventListener('change', e => {
+                if (savedMode) return; // Don't override user's explicit choice
+
+                if (e.matches) {
+                    document.body.classList.add('dark-mode');
+                    darkModeIcon.classList.remove('fa-moon');
+                    darkModeIcon.classList.add('fa-sun');
+                    darkModeToggle.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    darkModeIcon.classList.remove('fa-sun');
+                    darkModeIcon.classList.add('moon');
+                    darkModeToggle.classList.remove('dark');
+                }
+            });
+        });
+    </script>
     <script src="./frontend/js/index.js"></script>
     <script src="./frontend/js/carousel.js"></script>
     <script src="./frontend/js/project-read.js"></script>
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
+<<<<<<< HEAD
     <script src="./frontend/js/clients-index.js"></script>
+=======
+    
+    <!-- Script para mejorar el menú desplegable -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileBtn = document.getElementById('profile-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            
+            if (profileBtn && dropdownContent) {
+                // Mostrar/ocultar menú al hacer clic
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdownContent.classList.toggle('show');
+                });
+                
+                // Mantener menú visible al hacer clic dentro de él
+                dropdownContent.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+                
+                // Mostrar menú al pasar el cursor sobre el botón
+                profileBtn.addEventListener('mouseenter', function() {
+                    dropdownContent.classList.add('show');
+                });
+                
+                // Mantener menú visible al pasar el cursor sobre él
+                dropdownContent.addEventListener('mouseenter', function() {
+                    dropdownContent.classList.add('show');
+                });
+                
+                // Ocultar menú al salir del área completa
+                const profileDropdown = document.querySelector('.profile-dropdown');
+                if (profileDropdown) {
+                    profileDropdown.addEventListener('mouseleave', function() {
+                        dropdownContent.classList.remove('show');
+                    });
+                }
+                
+                // Ocultar menú al hacer clic fuera
+                document.addEventListener('click', function() {
+                    dropdownContent.classList.remove('show');
+                });
+            }
+        });
+    </script>
+    
+    <!-- Script para manejar el hover de los proyectos -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar todos los elementos de proyecto
+            const proyectoItems = document.querySelectorAll('.proyecto-item');
+            
+            // Agregar eventos para cada proyecto
+            proyectoItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    // Seleccionar todos los elementos de texto dentro del proyecto
+                    const descripcion = this.querySelector('.proyecto-descripcion');
+                    if (descripcion) {
+                        descripcion.style.color = '#000000';
+                    }
+                    
+                    // También cambiar otros textos si es necesario
+                    const textos = this.querySelectorAll('p, span, h3, div');
+                    textos.forEach(texto => {
+                        texto.style.color = '#000000';
+                    });
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    // Restaurar colores al salir
+                    const descripcion = this.querySelector('.proyecto-descripcion');
+                    if (descripcion) {
+                        descripcion.style.color = '';
+                    }
+                    
+                    const textos = this.querySelectorAll('p, span, h3, div');
+                    textos.forEach(texto => {
+                        texto.style.color = '';
+                    });
+                });
+            });
+        });
+    </script>
+>>>>>>> Feature/Docaranza/28-05-2025-BlackMode
 </body>
 
 </html>
