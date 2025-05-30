@@ -79,7 +79,6 @@
     </footer>
     <script src="./js/project-detail.js"></script>
     <script src="./js/config.js"></script>
-    <script src="../frontend/js/verifylogin.js"></script>
     <script src="../frontend/js/config.js"></script>
     <script src="../frontend/js/logout.js"></script>
 </body>
