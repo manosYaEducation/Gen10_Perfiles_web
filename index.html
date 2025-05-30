@@ -107,7 +107,18 @@
         body.dark-mode .nav-links button:hover {
             background-color: var(--nav-hover);
         }
+
+        /* Mejora la visibilidad del texto de ayuda dentro del input */
+        body.dark-mode input::placeholder,
+        body.dark-mode textarea::placeholder {
+            color: #bbbbbb; /* O usa #f0f0f0 si prefieres más contraste */
+        }
         
+        body.dark-mode label {
+        color: #e0e0e0;
+    }
+
+
         /* Cambiar logo a blanco en modo oscuro */
         body.dark-mode .nav-logo {
             filter: brightness(0) invert(1);
@@ -499,6 +510,69 @@
         body.dark-mode .clients-carousel-indicators .active {
             background-color: #239e34;
         }
+        
+        /* --- PROYECTOS: Hover modo claro y oscuro --- */
+        .proyecto-tarjeta:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        body.dark-mode .proyecto-tarjeta:hover {
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+        body.dark-mode .proyecto-tarjeta:hover .proyecto-descripcion,
+        body.dark-mode .proyecto-tarjeta:hover h3,
+        body.dark-mode .proyecto-tarjeta:hover p {
+            color: #ffffff !important;
+        }
+
+        /* --- FAQ: Estilos generales modo oscuro --- */
+        body.dark-mode .faq-section,
+        body.dark-mode .faq-container {
+            background-color: var(--bg-color);
+        }
+
+        body.dark-mode .faq-title,
+        body.dark-mode .faq-category h3 {
+            color: var(--text-color);
+        }
+
+        body.dark-mode .faq-item {
+            background-color: var(--card-bg) !important;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-color) !important;
+        }
+
+        /* Encabezado de la pregunta */
+        body.dark-mode .faq-question {
+            background-color: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border-radius: 12px 12px 0 0;
+        }
+        body.dark-mode .faq-question h4 {
+            color: var(--text-color) !important;
+        }
+        body.dark-mode .faq-toggle {
+            color: #4CAF50 !important;
+        }
+
+        /* Contenido expandido */
+        body.dark-mode .faq-answer {
+            background-color: var(--card-bg) !important;
+        }
+        body.dark-mode .faq-answer p {
+            color: var(--text-color) !important;
+        }
+
+        /* Asegura consistencia al expandir */
+        body.dark-mode .faq-item[aria-expanded="true"],
+        body.dark-mode .faq-item.open,
+        body.dark-mode .faq-item.open .faq-question {
+            background-color: var(--card-bg) !important;
+            color: var(--text-color) !important;
+        }
+
     </style>
 
     <!-- Metadata Principal -->
