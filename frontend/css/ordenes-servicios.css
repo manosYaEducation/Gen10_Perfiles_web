@@ -85,24 +85,3 @@ body {
 .btn-ver:hover {
   background-color: #218838;
 }
-
-/* Dark mode compatible */
-body.dark-mode .orden-tarjeta {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  border: 1px solid #333;
-}
-
-body.dark-mode .btn-ver {
-  background-color: #4CAF50;
-}
-
-body.dark-mode .btn-ver:hover {
-  background-color: #3d8b40;
-}
-
-body.dark-mode .buscador-fecha input[type="date"] {
-  background-color: #2d2d2d;
-  color: #e0e0e0;
-  border-color: #444;
-}

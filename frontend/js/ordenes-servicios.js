@@ -20,6 +20,10 @@ const mockOrdenes = [
   }
 ];
 
+//fetch("https://tu-backend.com/api/ordenes")
+//  .then(res => res.json())
+//  .then(data => renderizarOrdenes(data));
+
 // Función para renderizar las tarjetas en el DOM
 function renderizarOrdenes(ordenes) {
   const contenedor = document.getElementById("contenedor-ordenes");
@@ -41,7 +45,7 @@ function renderizarOrdenes(ordenes) {
         <p><span>Tipo de servicio:</span> ${orden.tipoServicio}</p>
         <p><span>Fecha y hora del servicio:</span> ${orden.fechaServicio}</p>
       </div>
-      <button class="btn-ver">Ver</button>
+      <button class="btn-ver" onclick='verDetalle(${JSON.stringify(orden)})'>Ver</button>
     `;
 
     contenedor.appendChild(tarjeta);
@@ -69,3 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarOrdenes(filtradas);
   });
 });
+
+function verDetalle(orden) {
+  localStorage.setItem("ordenSeleccionada", JSON.stringify(orden));
+  window.location.href = "detalle-orden.html";
+}
