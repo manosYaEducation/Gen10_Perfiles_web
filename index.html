@@ -428,10 +428,19 @@
         body.dark-mode .faq-item {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .faq-question {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .faq-answer {
+            background-color: rgba(0, 0, 0, 0.1);
         }
         
         body.dark-mode .faq-question h4 {
-            color: #000000;
+            color: var(--text-color);
         }
         
         body.dark-mode .faq-toggle {
@@ -439,7 +448,12 @@
         }
         
         body.dark-mode .faq-answer p {
-            color: #000000;
+            color: var(--text-color);
+        }
+        
+        body.dark-mode .faq-category h3 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
         }
         
         /* Estilos para el modal de éxito en modo oscuro */
