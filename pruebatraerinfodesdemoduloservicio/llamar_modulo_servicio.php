@@ -10,7 +10,7 @@ $response = curl_exec($ch);
 if(curl_errno($ch)) {
     echo 'Error en cURL: ' . curl_error($ch);
 } else {
-    echo json_encode($response);
+    echo $response;
 }
 
 curl_close($ch);
