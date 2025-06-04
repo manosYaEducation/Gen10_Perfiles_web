@@ -85,3 +85,251 @@ body {
 .btn-ver:hover {
   background-color: #218838;
 }
+
+/* Estilos para los botones de la tabla */
+.btn-tabla-ver {
+  background: #45a36c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.btn-tabla-ver:hover {
+  background: #3d8e5f;
+}
+
+.btn-tabla-ver:active {
+  transform: translateY(1px);
+}
+
+/* Estilos para los badges de estado */
+.estado-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.estado-pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.estado-en-proceso {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.estado-completado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Mejoras para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+thead {
+  background-color: #f8f9fa;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Responsive para la tabla */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+}
+
+/* Estilos para la tabla Admin */
+.admin-table-container {
+  overflow-x: auto; /* Para tablas anchas en móviles */
+  margin-top: 1.5rem;
+}
+
+.tabla-admin-ordenes {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  overflow: hidden; /* Para que el border-radius afecte a la tabla */
+}
+
+.tabla-admin-ordenes th,
+.tabla-admin-ordenes td {
+  padding: 14px 18px; /* Un poco más de padding */
+  text-align: left;
+  border-bottom: 1px solid #e9ecef; /* Línea divisoria más clara */
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.tabla-admin-ordenes th {
+  background-color: #f8f9fa; /* Un gris muy claro para encabezados */
+  font-weight: 600;
+  color: #495057; /* Color de texto estándar para encabezados */
+  text-transform: none; /* Sin mayúsculas forzadas, si se prefiere */
+  font-size: 0.9rem;
+}
+
+.tabla-admin-ordenes tbody tr:last-child td {
+  border-bottom: none; /* Quitar borde inferior de la última fila */
+}
+
+.tabla-admin-ordenes tbody tr:hover {
+  background-color: #f1f3f5; /* Resaltado sutil al pasar el mouse */
+}
+
+/* Estilos para los badges de estado */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 16px; /* Más redondeado */
+  font-size: 0.75rem; /* Ligeramente más pequeño */
+  font-weight: 600;
+  text-transform: capitalize;
+  min-width: 90px; /* Ancho mínimo para consistencia */
+  display: inline-block;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.status-pendiente {
+  background-color: #fff3cd; /* Amarillo pastel */
+  color: #856404; /* Marrón para contraste */
+  border: 1px solid #ffeeba;
+}
+
+.status-completado {
+  background-color: #d1e7dd; /* Verde pastel */
+  color: #0f5132; /* Verde oscuro para contraste */
+  border: 1px solid #badbcc;
+}
+
+.status-en-progreso {
+  background-color: #cfe2ff; /* Azul pastel */
+  color: #084298; /* Azul oscuro para contraste */
+  border: 1px solid #b6d4fe;
+}
+
+.status-cancelado {
+  background-color: #f8d7da; /* Rojo pastel */
+  color: #842029; /* Rojo oscuro para contraste */
+  border: 1px solid #f5c2c7;
+}
+
+.status-default {
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #dee2e6;
+}
+
+/* Estilos para botones de acción en tabla admin */
+.btn-accion-tabla {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin: 0 4px;
+  font-size: 1.15rem; /* Iconos un poco más grandes */
+  transition: color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.btn-accion-tabla:hover { 
+  transform: scale(1.1); 
+}
+
+.btn-accion-tabla .fa-eye { color: #0d6efd; } /* Azul Bootstrap */
+.btn-accion-tabla .fa-edit { color: #ffc107; } /* Amarillo Bootstrap */
+.btn-accion-tabla .fa-trash { color: #dc3545; } /* Rojo Bootstrap */
+
+.btn-accion-tabla:hover .fa-eye { color: #0b5ed7; }
+.btn-accion-tabla:hover .fa-edit { color: #e0a800; }
+.btn-accion-tabla:hover .fa-trash { color: #c82333; }
+
+/* Ajustes para botones de cambio de vista */
+.view-toggle {
+  display: flex;
+  background-color: #e9ecef;
+  padding: 5px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem; /* Espacio debajo de los botones de vista */
+}
+
+.view-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: #495057; /* Color de texto para botones inactivos */
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.view-toggle-btn i {
+  color: #6c757d; /* Color de icono para botones inactivos */
+  transition: color 0.25s ease;
+}
+
+.view-toggle-btn.active {
+  background-color: #fff; 
+  color: #0d6efd; /* Color primario cuando está activo */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.view-toggle-btn.active i {
+  color: #0d6efd; /* Iconos en color primario cuando el botón está activo */
+}
+
+.view-toggle-btn:hover:not(.active) {
+  background-color: #dee2e6; /* Un hover sutil para botones no activos */
+  color: #212529;
+}
+
+.view-toggle-btn:hover:not(.active) i {
+  color: #212529;
+}
+
