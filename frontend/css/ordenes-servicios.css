@@ -1,0 +1,87 @@
+/* Contenedor general */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.ordenes-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.titulo-principal {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Buscador */
+.buscador-fecha {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.buscador-fecha label {
+  font-weight: bold;
+}
+
+.buscador-fecha input[type="date"] {
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Grid de tarjetas */
+.grid-ordenes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjeta individual */
+.orden-tarjeta {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+.orden-tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+.orden-detalles {
+  margin-bottom: 1rem;
+}
+
+.orden-detalles p {
+  margin: 0.3rem 0;
+}
+
+.orden-detalles p span {
+  font-weight: bold;
+}
+
+/* Botón */
+.btn-ver {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-ver:hover {
+  background-color: #218838;
+}
