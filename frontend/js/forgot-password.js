@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
           // Hacer solicitud al endpoint de recuperación de contraseña usando FormData
           const response = await fetch(
-            "https://systemauth.alphadocere.cl/forgot-password.php",
+            "http://localhost/jwt-mail-qr/Version%202-%20SystemAuth/forgot-password.php",
             {
               method: "POST",
               body: formData, // Enviar como FormData en lugar de JSON
