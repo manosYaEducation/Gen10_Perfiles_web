@@ -39,6 +39,7 @@ const adminTableViewBtn = document.getElementById("adminTableViewBtn");
 const adminTablaOrdenesContainer = document.getElementById("admin-tabla-ordenes-container");
 const adminTablaOrdenesBody = document.getElementById("admin-tabla-ordenes-body");
 const inputFecha = document.getElementById("buscadorFecha");
+const filtroEstado = document.getElementById("filtroEstado");
 
 let ordenesFiltradas = [];
 
@@ -204,22 +205,22 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarAdminTablaView(ordenesFiltradas);
   });
 
-  inputFecha.addEventListener("input", () => {
-    const valor = inputFecha.value.trim(); // formato yyyy-mm-dd
+  // Función para aplicar filtros
+  function aplicarFiltros() {
+    const fechaValor = inputFecha.value.trim();
+    const estadoValor = filtroEstado.value;
 
-    if (valor === "") {
-        ordenesFiltradas = [...mockOrdenes];
-      renderizarVistaActual(ordenesFiltradas);
-      return;
-    }
+    ordenesFiltradas = mockOrdenes.filter(orden => {
+      const cumpleFecha = fechaValor === "" || orden.fechaCompra.includes(fechaValor);
+      const cumpleEstado = estadoValor === "" || orden.estado === estadoValor;
+      return cumpleFecha && cumpleEstado;
+    });
 
-    const filtradas = mockOrdenes.filter((orden) =>
-      orden.fechaCompra.includes(valor)
-    );
+    renderizarVistaActual(ordenesFiltradas);
+  }
 
-      ordenesFiltradas = filtradas;
-      renderizarVistaActual(ordenesFiltradas);
-  });
+  inputFecha.addEventListener("input", aplicarFiltros);
+  filtroEstado.addEventListener("change", aplicarFiltros);
 });
 
 function verDetalle(ordenJson) {
