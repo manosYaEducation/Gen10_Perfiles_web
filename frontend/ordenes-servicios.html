@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="./css/index-admin.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Librería SheetJS para exportar a Excel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -30,16 +32,76 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="ordenes-container">
-    <h1 class="titulo-principal">Órdenes de servicio</h1>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <h1 class="titulo-principal" style="margin: 0;">Órdenes de servicio</h1>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="view-toggle" style="background: rgba(0, 0, 0, 0.05); padding: 4px; border-radius: 8px; margin-right: 10px;">
+          <button class="view-toggle-btn active" id="cardsViewBtn" title="Vista de tarjetas" style="background: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <i class="fas fa-th-large"></i> Tarjetas
+          </button>
+          <button class="view-toggle-btn" id="tableViewBtn" title="Vista de tabla" style="background: transparent; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500;">
+            <i class="fas fa-table"></i> Tabla
+          </button>
+          <button class="view-toggle-btn" id="adminTableViewBtn" title="Vista de Tabla Admin" style="background: transparent; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500;">
+            <i class="fas fa-user-shield"></i> Admin Tabla
+          </button>
+        </div>
+        <button id="export-excel" class="btn-export" title="Exportar a Excel" style="background: #28a745; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; transition: background 0.3s;">
+          <i class="fas fa-file-excel"></i> Exportar
+        </button>
+      </div>
+    </div>
 
     <div class="buscador-fecha">
       <label for="buscadorFecha">Buscar por fecha:</label>
       <input type="date" id="buscadorFecha" />
     </div>
 
+    <!-- Vista de tarjetas -->
     <div class="grid-ordenes" id="contenedor-ordenes">
       <!-- Aquí se insertarán dinámicamente las tarjetas de órdenes -->
     </div>
+    
+    <!-- Vista de tabla (inicialmente oculta) -->
+    <div class="table-container" id="tabla-ordenes" style="display: none; margin-top: 1.5rem; overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background-color: #f8f9fa;">
+            <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6;">ID</th>
+            <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6;">Cliente</th>
+            <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6;">Servicio</th>
+            <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6;">Fecha</th>
+            <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6;">Estado</th>
+            <th style="padding: 12px 16px; text-align: right; font-weight: 600; color: #495057; border-bottom: 2px solid #dee2e6;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ordenes-body">
+          <!-- Las filas se insertarán dinámicamente con JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Vista de tabla estilo Admin -->
+    <div class="admin-table-container" id="admin-tabla-ordenes-container" style="display: none; margin-top: 1.5rem; overflow-x: auto;">
+      <table class="tabla-admin-ordenes" id="admin-orders-table" style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background-color: #f0f2f5;">
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">ID Orden</th>
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Cliente</th>
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Fecha Compra</th>
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Total Pagado</th>
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Tipo Servicio</th>
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Fecha Servicio</th>
+            <th style="padding: 12px 15px; text-align: left; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Estado</th>
+            <th style="padding: 12px 15px; text-align: center; font-weight: 600; color: #333; border-bottom: 1px solid #e0e0e0;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="admin-tabla-ordenes-body">
+          <!-- Las filas se insertarán aquí por JavaScript -->
+        </tbody>
+      </table>
+    </div>
+    <!-- Fin Vista de tabla estilo Admin -->
   </main>
 
   <footer class="footer">

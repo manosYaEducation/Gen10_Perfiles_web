@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Órdenes - Servicios Digitales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Librería SheetJS para exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Extensión con estilos para Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-style@0.8.13/dist/xlsx.full.min.js"></script>
+    <!-- ExcelJS para mejor formato -->
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <!-- FileSaver para guardar el archivo -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<!-- SheetJS para exportar a Excel -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        :root {
+            --color-primario: #45a36c;
+            --color-primario-oscuro: #3b8d5d;
+            --color-secundario: #6ec067;
+            --color-acento: #7209b7;
+            --color-exito: #4caf50;
+            --color-error: #f44336;
+            --color-advertencia: #ff9800;
+            --color-texto: #2b2d42;
+            --color-texto-claro: #6c757d;
+            --color-texto-blanco: #f8f9fa;
+            --color-fondo: #f8f9fa;
+            --color-fondo-claro: #ffffff;
+            --color-borde: #e9ecef;
+            --sombra: 0 4px 10px rgba(0, 0, 0, 0.08);
+            --radio-borde: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--color-primario);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radio-borde);
+            margin-bottom: 20px;
+            box-shadow: var(--sombra);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .header > div {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .header h1 i {
+            font-size: 1.4rem;
+        }
+
+        /* Estilos para el botón de cambio de vista */
+        .view-toggle {
+            display: flex !important;
+            align-items: center;
+            gap: 8px;
+            margin-left: 20px !important;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            border-radius: 8px;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .view-toggle-btn {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border: 2px solid white !important;
+            color: white !important;
+            padding: 8px 15px !important;
+            border-radius: 6px !important;
+            cursor: pointer !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            transition: all 0.3s ease !important;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .view-toggle-btn:hover {
+            background: white !important;
+            color: var(--color-primario) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+        }
+
+        .view-toggle-btn.active {
+            background: white !important;
+            color: var(--color-primario) !important;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+            border-color: white !important;
+            transform: translateY(-2px);
+        }
+
+        /* Estilos para la vista de tarjetas */
+        .cards-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            display: none; /* Oculto por defecto */
+        }
+
+        .card-order {
+            background: white;
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra);
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card-order:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-order h3 {
+            margin-top: 0;
+            color: var(--color-primario);
+            border-bottom: 1px solid var(--color-borde);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-order p {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-order .status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .card-order .status.pendiente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .card-order .status.completado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .card-order .status.en-proceso {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .card-order .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .card-order .actions button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-order .actions .btn-view {
+            background-color: var(--color-primario);
+            color: white;
+        }
+
+        .card-order .actions .btn-edit {
+            background-color: var(--color-advertencia);
+            color: white;
+        }
+
+        /* Panel principal */
+        .panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(69, 163, 108, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primario);
+            font-size: 1.2rem;
+        }
+
+        .card-content {
+            flex: 1;
+            padding-left: 15px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--color-texto);
+        }
+
+        .card-content p {
+            color: var(--color-texto-claro);
+            font-size: 0.9rem;
+        }
+
+        /* Búsqueda y filtros */
+        .search-bar {
+            background: white;
+            border-radius: var(--radio-borde);
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--sombra);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--color-borde);
+            border-radius: var(--radio-borde);
+            font-size: 0.95rem;
+        }
+
+        .search-input i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-texto-claro);
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background-color: var(--color-primario);
+            color: white;
+            border: none;
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--color-primario-oscuro);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-primario);
+            border: 1px solid var(--color-primario);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(69, 163, 108, 0.1);
+        }
+
+        /* Tabla */
+        .table-container {
+            background: white;
+            border-radius: var(--radio-borde);
+            box-shadow: var(--sombra);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table thead {
+            background-color: var(--color-primario);
+            color: white;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .table td {
+            padding: 15px;
+            border-top: 1px solid var(--color-borde);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(69, 163, 108, 0.05);
+        }
+
+        /* Estado */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status.completed {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--color-exito);
+        }
+
+        .status.pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--color-advertencia);
+        }
+
+        .status.processing {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .status.cancelled {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--color-error);
+        }
+
+        /* Acciones */
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            background-color: var(--color-fondo);
+            color: var(--color-texto-claro);
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background-color: var(--color-primario);
+            color: white;
+        }
+
+        /* Paginación */
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            gap: 5px;
+        }
+
+        .page-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 1px solid var(--color-borde);
+            border-radius: var(--radio-borde);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .page-btn.active {
+            background-color: var(--color-primario);
+            color: white;
+            border-color: var(--color-primario);
+        }
+
+        .page-btn:hover {
+            background-color: var(--color-primario);
+            color: white;
+            border-color: var(--color-primario);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .search-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .table {
+                min-width: 800px;
+            }
+        }
+    /* Modal de detalles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(3px);
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: white;
+            border-radius: 12px;
+            width: 800px;
+            max-width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--color-borde);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primario);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-close {
+            background: #f5f5f5;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--color-texto-claro);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: #eee;
+            color: var(--color-error);
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 25px;
+            background-color: #fafafa;
+        }
+        
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid var(--color-borde);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #f9f9f9;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+        
+        /* Estilos para el contenedor de detalles de orden */
+        .order-detail-container {
+            padding: 0 10px;
+        }
+        
+        .order-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-detail-header h3 {
+            margin: 0;
+            color: var(--color-primario);
+            font-size: 1.6rem;
+        }
+        
+        .order-detail-section {
+            margin-bottom: 25px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .order-detail-section h4 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #444;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .order-detail-section h4 i {
+            color: var(--color-primario);
+        }
+        
+        .order-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .order-detail-item {
+            margin-bottom: 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border: 1px solid #eee;
+            display: block;
+        }
+        
+        .order-detail-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        
+        .order-detail-item.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .detail-label {
+            display: block;
+            font-weight: 500;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        
+        .detail-value {
+            color: #333;
+            font-size: 1rem;
+            font-weight: 500;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+        
+        /* Estilos para los badges de estado */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-badge.pendiente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-badge.completado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-badge.en-proceso {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-badge.cancelado {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Estilos para notificaciones */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 3000;
+            transform: translateX(120%);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            max-width: 350px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification.fade-out {
+            transform: translateX(120%) !important;
+            opacity: 0 !important;
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--color-exito);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--color-error);
+        }
+        
+        .notification.warning {
+            border-left: 4px solid var(--color-advertencia);
+        }
+        
+        .notification i {
+            font-size: 1.2rem;
+        }
+        
+        .notification.success i {
+            color: var(--color-exito);
+        }
+        
+        .notification.error i {
+            color: var(--color-error);
+        }
+        
+        .notification.warning i {
+            color: var(--color-advertencia);
+        }
+        
+        .notification span {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        
+        .close-notification {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--color-texto-claro);
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .close-notification:hover {
+            opacity: 1;
+        }
+        
+        /* Estilos para la vista previa de la giftcard */
+        .gift-card-preview {
+            background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+            border-radius: 12px;
+            padding: 25px;
+            color: white;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: none;
+        }
+        
+        .gift-card-preview::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .gift-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .gift-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .gift-card-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .gift-card-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+        
+        .gift-card-details {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .gift-card-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <header class="header">
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <h1><i class="fas fa-shopping-cart"></i> Panel de Órdenes</h1>
+                <div class="view-toggle" style="display: flex !important;">
+                    <button class="view-toggle-btn active" id="tableViewBtn" title="Vista de tabla" style="display: flex !important;">
+                        <i class="fas fa-table"></i> Tabla
+                    </button>
+                    <button class="view-toggle-btn" id="cardsViewBtn" title="Vista de tarjetas" style="display: flex !important;">
+                        <i class="fas fa-th-large"></i> Tarjetas
+                    </button>
+                </div>
+            </div>
+            <div>
+                <span style="margin-right: 10px;">Administrador</span>
+                <img src="https://ui-avatars.com/api/?name=Admin&background=45a36c&color=fff" alt="Usuario" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid white;">
+            </div>
+        </header>
+
+        <div class="panel">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="card-content">
+                    <h3>125</h3>
+                    <p>Total de órdenes</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="card-content">
+                    <h3>98</h3>
+                    <p>Órdenes completadas</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="card-content">
+                    <h3>27</h3>
+                    <p>Órdenes pendientes</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <div class="search-input">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Buscar órdenes...">
+            </div>
+            <div class="search-actions">
+                <button id="export-excel" class="btn btn-outline" title="Exportar a Excel">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Exportar</span>
+                </button>
+                <button id="view-toggle" class="btn btn-outline">
+                    <i class="fas fa-th-large"></i>
+                    <span>Vista de Tarjetas</span>
+                </button>
+                <button class="btn">
+                    <i class="fas fa-plus"></i>
+                    Nueva Orden
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Servicio</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#ORD-001</td>
+                        <td>Juan Pérez</td>
+                        <td>Giftcard Premium</td>
+                        <td>$100.000</td>
+                        <td>02/06/2023</td>
+                        <td><span class="status completed">Completada</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD-002</td>
+                        <td>María González</td>
+                        <td>Giftcard Medium</td>
+                        <td>$60.000</td>
+                        <td>02/06/2023</td>
+                        <td><span class="status pending">Pendiente</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD-003</td>
+                        <td>Carlos López</td>
+                        <td>Giftcard Normal</td>
+                        <td>$30.000</td>
+                        <td>01/06/2023</td>
+                        <td><span class="status processing">En Proceso</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD-004</td>
+                        <td>Ana Martínez</td>
+                        <td>Giftcard Premium</td>
+                        <td>$100.000</td>
+                        <td>01/06/2023</td>
+                        <td><span class="status completed">Completada</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#ORD-005</td>
+                        <td>Roberto Sánchez</td>
+                        <td>Giftcard Medium</td>
+                        <td>$60.000</td>
+                        <td>31/05/2023</td>
+                        <td><span class="status cancelled">Cancelada</span></td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Contenedor para la vista de tarjetas -->
+    <div class="container" id="cardsContainer" style="display: none;">
+        <div class="cards-view" id="ordersCardsView">
+            <!-- Las tarjetas se generarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal de Detalles -->
+    <div class="modal-overlay" id="orderDetailModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Detalles de la Orden</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="orderDetailContent">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="btnProcessOrder">Procesar Orden</button>
+                <button class="btn btn-close" onclick="document.getElementById('orderDetailModal').classList.remove('active')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Edición -->
+    <div class="modal-overlay" id="editOrderModal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar Orden</h3>
+                <button class="modal-close" onclick="document.getElementById('editOrderModal').classList.remove('active')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editOrderForm">
+                    <div class="form-group">
+                        <label for="editOrderId">ID de Orden</label>
+                        <input type="text" id="editOrderId" class="form-control" readonly>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editCustomer">Cliente</label>
+                            <input type="text" id="editCustomer" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editEmail">Email</label>
+                            <input type="email" id="editEmail" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editPhone">Teléfono</label>
+                            <input type="tel" id="editPhone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editStatus">Estado</label>
+                            <select id="editStatus" class="form-control" required>
+                                <option value="pending">Pendiente</option>
+                                <option value="processing">En Proceso</option>
+                                <option value="completed">Completada</option>
+                                <option value="cancelled">Cancelada</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="editService">Servicio</label>
+                            <select id="editService" class="form-control" required>
+                                <option value="Giftcard Premium">Giftcard Premium</option>
+                                <option value="Giftcard Medium">Giftcard Medium</option>
+                                <option value="Giftcard Normal">Giftcard Normal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editAmount">Monto</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" id="editAmount" class="form-control" min="1000" step="1000" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editRecipient">Destinatario</label>
+                        <input type="text" id="editRecipient" class="form-control" placeholder="Nombre del destinatario" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editNotes">Notas Adicionales</label>
+                        <textarea id="editNotes" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editGiftcardCode">Código de Giftcard (opcional)</label>
+                        <input type="text" id="editGiftcardCode" class="form-control" placeholder="Si ya se asignó un código, ingréselo aquí">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnDeleteOrder" style="margin-right: auto;">
+                    <i class="fas fa-trash"></i> Eliminar Orden
+                </button>
+                <button type="button" class="btn btn-outline" onclick="document.getElementById('editOrderModal').classList.remove('active')">
+                    Cancelar
+                </button>
+                <button type="button" class="btn" id="btnSaveChanges">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // Búsqueda en tiempo real
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('.table tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
+        // Ordenar al hacer clic en los encabezados
+        document.querySelectorAll('.table th').forEach((th, index) => {
+            th.addEventListener('click', () => {
+                sortTable(index);
+            });
+            th.style.cursor = 'pointer';
+        });
+        
+        function sortTable(column) {
+            const table = document.querySelector('.table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            const isAscending = table.getAttribute('data-order') === 'asc';
+            
+            rows.sort((a, b) => {
+                const aValue = a.querySelectorAll('td')[column].textContent.trim();
+                const bValue = b.querySelectorAll('td')[column].textContent.trim();
+                
+                return isAscending 
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
+            });
+            
+            // Limpiar el tbody
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+            
+            // Añadir filas ordenadas
+            rows.forEach(row => tbody.appendChild(row));
+            
+            // Actualizar el orden para el próximo clic
+            table.setAttribute('data-order', isAscending ? 'desc' : 'asc');
+        }
+        // Mock de datos para órdenes de ejemplo
+        const mockOrders = {
+            'ORD-001': {
+                id: 'ORD-001',
+                customer: 'Juan Pérez',
+                email: 'juan.perez@example.com',
+                phone: '+56 9 1234 5678',
+                service: 'Giftcard Premium',
+                amount: 100000,
+                date: '02/06/2023',
+                status: 'completed',
+                paymentMethod: 'Tarjeta de crédito',
+                cardNumber: '**** **** **** 5678',
+                recipient: 'Luis Rodríguez',
+                notes: 'Entrega digital por email'                
+            },
+            'ORD-002': {
+                id: 'ORD-002',
+                customer: 'María González',
+                email: 'maria.gonzalez@example.com',
+                phone: '+56 9 8765 4321',
+                service: 'Giftcard Medium',
+                amount: 60000,
+                date: '02/06/2023',
+                status: 'pending',
+                paymentMethod: 'Transferencia bancaria',
+                bankReference: '87654321',
+                recipient: 'Ana Torres',
+                notes: 'Cliente solicitó confirmación por WhatsApp'                
+            },
+            'ORD-003': {
+                id: 'ORD-003',
+                customer: 'Carlos López',
+                email: 'carlos.lopez@example.com',
+                phone: '+56 9 2345 6789',
+                service: 'Giftcard Normal',
+                amount: 30000,
+                date: '01/06/2023',
+                status: 'processing',
+                paymentMethod: 'WebPay',
+                transactionId: 'WP-987654321',
+                recipient: 'Pedro Soto',
+                notes: 'Verificar pago'                
+            },
+            'ORD-004': {
+                id: 'ORD-004',
+                customer: 'Ana Martínez',
+                email: 'ana.martinez@example.com',
+                phone: '+56 9 3456 7890',
+                service: 'Giftcard Premium',
+                amount: 100000,
+                date: '01/06/2023',
+                status: 'completed',
+                paymentMethod: 'Tarjeta de débito',
+                cardNumber: '**** **** **** 1234',
+                recipient: 'Carmen Vega',
+                notes: ''                
+            },
+            'ORD-005': {
+                id: 'ORD-005',
+                customer: 'Roberto Sánchez',
+                email: 'roberto.sanchez@example.com',
+                phone: '+56 9 4567 8901',
+                service: 'Giftcard Medium',
+                amount: 60000,
+                date: '31/05/2023',
+                status: 'cancelled',
+                paymentMethod: 'MercadoPago',
+                transactionId: 'MP-123456789',
+                recipient: 'Javier Muñoz',
+                notes: 'Cliente solicitó cancelación por error en el monto'                
+            }
+        };
+
+        // Función para mostrar el modal de detalles
+        function showOrderDetail(orderId) {
+            try {
+                const orderData = mockOrders[orderId];
+                if (!orderData) {
+                    console.error('No se encontraron datos para la orden:', orderId);
+                    return;
+                }
+                
+                console.log('Mostrando detalles de la orden:', orderData);
+                
+                // Traducciones de estado
+                const statusTranslations = {
+                    'completed': 'Completada',
+                    'pending': 'Pendiente',
+                    'processing': 'En Proceso',
+                    'cancelled': 'Cancelada'
+                };
+                
+                // Formatear monto como moneda
+                const formattedAmount = new Intl.NumberFormat('es-CL', { 
+                    style: 'currency', 
+                    currency: 'CLP',
+                    maximumFractionDigits: 0
+                }).format(orderData.amount || 0);
+                
+                // Determinar la clase CSS para el estado
+                const statusClass = {
+                    'completed': 'completado',
+                    'pending': 'pendiente',
+                    'processing': 'en-proceso',
+                    'cancelled': 'cancelado'
+                }[orderData.status] || '';
+                
+                // Generar contenido HTML del detalle
+                let detailHTML = `
+                    <div class="order-detail-container">
+                        <div class="order-detail-header">
+                            <h3>Detalles de la Orden #${orderData.id}</h3>
+                            <span class="status-badge ${statusClass}">${statusTranslations[orderData.status] || orderData.status}</span>
+                        </div>
+                        
+                        <div class="order-detail-section">
+                            <h4>Información del Cliente</h4>
+                            <div class="order-detail-grid">
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Cliente:</span>
+                                    <span class="detail-value">${orderData.customer || 'No especificado'}</span>
+                                </div>
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Email:</span>
+                                    <span class="detail-value">${orderData.email || 'No especificado'}</span>
+                                </div>
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Teléfono:</span>
+                                    <span class="detail-value">${orderData.phone || 'No especificado'}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-detail-section">
+                            <h4>Detalles del Servicio</h4>
+                            <div class="order-detail-grid">
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Servicio:</span>
+                                    <span class="detail-value">${orderData.service || 'No especificado'}</span>
+                                </div>
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Monto:</span>
+                                    <span class="detail-value">${formattedAmount}</span>
+                                </div>
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Fecha:</span>
+                                    <span class="detail-value">${orderData.date || 'No especificada'}</span>
+                                </div>
+                                <div class="order-detail-item">
+                                    <span class="detail-label">Método de pago:</span>
+                                    <span class="detail-value">${orderData.paymentMethod || 'No especificado'}</span>
+                                </div>
+                            </div>
+                        </div>
+                `;
+                
+                // Agregar información de pago según el método
+                if (orderData.cardNumber || orderData.bankReference || orderData.transactionId) {
+                    detailHTML += `
+                        <div class="order-detail-section">
+                            <h4>Información de Pago</h4>
+                            <div class="order-detail-grid">
+                    `;
+                    
+                    if (orderData.cardNumber) {
+                        detailHTML += `
+                            <div class="order-detail-item">
+                                <span class="detail-label">Tarjeta:</span>
+                                <span class="detail-value">${orderData.cardNumber}</span>
+                            </div>
+                        `;
+                    }
+                    
+                    if (orderData.bankReference) {
+                        detailHTML += `
+                            <div class="order-detail-item">
+                                <span class="detail-label">Referencia:</span>
+                                <span class="detail-value">${orderData.bankReference}</span>
+                            </div>
+                        `;
+                    }
+                    
+                    if (orderData.transactionId) {
+                        detailHTML += `
+                            <div class="order-detail-item">
+                                <span class="detail-label">ID de Transacción:</span>
+                                <span class="detail-value">${orderData.transactionId}</span>
+                            </div>
+                        `;
+                    }
+                    
+                    detailHTML += `
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Agregar información adicional si existe
+                if (orderData.recipient || orderData.notes) {
+                    detailHTML += `
+                        <div class="order-detail-section">
+                            <h4>Información Adicional</h4>
+                            <div class="order-detail-grid">
+                    `;
+                    
+                    if (orderData.recipient) {
+                        detailHTML += `
+                            <div class="order-detail-item">
+                                <span class="detail-label">Destinatario:</span>
+                                <span class="detail-value">${orderData.recipient}</span>
+                            </div>
+                        `;
+                    }
+                    
+                    if (orderData.notes) {
+                        detailHTML += `
+                            <div class="order-detail-item full-width">
+                                <span class="detail-label">Notas:</span>
+                                <span class="detail-value">${orderData.notes}</span>
+                            </div>
+                        `;
+                    }
+                    
+                    detailHTML += `
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Agregar vista previa de la giftcard
+                if (orderData.service && orderData.service.includes('Giftcard')) {
+                    detailHTML += `
+                        <div class="order-detail-section">
+                            <h4>Vista Previa de la Giftcard</h4>
+                            <div class="gift-card-preview">
+                                <div class="gift-card-header">
+                                    <div class="gift-card-title">Giftcard ${orderData.service.includes('Premium') ? 'Premium' : orderData.service.includes('Medium') ? 'Medium' : 'Standard'}</div>
+                                    <div class="gift-card-logo">KS</div>
+                                </div>
+                                <div class="gift-card-amount">${formattedAmount}</div>
+                                <div class="gift-card-details">
+                                    Para: ${orderData.recipient || 'Sin destinatario especificado'}
+                                </div>
+                                <div class="gift-card-footer">
+                                    <div>Kreative Services</div>
+                                    <div>Válido hasta: 01/06/2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Cerrar el contenedor principal
+                detailHTML += `
+                    </div> <!-- Cierre de order-detail-container -->
+                `;
+                
+                // Mostrar el detalle en el modal
+                const detailContainer = document.getElementById('orderDetailContent');
+                if (detailContainer) {
+                    detailContainer.innerHTML = detailHTML;
+                    document.getElementById('orderDetailModal').classList.add('active');
+                    
+                    // Configurar botones de acción
+                    const btnProcess = document.getElementById('btnProcessOrder');
+                    if (btnProcess) {
+                        if (orderData.status === 'pending') {
+                            btnProcess.textContent = 'Procesar Orden';
+                            btnProcess.style.display = 'inline-block';
+                            btnProcess.onclick = () => updateOrderStatus(orderId, 'processing');
+                        } else if (orderData.status === 'processing') {
+                            btnProcess.textContent = 'Completar Orden';
+                            btnProcess.style.display = 'inline-block';
+                            btnProcess.onclick = () => updateOrderStatus(orderId, 'completed');
+                        } else {
+                            btnProcess.style.display = 'none';
+                        }
+                    }
+                    
+                    // Configurar botón de cierre
+                    const closeBtn = document.querySelector('#orderDetailModal .modal-close');
+                    if (closeBtn) {
+                        closeBtn.onclick = () => {
+                            document.getElementById('orderDetailModal').classList.remove('active');
+                        };
+                    }
+                } else {
+                    console.error('No se encontró el contenedor de detalles');
+                }
+                
+            } catch (error) {
+                console.error('Error al mostrar los detalles de la orden:', error);
+                alert('Ocurrió un error al cargar los detalles de la orden. Por favor, inténtalo de nuevo.');
+            }
+        }
+        
+        // Asignar IDs a los botones de vista/edición y agregar eventos
+        const filas = document.querySelectorAll('.table tbody tr');
+        filas.forEach((fila, index) => {
+            // Obtener el ID de la orden desde la celda de ID (la primera columna)
+            const idCelda = fila.querySelector('td:first-child').textContent.trim();
+            const idOrden = idCelda.replace('#', ''); // Quitar el símbolo # si existe
+            
+            // Botón Ver
+            const btnVer = fila.querySelector('.action-btn:first-child');
+            if (btnVer) {
+                btnVer.classList.add('view-order');
+                btnVer.setAttribute('data-order-id', idOrden);
+                
+                // Agregar evento click para ver
+                btnVer.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showOrderDetail(idOrden);
+                });
+            }
+            
+            // Botón Editar
+            const btnEditar = fila.querySelector('.action-btn:nth-child(2)');
+            if (btnEditar) {
+                btnEditar.classList.add('edit-order');
+                btnEditar.setAttribute('data-order-id', idOrden);
+                
+                // Agregar evento click para editar
+                btnEditar.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    editOrder(idOrden);
+                });
+            }
+        });
+        
+        // Cerrar modal
+        document.querySelectorAll('.modal-close').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('orderDetailModal').classList.remove('active');
+            });
+        });
+        
+        // Procesar orden (simulado)
+        document.getElementById('btnProcessOrder').addEventListener('click', function() {
+            alert('Funcionalidad de procesamiento simulada - En un sistema real, esto actualizaría el estado de la orden.');
+            document.getElementById('orderDetailModal').classList.remove('active');
+        });
+        
+        // Exportar a Excel
+        document.getElementById('btnExportar').addEventListener('click', function() {
+            exportTableToExcel();
+        });
+        
+        // Función para abrir el modal de edición
+        function editOrder(orderId) {
+            const orderData = mockOrders[orderId];
+            if (!orderData) return;
+            
+            // Llenar el formulario con los datos actuales
+            document.getElementById('editOrderId').value = orderData.id;
+            document.getElementById('editCustomer').value = orderData.customer;
+            document.getElementById('editEmail').value = orderData.email || '';
+            document.getElementById('editPhone').value = orderData.phone || '';
+            document.getElementById('editStatus').value = orderData.status || 'pending';
+            document.getElementById('editService').value = orderData.service || 'Giftcard Premium';
+            document.getElementById('editAmount').value = orderData.amount || 0;
+            document.getElementById('editRecipient').value = orderData.recipient || '';
+            document.getElementById('editNotes').value = orderData.notes || '';
+            document.getElementById('editGiftcardCode').value = orderData.giftcardCode || '';
+            
+            // Mostrar el modal
+            document.getElementById('editOrderModal').classList.add('active');
+        }
+        
+        // Manejar el envío del formulario de edición
+        document.getElementById('btnSaveChanges').addEventListener('click', function() {
+            const orderId = document.getElementById('editOrderId').value;
+            if (!orderId) return;
+            
+            // Actualizar los datos en mockOrders
+            mockOrders[orderId] = {
+                ...mockOrders[orderId], // Mantener datos existentes
+                customer: document.getElementById('editCustomer').value,
+                email: document.getElementById('editEmail').value,
+                phone: document.getElementById('editPhone').value,
+                status: document.getElementById('editStatus').value,
+                service: document.getElementById('editService').value,
+                amount: parseInt(document.getElementById('editAmount').value),
+                recipient: document.getElementById('editRecipient').value,
+                notes: document.getElementById('editNotes').value,
+                giftcardCode: document.getElementById('editGiftcardCode').value
+            };
+            
+            // Actualizar la fila en la tabla
+            updateOrderRow(orderId);
+            
+            // Cerrar el modal
+            document.getElementById('editOrderModal').classList.remove('active');
+            
+            // Mostrar notificación de éxito
+            alert('¡Los cambios se han guardado correctamente!');
+        });
+        
+        // Función para actualizar una fila en la tabla
+        function updateOrderRow(orderId) {
+            const orderData = mockOrders[orderId];
+            if (!orderData) return;
+            
+            // Encontrar la fila correspondiente
+            const fila = Array.from(document.querySelectorAll('.table tbody tr')).find(tr => {
+                const idCelda = tr.querySelector('td:first-child').textContent.trim();
+                return idCelda === `#${orderId}` || idCelda === orderId;
+            });
+            
+            if (fila) {
+                // Actualizar las celdas con los nuevos datos
+                const celdas = fila.querySelectorAll('td');
+                celdas[1].textContent = orderData.customer; // Cliente
+                celdas[2].textContent = orderData.service;   // Servicio
+                celdas[3].textContent = `$${orderData.amount.toLocaleString()}`; // Monto
+                
+                // Actualizar estado con la clase correcta
+                const statusSpan = celdas[5].querySelector('.status');
+                if (statusSpan) {
+                    // Remover todas las clases de estado
+                    statusSpan.className = 'status';
+                    // Agregar la clase correspondiente al estado actual
+                    statusSpan.classList.add(orderData.status);
+                    // Actualizar el texto
+                    statusSpan.textContent = {
+                        'pending': 'Pendiente',
+                        'processing': 'En Proceso',
+                        'completed': 'Completada',
+                        'cancelled': 'Cancelada'
+                    }[orderData.status] || orderData.status;
+                }
+            }
+        }
+        
+        // Manejar la eliminación de una orden
+        document.getElementById('btnDeleteOrder').addEventListener('click', function() {
+            const orderId = document.getElementById('editOrderId').value;
+            if (!orderId) return;
+            
+            if (confirm(`¿Estás seguro de que deseas eliminar la orden #${orderId}? Esta acción no se puede deshacer.`)) {
+                // Eliminar la orden de mockOrders
+                delete mockOrders[orderId];
+                
+                // Eliminar la fila de la tabla
+                const fila = Array.from(document.querySelectorAll('.table tbody tr')).find(tr => {
+                    const idCelda = tr.querySelector('td:first-child').textContent.trim();
+                    return idCelda === `#${orderId}` || idCelda === orderId;
+                });
+                
+                if (fila) {
+                    fila.remove();
+                }
+                
+                // Cerrar el modal
+                document.getElementById('editOrderModal').classList.remove('active');
+                
+                // Mostrar notificación
+                alert(`La orden #${orderId} ha sido eliminada correctamente.`);
+            }
+        });
+        
+        // Función para exportar la tabla a Excel con formato mejorado
+        async function exportTableToExcel() {
+            // Mostrar un pequeño indicador de carga
+            const btnExportar = document.getElementById('btnExportar');
+            const originalText = btnExportar.innerHTML;
+            btnExportar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generando...';
+            btnExportar.disabled = true;
+            
+            // Usar setTimeout para permitir que la UI se actualice
+            setTimeout(async () => {
+                try {
+                    // Crear un nuevo libro de trabajo con ExcelJS
+                    const workbook = new ExcelJS.Workbook();
+                    workbook.creator = 'Kreative Services';
+                    workbook.lastModifiedBy = 'Panel Administrativo';
+                    workbook.created = new Date();
+                    workbook.modified = new Date();
+                    
+                    // Agregar una hoja de trabajo
+                    const worksheet = workbook.addWorksheet('Órdenes', {
+                        properties: { tabColor: { argb: '45A36C' } }
+                    });
+                    
+                    // Definir las columnas con anchos adecuados
+                    worksheet.columns = [
+                        { header: 'ID', key: 'id', width: 12 },
+                        { header: 'Cliente', key: 'cliente', width: 25 },
+                        { header: 'Servicio', key: 'servicio', width: 20 },
+                        { header: 'Monto', key: 'monto', width: 15 },
+                        { header: 'Fecha', key: 'fecha', width: 15 },
+                        { header: 'Estado', key: 'estado', width: 15 }
+                    ];
+                    
+                    // Dar formato al encabezado
+                    worksheet.getRow(1).eachCell((cell) => {
+                        cell.font = { bold: true, color: { argb: 'FFFFFF' } };
+                        cell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: '45A36C' }
+                        };
+                        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+                        cell.border = {
+                            top: { style: 'thin' },
+                            left: { style: 'thin' },
+                            bottom: { style: 'thin' },
+                            right: { style: 'thin' }
+                        };
+                    });
+                    
+                    // Recopilar datos
+                    const rows = [];
+                    document.querySelectorAll('.table tbody tr').forEach(tr => {
+                        const row = {};
+                        tr.querySelectorAll('td').forEach((td, index) => {
+                            if (index === 0) {
+                                row.id = td.textContent.trim();
+                            } else if (index === 1) {
+                                row.cliente = td.textContent.trim();
+                            } else if (index === 2) {
+                                row.servicio = td.textContent.trim();
+                            } else if (index === 3) {
+                                // Limpiar el formato de moneda para obtener solo el número
+                                const montoTexto = td.textContent.trim();
+                                const montoNumero = parseInt(montoTexto.replace(/[^0-9]/g, ''));
+                                row.monto = montoNumero;
+                            } else if (index === 4) {
+                                row.fecha = td.textContent.trim();
+                            } else if (index === 5) {
+                                const statusSpan = td.querySelector('.status');
+                                if (statusSpan) {
+                                    row.estado = statusSpan.textContent.trim();
+                                    row.estadoClase = statusSpan.classList[1]; // Guardar la clase para los colores
+                                } else {
+                                    row.estado = td.textContent.trim();
+                                }
+                            }
+                        });
+                        rows.push(row);
+                    });
+                    
+                    // Agregar filas al worksheet
+                    rows.forEach(rowData => {
+                        worksheet.addRow(rowData);
+                    });
+                    
+                    // Aplicar formato a las celdas de datos
+                    worksheet.eachRow((row, rowIndex) => {
+                        if (rowIndex > 1) { // Omitir la fila de encabezado
+                            row.eachCell((cell, colIndex) => {
+                                // Formato de borde para todas las celdas
+                                cell.border = {
+                                    top: { style: 'thin' },
+                                    left: { style: 'thin' },
+                                    bottom: { style: 'thin' },
+                                    right: { style: 'thin' }
+                                };
+                                
+                                // Alineación
+                                if (colIndex === 4) { // Columna de Monto
+                                    cell.alignment = { horizontal: 'right' };
+                                    // Formato de moneda
+                                    cell.numFmt = '"$"#,##0';
+                                } else if (colIndex === 1) { // ID
+                                    cell.alignment = { horizontal: 'center' };
+                                } else if (colIndex === 5) { // Fecha
+                                    cell.alignment = { horizontal: 'center' };
+                                } else if (colIndex === 6) { // Estado
+                                    cell.alignment = { horizontal: 'center' };
+                                    
+                                    // Obtener el estado y aplicar color
+                                    const rowData = rows[rowIndex - 2]; // -2 porque tenemos encabezado y los índices empiezan en 0
+                                    if (rowData.estadoClase) {
+                                        // Asignar colores según el estado
+                                        if (rowData.estadoClase === 'completed') {
+                                            cell.fill = {
+                                                type: 'pattern',
+                                                pattern: 'solid',
+                                                fgColor: { argb: 'E6F4EA' } // Verde claro
+                                            };
+                                            cell.font = { color: { argb: '137333' } }; // Verde oscuro
+                                        } else if (rowData.estadoClase === 'pending') {
+                                            cell.fill = {
+                                                type: 'pattern',
+                                                pattern: 'solid',
+                                                fgColor: { argb: 'FEF7E0' } // Amarillo claro
+                                            };
+                                            cell.font = { color: { argb: 'B06000' } }; // Naranja
+                                        } else if (rowData.estadoClase === 'processing') {
+                                            cell.fill = {
+                                                type: 'pattern',
+                                                pattern: 'solid',
+                                                fgColor: { argb: 'E8F0FE' } // Azul claro
+                                            };
+                                            cell.font = { color: { argb: '185ABC' } }; // Azul
+                                        } else if (rowData.estadoClase === 'cancelled') {
+                                            cell.fill = {
+                                                type: 'pattern',
+                                                pattern: 'solid',
+                                                fgColor: { argb: 'FEEAE6' } // Rojo claro
+                                            };
+                                            cell.font = { color: { argb: 'C5221F' } }; // Rojo
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    
+                    // Agregar un título y detalles al inicio
+                    worksheet.insertRow(1, []);
+                    worksheet.insertRow(1, []);
+                    worksheet.insertRow(1, ['Reporte de Órdenes - Kreative Services']);
+                    
+                    // Formatear el título
+                    const titleCell = worksheet.getCell('A1');
+                    titleCell.font = { bold: true, size: 16, color: { argb: '45A36C' } };
+                    worksheet.mergeCells('A1:F1');
+                    titleCell.alignment = { horizontal: 'center' };
+                    
+                    // Fecha de generación
+                    const fechaCell = worksheet.getCell('A2');
+                    const fechaActual = new Date().toLocaleDateString('es-CL', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    fechaCell.value = `Generado el: ${fechaActual}`;
+                    worksheet.mergeCells('A2:F2');
+                    fechaCell.alignment = { horizontal: 'center' };
+                    fechaCell.font = { italic: true, color: { argb: '666666' } };
+                    
+                    // Imagen del logo (simulada con un espacio en blanco)
+                    worksheet.insertRow(3, ['']);
+                    
+                    // Crear un buffer con el archivo
+                    const buffer = await workbook.xlsx.writeBuffer();
+                    
+                    // Usar FileSaver.js para descargar
+                    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                    const fecha = new Date().toISOString().slice(0, 10);
+                    saveAs(blob, `Reporte_Ordenes_${fecha}.xlsx`);
+                    
+                    // Restaurar el botón
+                    btnExportar.innerHTML = originalText;
+                    btnExportar.disabled = false;
+                    
+                } catch (error) {
+                    console.error('Error al generar Excel:', error);
+                    alert('Hubo un error al generar el Excel. Por favor, intenta nuevamente.');
+                    
+                    // Restaurar el botón en caso de error
+                    btnExportar.innerHTML = originalText;
+                    btnExportar.disabled = false;
+                }
+            }, 100); // Pequeño retraso para permitir que se muestre el spinner
+        }
+        
+        // Búsqueda en tiempo real
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('.table tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
+        // Ordenar al hacer clic en los encabezados
+        document.querySelectorAll('.table th').forEach((th, index) => {
+            th.addEventListener('click', () => {
+                sortTable(index);
+            });
+            th.style.cursor = 'pointer';
+        });
+        
+        function sortTable(column) {
+            const table = document.querySelector('.table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            const isAscending = table.getAttribute('data-order') === 'asc';
+            
+            rows.sort((a, b) => {
+                const aValue = a.querySelectorAll('td')[column].textContent.trim();
+                const bValue = b.querySelectorAll('td')[column].textContent.trim();
+                
+                return isAscending 
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
+            });
+            
+            // Limpiar el tbody
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+            
+            // Añadir filas ordenadas
+            rows.forEach(row => tbody.appendChild(row));
+            
+            // Actualizar el orden para el próximo clic
+            table.setAttribute('data-order', isAscending ? 'desc' : 'asc');
+        }
+    </script>
+
+    <script>
+        // Función para cambiar entre vistas
+        function toggleView(view) {
+            const tableView = document.querySelector('.table-container');
+            const cardsView = document.getElementById('cardsContainer');
+            const tableBtn = document.getElementById('tableViewBtn');
+            const cardsBtn = document.getElementById('cardsViewBtn');
+
+            if (view === 'table') {
+                tableView.style.display = 'block';
+                cardsView.style.display = 'none';
+                tableBtn.classList.add('active');
+                cardsBtn.classList.remove('active');
+            } else {
+                tableView.style.display = 'none';
+                cardsView.style.display = 'block';
+                cardsBtn.classList.add('active');
+                tableBtn.classList.remove('active');
+                generateCardsView();
+            }
+        }
+
+        // Función para generar la vista de tarjetas
+        function generateCardsView() {
+            const cardsContainer = document.getElementById('ordersCardsView');
+            const rows = document.querySelectorAll('.table tbody tr');
+            
+            let cardsHTML = '';
+            
+            rows.forEach(row => {
+                const cells = row.cells;
+                const orderId = cells[0].textContent;
+                const customer = cells[1].textContent;
+                const date = cells[2].textContent;
+                const amount = cells[3].textContent;
+                const status = cells[4].textContent.trim().toLowerCase();
+                
+                // Determinar la clase de estado
+                let statusClass = 'pendiente';
+                if (status.includes('completado') || status === 'completada') statusClass = 'completado';
+                else if (status.includes('proceso') || status.includes('en curso')) statusClass = 'en-proceso';
+                
+                cardsHTML += `
+                    <div class="card-order">
+                        <h3>Orden #${orderId}</h3>
+                        <p><i class="fas fa-user"></i> <strong>Cliente:</strong> ${customer}</p>
+                        <p><i class="far fa-calendar-alt"></i> <strong>Fecha:</strong> ${date}</p>
+                        <p><i class="fas fa-dollar-sign"></i> <strong>Monto:</strong> ${amount}</p>
+                        <span class="status ${statusClass}">${status}</span>
+                        <div class="actions">
+                            <button class="btn-view" onclick="showOrderDetail('${orderId}')">
+                                <i class="fas fa-eye"></i> Ver
+                            </button>
+                            <button class="btn-edit" onclick="editOrder('${orderId}')">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cardsContainer.innerHTML = cardsHTML;
+        }
+
+        // Event listeners para los botones de cambio de vista
+        document.getElementById('tableViewBtn').addEventListener('click', () => toggleView('table'));
+        document.getElementById('cardsViewBtn').addEventListener('click', () => toggleView('cards'));
+        
+        // Función para exportar a Excel
+        document.getElementById('export-excel').addEventListener('click', function() {
+            try {
+                // Obtener la tabla
+                const table = document.querySelector('.table');
+                
+                // Crear un nuevo libro de trabajo
+                const wb = XLSX.utils.book_new();
+                
+                // Convertir la tabla a una hoja de trabajo
+                const ws = XLSX.utils.table_to_sheet(table);
+                
+                // Ajustar el ancho de las columnas
+                const wscols = [
+                    {wch: 10},  // ID
+                    {wch: 20},  // Cliente
+                    {wch: 20},  // Servicio
+                    {wch: 15},  // Monto
+                    {wch: 15},  // Fecha
+                    {wch: 15},  // Estado
+                    {wch: 20},  // Acciones
+                ];
+                ws['!cols'] = wscols;
+                
+                // Agregar título
+                XLSX.utils.sheet_add_aoa(ws, [["Reporte de Órdenes - Kreative Services"]], { origin: 'A1' });
+                XLSX.utils.sheet_add_aoa(ws, [[`Generado el: ${new Date().toLocaleDateString('es-CL', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}`]], { origin: 'A2' });
+                
+                // Combinar celdas para el título
+                if (!ws['!merges']) ws['!merges'] = [];
+                ws['!merges'].push({ s: { r: 0, c: 0 }, e: { r: 0, c: 6 } });
+                ws['!merges'].push({ s: { r: 1, c: 0 }, e: { r: 1, c: 6 } });
+                
+                // Agregar la hoja de trabajo al libro
+                XLSX.utils.book_append_sheet(wb, ws, 'Órdenes');
+                
+                // Generar el archivo Excel
+                const fileName = `reporte_ordenes_${new Date().toISOString().split('T')[0]}.xlsx`;
+                XLSX.writeFile(wb, fileName);
+                
+                // Mostrar notificación de éxito
+                showNotification('Archivo Excel generado correctamente', 'success');
+            } catch (error) {
+                console.error('Error al exportar a Excel:', error);
+                showNotification('Error al exportar a Excel', 'error');
+            }
+        });
+        
+        // Función para mostrar notificaciones
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type} show`;
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                <span>${message}</span>
+                <button class="close-notification">&times;</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-eliminar después de 5 segundos
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+            
+            // Cerrar manualmente
+            notification.querySelector('.close-notification').addEventListener('click', () => {
+                notification.classList.add('fade-out');
+                setTimeout(() => notification.remove(), 300);
+            });
+        }
+    </script>
+</body>
+</html>
