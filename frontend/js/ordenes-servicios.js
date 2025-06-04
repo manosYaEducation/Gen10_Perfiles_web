@@ -1,33 +1,33 @@
 // Datos mock que simulan lo que llegará desde el backend
-const mockOrdenes = [
-  {
-    id: "ORD-001",
-    cliente: "Empresa Alpha",
-    fechaCompra: "2025-06-02",
-    totalPagado: 150000,
-    tipoServicio: "Campañas RRSS Premium",
-    fechaServicio: "2025-06-12 11:00",
-    estado: "Pendiente"
-  },
-  {
-    id: "ORD-002",
-    cliente: "Cliente Beta",
-    fechaCompra: "2025-06-01",
-    totalPagado: 100000,
-    tipoServicio: "Landing Page",
-    fechaServicio: "2025-06-15 15:00",
-    estado: "Completado"
-  },
-  {
-    id: "ORD-003",
-    cliente: "Negocio Gamma",
-    fechaCompra: "2025-05-28",
-    totalPagado: 250000,
-    tipoServicio: "Desarrollo E-Commerce",
-    fechaServicio: "2025-06-20 09:30",
-    estado: "En Progreso"
-  }
-];
+// const mockOrdenes = [
+//   {
+//     id: "ORD-001",
+//     cliente: "Empresa Alpha",
+//     fechaCompra: "2025-06-02",
+//     totalPagado: 150000,
+//     tipoServicio: "Campañas RRSS Premium",
+//     fechaServicio: "2025-06-12 11:00",
+//     estado: "Pendiente"
+//   },
+//   {
+//     id: "ORD-002",
+//     cliente: "Cliente Beta",
+//     fechaCompra: "2025-06-01",
+//     totalPagado: 100000,
+//     tipoServicio: "Landing Page",
+//     fechaServicio: "2025-06-15 15:00",
+//     estado: "Completado"
+//   },
+//   {
+//     id: "ORD-003",
+//     cliente: "Negocio Gamma",
+//     fechaCompra: "2025-05-28",
+//     totalPagado: 250000,
+//     tipoServicio: "Desarrollo E-Commerce",
+//     fechaServicio: "2025-06-20 09:30",
+//     estado: "En Progreso"
+//   }
+// ];
 
 // DOM Elements
 const cardsViewBtn = document.getElementById("cardsViewBtn");
@@ -40,7 +40,8 @@ const adminTablaOrdenesContainer = document.getElementById("admin-tabla-ordenes-
 const adminTablaOrdenesBody = document.getElementById("admin-tabla-ordenes-body");
 const inputFecha = document.getElementById("buscadorFecha");
 
-let ordenesFiltradas = [];
+let ordenesOriginales = []; // Para almacenar todas las órdenes de la API
+let ordenesFiltradas = []; // Para almacenar las órdenes filtradas por fecha
 
 // Original mockOrdenes for reference if needed, but we'll use the new one above.
 /*
@@ -183,11 +184,106 @@ function renderizarVistaActual(datos) {
   }
 }
 
+// Función para cargar órdenes desde la API
+async function cargarOrdenesDesdeAPI() {
+  try {
+    const response = await fetch('../pruebatraerinfodesdemoduloservicio/llamar_modulo_servicio.php', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Datos recibidos de la API:', data);
+
+    // Mapear los datos de la API a la estructura que esperan las funciones de renderizado
+    ordenesOriginales = data.map(ordenAPI => {
+      const clienteNombre = (ordenAPI.nombre || '') + ' ' + (ordenAPI.apellido || '');
+      let fechaCompraFormateada = 'N/A';
+      if (ordenAPI.fecha_creacion) {
+        try {
+          fechaCompraFormateada = new Date(ordenAPI.fecha_creacion).toISOString().split('T')[0];
+        } catch (e) {
+          console.error("Error al formatear fecha_creacion:", ordenAPI.fecha_creacion, e);
+        }
+      }
+
+      let calculadoTotalPagado = 0;
+      let calculadoTipoServicio = 'N/A';
+
+      if (ordenAPI.servicios_json) {
+        try {
+          const servicios = JSON.parse(ordenAPI.servicios_json);
+          if (Array.isArray(servicios) && servicios.length > 0) {
+            // Calcular totalPagado
+            servicios.forEach(servicio => {
+              calculadoTotalPagado += parseFloat(servicio.precio || 0);
+              // Considerar precios de opciones seleccionadas si es necesario
+              if (Array.isArray(servicio.opcionesSeleccionadas)) {
+                servicio.opcionesSeleccionadas.forEach(opcion => {
+                  if (opcion.seleccionado && opcion.precio) { // Asumiendo que 'seleccionado' es un booleano
+                    calculadoTotalPagado += parseFloat(opcion.precio);
+                  }
+                });
+              }
+            });
+
+            // Determinar tipoServicio (nombre del primer servicio)
+            calculadoTipoServicio = servicios[0].nombre || 'Servicio sin nombre';
+            if (servicios.length > 1) {
+              // Opcional: ajustar si hay múltiples servicios
+              // calculadoTipoServicio += ' y otros'; 
+            }
+          }
+        } catch (e) {
+          console.error('Error al parsear servicios_json o procesar servicios:', ordenAPI.servicios_json, e);
+          // Mantener valores por defecto si hay error
+        }
+      }
+
+      const totalPagado = calculadoTotalPagado;
+      const tipoServicio = calculadoTipoServicio;
+      const fechaServicio = fechaCompraFormateada; // Usar la misma fecha que fechaCompra (derivada de fecha_creacion)
+      const estado = ordenAPI.estado_pago || 'Pendiente';
+
+      return {
+        id: ordenAPI.id,
+        cliente: clienteNombre.trim() || 'N/A',
+        fechaCompra: fechaCompraFormateada,
+        totalPagado: totalPagado,
+        tipoServicio: tipoServicio,
+        fechaServicio: fechaServicio,
+        estado: estado,
+        servicios_json: ordenAPI.servicios_json // Mantener para futuro uso
+      };
+    });
+
+    console.log('Órdenes mapeadas:', ordenesOriginales); // Para depuración
+    ordenesFiltradas = [...ordenesOriginales];
+    renderizarVistaActual(ordenesFiltradas);
+    actualizarContenedoresVista('tarjetas'); // Asegurar que la vista inicial se muestre
+
+  } catch (error) {
+    console.error('Error al cargar órdenes desde la API:', error);
+    // Opcional: Mostrar un mensaje al usuario en la UI
+    const contenedor = document.getElementById("contenedor-ordenes") || document.getElementById("tabla-ordenes-simple-body") || document.getElementById("admin-tabla-ordenes-body");
+    if(contenedor) contenedor.innerHTML = "<p>Error al cargar las órdenes. Intente más tarde.</p>";
+    // Fallback a mock data o dejar vacío
+    // ordenesOriginales = [...mockOrdenes]; // Descomentar si se quiere usar mock data como fallback
+    // ordenesFiltradas = [...ordenesOriginales];
+    // renderizarVistaActual(ordenesFiltradas);
+  }
+}
+
 // Event Listeners y Lógica Principal
 document.addEventListener("DOMContentLoaded", () => {
-  actualizarContenedoresVista('tarjetas'); // Vista inicial
-  renderizarTarjetasView(mockOrdenes);
-  ordenesFiltradas = [...mockOrdenes]; // Inicializar con todas las órdenes
+  cargarOrdenesDesdeAPI(); // Cargar datos de la API al iniciar
+  // La vista inicial y renderizado se manejan dentro de cargarOrdenesDesdeAPI después de obtener los datos
 
   cardsViewBtn.addEventListener("click", () => {
     actualizarContenedoresVista('tarjetas');
@@ -208,12 +304,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const valor = inputFecha.value.trim(); // formato yyyy-mm-dd
 
     if (valor === "") {
-        ordenesFiltradas = [...mockOrdenes];
+      ordenesFiltradas = [...ordenesOriginales]; // Usar datos originales de la API
       renderizarVistaActual(ordenesFiltradas);
       return;
     }
 
-    const filtradas = mockOrdenes.filter((orden) =>
+    const filtradas = ordenesOriginales.filter((orden) =>
       orden.fechaCompra.includes(valor)
     );
 
@@ -238,7 +334,8 @@ if (exportExcelBtn) {
 
 function exportarOrdenesExcel() {
     // Usar 'ordenesFiltradas' para asegurar que se exportan los datos actualmente visibles/filtrados
-    const dataToExport = ordenesFiltradas.length > 0 ? ordenesFiltradas : mockOrdenes;
+    // Si ordenesFiltradas está vacío pero hay ordenesOriginales (ej. filtro no arroja resultados), exportar las originales o un array vacío.
+    const dataToExport = ordenesFiltradas.length > 0 ? ordenesFiltradas : (inputFecha.value.trim() === '' ? ordenesOriginales : []);
 
     if (dataToExport.length === 0) {
         showNotification("No hay datos para exportar.", "warning");

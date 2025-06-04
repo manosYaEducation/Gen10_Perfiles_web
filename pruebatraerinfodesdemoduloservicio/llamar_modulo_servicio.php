@@ -1,17 +1,38 @@
 <?php
-$url = 'http://localhost/modulo-de-servicios/back/api/json_ordenes.php';
+header('Content-Type: application/json');
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$servername = "localhost";
+$username = "root"; // Ajusta si tu usuario es diferente
+$password = ""; // Ajusta si tienes contraseña
+$dbname = "modulo_3_pasos";
 
-$response = curl_exec($ch);
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-if(curl_errno($ch)) {
-    echo 'Error en cURL: ' . curl_error($ch);
-} else {
-    echo $response;
+// Verificar conexión
+if ($conn->connect_error) {
+    echo json_encode(['error' => 'Error de conexión: ' . $conn->connect_error]);
+    die();
 }
 
-curl_close($ch);
+$sql = "SELECT id, nombre, apellido, correo, telefono, servicios_json, estado_pago, fecha_creacion FROM ordenes";
+$result = $conn->query($sql);
+
+$ordenes = [];
+
+if ($result) {
+    if ($result->num_rows > 0) {
+        // Obtener datos de cada fila
+        while($row = $result->fetch_assoc()) {
+            $ordenes[] = $row;
+        }
+        echo json_encode($ordenes);
+    } else {
+        echo json_encode([]); // Enviar un array vacío si no hay órdenes
+    }
+} else {
+    echo json_encode(['error' => 'Error en la consulta: ' . $conn->error]);
+}
+
+$conn->close();
 ?>
