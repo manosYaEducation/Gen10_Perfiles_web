@@ -1,34 +1,3 @@
-// Datos mock que simulan lo que llegará desde el backend
-// const mockOrdenes = [
-//   {
-//     id: "ORD-001",
-//     cliente: "Empresa Alpha",
-//     fechaCompra: "2025-06-02",
-//     totalPagado: 150000,
-//     tipoServicio: "Campañas RRSS Premium",
-//     fechaServicio: "2025-06-12 11:00",
-//     estado: "Pendiente"
-//   },
-//   {
-//     id: "ORD-002",
-//     cliente: "Cliente Beta",
-//     fechaCompra: "2025-06-01",
-//     totalPagado: 100000,
-//     tipoServicio: "Landing Page",
-//     fechaServicio: "2025-06-15 15:00",
-//     estado: "Completado"
-//   },
-//   {
-//     id: "ORD-003",
-//     cliente: "Negocio Gamma",
-//     fechaCompra: "2025-05-28",
-//     totalPagado: 250000,
-//     tipoServicio: "Desarrollo E-Commerce",
-//     fechaServicio: "2025-06-20 09:30",
-//     estado: "En Progreso"
-//   }
-// ];
-
 // DOM Elements
 const cardsViewBtn = document.getElementById("cardsViewBtn");
 const cardsContainer = document.getElementById("contenedor-ordenes"); 
@@ -54,36 +23,6 @@ const formEditarOrden = document.getElementById('formEditarOrden'); // Para el e
 
 let ordenesOriginales = []; // Para almacenar todas las órdenes de la API
 let ordenesFiltradas = []; // Para almacenar las órdenes filtradas por fecha
-
-// Original mockOrdenes for reference if needed, but we'll use the new one above.
-/*
-const mockOrdenes = [
-  {
-    fechaCompra: "2025-06-02",
-    totalPagado: 150000,
-    tipoServicio: "Campañas RRSS Premium",
-    fechaServicio: "2025-06-12 11:00"
-  },
-  {
-    fechaCompra: "2025-06-01",
-    totalPagado: 100000,
-    tipoServicio: "Landing Page",
-    fechaServicio: "2025-06-15 15:00"
-  },
-  {
-    fechaCompra: "2025-05-28",
-    totalPagado: 250000,
-    tipoServicio: "Desarrollo E-Commerce",
-    fechaServicio: "2025-06-20 09:30"
-  }
-];
-*/
-
-//fetch("https://tu-backend.com/api/ordenes")
-//  .then(res => res.json())
-//  .then(data => renderizarOrdenes(data));
-
-
 
 // Función para renderizar la vista de TARJETAS
 function renderizarTarjetasView(ordenes) {
