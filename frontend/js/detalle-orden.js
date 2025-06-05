@@ -7,13 +7,65 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // Formatear la fecha y hora del servicio
+  const fechaServicio = new Date(orden.fechaServicio);
+  const fechaFormateada = fechaServicio.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  const horaFormateada = fechaServicio.toLocaleTimeString('es-ES', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
   contenedor.innerHTML = `
-    <h2>${orden.tipoServicio}</h2>
-    <div class="detalle-linea"><i class="fas fa-circle-user"></i> <strong>Nombre y Apellido:</strong> ${orden.cliente}</div>
-    <div class="detalle-linea"><i class="fas fa-phone"></i> <strong>Numero:</strong> ${orden.numero}</div>
-    <div class="detalle-linea"><i class="fas fa-envelope"></i> <strong>Correo:</strong> ${orden.correo}</div>
-    <div class="detalle-linea"><i class="fas fa-calendar-alt"></i> <strong>Fecha de compra:</strong> ${orden.fechaCompra}</div>
-    <div class="detalle-linea"><i class="fas fa-dollar-sign"></i> <strong>Total pagado:</strong> $${orden.totalPagado.toLocaleString()}</div>
-    <div class="detalle-linea"><i class="fas fa-clock"></i> <strong>Fecha agendamiento de servicio:</strong> ${orden.fechaServicio}</div>
+    <div class="detalle-orden-container">
+      <h2 class="detalle-orden-titulo">${orden.tipoServicio}</h2>
+      
+      <div class="detalle-linea">
+        <i class="fas fa-circle-user"></i>
+        <strong>Nombre y Apellido:</strong>
+        <span>${orden.cliente}</span>
+      </div>
+      
+      <div class="detalle-linea">
+        <i class="fas fa-phone"></i>
+        <strong>Número:</strong>
+        <span>${orden.numero}</span>
+      </div>
+      
+      <div class="detalle-linea">
+        <i class="fas fa-envelope"></i>
+        <strong>Correo:</strong>
+        <span>${orden.correo}</span>
+      </div>
+      
+      <div class="detalle-linea">
+        <i class="fas fa-calendar-alt"></i>
+        <strong>Fecha de compra:</strong>
+        <span>${orden.fechaCompra}</span>
+      </div>
+      
+      <div class="detalle-linea">
+        <i class="fas fa-dollar-sign"></i>
+        <strong>Total pagado:</strong>
+        <span>$${orden.totalPagado.toLocaleString()}</span>
+      </div>
+
+      <div class="fecha-hora-container">
+        <div class="detalle-linea">
+          <i class="fas fa-calendar"></i>
+          <strong>Fecha de servicio:</strong>
+          <span>${fechaFormateada}</span>
+        </div>
+        
+        <div class="detalle-linea">
+          <i class="fas fa-clock"></i>
+          <strong>Hora de servicio:</strong>
+          <span>${horaFormateada}</span>
+        </div>
+      </div>
+    </div>
   `;
 });
