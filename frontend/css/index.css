@@ -1597,3 +1597,64 @@ p {
         font-size: 1em;
     }
 }
+
+/* Estilos para el botón de login */
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #4CAF50;
+}
+
+.login-btn:hover {
+    background-color: #3d8b40;
+    border-color: #3d8b40;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn i {
+    font-size: 1.1em;
+}
+
+body.dark-mode .login-btn {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+body.dark-mode .login-btn:hover {
+    background-color: #3d8b40;
+    border-color: #3d8b40;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.hero-buttons .btnr {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-buttons .btnr {
+        width: 100%;
+        max-width: 300px;
+    }
+}
