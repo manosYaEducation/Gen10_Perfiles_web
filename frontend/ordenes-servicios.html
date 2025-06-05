@@ -111,6 +111,58 @@
     <!-- Fin Vista de tabla estilo Admin -->
   </main>
 
+  <!-- Modal para Editar Orden -->
+  <div id="modalEditarOrden" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <span class="modal-close-btn" onclick="cerrarModalEditar()">&times;</span>
+      <h2>Editar Orden</h2>
+      <form id="formEditarOrden" onsubmit="event.preventDefault(); guardarCambiosOrden();">
+        <input type="hidden" id="editOrdenId" name="id">
+        
+        <div class="form-group">
+          <label for="editOrdenDisplayId">ID Orden:</label>
+          <input type="text" id="editOrdenDisplayId" name="displayId" readonly class="form-control-readonly">
+        </div>
+  
+        <div class="form-group">
+          <label for="editNombreCliente">Nombre:</label>
+          <input type="text" id="editNombreCliente" name="nombre" required class="form-control">
+        </div>
+  
+        <div class="form-group">
+          <label for="editApellidoCliente">Apellido:</label>
+          <input type="text" id="editApellidoCliente" name="apellido" class="form-control">
+        </div>
+  
+        <div class="form-group">
+          <label for="editCorreoCliente">Correo Electrónico:</label>
+          <input type="email" id="editCorreoCliente" name="correo" class="form-control">
+        </div>
+  
+        <div class="form-group">
+          <label for="editTelefonoCliente">Teléfono:</label>
+          <input type="tel" id="editTelefonoCliente" name="telefono" class="form-control">
+        </div>
+  
+        <div class="form-group">
+          <label for="editEstadoOrden">Estado de la Orden:</label>
+          <select id="editEstadoOrden" name="estado" class="form-control">
+            <option value="Pendiente">Pendiente</option>
+            <option value="En Progreso">En Progreso</option>
+            <option value="Completado">Completado</option>
+            <option value="Cancelado">Cancelado</option>
+          </select>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="cerrarModalEditar()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">

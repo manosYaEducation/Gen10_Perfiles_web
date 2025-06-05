@@ -41,6 +41,17 @@ const adminTablaOrdenesBody = document.getElementById("admin-tabla-ordenes-body"
 const inputFecha = document.getElementById("buscadorFecha");
 const filtroEstado = document.getElementById("filtroEstado");
 
+// Elementos del Modal de Edición
+const modalEditarOrden = document.getElementById('modalEditarOrden');
+const editOrdenId = document.getElementById('editOrdenId');
+const editOrdenDisplayId = document.getElementById('editOrdenDisplayId');
+const editNombreCliente = document.getElementById('editNombreCliente');
+const editApellidoCliente = document.getElementById('editApellidoCliente');
+const editCorreoCliente = document.getElementById('editCorreoCliente');
+const editTelefonoCliente = document.getElementById('editTelefonoCliente');
+const editEstadoOrden = document.getElementById('editEstadoOrden');
+const formEditarOrden = document.getElementById('formEditarOrden'); // Para el evento submit y reseteo opcional
+
 let ordenesOriginales = []; // Para almacenar todas las órdenes de la API
 let ordenesFiltradas = []; // Para almacenar las órdenes filtradas por fecha
 
@@ -155,8 +166,8 @@ function renderizarAdminTablaView(ordenes) {
       </td>
       <td style="padding: 10px 15px; text-align: center;">
         <button class="btn-accion-tabla" onclick='verDetalle(${JSON.stringify(orden)})' title="Ver Detalles" style="background: none; border: none; color: #007bff; cursor: pointer; margin-right: 8px;"><i class="fas fa-eye"></i></button>
-        <button class="btn-accion-tabla" onclick='console.log("Editar orden:", ${JSON.stringify(orden)})' title="Editar" style="background: none; border: none; color: #ffc107; cursor: pointer; margin-right: 8px;"><i class="fas fa-edit"></i></button>
-        <button class="btn-accion-tabla" onclick='console.log("Eliminar orden:", ${JSON.stringify(orden)})' title="Eliminar" style="background: none; border: none; color: #dc3545; cursor: pointer;"><i class="fas fa-trash"></i></button>
+        <button class="btn-accion-tabla" onclick='abrirModalEditar(${JSON.stringify(orden)})' title="Editar" style="background: none; border: none; color: #ffc107; cursor: pointer; margin-right: 8px;"><i class="fas fa-edit"></i></button>
+        <button class="btn-accion-tabla" onclick='confirmarEliminar("${orden.id}")' title="Eliminar" style="background: none; border: none; color: #dc3545; cursor: pointer;"><i class="fas fa-trash"></i></button>
       </td>
     `;
     adminTablaOrdenesBody.appendChild(tr);
@@ -257,7 +268,11 @@ async function cargarOrdenesDesdeAPI() {
 
       return {
         id: ordenAPI.id,
-        cliente: clienteNombre.trim() || 'N/A',
+        cliente: clienteNombre.trim() || 'N/A', // Nombre completo para visualización en tabla
+        nombre: ordenAPI.nombre || '', // Individual para el modal
+        apellido: ordenAPI.apellido || '', // Individual para el modal
+        correo: ordenAPI.correo || '', // Para el modal
+        telefono: ordenAPI.telefono || '', // Para el modal
         fechaCompra: fechaCompraFormateada,
         totalPagado: totalPagado,
         tipoServicio: tipoServicio,
@@ -329,6 +344,136 @@ function verDetalle(ordenJson) {
   const orden = typeof ordenJson === 'string' ? JSON.parse(ordenJson.replace(/&quot;/g, '"')) : ordenJson;
   localStorage.setItem("ordenSeleccionada", JSON.stringify(orden));
   window.location.href = "detalle-orden.html";
+}
+
+// Funciones para Modificar y Eliminar Órdenes (Admin)
+function abrirModalEditar(orden) { // orden es el objeto de la orden
+  if (!modalEditarOrden || !orden) {
+    console.error("Modal de edición o datos de la orden no encontrados.");
+    showNotification("Error al intentar abrir el editor de órdenes.", "error");
+    return;
+  }
+
+  console.log("Abriendo modal para editar orden:", orden);
+
+  // Poblar el formulario con los datos de la orden
+  // El objeto 'orden' que llega aquí ya tiene 'nombre' y 'apellido' separados
+  // gracias al mapeo en cargarOrdenesDesdeAPI
+  editOrdenId.value = orden.id;
+  editOrdenDisplayId.value = orden.id; // Mostrar el ID
+  editNombreCliente.value = orden.nombre || '';
+  editApellidoCliente.value = orden.apellido || '';
+  editCorreoCliente.value = orden.correo || '';
+  editTelefonoCliente.value = orden.telefono || '';
+  editEstadoOrden.value = orden.estado || 'Pendiente'; // Asegurar un valor por defecto si no viene
+
+  modalEditarOrden.style.display = 'flex';
+}
+
+function confirmarEliminar(ordenId) {
+  console.log("Confirmar eliminar orden ID:", ordenId);
+  if (window.confirm(`¿Estás seguro de que deseas eliminar la orden ID: ${ordenId}? Esta acción no se puede deshacer.`)) {
+    eliminarOrden(ordenId);
+  }
+}
+
+function eliminarOrden(ordenId) {
+  console.log("Intentando eliminar orden ID:", ordenId);
+  showNotification(`Eliminando orden ID: ${ordenId}...`, 'info');
+
+  fetch('../api/ordenes/eliminar_orden.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ id: ordenId }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showNotification(data.message || 'Orden eliminada exitosamente.', 'success');
+      // Recargar las órdenes para reflejar la eliminación
+      cargarOrdenesDesdeAPI(); 
+    } else {
+      showNotification(data.message || 'Error al eliminar la orden.', 'error');
+      console.error('Error al eliminar:', data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error en fetch al eliminar orden:', error);
+    showNotification('Error de conexión al intentar eliminar la orden.', 'error');
+  });
+}
+
+function guardarCambiosOrden() { // No necesita 'datosOrden' como parámetro si toma los datos del form
+  if (!formEditarOrden) {
+    console.error("Formulario de edición no encontrado.");
+    showNotification("Error: No se pudo encontrar el formulario de edición.", "error");
+    return;
+  }
+
+  const idOrden = editOrdenId.value;
+  const nombre = editNombreCliente.value;
+  const apellido = editApellidoCliente.value;
+  const correo = editCorreoCliente.value;
+  const telefono = editTelefonoCliente.value;
+  const estado = editEstadoOrden.value;
+
+  const datosActualizados = {
+    id: idOrden,
+    nombre: nombre,
+    apellido: apellido,
+    correo: correo,
+    telefono: telefono,
+    estado: estado
+  };
+
+  console.log("Guardando cambios para la orden:", datosActualizados);
+
+  // Enviar los datos actualizados al backend
+  fetch('../api/ordenes/modificar_orden.php', { // Ajustada la ruta para salir de 'js' y entrar a 'api'
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(datosActualizados)
+  })
+  .then(response => {
+    if (!response.ok) {
+      // Si la respuesta no es OK (ej. 404, 500), intentar leer como texto para más detalles
+      return response.text().then(text => { 
+        throw new Error(`Error del servidor: ${response.status} ${response.statusText}. Detalles: ${text}`); 
+      });
+    }
+    return response.json(); // Si es OK, procesar como JSON
+  })
+  .then(data => {
+    if (data.success) {
+      showNotification(data.message || 'Orden actualizada exitosamente.', 'success');
+      cargarOrdenesDesdeAPI(); // Recargar los datos para reflejar los cambios
+      cerrarModalEditar();
+    } else {
+      showNotification(data.message || 'Error al actualizar la orden desde el backend.', 'error');
+      console.error('Error desde el backend al modificar:', data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error en fetch al modificar orden:', error);
+    showNotification(`Error de conexión o al procesar la respuesta: ${error.message}`, 'error');
+  });
+
+  // No cerramos el modal aquí, se cierra en el .then() si la operación es exitosa.
+}
+
+// Función para cerrar el modal de edición
+function cerrarModalEditar() {
+  if (modalEditarOrden) {
+    modalEditarOrden.style.display = 'none';
+  }
+  // Opcional: Limpiar el formulario si es necesario para evitar datos residuales en la próxima apertura
+  // if (formEditarOrden) {
+  //   formEditarOrden.reset(); 
+  // }
 }
 
 // La función de exportar a Excel y notificaciones (previamente implementada)
