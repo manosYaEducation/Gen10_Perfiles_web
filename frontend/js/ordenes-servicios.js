@@ -39,6 +39,7 @@ const adminTableViewBtn = document.getElementById("adminTableViewBtn");
 const adminTablaOrdenesContainer = document.getElementById("admin-tabla-ordenes-container");
 const adminTablaOrdenesBody = document.getElementById("admin-tabla-ordenes-body");
 const inputFecha = document.getElementById("buscadorFecha");
+const filtroEstado = document.getElementById("filtroEstado");
 
 let ordenesOriginales = []; // Para almacenar todas las órdenes de la API
 let ordenesFiltradas = []; // Para almacenar las órdenes filtradas por fecha
@@ -300,9 +301,12 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarAdminTablaView(ordenesFiltradas);
   });
 
-  inputFecha.addEventListener("input", () => {
-    const valor = inputFecha.value.trim(); // formato yyyy-mm-dd
+  // Función para aplicar filtros
+  function aplicarFiltros() {
+    const fechaValor = inputFecha.value.trim();
+    const estadoValor = filtroEstado.value;
 
+<<<<<<< HEAD
     if (valor === "") {
       ordenesFiltradas = [...ordenesOriginales]; // Usar datos originales de la API
       renderizarVistaActual(ordenesFiltradas);
@@ -312,10 +316,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const filtradas = ordenesOriginales.filter((orden) =>
       orden.fechaCompra.includes(valor)
     );
+=======
+    ordenesFiltradas = mockOrdenes.filter(orden => {
+      const cumpleFecha = fechaValor === "" || orden.fechaCompra.includes(fechaValor);
+      const cumpleEstado = estadoValor === "" || orden.estado === estadoValor;
+      return cumpleFecha && cumpleEstado;
+    });
 
-      ordenesFiltradas = filtradas;
-      renderizarVistaActual(ordenesFiltradas);
-  });
+    renderizarVistaActual(ordenesFiltradas);
+  }
+>>>>>>> Features/Fpalaci0s/2025-06-04-FiltrosEstado
+
+  inputFecha.addEventListener("input", aplicarFiltros);
+  filtroEstado.addEventListener("change", aplicarFiltros);
 });
 
 function verDetalle(ordenJson) {
