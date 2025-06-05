@@ -1,30 +1,88 @@
-.detalle-contenedor {
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 2rem;
+.detalle-orden-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.detalle-tarjeta {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-  padding: 2rem;
-  font-family: 'Poppins', sans-serif;
-}
-
-.detalle-tarjeta h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.2rem;
-  color: #314438;
+.detalle-orden-titulo {
+    color: #4CAF50;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #4CAF50;
 }
 
 .detalle-linea {
-  margin: 1rem 0;
-  font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+.detalle-linea:hover {
+    transform: translateX(10px);
+    background: #e9ecef;
 }
 
 .detalle-linea i {
-  margin-right: 0.5rem;
-  color: #4CAF50;
+    font-size: 1.2rem;
+    color: #4CAF50;
+    margin-right: 1rem;
+    width: 25px;
+    text-align: center;
+}
+
+.detalle-linea strong {
+    color: #495057;
+    margin-right: 0.5rem;
+    min-width: 180px;
+}
+
+.fecha-hora-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #e8f5e9;
+    border-radius: 10px;
+    border-left: 4px solid #4CAF50;
+}
+
+.fecha-hora-container .detalle-linea {
+    background: white;
+    margin: 0;
+}
+
+.fecha-hora-container .detalle-linea i {
+    color: #2e7d32;
+}
+
+@media (max-width: 768px) {
+    .detalle-orden-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .detalle-linea {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .detalle-linea i {
+        margin-right: 0;
+    }
+
+    .detalle-linea strong {
+        min-width: auto;
+    }
 }
 
