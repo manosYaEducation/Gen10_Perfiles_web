@@ -306,17 +306,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const fechaValor = inputFecha.value.trim();
     const estadoValor = filtroEstado.value;
 
-<<<<<<< HEAD
-    if (valor === "") {
-      ordenesFiltradas = [...ordenesOriginales]; // Usar datos originales de la API
-      renderizarVistaActual(ordenesFiltradas);
-      return;
-    }
-
-    const filtradas = ordenesOriginales.filter((orden) =>
-      orden.fechaCompra.includes(valor)
-    );
-=======
     ordenesFiltradas = mockOrdenes.filter(orden => {
       const cumpleFecha = fechaValor === "" || orden.fechaCompra.includes(fechaValor);
       const cumpleEstado = estadoValor === "" || orden.estado === estadoValor;
@@ -325,7 +314,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderizarVistaActual(ordenesFiltradas);
   }
->>>>>>> Features/Fpalaci0s/2025-06-04-FiltrosEstado
 
   inputFecha.addEventListener("input", aplicarFiltros);
   filtroEstado.addEventListener("change", aplicarFiltros);
