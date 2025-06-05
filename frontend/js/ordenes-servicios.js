@@ -251,6 +251,9 @@ async function cargarOrdenesDesdeAPI() {
       const tipoServicio = calculadoTipoServicio;
       const fechaServicio = fechaCompraFormateada; // Usar la misma fecha que fechaCompra (derivada de fecha_creacion)
       const estado = ordenAPI.estado_pago || 'Pendiente';
+      const numero = ordenAPI.telefono;
+      const correo = ordenAPI.correo;
+
 
       return {
         id: ordenAPI.id,
@@ -260,7 +263,9 @@ async function cargarOrdenesDesdeAPI() {
         tipoServicio: tipoServicio,
         fechaServicio: fechaServicio,
         estado: estado,
-        servicios_json: ordenAPI.servicios_json // Mantener para futuro uso
+        servicios_json: ordenAPI.servicios_json, // Mantener para futuro uso
+        numero:numero,
+        correo:correo
       };
     });
 
