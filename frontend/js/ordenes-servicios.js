@@ -321,11 +321,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const fechaValor = inputFecha.value.trim();
     const estadoValor = filtroEstado.value;
 
-    ordenesFiltradas = mockOrdenes.filter(orden => {
-      const cumpleFecha = fechaValor === "" || orden.fechaCompra.includes(fechaValor);
-      const cumpleEstado = estadoValor === "" || orden.estado === estadoValor;
-      return cumpleFecha && cumpleEstado;
-    });
+    // Asegurarse de que ordenesOriginales esté disponible y poblado
+    if (!Array.isArray(ordenesOriginales)) {
+      console.error('ordenesOriginales no está listo para filtrar');
+      ordenesFiltradas = []; // O manejar de otra forma, como no filtrar
+    } else {
+      ordenesFiltradas = ordenesOriginales.filter(orden => {
+        // Si fechaValor está vacío, no se filtra por fecha.
+        // Si tiene valor, se compara directamente ya que ambos deben ser YYYY-MM-DD.
+        const cumpleFecha = fechaValor === "" || orden.fechaCompra === fechaValor;
+        const cumpleEstado = estadoValor === "" || (orden.estado && orden.estado.toLowerCase() === estadoValor.toLowerCase());
+        return cumpleFecha && cumpleEstado;
+      });
+    }
 
     renderizarVistaActual(ordenesFiltradas);
   }
