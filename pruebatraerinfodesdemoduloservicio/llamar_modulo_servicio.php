@@ -2,9 +2,9 @@
 header('Content-Type: application/json');
 
 $servername = "localhost";
-$username = "root"; // Ajusta si tu usuario es diferente
-$password = ""; // Ajusta si tienes contraseña
-$dbname = "modulo_3_pasos";
+$username = "alphadocere_modulo_3_pasos"; // Ajusta si tu usuario es diferente
+$password = "pLYm6&6Z=O*V"; // Ajusta si tienes contraseña
+$dbname = "alphadocere_modulo_3_pasos";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
