@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($ordenId) {
         // No es necesario verificar $conn aquí porque ya lo hicimos arriba y el script moriría si falla.
-        $stmt = $conn->prepare("DELETE FROM modulo_3_pasos.ordenes WHERE id = ?");
+        $stmt = $conn->prepare("DELETE FROM alphadocere_modulo_3_pasos.ordenes WHERE id = ?");
         if ($stmt) {
             $stmt->bind_param("s", $ordenId); // Asumiendo que el ID es una cadena (ej: ORD-001)
 
