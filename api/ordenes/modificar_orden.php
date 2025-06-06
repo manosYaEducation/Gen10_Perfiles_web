@@ -11,9 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 // Configuración de la base de datos (igual que en eliminar_orden.php)
 $servername = "localhost";
-$username = "root";
-$password = ""; // Tu contraseña de DB, si tienes una
-$dbname = "modulo_3_pasos";
+$username = "alphadocere_modulo_3_pasos"; // Ajusta si tu usuario es diferente
+$password = "pLYm6&6Z=O*V"; // Ajusta si tienes contraseña
+$dbname = "alphadocere_modulo_3_pasos";
 
 // Crear conexión
 $conn = new mysqli($servername, $username, $password, $dbname);
