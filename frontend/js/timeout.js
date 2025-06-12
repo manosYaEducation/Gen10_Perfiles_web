@@ -1,7 +1,7 @@
 // timeout.js se encarga de cerrar la sesión del usuario debido a inactividad
 // Funciona con localStorage y sessionStorage
 
-const TIMEOUT = 1 * 15 * 1000; // ideal 20 ó 30 minutos: 20 * 60 * 1000  - Testing con 15 segs
+const TIMEOUT = 30 * 60 * 1000; // ideal 20 ó 30 minutos EJ: 30 * 60 * 1000  - Testing con 10 segs
 let logoutTimer;
 
 function logoutPorInactividad() {
