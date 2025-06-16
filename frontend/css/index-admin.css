@@ -356,6 +356,40 @@ td {
     background: #00000066;
 }
 
+
+
+.enlaces {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+}
+
+.link-buttons {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.link-buttons li {
+    margin-left: 20px;
+}
+
+.link-buttons li a.button-social {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: #314438;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+}
+
+.link-buttons li a.button-social:hover {
+    background-color: hsl(142, 16%, 23%);
+    color: white;
+}
+
 @media (max-width: 768px) {
 
     .review-row {
@@ -386,7 +420,7 @@ td {
         margin-top: 10px;
     }
 
-    .profiles-section, .clientes-section, .reviews-section {
+    .profiles-section, .clientes-section, .reviews-section, .ambientes-section {
         padding: 15px;
     }
 
@@ -398,7 +432,7 @@ td {
         padding: 1rem 0.5rem;
     }
 
-    .review-section {
+    .review-section,  .ambientes-section {
         padding: 10px;
     }
 
