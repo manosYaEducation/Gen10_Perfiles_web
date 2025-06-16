@@ -73,6 +73,7 @@ h1 {
     color: #666;
     cursor: pointer;
     font-size: 0.8rem;
+    user-select: none;
 }
 
 .login-button {
