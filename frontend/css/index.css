@@ -1658,3 +1658,76 @@ body.dark-mode .login-btn:hover {
         max-width: 300px;
     }
 }
+
+.metricas-grid-section {
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+}
+
+body.dark-mode .metricas-grid-section {
+  background-color: #1e1e1e;
+}
+
+.metricas-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 80px;
+  }
+
+  .metrica-item {
+    flex: 0 1 280px; 
+  }
+
+.metrica-numero {
+  font-size: 5rem;
+  font-weight: 800;
+  color: #4CAF50;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.metrica-label {
+  font-size: 1.25rem;
+  margin-top: 10px;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+body.dark-mode .metrica-label {
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .metricas-grid {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .metrica-numero {
+    font-size: 3rem;
+  }
+}
+
+.metricas-cierre {
+    text-align: center;
+    margin-top: 60px;
+    padding: 0 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 500;
+    color: #222;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body.dark-mode .metricas-cierre {
+    color: #ccc;
+  }
