@@ -1,4 +1,45 @@
 const loginF = document.querySelector("form");
+
+// Configuración bloqueo login por intentos fallidos
+const loginBtn = document.querySelector(".login-button");
+let intentosFallidos = parseInt(localStorage.getItem("intentosFallidos")) || 0;
+const maxIntentos = 5;
+const bloqueoTiempo = 120; //Segundos
+
+// Verificación de bloqueo activo
+window.addEventListener("load", verificarBloqueo);
+
+function verificarBloqueo() {
+  const bloqueoHasta = parseInt(localStorage.getItem("bloqueoLoginHasta"));
+  const ahora = Date.now();
+  if (bloqueoHasta && bloqueoHasta > ahora) {
+    loginBtn.disabled = true;
+    actualizarMensajeBloqueo();
+  } else {
+    localStorage.removeItem("bloqueoLoginHasta");
+    loginBtn.disabled = false;
+    intentosFallidos = 0;
+    localStorage.setItem("intentosFallidos", "0");
+  }
+}
+
+// Timer bloqueo
+function actualizarMensajeBloqueo() {
+  const bloqueoHasta = parseInt(localStorage.getItem("bloqueoLoginHasta"));
+  const ahora = Date.now();
+  if (bloqueoHasta > ahora) {
+    const segundosRestantes = Math.ceil((bloqueoHasta - ahora) / 1000);
+    loginBtn.textContent = `Bloqueado (${segundosRestantes}s)`;
+    setTimeout(actualizarMensajeBloqueo, 1000);
+  } else {
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Iniciar sesión";
+    localStorage.removeItem("bloqueoLoginHasta");
+    localStorage.setItem("intentosFallidos", "0");
+    intentosFallidos = 0;
+  }
+}
+
 loginF.addEventListener("submit", async (event) => {
   event.preventDefault();
   const username = document.querySelector("#username").value;
@@ -27,6 +68,10 @@ loginF.addEventListener("submit", async (event) => {
     console.log("Respuesta del servidor:", result);
 
     if (result.success === true) {
+      // Reset de intentos fallidos
+      intentosFallidos = 0;
+      localStorage.setItem("intentosFallidos", "0");
+      localStorage.removeItem("bloqueoLoginHasta");
       console.log("Login exitoso");
 
       // Almacenar información del login
@@ -76,6 +121,16 @@ loginF.addEventListener("submit", async (event) => {
       window.location.href = "../index.html";
     } else {
       alert(result.error || "Usuario o contraseña incorrectos.");
+
+      // Agrega intento fallido y si es igual o supera los intentos empieza el timer
+      intentosFallidos++;
+      localStorage.setItem("intentosFallidos", intentosFallidos);
+      if (intentosFallidos >= maxIntentos) {
+        const bloqueoHasta = Date.now() + bloqueoTiempo * 1000;
+        localStorage.setItem("bloqueoLoginHasta", bloqueoHasta);
+        loginBtn.disabled = true;
+        actualizarMensajeBloqueo();
+      }
     }
   } catch (error) {
     console.error("Error completo:", error);

@@ -52,6 +52,21 @@ if (!isset($data['email']) || !isset($data['password'])) {
 $username = $data['email']; // Email se usa como username
 $password = $data['password'];
 
+// Iniciar sesión en el servidor
+session_start();
+
+// Inicio conteo de intentos fallidos
+$max_intentos = 5;
+$tiempo_bloqueo = 120; // Segundos
+
+if (isset($_SESSION['bloqueado_hasta']) && time() < $_SESSION['bloqueado_hasta']) {
+   $tiempo_restante = $_SESSION['bloqueado_hasta'] - time();
+   enviarJSON([
+       'success' => false,
+       'error' => 'Demasiados intentos fallidos. Intenta nuevamente en ' . $tiempo_restante . ' segundos.'
+   ], 403);
+}
+
 try {
    // Hacer petición a la API externa para validar credenciales
    // Aquí iría el código para comunicarse con la API externa
@@ -60,8 +75,10 @@ try {
    $validCredentials = true;
    
    if ($validCredentials) {
-       // Iniciar sesión en el servidor
-       session_start();
+       // Reset de intentos y timer de bloqueo
+       $_SESSION['intentos'] = 0;
+       unset($_SESSION['bloqueado_hasta']);
+
        $_SESSION['user_id'] = 1;
        $_SESSION['username'] = $username;
        $_SESSION['user_type'] = 'admin';
@@ -88,13 +105,23 @@ try {
            'profile_completed' => true,
            'token_expires' => $_SESSION['token_expiry']
        ]);
-   } else {
-       // Credenciales incorrectas
-       enviarJSON([
-           'success' => false,
-           'error' => 'Usuario o contraseña incorrectos.'
-       ], 401);
-   }
+
+    } else {
+        // Credenciales incorrectas
+        $_SESSION['intentos'] = ($_SESSION['intentos'] ?? 0) + 1;
+        if ($_SESSION['intentos'] >= $max_intentos) {
+        $_SESSION['bloqueado_hasta'] = time() + $tiempo_bloqueo;
+        enviarJSON([
+            'success' => false,
+            'error' => 'Demasiados intentos fallidos. Intenta nuevamente en ' . $tiempo_bloqueo . ' segundos.'
+        ], 403);
+        } else {
+            enviarJSON([
+               'success' => false,
+               'error' => 'Usuario o contraseña incorrectos.'
+            ], 401);
+        }
+    }
 } catch (Exception $e) {
    // Error general - mensaje genérico
    enviarJSON([
