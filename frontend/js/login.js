@@ -13,15 +13,15 @@ loginF.addEventListener("submit", async (event) => {
   try {
     // Aquí cambiamos la URL del endpoint a la nueva dirección
     const response = await fetch("https://systemauth.alphadocere.cl/login.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: username,
-        password: password,
-      }),
-    });
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: username,
+          password: password,
+        }),
+      });
 
     const result = await response.json();
     console.log("Respuesta del servidor:", result);
@@ -81,4 +81,16 @@ loginF.addEventListener("submit", async (event) => {
     console.error("Error completo:", error);
     alert("Hubo un error al procesar tu solicitud. Inténtalo nuevamente.");
   }
+});
+
+// Ver/Ocultar contraseña
+const togglePassword = document.querySelector("#togglePassword");
+const password = document.querySelector("#password");
+
+togglePassword.addEventListener("click", () => {
+  const esPassword = password.getAttribute("type") === "password";
+  password.setAttribute("type", esPassword ? "text" : "password");
+
+  togglePassword.classList.toggle("bi-eye");
+  togglePassword.classList.toggle("bi-eye-slash");
 });
