@@ -7,6 +7,7 @@
     <title>Equipo Profesional Gen10 Alpha Docere</title>
     <link href="./frontend/css/index.css" rel="stylesheet" />
     <link href="./frontend/css/contacto.css" rel="stylesheet">
+   
     <link rel="stylesheet" href="./frontend/css/footer.css">
     <link rel="stylesheet" href="./frontend/css/proyectos-timeline.css">
     <link rel="stylesheet" href="./frontend/css/clients-index.css">
@@ -661,10 +662,11 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
+    <section class="parent">
+        <!-- Primera fila: Hero text e imagen lado a lado -->
+        <div id="div1" class="hero-content">
             <div class="hero-text">
-                <h1>Conoce al equipo Kreative</h1>
+                <h1>Conoce al equipo <strong>KREATIVE</strong></h1>
                 <p id="hero-paragraph">
                     <!-- Alcanza tus metas! Descubre cómo nuestro equipo de profesionales comprometidos pueden convertir tus ideas en realidad. Contactanos hoy e impulsa tu negocio. -->
                     Descubre cómo nuestro equipo de profesionales está aquí para ayudarte a alcanzar tus metas.
@@ -672,34 +674,44 @@
                 </p>
                 <p class="prf1">¿Dónde hacer crecer tu negocio digitalmente?</p>
                 <div class="hero-buttons">
-                    <a href="#perfiles"><button class="btnr">Conoce a nuestro equipo profesional</button></a>
-                    <a href="https://servicios.alphadocere.cl/servicio.html"><button class="btnr">Explora nuestros servicios</button></a>
+                    <a href="#perfiles"><button class="btnr"><strong>Conoce a nuestro equipo profesional</strong></button></a>
+                    <a href="https://servicios.alphadocere.cl/servicio.html"><button class="btnr"><strong>Explora nuestros servicios</strong></button></a>
                 </div>
             </div>
             <div class="hero-image">
                 <img src="./assets/img/img_soft.png" alt="Imagen de Bienvenida">
             </div>
         </div>
-    </section>
-
-    <!-- Métricas de la página -->
-    <section class="metricas-grid-section">
-        <div class="metricas-grid">
-        <div class="metrica-item">
-            <p class="metrica-numero" id="profiles-count">14</p>
-            <p class="metrica-label">Mentes creativas, apasionadas y listas para innovar.</p>
+        
+        <!-- Segunda fila: Métricas -->
+        <div id="div3" class="metricas-container">
+            <div class="metricas-grid">
+                <a href="#perfiles" class="metrica-card">
+                    <i class="fas fa-users metrica-icon"></i>
+                    <p class="metrica-numero">14</p>
+                    <p class="metrica-label">Programadores expertos, apasionados y listos para innovar.</p>
+                </a>
+                <a href="#clientes" class="metrica-card">
+                    <i class="fas fa-handshake metrica-icon"></i>
+                    <p class="metrica-numero">1</p>
+                    <p class="metrica-label">Clientes satisfechos que confían en nuestro equipo Kreative.</p>
+                </a>
+                <a href="#proyectos" class="metrica-card">
+                    <i class="fas fa-rocket metrica-icon"></i>
+                    <p class="metrica-numero">5</p>
+                    <p class="metrica-label">Proyectos exitosos que demuestran nuestra excelencia.</p>
+                </a>
+                
+            </div>
         </div>
-        <div class="metrica-item">
-            <p class="metrica-numero" id="clients-count">1</p>
-            <p class="metrica-label">Clientes que confían y marcan la diferencia.</p>
-        </div>
-        <div class="metrica-item">
-            <p class="metrica-numero" id="proyectos-count">5</p>
-            <p class="metrica-label">Proyectos que hablan por nosotros. Hechos, no promesas.</p>
-        </div>
-        </div>
-        <div class="metricas-cierre">
-            <p>Y esto recién comienza. Cada cifra no es un número, es una historia. Una historia que queremos seguir escribiendo contigo.</p>
+        
+        <!-- Tercera fila: Cierre de métricas -->
+        <div id="div4" class="metricas-cierre-section">
+            <div class="metricas-container">
+                <div class="metricas-cierre">
+                    <p>Estos números representan nuestro compromiso con la excelencia en el desarrollo de software. Cada proyecto es una oportunidad para demostrar nuestra pasión por la tecnología y la innovación. ¿Listo para ser nuestro próximo caso de éxito?</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -712,9 +724,18 @@
                 </div>
             </div>
             <div class="hero-text2">
-                <p id="hero-paragraph2">Nos especializamos en el desarrollo de software personalizado: creamos
-                    soluciones innovadoras, adapatadas a tus necesidades, optimizando procesos y potenciar tu
-                    crecimiento y experiencia de tus usuarios.</p>
+                <div class="hero-right">
+                    <h3 class="hero-title3">Nos especializamos en el desarrollo de software personalizado:</h3>
+                    <div>
+                        <ul>
+                            <li>Soluciones innovadoras</li> 
+                            <li>Adaptadas a tus necesidades</li>
+                            <li>Optimizando procesos</li>
+                            <li>Potenciando tu crecimiento</li>
+                            <li>Experiencia de tus usuarios</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -904,7 +925,7 @@
                 </div>
             </div> -->
 
-            <h1>Contacto</h1>
+            <h1 class="contacto-h1">Contacto</h1>
             <div class="contacto-container" id="contactoBrilloNavbar">
                 <div class="contacto-section">
                     <form id="contactForm" action="https://formsubmit.co/kreativegen10@gmail.com" method="POST"
