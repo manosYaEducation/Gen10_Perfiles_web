@@ -148,9 +148,10 @@ header {
 nav {
     display: flex;
     align-items: center;
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
     justify-content: space-between;
+    gap: 2rem;
 }
 
 .logo {
@@ -1058,7 +1059,6 @@ footer p {
     box-shadow: 0 0 20px rgba(68, 219, 131, 0.5)!important;
   }
   
-
   
 
 #hero-paragraph2 {
@@ -1733,3 +1733,15 @@ body.dark-mode .metrica-label {
   body.dark-mode .metricas-cierre {
     color: #ccc;
   }
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
