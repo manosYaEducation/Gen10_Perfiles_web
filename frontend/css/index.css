@@ -508,8 +508,10 @@ button:hover {
     color: white;
 }
 
-.profile-text-container p {
-    color: white;
+.profile-text-container p,
+.profile-description {
+    color: #222 !important;
+    background: none;
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 1.3rem;

@@ -217,3 +217,7 @@ html {
         padding-left: 1px;
     }
   }
+
+body.dark-mode .proyecto-titulo {
+    color: #fff !important;
+}

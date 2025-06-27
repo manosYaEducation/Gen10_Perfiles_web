@@ -22,4 +22,4 @@ if ($clave && isset($destinos[$clave])) {
     echo "Enlace no válido.";
 }
 
-?>
+?> 
