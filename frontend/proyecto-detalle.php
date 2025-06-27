@@ -44,39 +44,14 @@
         <span class="flecha derecha">&#10095;</span> <!-- Flecha derecha -->
     </div>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="../assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
-                <p class="copyright">Copyright © 2024</p>
-                <p>Todos los derechos reservados por  empresa Kreative.</p>
-            </div>
-
-            <div class="footer-section">
-                <h3>Compañía</h3>
-                <ul>
-                   
-                    <li><a href="./index.html#contacto">Contáctanos</a></li>
-                    <li><a href="./index.html#perfiles">Nuestro equipo</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Redes sociales</h3>
-                    <ul>
-                        <li><a href="https://wa.me/945429495"  target="_blank"><i class="fab fa-whatsapp"></i></a></li>
-                        
-                    </ul>
-                
-            </div>
-            <div class="footer-section">
-                <h3>Información de contacto</h3>
-                <ul>
-                    
-                    <li>Email: kreativegen10@gmail.com</li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-container"></div>
+    <script>
+      fetch('components/footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+        });
+    </script>
     <script src="./js/project-detail.js"></script>
     <script src="./js/config.js"></script>
     <script src="../frontend/js/config.js"></script>
