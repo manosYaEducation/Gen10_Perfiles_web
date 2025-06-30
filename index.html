@@ -596,6 +596,12 @@
             color: var(--text-color) !important;
         }
 
+        body.dark-mode .profile-text-container h2,
+        body.dark-mode .profile-text-container p,
+        body.dark-mode .profile-description {
+            color: #e0e0e0 !important;
+        }
+
     </style>
 
     <!-- Metadata Principal -->
@@ -1007,56 +1013,14 @@
             <button class="accept-button" onclick="closeModal()">Aceptar</button>
         </dialog>
     </section>
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="./assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
-            </div>
-
-            <div class="footer-section">
-                <h3>Navegación</h3>
-                <ul>
-                    <li><a href="#perfiles">Nuestro equipo</a></li>
-                    <li><a href="#pro">Proyectos</a></li>
-                    <li><a href="#contacto">Contáctanos</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Contacto</h3>
-                <ul class="contact-info">
-                    <li class="contacto-nombre">Mauro Rojas</li>
-                    <li class="contacto-encargado">Director general de alphadocere</li>
-                    <li>
-                        <i class="far fa-envelope"></i>
-                        <a href="javascript:void(0);">kreativegen10@gmail.com</a>
-                    </li>
-                    <li>
-                        <i class="fab fa-whatsapp"></i>
-                        <a href="https://wa.me/945429495" target="_blank">+56 945429495</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Síguenos</h3>
-                <ul class="social-links">
-                    <li>
-                        <a href="https://www.youtube.com/@alphadocereapoyosocioemoci4979" target="_blank" class="social-link youtube">
-                            <i class="fab fa-youtube"></i>
-                            <span>YouTube</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="copyright-container">
-                <p class="copyright">Copyright 2024 Kreative v. gen 13 Inicial 1.2| Todos los derechos reservados por empresa Kreative</p>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-container"></div>
+    <script>
+      fetch('./frontend/components/footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+        });
+    </script>
     
     <!-- Back to Top Button -->
     <button type="button" id="backToTopBtn" title="Volver arriba" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">

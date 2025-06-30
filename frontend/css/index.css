@@ -148,9 +148,10 @@ header {
 nav {
     display: flex;
     align-items: center;
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
     justify-content: space-between;
+    gap: 2rem;
 }
 
 .logo {
@@ -489,8 +490,10 @@ button:hover {
     color: white;
 }
 
-.profile-text-container p {
-    color: white;
+.profile-text-container p,
+.profile-description {
+    color: #222 !important;
+    background: none;
     line-height: 1.6;
     margin-bottom: 25px;
     font-size: 1.3rem;
@@ -2661,5 +2664,20 @@ body.dark-mode .hero-right li:hover::before {
 @media (max-width: 480px) {
     .parent {
         padding: 0px 0px 10px;
-    }
+    }}
+
+  body.dark-mode .metricas-cierre {
+    color: #ccc;
+  }
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
