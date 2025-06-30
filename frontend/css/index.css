@@ -1358,17 +1358,19 @@ footer p {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     padding: 20px;
+    width: 100%;
 }
 
 .vision-box, .mision-box, .valores-box {
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 320px;
     perspective: 1000px;
     cursor: pointer;
+    min-width: 280px;
 }
 
 .flip-card {
@@ -1398,7 +1400,7 @@ footer p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 25px;
     box-sizing: border-box;
 }
 
@@ -1416,29 +1418,31 @@ footer p {
 }
 
 .flip-card-front h2 {
-    font-size: 2.5em;
+    font-size: 2.2em;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-family: 'Poppins', sans-serif;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    line-height: 1.2;
 }
 
 .flip-card-front .flip-icon {
-    font-size: 4em;
-    margin-bottom: 20px;
+    font-size: 3.5em;
+    margin-bottom: 15px;
     opacity: 0.9;
 }
 
 .flip-card-front .flip-hint {
-    font-size: 1.1em;
+    font-size: 1em;
     opacity: 0.8;
     font-style: italic;
+    margin-top: 10px;
 }
 
 .flip-card-back h2 {
     color: #4CAF50;
-    font-size: 1.8em;
-    margin-bottom: 20px;
+    font-size: 1.6em;
+    margin-bottom: 15px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
 }
@@ -1446,9 +1450,10 @@ footer p {
 .flip-card-back p {
     color: #666;
     line-height: 1.6;
-    font-size: 1em;
+    font-size: 0.95em;
     font-family: 'Roboto', sans-serif;
     text-align: justify;
+    margin: 0;
 }
 
 /* Animación de entrada para las tarjetas */
@@ -1479,15 +1484,16 @@ footer p {
     animation-delay: 0.5s;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive - Tablets */
+@media (max-width: 1024px) {
     .vision-mision-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        padding: 15px;
     }
     
     .vision-box, .mision-box, .valores-box {
-        height: 280px;
+        height: 300px;
     }
     
     .flip-card-front h2 {
@@ -1497,19 +1503,24 @@ footer p {
     .flip-card-front .flip-icon {
         font-size: 3em;
     }
-    
-    .flip-card-back h2 {
-        font-size: 1.5em;
-    }
-    
-    .flip-card-back p {
-        font-size: 0.9em;
-    }
 }
 
-@media (max-width: 480px) {
+/* Responsive - Tablets pequeñas */
+@media (max-width: 768px) {
+    .vision-mision {
+        padding: 60px 15px;
+    }
+    
+    .vision-mision-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
     .vision-box, .mision-box, .valores-box {
-        height: 250px;
+        height: 280px;
+        min-width: unset;
     }
     
     .flip-card-front, .flip-card-back {
@@ -1522,6 +1533,123 @@ footer p {
     
     .flip-card-front .flip-icon {
         font-size: 2.5em;
+    }
+    
+    .flip-card-back h2 {
+        font-size: 1.4em;
+    }
+    
+    .flip-card-back p {
+        font-size: 0.9em;
+    }
+}
+
+/* Responsive - Móviles grandes */
+@media (max-width: 480px) {
+    .vision-mision {
+        padding: 40px 10px;
+    }
+    
+    .vision-mision-container {
+        padding: 10px;
+        gap: 15px;
+    }
+    
+    .vision-box, .mision-box, .valores-box {
+        height: 260px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        padding: 15px;
+    }
+    
+    .flip-card-front h2 {
+        font-size: 1.6em;
+        margin-bottom: 10px;
+    }
+    
+    .flip-card-front .flip-icon {
+        font-size: 2.2em;
+        margin-bottom: 10px;
+    }
+    
+    .flip-card-front .flip-hint {
+        font-size: 0.9em;
+    }
+    
+    .flip-card-back h2 {
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+    
+    .flip-card-back p {
+        font-size: 0.85em;
+        line-height: 1.5;
+    }
+}
+
+/* Responsive - Móviles pequeños */
+@media (max-width: 360px) {
+    .vision-mision {
+        padding: 30px 5px;
+    }
+    
+    .vision-mision-container {
+        padding: 5px;
+        gap: 12px;
+    }
+    
+    .vision-box, .mision-box, .valores-box {
+        height: 240px;
+    }
+    
+    .flip-card-front, .flip-card-back {
+        padding: 12px;
+    }
+    
+    .flip-card-front h2 {
+        font-size: 1.4em;
+    }
+    
+    .flip-card-front .flip-icon {
+        font-size: 2em;
+    }
+    
+    .flip-card-back h2 {
+        font-size: 1.2em;
+    }
+    
+    .flip-card-back p {
+        font-size: 0.8em;
+    }
+}
+
+/* Responsive - Pantallas muy grandes */
+@media (min-width: 1400px) {
+    .vision-mision-container {
+        max-width: 1400px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+    
+    .vision-box, .mision-box, .valores-box {
+        height: 350px;
+    }
+    
+    .flip-card-front h2 {
+        font-size: 2.5em;
+    }
+    
+    .flip-card-front .flip-icon {
+        font-size: 4em;
+    }
+    
+    .flip-card-back h2 {
+        font-size: 1.8em;
+    }
+    
+    .flip-card-back p {
+        font-size: 1em;
     }
 }
 
@@ -2058,26 +2186,31 @@ body.dark-mode .metrica-card:hover::before {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     width: 100%;
-    max-width: 1440px;
+    max-width: 100%;
     margin: 0px;
     padding: 0px 0px 20px;
     background: rgb(243, 240, 237);
+    box-sizing: border-box;
 }
 
 .div1 { 
     grid-area: 1 / 1 / 2 / 2; 
     width: 100%;
+    max-width: 100%;
 }
 
 .div3 { 
     grid-area: 2 / 1 / 3 / 2; 
     width: 100%;
+    max-width: 100%;
 }
 
 .div4 { 
     grid-area: 3 / 1 / 4 / 2; 
     width: 100%;
+    max-width: 100%;
 }
+
 .btnr {
     background-color: #4CAF4F;
     border: none;
@@ -2092,6 +2225,7 @@ body.dark-mode .metrica-card:hover::before {
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
+
 /* fin css section hero */
 
 /* Modo oscuro para la sección parent */
@@ -2514,5 +2648,18 @@ body.dark-mode .hero-right li:hover::before {
     .hero-image2 {
         width: 90vw;
         min-width: 0;
+    }
+}
+
+/* Responsive para parent */
+@media (max-width: 768px) {
+    .parent {
+        padding: 0px 0px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .parent {
+        padding: 0px 0px 10px;
     }
 }
