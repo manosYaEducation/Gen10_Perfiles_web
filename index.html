@@ -400,27 +400,35 @@
         }
         /* Estilos para la sección de visión-misión en modo oscuro */
         body.dark-mode .vision-mision {
-            background-color: var(--bg-color);
+            background-color: #1e1e1e;
         }
         
-        body.dark-mode .vision-box,
-        body.dark-mode .mision-box,
-        body.dark-mode .valores-box {
+        body.dark-mode .flip-card-front {
+            background: linear-gradient(135deg, #4CAF50 0%, #3d8b40 100%);
+            color: white;
+        }
+        
+        body.dark-mode .flip-card-back {
             background-color: var(--card-bg);
+            color: var(--text-color);
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         
-        body.dark-mode .vision-box h2,
-        body.dark-mode .mision-box h2,
-        body.dark-mode .valores-box h2 {
+        body.dark-mode .flip-card-back h2 {
             color: #4CAF50;
         }
         
-        body.dark-mode .vision-box p,
-        body.dark-mode .mision-box p,
-        body.dark-mode .valores-box p {
-            color: var(--text-color);
+        body.dark-mode .flip-card-back p {
+            color: #ffffff;
+        }
+        
+        body.dark-mode .flip-card {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        body.dark-mode .flip-card-front .flip-hint {
+            color: rgba(255, 255, 255, 0.8);
         }
         
         /* Estilos para la sección FAQ en modo oscuro */
@@ -703,16 +711,17 @@
                 </a>
                 
             </div>
-        </div>
-        
-        <!-- Tercera fila: Cierre de métricas -->
-        <div id="div4" class="metricas-cierre-section">
-            <div class="metricas-container">
-                <div class="metricas-cierre">
-                    <p>Estos números representan nuestro compromiso con la excelencia en el desarrollo de software. Cada proyecto es una oportunidad para demostrar nuestra pasión por la tecnología y la innovación. ¿Listo para ser nuestro próximo caso de éxito?</p>
+            <div id="div4" class="metricas-cierre-section">
+                <div class="metricas-container">
+                    <div class="metricas-cierre">
+                        <p>Estos números representan nuestro compromiso con la excelencia en el desarrollo de software. Cada proyecto es una oportunidad para demostrar nuestra pasión por la tecnología y la innovación. ¿Listo para ser nuestro próximo caso de éxito?</p>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Tercera fila: Cierre de métricas -->
+        
     </section>
 
     <section class="hero2">
@@ -741,16 +750,43 @@
     <section class="vision-mision">
         <div class="vision-mision-container">
             <div class="vision-box">
-                <h2>Nuestra Visión</h2>
-                <p>Ser líderes en la transformación digital, impulsando la innovación y el desarrollo de soluciones tecnológicas que empoderen a las empresas y transformen ideas en realidades tangibles.</p>
+                <div class="flip-card">
+                    <div class="flip-card-front">
+                        <i class="fas fa-eye flip-icon"></i>
+                        <h2>Nuestra Visión</h2>
+                        <p class="flip-hint">Pasa el mouse para ver más</p>
+                    </div>
+                    <div class="flip-card-back">
+                        
+                        <p>Ser líderes en la transformación digital, impulsando la innovación y el desarrollo de soluciones tecnológicas que empoderen a las empresas y transformen ideas en realidades tangibles.</p>
+                    </div>
+                </div>
             </div>
             <div class="mision-box">
-                <h2>Nuestra Misión</h2>
-                <p>Proporcionar soluciones de software personalizadas y de alta calidad, trabajando en estrecha colaboración con nuestros clientes para entender sus necesidades y ofrecer resultados que superen sus expectativas.</p>
+                <div class="flip-card">
+                    <div class="flip-card-front">
+                        <i class="fas fa-bullseye flip-icon"></i>
+                        <h2>Nuestra Misión</h2>
+                        <p class="flip-hint">Pasa el mouse para ver más</p>
+                    </div>
+                    <div class="flip-card-back">
+                        
+                        <p>Proporcionar soluciones de software personalizadas y de alta calidad, trabajando en estrecha colaboración con nuestros clientes para entender sus necesidades y ofrecer resultados que superen sus expectativas.</p>
+                    </div>
+                </div>
             </div>
             <div class="valores-box">
-                <h2>¿Qué es Kreative?</h2>
-                <p>Somos un equipo de profesionales apasionados por la tecnología y la innovación. Nos especializamos en el desarrollo de software personalizado, creando soluciones que se adaptan perfectamente a las necesidades de cada cliente. Nuestro enfoque combina creatividad, experiencia técnica y compromiso con la excelencia para entregar productos que marcan la diferencia.</p>
+                <div class="flip-card">
+                    <div class="flip-card-front">
+                        <i class="fas fa-lightbulb flip-icon"></i>
+                        <h2>¿Qué es Kreative?</h2>
+                        <p class="flip-hint">Pasa el mouse para ver más</p>
+                    </div>
+                    <div class="flip-card-back">
+                        
+                        <p>Somos un equipo de profesionales apasionados por la tecnología y la innovación. Nos especializamos en el desarrollo de software personalizado, creando soluciones que se adaptan perfectamente a las necesidades de cada cliente. Nuestro enfoque combina creatividad, experiencia técnica y compromiso con la excelencia para entregar productos que marcan la diferencia.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

@@ -1348,10 +1348,10 @@ footer p {
     }
 }
 
-/* Vision y Mision Section */
+/* Vision y Mision Section - Flip Cards */
 .vision-mision {
     padding: 80px 20px;
-    background-color: #f8f9fa;
+    background-color: rgb(243, 240, 237);
 }
 
 .vision-mision-container {
@@ -1364,39 +1364,164 @@ footer p {
 }
 
 .vision-box, .mision-box, .valores-box {
-    background: white;
+    position: relative;
+    width: 100%;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.vision-box:hover .flip-card,
+.mision-box:hover .flip-card,
+.valores-box:hover .flip-card {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    box-sizing: border-box;
 }
 
-.vision-box:hover, .mision-box:hover, .valores-box:hover {
-    transform: translateY(-5px);
+.flip-card-front {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    transform: rotateY(0deg);
 }
 
-.vision-box h2, .mision-box h2, .valores-box h2 {
+.flip-card-back {
+    background: white;
     color: #333;
-    font-size: 24px;
+    transform: rotateY(180deg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.flip-card-front h2 {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.flip-card-front .flip-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.flip-card-front .flip-hint {
+    font-size: 1.1em;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.flip-card-back h2 {
+    color: #4CAF50;
+    font-size: 1.8em;
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
 }
 
-.vision-box p, .mision-box p, .valores-box p {
+.flip-card-back p {
     color: #666;
     line-height: 1.6;
-    font-size: 16px;
+    font-size: 1em;
     font-family: 'Roboto', sans-serif;
+    text-align: justify;
 }
 
+/* Animación de entrada para las tarjetas */
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(50px) rotateY(90deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateY(0deg);
+    }
+}
+
+.vision-box, .mision-box, .valores-box {
+    animation: cardEntrance 0.8s ease-out forwards;
+}
+
+.vision-box {
+    animation-delay: 0.1s;
+}
+
+.mision-box {
+    animation-delay: 0.3s;
+}
+
+.valores-box {
+    animation-delay: 0.5s;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .vision-mision-container {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     
     .vision-box, .mision-box, .valores-box {
+        height: 280px;
+    }
+    
+    .flip-card-front h2 {
+        font-size: 2em;
+    }
+    
+    .flip-card-front .flip-icon {
+        font-size: 3em;
+    }
+    
+    .flip-card-back h2 {
+        font-size: 1.5em;
+    }
+    
+    .flip-card-back p {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .vision-box, .mision-box, .valores-box {
+        height: 250px;
+    }
+    
+    .flip-card-front, .flip-card-back {
         padding: 20px;
+    }
+    
+    .flip-card-front h2 {
+        font-size: 1.8em;
+    }
+    
+    .flip-card-front .flip-icon {
+        font-size: 2.5em;
     }
 }
 
@@ -1971,11 +2096,11 @@ body.dark-mode .metrica-card:hover::before {
 
 /* Modo oscuro para la sección parent */
 body.dark-mode .parent {
-    background: #1a1a1a;
+    background: #1e1e1e;
 }
 
 body.dark-mode .hero-content {
-    background: #1a1a1a;
+    background: #1e1e1e;
 }
 
 body.dark-mode .hero-text h1 {
@@ -2012,7 +2137,7 @@ body.dark-mode .btnr:hover {
 }
 
 body.dark-mode .metricas-cierre-section {
-    background: #1a1a1a;
+    background: #1e1e1e;
 }
 
 body.dark-mode .metricas-container {
@@ -2176,7 +2301,7 @@ body.dark-mode .hero2{
     background: #1a1a1a;
 }
 body.dark-mode .hero-content2{
-    background: #1a1a1a;
+    background: #1e1e1e;
 }
 body.dark-mode .hero-right {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
