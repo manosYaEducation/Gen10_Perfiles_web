@@ -996,7 +996,7 @@ footer p {
     box-shadow: 0 0 20px rgba(68, 219, 131, 0.5)!important;
   }
   
-
+  
   
 
 #hero-paragraph2 {
@@ -2680,4 +2680,4 @@ body.dark-mode .hero-right li:hover::before {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-}
+    }
