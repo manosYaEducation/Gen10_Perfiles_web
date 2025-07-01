@@ -482,6 +482,7 @@ button:hover {
 
 .profile-text-container {
     flex: 0 0 50%;
+    margin: 15px;
 }
 
 .profile-text-container h2 {
@@ -1147,9 +1148,19 @@ footer p {
     display: flex;
     transition: transform 0.3s ease-out;
     gap: 20px;
-    padding: 0 20px;
+    padding: 0 ;
     will-change: transform;
+    scroll-behavior: smooth;
 }
+
+@media (max-width: 768px) {
+    .profiles-carousel {
+        padding: 0;     /* Elimina el espacio lateral */
+        gap: 0;         /* Elimina espacio entre tarjetas */
+    }
+}
+
+
 
 .profile-image-container {
     width: 160px;
@@ -1281,42 +1292,49 @@ footer p {
 
 @media (max-width: 1024px) {
     .profile-card {
-        min-width: calc(50% - 10px); /* 2 tarjetas por vista */
-        flex: 0 0 calc(50% - 10px);
+        min-width: 50vw;
+        flex: 0 0 50vw;
+        padding: 15px;  /* Espacio interno */
+        box-sizing: border-box;
+        scroll-snap-align: start;
+        flex-shrink: 0;
     }
 }
 
 @media (max-width: 768px) {
     .profile-card {
-        min-width: calc(100% - 20px); /* 1 tarjeta por vista */
-        flex: 0 0 calc(100% - 20px);
+        min-width: 100vw;       /* 100% del viewport */
+        flex: 0 0 100vw;
+        padding: 15px;          /* Padding interno */
+        box-sizing: border-box;
+        scroll-snap-align: start;
+        flex-shrink: 0;
     }
-    
+
     .profile-image-container {
         width: 140px;
         height: 140px;
     }
-    
+
     .profile-text-container h2 {
         font-size: 1.5em;
     }
-    
+
     .profile-text-container p {
         font-size: 1em;
     }
-    
+
     .carousel-button {
         width: 40px;
         height: 40px;
     }
-    /* icono whatsapp carrusel */
-    #whatsapp{
+
+    #whatsapp {
         transition: none;
         z-index: 9999;
-        transform: translate(170%,125%);
+        transform: translate(170%, 125%);
         position: absolute;
         text-decoration: none;
-    
     }
 }
 
