@@ -462,3 +462,20 @@ tr:hover {
 .form-actions .btn-secondary:hover {
   background-color: #545b62;
 }
+
+.btn-volver-atras {
+  display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    color: #314438;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-volver-atras:hover {
+  background-color: #f0f0f0;
+    color: #4CAF50;
+}
