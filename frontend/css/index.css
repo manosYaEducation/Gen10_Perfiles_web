@@ -1053,58 +1053,181 @@ footer p {
 .menu-icon {
     display: none;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.menu-icon:hover {
+    background-color: rgba(76, 175, 80, 0.1);
 }
 
 .menu-icon i {
-    color: #314438;
-    font-size: 30px;
+    color: #4CAF50;
+    font-size: 24px;
+    transition: color 0.3s ease;
 }
 
-@media (max-width: 740px) {
+
+
+@media (max-width: 1050px) {
+    /* Mostrar botón hamburguesa */
+    .menu-icon {
+        display: block;
+    }
+    
+    /* Ocultar nav-center en pantallas medianas y pequeñas */
+    .nav-center {
+        display: none;
+    }
+    
+    /* Mostrar nav-center cuando está activo */
+    .nav-center.active {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 8px 8px;
+        z-index: 1000;
+        padding: 20px 0;
+        border-top: 1px solid #eaeaea;
+    }
+
     .profile-dropdown {
         margin: 10px 0;
     }
 
     .nav-links {
-        display: none;
+        display: flex;
         flex-direction: column;
         width: 100%;
-        background-color: #ffffff;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
+        background-color: transparent;
+        position: static;
         text-align: center;
-        padding: 10px 0;
-    }
-
-    .nav-links.active {
-        margin-top: 15px;
-        display: flex;
-        z-index: 1000;
+        padding: 0;
+        margin: 0;
     }
 
     .nav-links li {
-        margin: 10px 0;
+        margin: 8px 0;
+        width: 100%;
     }
 
     .nav-links li a {
         color: #314438;
-        font-size: 1.2em;
+        font-size: 1.1em;
+        padding: 12px 20px;
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 6px;
+        margin: 0 10px;
+    }
+
+    .nav-links li a:hover {
+        background-color: rgba(76, 175, 80, 0.1);
+        color: #4CAF50;
     }
 
     .nav-links li .login-btn {
         background-color: #4CAF50;
         color: white;
-        padding: 10px 20px;
-        border-radius: 4px;
+        padding: 12px 20px;
+        border-radius: 6px;
         text-decoration: none;
-        display: inline-block;
-        margin-top: 10px;
+        display: block;
+        margin: 10px;
+        transition: all 0.3s ease;
     }
 
     .nav-links li .login-btn:hover {
         background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Ajustar el header para el menú móvil */
+    header {
+        position: relative;
+        padding: 10px 20px;
+    }
+    
+    nav {
+        position: relative;
+    }
+}
+
+/* Media query para pantallas medianas */
+@media (max-width: 1050px) and (min-width: 769px) {
+    .nav-center.active {
+        padding: 25px 0;
+    }
+    
+    .nav-links li a {
+        font-size: 1.2em;
+        padding: 15px 25px;
+        margin: 0 15px;
+    }
+    
+    .nav-links li .login-btn {
+        padding: 15px 25px;
+        margin: 15px;
+        font-size: 1.1em;
+    }
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+    .nav-center.active {
+        padding: 20px 0;
+    }
+    
+    .nav-links li a {
+        font-size: 1.1em;
+        padding: 12px 20px;
+        margin: 0 10px;
+    }
+    
+    .nav-links li .login-btn {
+        padding: 12px 20px;
+        margin: 10px;
+        font-size: 1em;
+    }
+}
+
+/* Media query para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .menu-icon {
+        padding: 6px;
+    }
+    
+    .menu-icon i {
+        font-size: 20px;
+    }
+    
+    .nav-center.active {
+        padding: 15px 0;
+    }
+    
+    .nav-links li a {
+        font-size: 1em;
+        padding: 10px 15px;
+        margin: 0 5px;
+    }
+    
+    .nav-links li .login-btn {
+        padding: 10px 15px;
+        margin: 5px;
+        font-size: 0.9em;
+    }
+    
+    header {
+        padding: 8px 15px;
     }
 }
 

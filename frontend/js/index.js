@@ -6,10 +6,33 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const menuIcon = document.getElementById("menu-icon");
-  const navLinks = document.getElementById("nav-links");
+  const navCenter = document.querySelector(".nav-center");
 
   menuIcon.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
+    navCenter.classList.toggle("active");
+    
+    // Cambiar el ícono del menú
+    const menuIconI = menuIcon.querySelector("i");
+    if (navCenter.classList.contains("active")) {
+      menuIconI.classList.remove("fa-bars");
+      menuIconI.classList.add("fa-times");
+    } else {
+      menuIconI.classList.remove("fa-times");
+      menuIconI.classList.add("fa-bars");
+    }
+  });
+
+  // Cerrar menú al hacer clic en un enlace
+  const navLinks = document.querySelectorAll(".nav-links a");
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 1050) {
+        navCenter.classList.remove("active");
+        const menuIconI = menuIcon.querySelector("i");
+        menuIconI.classList.remove("fa-times");
+        menuIconI.classList.add("fa-bars");
+      }
+    });
   });
 
   // Check login status for profile display
