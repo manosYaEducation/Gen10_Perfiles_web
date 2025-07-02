@@ -22,7 +22,7 @@ if($environment === 'production') {
 }
 
 
-$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password";
+$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password;charset=utf8mb4";
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -32,6 +32,10 @@ $options = [
 
 try {
     $conn = new PDO($dsn, $user, $password, $options);
+    
+     // FORZAR UTF8MB4 EN LA SESION
+    $conn->exec("SET NAMES utf8mb4");
+    
 } catch (\PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
     
