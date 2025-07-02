@@ -8,6 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuIcon = document.getElementById("menu-icon");
   const navCenter = document.querySelector(".nav-center");
 
+  // Función helper para cerrar el menú
+  function closeMobileMenu() {
+    if (window.innerWidth <= 1050 && navCenter.classList.contains("active")) {
+      navCenter.classList.remove("active");
+      const menuIconI = menuIcon.querySelector("i");
+      menuIconI.classList.remove("fa-times");
+      menuIconI.classList.add("fa-bars");
+    }
+  }
+
   menuIcon.addEventListener("click", () => {
     navCenter.classList.toggle("active");
     
@@ -22,17 +32,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Cerrar menú al hacer clic fuera del navbar
+  document.addEventListener("click", (event) => {
+    const isClickInsideNav = navCenter.contains(event.target);
+    const isClickOnMenuIcon = menuIcon.contains(event.target);
+    
+    if (!isClickInsideNav && !isClickOnMenuIcon) {
+      closeMobileMenu();
+    }
+  });
+
   // Cerrar menú al hacer clic en un enlace
   const navLinks = document.querySelectorAll(".nav-links a");
   navLinks.forEach(link => {
     link.addEventListener("click", () => {
-      if (window.innerWidth <= 1050) {
-        navCenter.classList.remove("active");
-        const menuIconI = menuIcon.querySelector("i");
-        menuIconI.classList.remove("fa-times");
-        menuIconI.classList.add("fa-bars");
-      }
+      closeMobileMenu();
     });
+  });
+
+  // Cerrar menú con la tecla Escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
   });
 
   // Check login status for profile display
