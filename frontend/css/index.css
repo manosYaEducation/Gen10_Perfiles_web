@@ -1340,32 +1340,34 @@ footer p {
 
 @media (max-width: 480px) {
     .profile-card {
-        min-width: 280px;
-        flex: 0 0 220px;
-        padding: 39px;
+        min-width: 100%;
+        flex: 0 0 100%;
+        padding: 16px;
+        box-sizing: border-box;
+        scroll-snap-align: start;
     }
-    
+
     .profile-image-container {
         width: 120px;
         height: 120px;
         margin-bottom: 15px;
     }
-    
+
     .profile-text-container h2 {
         font-size: 1.3em;
     }
-    
+
     .profile-text-container p {
         font-size: 0.9em;
     }
-    /* icono whatsapp carrusel */
-    #whatsapp{
+
+    /* Icono WhatsApp carrusel */
+    #whatsapp {
         transition: none;
         z-index: 9999;
-        transform: translate(145%,105%);
+        transform: translate(145%, 105%);
         position: absolute;
         text-decoration: none;
-    
     }
 }
 
