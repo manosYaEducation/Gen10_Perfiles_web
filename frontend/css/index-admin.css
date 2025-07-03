@@ -361,7 +361,8 @@ td {
 .enlaces {
     display: flex;
     justify-content: center;
-    padding: 15px;
+    padding: 15px 0;
+    width: 100%;
 }
 
 .link-buttons {
@@ -369,25 +370,53 @@ td {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-wrap: nowrap;
+    justify-content: stretch;
+    gap: 0;
+    width: 100%;
 }
 
 .link-buttons li {
-    margin-left: 20px;
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    border-right: 1px solid #e0e0e0;
+}
+
+.link-buttons li:last-child {
+    border-right: none;
 }
 
 .link-buttons li a.button-social {
     text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 10px 0px 10px 0px;
+    border-radius: 0;
+    transition: all 0.3s ease;
     color: #314438;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    white-space: normal;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #ffffff;
+    box-shadow: none;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .link-buttons li a.button-social:hover {
-    background-color: hsl(142, 16%, 23%);
+    background-color: #4CAF50;
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -408,6 +437,7 @@ td {
         flex-direction: column;
         align-items: center;
     }
+    
 
     .headernav {
         flex-direction: column;
@@ -422,6 +452,7 @@ td {
 
     .profiles-section, .clientes-section, .reviews-section, .ambientes-section {
         padding: 15px;
+        
     }
 
     .profile-card {
@@ -486,10 +517,61 @@ td {
         text-align: center;
     }
     
+    
     table, thead, tbody{
         background-color: #f1efef;
     }
-
+    
+    /* Estilos responsive para la sección de enlaces en móviles */
+    .enlaces {
+        padding: 10px 0;
+        width: 100%;
+    }
+    
+    .link-buttons {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: stretch;
+        gap: 2px;
+        width: 100%;
+    }
+    
+    .link-buttons li {
+        flex: none;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 2px;
+    }
+    
+    .link-buttons li:last-child {
+        border-bottom: none;
+    }
+    
+    .link-buttons li a.button-social {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        border: none;
+        background-color: #ffffff;
+        box-shadow: none;
+        border-radius: 0;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.1;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        min-height: 40px;
+    }
+    
+    .link-buttons li a.button-social:hover {
+        background-color: #4CAF50;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
     table, thead, tbody, th, td, tr {
         display: block;
         min-width: 70%;
@@ -567,3 +649,23 @@ td {
         margin-bottom: 30px;
     }
 }
+
+/* Estilos para pantallas medianas y grandes */
+@media (min-width: 768px) {
+    .link-buttons li a.button-social {
+        padding: 10px 0px 10px 0px;
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 1024px) {
+    .link-buttons li a.button-social {
+        padding: 10px 0px 10px 0px;
+        font-size: 0.85rem;
+        gap: 8px;
+    }
+}
+
+
