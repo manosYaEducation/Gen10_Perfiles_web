@@ -69,6 +69,10 @@ document.addEventListener("DOMContentLoaded", function () {
     profiles.forEach((profile) => {
       const profileCard = document.createElement("div");
       profileCard.className = "profile-card";
+      // Limitar la descripción a 100 caracteres
+      const shortDescription = profile.description && profile.description.length > 100
+        ? profile.description.substring(0, 100) + "..."
+        : profile.description || "";
       profileCard.innerHTML = `
         <div class="profile-image-container">
           <img src="${profile.image || "./assets/img/default-profile.png"}" alt="${profile.name}">
@@ -77,8 +81,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="profile-text-container">
           <h2>${profile.name}</h2>
           <p>${profile.phrase}</p>
-          <p>${profile.description}</p>
-          <a href="./frontend/perfiles/profile-template.php?id=${profile.id}" class="perfil">Ver Perfil</a>
+          <p>${shortDescription}</p>
+          <a href="./frontend/perfiles/profile-template.php?id=${profile.id}" class="perfil">Ver más</a>
         </div>
       `;
       carousel.appendChild(profileCard);
