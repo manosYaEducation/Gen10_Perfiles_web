@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <loading-component image-src="../assets/icon_loader.png"></loading-component>
+    
     <header>
         <nav>
             <div class="nav-left">
@@ -31,8 +31,13 @@
                 <ul class="headernav">
                     <li><a class="button-53" href="../frontend/ordenes-servicios.html">Ordenes Servicios</a></li>
                     <li><a class="button-53" href="../frontend/proyectos-admin.html">Proyectos</a></li>
-                    <li><a class="button-53" href="javascript:void(0);" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                    <li><a class="button-53" href="../frontend/index-admin.html">Panel de Administración</a></li>
                 </ul>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </nav>
     </header>
@@ -95,21 +100,6 @@
     </section>
 
 
-    <section class="ambientes-section" id="enlaces">
-        <div class="info-container">
-            <h1 class="info-title">Ambientes Colaborativos</h1>
-            <div class="enlaces">
-                <ul class="link-buttons">
-                    <li><a class="button-social" href="enlace.php?destino=discord" target="_blank"><i class="fab fa-discord"></i> Discord</a></li>
-                    <li><a class="button-social" href="enlace.php?destino=dashboard" target="_blank"><i class="fa-solid fa-table"></i> Dashboard</a></li>
-                    <li><a class="button-social" href="enlace.php?destino=trello" target="_blank"><i class="fa-brands fa-trello"></i> Workspace Trello</a></li>
-                    <li><a class="button-social" href="enlace.php?destino=whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Whatsapp</a></li>
-                    <li><a class="button-social" href="enlace.php?destino=wordpress" target="_blank"><i class="fa-brands fa-wordpress"></i> Wordpress</a></li>
-                    <li><a class="button-social" href="enlace.php?destino=tienda" target="_blank"><i class="fa-solid fa-shop"></i> Tienda</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
    
 
     <dialog id="confirmationDialog" class="modal">
@@ -126,6 +116,7 @@
     <script src="../frontend/js/logout.js"></script>
     <script src="../frontend/js/loading-component.js"></script>
     <script src="../frontend/js/timeout.js"></script>
+    <script src="../frontend/js/hamburger-menu.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <footer class="footer">

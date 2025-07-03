@@ -89,8 +89,41 @@ nav {
     display: flex;
     align-items: center;
     max-width: 1000px;
-    width: 1440px;
+    width: 100%;
     justify-content: space-between;
+    position: relative;
+    padding: 1rem 2rem;
+}
+
+/* Estilos para el botón hamburguesa */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1000;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: #314438;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Animación del botón hamburguesa cuando está activo */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .logo {
@@ -404,20 +437,66 @@ td {
     
 
     header {
-        padding: 10px 5px;
+        padding: 5px;
         flex-direction: column;
         align-items: center;
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    nav {
+        width: 100%;
+        max-width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        box-sizing: border-box;
     }
 
     .headernav {
         flex-direction: column;
-        text-align: center;
+        align-items: center;
+        gap: 15px;
         width: 100%;
+        padding: 0;
+        margin: 0;
+        justify-content: flex-start;
     }
 
     .headernav li {
-        margin-left: 0;
-        margin-top: 10px;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    
+    .headernav li a.button-53 {
+        display: flex;
+        width: 100%;
+        text-align: center;
+        padding: 12px 15px;
+        color: #314438;
+        background-color: transparent;
+        border: 2px solid #314438;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-height: 45px;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+    
+    .headernav li a.button-53:hover {
+        background-color: #314438;
+        color: white;
+        border-color: #314438;
     }
 
     .profiles-section, .clientes-section, .reviews-section, .ambientes-section {
@@ -462,20 +541,67 @@ td {
         flex-direction: column;
         align-items: center;
         width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        padding: 0.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 999;
+        display: none;
+        box-sizing: border-box;
+        justify-content: flex-start;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+    }
+    
+
+    
+    .hamburger {
+        display: flex;
+        margin-left: auto;
+        padding: 8px;
+        flex-shrink: 0;
+    }
+    
+    .hamburger span {
+        width: 20px;
+        height: 2px;
+        background-color: #314438;
+        margin: 2px 0;
+        transition: 0.3s;
+        border-radius: 1px;
     }
 
     .nav-left {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
     }
-
+    
     .back-to-site {
-        margin-bottom: 10px;
+        margin-bottom: 0;
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
-
+    
     .icon {
         margin-left: 0;
+        width: 80px;
+        height: auto;
     }
+
+
 
     .profiles-column {
         padding: 1rem;
@@ -565,5 +691,27 @@ td {
 
     .info-container {
         margin-bottom: 30px;
+    }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.25rem;
+    }
+    
+    .headernav li {
+        max-width: 100%;
+        padding: 0 5px;
+    }
+    
+    .headernav li a.button-53 {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+        min-height: 40px;
+    }
+    
+    .headernav {
+        gap: 8px;
     }
 }
