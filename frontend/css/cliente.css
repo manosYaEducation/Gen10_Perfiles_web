@@ -158,3 +158,34 @@
     height: 100%;
     object-fit: cover;
 }
+
+/* Estilos para el botón "Ver más" en tarjetas de cliente */
+.profile-card .ver-mas-btn {
+    display: inline-block;
+    background-color: #4CAF4F !important;
+    color: white !important;
+    padding: 12px 30px !important;
+    text-decoration: none !important;
+    border-radius: 5px !important;
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+    transition: background-color 0.3s !important;
+    border: none !important;
+    cursor: pointer !important;
+    margin-top: 10px !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.profile-card .ver-mas-btn:hover {
+    background-color: #3d8c40 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* Asegurar que la descripción tenga espacio suficiente */
+.profile-description {
+    margin-bottom: 10px;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+}

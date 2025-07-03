@@ -39,9 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(`Mostrando ${data.clients.length} clientes`);
                 
                 // Mostrar los clientes
-                data.clients.forEach(client => {
+                data.clients.forEach((client, index) => {
                     const clientCard = document.createElement('div');
                     clientCard.classList.add('profile-card');
+                    
+                    // Limitar la descripción a 100 caracteres
+                    const fullDescription = client.description || '';
+                    const shortDescription = fullDescription.length > 100
+                        ? fullDescription.substring(0, 100) + "..."
+                        : fullDescription;
+                    
                     clientCard.innerHTML = `
                         <div class="profile-content">
                             <div class="profile-image">
@@ -49,9 +56,29 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <h2 class="client-name">${client.name}</h2>
                             <h3 class="profile-subtitle client-company">${client.company || ''}</h3>
-                            <p class="profile-description">${client.description || ''}</p>
+                            <p class="profile-description" data-full="${fullDescription}" data-short="${shortDescription}">${shortDescription}</p>
+                            ${fullDescription.length > 100 ? `<button class="ver-mas-btn" data-index="${index}">Ver más</button>` : ''}
                         </div>
                     `;
+                    
+                    // Agregar event listener al botón si existe
+                    const button = clientCard.querySelector('.ver-mas-btn');
+                    if (button) {
+                        button.addEventListener('click', function() {
+                            const descriptionElement = this.previousElementSibling;
+                            const fullDesc = descriptionElement.getAttribute('data-full');
+                            const shortDesc = descriptionElement.getAttribute('data-short');
+                            
+                            if (descriptionElement.textContent === shortDesc) {
+                                descriptionElement.textContent = fullDesc;
+                                this.textContent = 'Ver menos';
+                            } else {
+                                descriptionElement.textContent = shortDesc;
+                                this.textContent = 'Ver más';
+                            }
+                        });
+                    }
+                    
                     clientsCarousel.appendChild(clientCard);
                 });
                 
