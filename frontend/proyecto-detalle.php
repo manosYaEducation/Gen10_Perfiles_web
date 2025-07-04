@@ -44,6 +44,62 @@
         <span class="flecha derecha">&#10095;</span> <!-- Flecha derecha -->
     </div>
 
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="../assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
+            </div>
+
+            <div class="footer-section">
+                <h3>Navegación</h3>
+                <ul>
+                    <li><a href="../index.html#perfiles">Nuestro equipo</a></li>
+                    <li><a href="../index.html#pro">Proyectos</a></li>
+                    <li><a href="../index.html#contacto">Contáctanos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul class="contact-info">
+                    <li class="contacto-nombre">Mauro Rojas</li>
+                    <li class="contacto-encargado">Director general de alphadocere</li>
+                    <li>
+                        <i class="far fa-envelope"></i>
+                        <a href="javascript:void(0);">kreativegen10@gmail.com</a>
+                    </li>
+                    <li>
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/945429495" target="_blank">+56 945429495</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Síguenos</h3>
+                <ul class="social-links">
+                    <li>
+                        <a href="https://www.youtube.com/@alphadocereapoyosocioemoci4979" target="_blank" class="social-link youtube">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright-container">
+                <p class="copyright">Copyright 2024 Kreative v. gen 13 Inicial 1| Todos los derechos reservados por empresa Kreative</p>
+            </div>
+        </div>
+    </footer>
+    
+    <link rel="stylesheet" href="../frontend/css/base/footer.css">
+
+
+    <!-- 
     <div id="footer-container"></div>
     <script>
       fetch('components/footer.html')
@@ -52,6 +108,7 @@
           document.getElementById('footer-container').innerHTML = data;
         });
     </script>
+-->
     <script src="./js/project-detail.js"></script>
     <script src="./js/config.js"></script>
     <script src="../frontend/js/config.js"></script>
