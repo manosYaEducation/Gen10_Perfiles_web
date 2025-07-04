@@ -11,7 +11,7 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />   
-        <link href="../css/profile-templates-styles.css" rel="stylesheet" />
+        <link href="../css/cliente/profile-templates-styles.css" rel="stylesheet" />
     </head>
     <body id="top">
         <nav class="navbar" id="sideNav">
