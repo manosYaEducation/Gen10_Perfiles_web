@@ -6,10 +6,55 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const menuIcon = document.getElementById("menu-icon");
-  const navLinks = document.getElementById("nav-links");
+  const navCenter = document.querySelector(".nav-center");
+
+  // Función helper para cerrar el menú
+  function closeMobileMenu() {
+    if (window.innerWidth <= 1050 && navCenter.classList.contains("active")) {
+      navCenter.classList.remove("active");
+      const menuIconI = menuIcon.querySelector("i");
+      menuIconI.classList.remove("fa-times");
+      menuIconI.classList.add("fa-bars");
+    }
+  }
 
   menuIcon.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
+    navCenter.classList.toggle("active");
+    
+    // Cambiar el ícono del menú
+    const menuIconI = menuIcon.querySelector("i");
+    if (navCenter.classList.contains("active")) {
+      menuIconI.classList.remove("fa-bars");
+      menuIconI.classList.add("fa-times");
+    } else {
+      menuIconI.classList.remove("fa-times");
+      menuIconI.classList.add("fa-bars");
+    }
+  });
+
+  // Cerrar menú al hacer clic fuera del navbar
+  document.addEventListener("click", (event) => {
+    const isClickInsideNav = navCenter.contains(event.target);
+    const isClickOnMenuIcon = menuIcon.contains(event.target);
+    
+    if (!isClickInsideNav && !isClickOnMenuIcon) {
+      closeMobileMenu();
+    }
+  });
+
+  // Cerrar menú al hacer clic en un enlace
+  const navLinks = document.querySelectorAll(".nav-links a");
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      closeMobileMenu();
+    });
+  });
+
+  // Cerrar menú con la tecla Escape
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileMenu();
+    }
   });
 
   // Check login status for profile display
