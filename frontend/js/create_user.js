@@ -87,6 +87,9 @@ async function createUser(event) {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                setTimeout(() => {
+                    window.location.href = "index-admin.html";
+                }, 1600);
             } else {
                 console.error("Error creating user", result.message);
             }

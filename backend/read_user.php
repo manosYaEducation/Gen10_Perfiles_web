@@ -54,6 +54,16 @@ try {
         if ($imageData) {
             // Convierte la imagen en base64
             $image = 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen']);
+        } else {
+            // Si no hay imagen personalizada, usar la imagen por defecto
+            $rutaImagenDefecto = __DIR__ . '/../assets/img/default-profile.png';
+            if (file_exists($rutaImagenDefecto)) {
+                $binariosImagen = file_get_contents($rutaImagenDefecto);
+                $tipoArchivo = mime_content_type($rutaImagenDefecto);
+                $image = 'data:' . $tipoArchivo . ';base64,' . base64_encode($binariosImagen);
+            } else {
+                $image = null; // O puedes poner una URL pública si prefieres
+            }
         }
 
         // Recupera las reseñas
@@ -111,9 +121,18 @@ try {
             $stmtImage->execute([$profile['id']]);
             $imageData = $stmtImage->fetch(PDO::FETCH_ASSOC);
 
-            $profile['image'] = $imageData 
-                ? 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen'])
-                : null; // Si no hay imagen, establece null
+            if ($imageData) {
+                $profile['image'] = 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen']);
+            } else {
+                $rutaImagenDefecto = __DIR__ . '/../assets/img/default-profile.png';
+                if (file_exists($rutaImagenDefecto)) {
+                    $binariosImagen = file_get_contents($rutaImagenDefecto);
+                    $tipoArchivo = mime_content_type($rutaImagenDefecto);
+                    $profile['image'] = 'data:' . $tipoArchivo . ';base64,' . base64_encode($binariosImagen);
+                } else {
+                    $profile['image'] = null;
+                }
+            }
         }
 
         $response = [

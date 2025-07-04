@@ -66,6 +66,27 @@ try {
         if (!$stmt->execute()) {
             throw new Exception("Error al guardar la imagen en la base de datos.");
         }
+    }else {
+        // Si no se envía imagen, insertar imagen por defecto
+        $rutaImagenDefecto = __DIR__ . '/../assets/img/default-profile.png';
+
+        if (file_exists($rutaImagenDefecto)) {
+            $binariosImagen = file_get_contents($rutaImagenDefecto);
+            $tipoArchivo = mime_content_type($rutaImagenDefecto);
+            $nombreArchivo = 'default-profile.png';
+
+            $stmt = $conn->prepare("INSERT INTO imagenes (profileid, nombre, imagen, tipo) VALUES (:profileid, :nombre, :imagen, :tipo)");
+            $stmt->bindParam(':profileid', $profileid, PDO::PARAM_INT);
+            $stmt->bindParam(':nombre', $nombreArchivo, PDO::PARAM_STR);
+            $stmt->bindParam(':imagen', $binariosImagen, PDO::PARAM_LOB);
+            $stmt->bindParam(':tipo', $tipoArchivo, PDO::PARAM_STR);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Error al guardar la imagen por defecto.");
+            }
+        } else {
+            throw new Exception("La imagen por defecto no fue encontrada en: $rutaImagenDefecto");
+        }
     }
     
 foreach ($data->experience as $exp) {
