@@ -51,13 +51,15 @@
             </section>
             <hr class="m-0" />
             <section class="resume-section" id="experience">
-                <h2 class="mb-5" id="experience-title">Experiencia</h2>
-                <div id="experience-section">
+                <div class="skill-section"> <!-- Se esta reutilizando la misma tarjeta visual de skill-section -->
+                    <h2 class="mb-5" id="experience-title">Experiencia</h2>
+                    <div id="experience-section">
+                    </div>
                 </div>
             </section>
             <hr class="m-0" />
             <section class="resume-section" id="education">
-                <div class="resume-section-content" id="resume-section-education">
+                <div class="skill-section"> <!-- Se esta reutilizando la misma tarjeta visual de skill-section -->
                     <h2 id="title-education" class="mb-5">Educación</h2>
                     <div id="timeline">
                     </div>
