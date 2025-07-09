@@ -1,0 +1,1410 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Gen10 Perfiles Web API",
+    "description": "API REST para el sistema de gestión de perfiles profesionales, clientes, proyectos y reseñas de Kreative Alpha Docere",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Kreative Alpha Docere",
+      "email": "kreativegen10@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://kreative.alphadocere.cl/backend",
+      "description": "Servidor de producción"
+    },
+    {
+      "url": "http://localhost/Gen10_Perfiles_web/backend",
+      "description": "Servidor de desarrollo local"
+    }
+  ],
+  "paths": {
+    "/login.php": {
+      "post": {
+        "summary": "Autenticación de usuario",
+        "description": "Autentica un usuario con email y contraseña, devuelve un token de sesión",
+        "tags": ["Autenticación"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Email del usuario"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Contraseña del usuario"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "token": {"type": "string"},
+                    "user_id": {"type": "integer"},
+                    "user_type": {"type": "string"},
+                    "user_email": {"type": "string"},
+                    "profile_completed": {"type": "boolean"},
+                    "token_expires": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos incompletos o JSON inválido"
+          },
+          "401": {
+            "description": "Credenciales incorrectas"
+          },
+          "403": {
+            "description": "Demasiados intentos fallidos"
+          },
+          "405": {
+            "description": "Método no permitido"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/create_user.php": {
+      "post": {
+        "summary": "Crear nuevo perfil de usuario",
+        "description": "Crea un nuevo perfil profesional con información básica, experiencia, educación, habilidades, intereses y redes sociales",
+        "tags": ["Perfiles"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["basic", "experience", "education", "skill", "interest"],
+                "properties": {
+                  "basic": {
+                    "type": "object",
+                    "required": ["name", "location", "phone", "email", "description", "phrase"],
+                    "properties": {
+                      "name": {"type": "string"},
+                      "location": {"type": "string"},
+                      "phone": {"type": "string"},
+                      "email": {"type": "string", "format": "email"},
+                      "description": {"type": "string"},
+                      "phrase": {"type": "string"}
+                    }
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Imagen en formato base64 (opcional)"
+                  },
+                  "experience": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "experienceTitle": {"type": "string"},
+                        "experienceStartDate": {"type": "string", "format": "date"},
+                        "experienceEndDate": {"type": "string", "format": "date"}
+                      }
+                    }
+                  },
+                  "education": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "educationTitle": {"type": "string"},
+                        "educationInstitution": {"type": "string"},
+                        "educationStartDate": {"type": "string", "format": "date"},
+                        "educationEndDate": {"type": "string", "format": "date"}
+                      }
+                    }
+                  },
+                  "social": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "platform": {"type": "string"},
+                        "url": {"type": "string", "format": "uri"}
+                      }
+                    }
+                  },
+                  "skill": {"type": "string"},
+                  "interest": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Perfil creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"},
+                    "profileid": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en los datos enviados"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/read_user.php": {
+      "get": {
+        "summary": "Obtener perfiles de usuarios",
+        "description": "Obtiene todos los perfiles o un perfil específico por ID",
+        "tags": ["Perfiles"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID del perfil específico (opcional)",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos del perfil o perfiles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "success": {"type": "boolean"},
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "basic": {
+                              "type": "object",
+                              "properties": {
+                                "name": {"type": "string"},
+                                "location": {"type": "string"},
+                                "phone": {"type": "string"},
+                                "email": {"type": "string"},
+                                "description": {"type": "string"},
+                                "phrase": {"type": "string"}
+                              }
+                            },
+                            "image": {"type": "string"},
+                            "experience": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "title": {"type": "string"},
+                                  "startdate": {"type": "string"},
+                                  "enddate": {"type": "string"}
+                                }
+                              }
+                            },
+                            "education": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "title": {"type": "string"},
+                                  "institution": {"type": "string"},
+                                  "startdate": {"type": "string"},
+                                  "enddate": {"type": "string"}
+                                }
+                              }
+                            },
+                            "skill": {
+                              "type": "array",
+                              "items": {"type": "string"}
+                            },
+                            "interest": {
+                              "type": "array",
+                              "items": {"type": "string"}
+                            },
+                            "social": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "platform": {"type": "string"},
+                                  "url": {"type": "string"}
+                                }
+                              }
+                            },
+                            "review": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "statusid": {"type": "integer"},
+                                  "profileid": {"type": "integer"},
+                                  "nameClient": {"type": "string"},
+                                  "company": {"type": "string"},
+                                  "rating": {"type": "integer"},
+                                  "comments": {"type": "string"},
+                                  "date_review": {"type": "string"}
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "success": {"type": "boolean"},
+                        "profiles": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {"type": "integer"},
+                              "name": {"type": "string"},
+                              "description": {"type": "string"},
+                              "phrase": {"type": "string"},
+                              "phone": {"type": "string"},
+                              "whatsapp": {"type": "string"},
+                              "image": {"type": "string"}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Perfil no encontrado"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/update_users.php": {
+      "post": {
+        "summary": "Actualizar perfil de usuario",
+        "description": "Actualiza la información de un perfil existente",
+        "tags": ["Perfiles"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id", "basic", "social", "skills", "interests", "experience", "education"],
+                "properties": {
+                  "id": {"type": "integer"},
+                  "basic": {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"},
+                      "location": {"type": "string"},
+                      "phone": {"type": "string"},
+                      "email": {"type": "string"},
+                      "description": {"type": "string"},
+                      "phrase": {"type": "string"}
+                    }
+                  },
+                  "social": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "platform": {"type": "string"},
+                        "url": {"type": "string"}
+                      }
+                    }
+                  },
+                  "skills": {"type": "string"},
+                  "interests": {"type": "string"},
+                  "experience": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": {"type": "string"},
+                        "startDate": {"type": "string"},
+                        "endDate": {"type": "string"}
+                      }
+                    }
+                  },
+                  "education": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": {"type": "string"},
+                        "startDate": {"type": "string"},
+                        "endDate": {"type": "string"},
+                        "institution": {"type": "string"}
+                      }
+                    }
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Nueva imagen en formato base64 (opcional)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Perfil actualizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de usuario obligatorio"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/delete_user.php": {
+      "get": {
+        "summary": "Eliminar perfil de usuario",
+        "description": "Elimina un perfil de usuario y sus imágenes asociadas",
+        "tags": ["Perfiles"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID del perfil a eliminar",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario eliminado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {"type": "string"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID no válido o no proporcionado"
+          },
+          "500": {
+            "description": "Error al eliminar el usuario"
+          }
+        }
+      }
+    },
+    "/create-client.php": {
+      "post": {
+        "summary": "Crear nuevo cliente",
+        "description": "Crea un nuevo cliente con información básica e imagen",
+        "tags": ["Clientes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["basic"],
+                "properties": {
+                  "basic": {
+                    "type": "object",
+                    "required": ["name", "company", "email", "location", "phone", "description"],
+                    "properties": {
+                      "name": {"type": "string"},
+                      "company": {"type": "string"},
+                      "email": {"type": "string", "format": "email"},
+                      "location": {"type": "string"},
+                      "phone": {"type": "string"},
+                      "description": {"type": "string"}
+                    }
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Imagen en formato base64 (opcional)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"},
+                    "clienteid": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en los datos enviados"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/read_client.php": {
+      "get": {
+        "summary": "Obtener clientes",
+        "description": "Obtiene todos los clientes o un cliente específico por ID",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID del cliente específico (opcional)",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos del cliente o clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "success": {"type": "boolean"},
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "basic": {
+                              "type": "object",
+                              "properties": {
+                                "id": {"type": "integer"},
+                                "name": {"type": "string"},
+                                "company": {"type": "string"},
+                                "email": {"type": "string"},
+                                "location": {"type": "string"},
+                                "phone": {"type": "string"},
+                                "description": {"type": "string"}
+                              }
+                            },
+                            "image": {"type": "string"}
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "success": {"type": "boolean"},
+                        "clients": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {"type": "integer"},
+                              "name": {"type": "string"},
+                              "company": {"type": "string"},
+                              "description": {"type": "string"},
+                              "image": {"type": "string"}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/update_clients.php": {
+      "post": {
+        "summary": "Actualizar cliente",
+        "description": "Actualiza la información de un cliente existente",
+        "tags": ["Clientes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id", "basic"],
+                "properties": {
+                  "id": {"type": "integer"},
+                  "basic": {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"},
+                      "company": {"type": "string"},
+                      "email": {"type": "string"},
+                      "location": {"type": "string"},
+                      "phone": {"type": "string"},
+                      "description": {"type": "string"}
+                    }
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "Nueva imagen en formato base64 (opcional)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente actualizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de cliente obligatorio"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/delete_client.php": {
+      "get": {
+        "summary": "Eliminar cliente",
+        "description": "Elimina un cliente y sus imágenes asociadas",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID del cliente a eliminar",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente eliminado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de cliente no proporcionado"
+          },
+          "500": {
+            "description": "Error al eliminar cliente"
+          }
+        }
+      }
+    },
+    "/project_create.php": {
+      "post": {
+        "summary": "Crear nuevo proyecto",
+        "description": "Crea un nuevo proyecto con información detallada, imágenes, participantes, clientes, enlaces y testimonios",
+        "tags": ["Proyectos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["titulo_tarjeta", "descripcion_tarjeta", "titulo_proyecto", "fecha", "contenido_proyecto"],
+                "properties": {
+                  "titulo_tarjeta": {"type": "string"},
+                  "descripcion_tarjeta": {"type": "string"},
+                  "titulo_proyecto": {"type": "string"},
+                  "fecha": {"type": "string", "format": "date"},
+                  "ubicacion": {"type": "string"},
+                  "contenido_proyecto": {"type": "string"},
+                  "parrafos": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "imagenes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "descripciones": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "participantes": {
+                    "type": "object",
+                    "additionalProperties": {"type": "string"}
+                  },
+                  "clientes": {
+                    "type": "object",
+                    "additionalProperties": {"type": "string"}
+                  },
+                  "descripciones_enlaces": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "enlaces": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "autores_testimonios": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "testimonios": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proyecto creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"},
+                    "id": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Faltan datos obligatorios"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/project_detail.php": {
+      "get": {
+        "summary": "Obtener detalles de proyecto",
+        "description": "Obtiene información detallada de un proyecto específico incluyendo párrafos, imágenes, participantes, clientes, testimonios y enlaces",
+        "tags": ["Proyectos"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID del proyecto",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles del proyecto",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_proyecto": {"type": "integer"},
+                      "titulo": {"type": "string"},
+                      "titulo_tarjeta": {"type": "string"},
+                      "descripcion_tarjeta": {"type": "string"},
+                      "fecha": {"type": "string"},
+                      "ubicacion": {"type": "string"},
+                      "contenido": {"type": "string"},
+                      "detalles": {
+                        "type": "object",
+                        "properties": {
+                          "parrafos": {
+                            "type": "array",
+                            "items": {"type": "string"}
+                          },
+                          "imagenes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "descripcion": {"type": "string"},
+                                "url": {"type": "string"}
+                              }
+                            }
+                          },
+                          "participantes": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {"type": "integer"},
+                                "nombre": {"type": "string"},
+                                "imagen": {"type": "string"}
+                              }
+                            }
+                          },
+                          "cliente": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {"type": "integer"},
+                                "name": {"type": "string"}
+                              }
+                            }
+                          },
+                          "testimonios": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "autor": {"type": "string"},
+                                "contenido": {"type": "string"}
+                              }
+                            }
+                          },
+                          "enlaces": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "descripcion": {"type": "string"},
+                                "url": {"type": "string"}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de proyecto no proporcionado"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/project_update.php": {
+      "post": {
+        "summary": "Actualizar proyecto",
+        "description": "Actualiza la información de un proyecto existente",
+        "tags": ["Proyectos"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["id_proyecto", "titulo_tarjeta", "descripcion_tarjeta", "titulo_proyecto", "fecha", "contenido_proyecto"],
+                "properties": {
+                  "id_proyecto": {"type": "integer"},
+                  "titulo_tarjeta": {"type": "string"},
+                  "descripcion_tarjeta": {"type": "string"},
+                  "titulo_proyecto": {"type": "string"},
+                  "fecha": {"type": "string", "format": "date"},
+                  "ubicacion": {"type": "string"},
+                  "contenido_proyecto": {"type": "string"},
+                  "parrafos": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "imagenes_existentes": {"type": "string"},
+                  "imagenes_url": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "imagenes_descripcion": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "imagenes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "descripciones": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "testimonios_autor": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "testimonios_contenido": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "enlaces_descripcion": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "enlaces_url": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "participantes": {"type": "string"},
+                  "clientes": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proyecto actualizado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "mensaje": {"type": "string"},
+                    "id": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID del proyecto requerido"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/project_read.php": {
+      "get": {
+        "summary": "Obtener lista de proyectos",
+        "description": "Obtiene una lista de todos los proyectos con información básica",
+        "tags": ["Proyectos"],
+        "responses": {
+          "200": {
+            "description": "Lista de proyectos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_proyecto": {"type": "integer"},
+                      "titulo_tarjeta": {"type": "string"},
+                      "descripcion_tarjeta": {"type": "string"},
+                      "fecha": {"type": "string"}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/create_review.php": {
+      "post": {
+        "summary": "Crear nueva reseña",
+        "description": "Crea una nueva reseña para un perfil profesional",
+        "tags": ["Reseñas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["statusid", "profileid", "nameClient", "company", "comments", "rating", "date_review"],
+                "properties": {
+                  "statusid": {"type": "integer"},
+                  "profileid": {"type": "integer"},
+                  "nameClient": {"type": "string"},
+                  "company": {"type": "string"},
+                  "comments": {"type": "string"},
+                  "rating": {"type": "integer", "minimum": 1, "maximum": 5},
+                  "date_review": {"type": "string", "format": "date"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reseña creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos JSON inválidos"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/read_reviews.php": {
+      "get": {
+        "summary": "Obtener reseñas",
+        "description": "Obtiene todas las reseñas con información del perfil y estado",
+        "tags": ["Reseñas"],
+        "responses": {
+          "200": {
+            "description": "Lista de reseñas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "reviews": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {"type": "integer"},
+                              "statusid": {"type": "integer"},
+                              "profileid": {"type": "integer"},
+                              "nameClient": {"type": "string"},
+                              "company": {"type": "string"},
+                              "rating": {"type": "integer"},
+                              "comments": {"type": "string"},
+                              "date_review": {"type": "string"},
+                              "nombre_perfil": {"type": "string"},
+                              "estado_reseña": {"type": "string"}
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No hay reseñas"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/update_review.php": {
+      "post": {
+        "summary": "Actualizar estado de reseña",
+        "description": "Actualiza el estado de una reseña (aprobación/rechazo)",
+        "tags": ["Reseñas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id", "statusid"],
+                "properties": {
+                  "id": {"type": "integer"},
+                  "statusid": {"type": "integer"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Reseña actualizada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de reseña obligatorio"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/send_email.php": {
+      "post": {
+        "summary": "Enviar email de contacto",
+        "description": "Envía un email de contacto desde el formulario web",
+        "tags": ["Comunicación"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "required": ["nombre", "email", "asunto", "mensaje"],
+                "properties": {
+                  "nombre": {"type": "string"},
+                  "email": {"type": "string", "format": "email"},
+                  "telefono": {"type": "string"},
+                  "asunto": {"type": "string"},
+                  "mensaje": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email enviado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"},
+                    "errors": {
+                      "type": "array",
+                      "items": {"type": "string"}
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la validación del formulario"
+          },
+          "405": {
+            "description": "Método no válido"
+          }
+        }
+      }
+    },
+    "/metrics.php": {
+      "get": {
+        "summary": "Obtener métricas del sistema",
+        "description": "Obtiene estadísticas generales del sistema (total de proyectos, perfiles y clientes)",
+        "tags": ["Estadísticas"],
+        "responses": {
+          "200": {
+            "description": "Métricas del sistema",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "total_proyectos": {"type": "integer"},
+                    "total_profiles": {"type": "integer"},
+                    "total_clients": {"type": "integer"}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/check_clients.php": {
+      "get": {
+        "summary": "Verificar clientes",
+        "description": "Obtiene información básica de clientes para verificación",
+        "tags": ["Clientes"],
+        "responses": {
+          "200": {
+            "description": "Información de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "total_clients": {"type": "integer"},
+                    "sample_clients": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {"type": "integer"},
+                          "name": {"type": "string"},
+                          "company": {"type": "string"}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/api/ordenes/eliminar_orden.php": {
+      "post": {
+        "summary": "Eliminar orden",
+        "description": "Elimina una orden del sistema de módulo de servicio",
+        "tags": ["Órdenes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id"],
+                "properties": {
+                  "id": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden eliminada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID de orden no proporcionado"
+          },
+          "405": {
+            "description": "Método no permitido"
+          }
+        }
+      }
+    },
+    "/api/ordenes/modificar_orden.php": {
+      "post": {
+        "summary": "Modificar orden",
+        "description": "Modifica una orden existente en el sistema de módulo de servicio",
+        "tags": ["Órdenes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id", "nombre", "correo", "estado"],
+                "properties": {
+                  "id": {"type": "string"},
+                  "nombre": {"type": "string"},
+                  "apellido": {"type": "string"},
+                  "correo": {"type": "string", "format": "email"},
+                  "telefono": {"type": "string"},
+                  "estado": {"type": "string"}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orden actualizada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {"type": "boolean"},
+                    "message": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Faltan datos requeridos"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "description": "Mensaje de error descriptivo"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Autenticación",
+      "description": "Endpoints relacionados con la autenticación de usuarios"
+    },
+    {
+      "name": "Perfiles",
+      "description": "Gestión de perfiles profesionales"
+    },
+    {
+      "name": "Clientes",
+      "description": "Gestión de clientes"
+    },
+    {
+      "name": "Proyectos",
+      "description": "Gestión de proyectos y portafolio"
+    },
+    {
+      "name": "Reseñas",
+      "description": "Gestión de reseñas y testimonios"
+    },
+    {
+      "name": "Comunicación",
+      "description": "Endpoints de comunicación y contacto"
+    },
+    {
+      "name": "Estadísticas",
+      "description": "Métricas y estadísticas del sistema"
+    },
+    {
+      "name": "Órdenes",
+      "description": "Gestión de órdenes del módulo de servicio"
+    }
+  ]
+}
