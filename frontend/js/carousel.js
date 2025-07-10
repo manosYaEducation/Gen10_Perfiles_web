@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (data.success) {
         profiles = data.profiles;
         renderProfiles();
+        observeLazyImages(); // activa lazy loading después de renderizar
         updateCardsPerView(); // Inicializar cardsPerView después de renderizar
         updateCarousel();
       } else {
@@ -75,7 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
         : profile.description || "";
       profileCard.innerHTML = `
         <div class="profile-image-container">
-          <img src="${profile.image || "./assets/img/default-profile.png"}" alt="${profile.name}">
+            <img 
+            ${profiles.indexOf(profile) < 3 
+            ? `src="${profile.image || "./assets/img/default-profile.png"}"` 
+            : `data-src="${profile.image || "./assets/img/default-profile.png"}" src="./assets/img/loading-placeholder.png" loading="lazy"`} 
+            alt="${profile.name}" 
+            width="300" height="300"
+            class="profile-img"
+          />
           <p id="whatsapp"><a href="${profile.whatsapp}"><i class="fab fa-whatsapp fa-3x"></i></a></p>
         </div>
         <div class="profile-text-container">
@@ -235,6 +243,24 @@ document.addEventListener("DOMContentLoaded", function () {
       handleSwipe();
     }, { passive: true });
   }
+  
+  function observeLazyImages() {
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.removeAttribute("data-src");
+        img.classList.remove("lazy-img");
+        observer.unobserve(img);
+      }
+    });
+  });
+
+  const lazyImages = document.querySelectorAll("img[data-src]");
+  lazyImages.forEach(img => observer.observe(img));
+}
+
 
   function handleSwipe() {
     const swipeThreshold = 50;
