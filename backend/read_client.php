@@ -1,4 +1,25 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/read_client.php",
+ *     summary="Obtener clientes",
+ *     description="Obtiene todos los clientes o un cliente específico por ID",
+ *     tags={"Clientes"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="query",
+ *         description="ID del cliente específico (opcional)",
+ *         required=false,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Datos del cliente o clientes"
+ *     ),
+ *     @OA\Response(response=400, description="Cliente no encontrado"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

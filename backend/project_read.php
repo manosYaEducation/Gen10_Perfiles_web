@@ -1,4 +1,17 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/project_read.php",
+ *     summary="Obtener lista de proyectos",
+ *     description="Obtiene una lista de todos los proyectos con información básica",
+ *     tags={"Proyectos"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Lista de proyectos"
+ *     ),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde cualquier origen
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");

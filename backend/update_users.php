@@ -1,4 +1,69 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/update_users.php",
+ *     summary="Actualizar perfil de usuario",
+ *     description="Actualiza la información de un perfil existente",
+ *     tags={"Perfiles"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"id","basic","social","skills","interests","experience","education"},
+ *             @OA\Property(property="id", type="integer"),
+ *             @OA\Property(
+ *                 property="basic",
+ *                 type="object",
+ *                 @OA\Property(property="name", type="string"),
+ *                 @OA\Property(property="location", type="string"),
+ *                 @OA\Property(property="phone", type="string"),
+ *                 @OA\Property(property="email", type="string"),
+ *                 @OA\Property(property="description", type="string"),
+ *                 @OA\Property(property="phrase", type="string")
+ *             ),
+ *             @OA\Property(
+ *                 property="social",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(property="platform", type="string"),
+ *                     @OA\Property(property="url", type="string")
+ *                 )
+ *             ),
+ *             @OA\Property(property="skills", type="string"),
+ *             @OA\Property(property="interests", type="string"),
+ *             @OA\Property(
+ *                 property="experience",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(property="title", type="string"),
+ *                     @OA\Property(property="startDate", type="string"),
+ *                     @OA\Property(property="endDate", type="string")
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="education",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(property="title", type="string"),
+ *                     @OA\Property(property="startDate", type="string"),
+ *                     @OA\Property(property="endDate", type="string"),
+ *                     @OA\Property(property="institution", type="string")
+ *                 )
+ *             ),
+ *             @OA\Property(property="image", type="string", description="Nueva imagen en formato base64 (opcional)")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Perfil actualizado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID de usuario obligatorio"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");

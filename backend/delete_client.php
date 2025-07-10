@@ -1,4 +1,29 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/delete_client.php",
+ *     summary="Eliminar cliente",
+ *     description="Elimina un cliente y sus imágenes asociadas",
+ *     tags={"Clientes"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="query",
+ *         description="ID del cliente a eliminar",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Cliente eliminado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID de cliente no proporcionado"),
+ *     @OA\Response(response=500, description="Error al eliminar cliente")
+ * )
+ */
 // Configuración de encabezados CORS y manejo de errores
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");

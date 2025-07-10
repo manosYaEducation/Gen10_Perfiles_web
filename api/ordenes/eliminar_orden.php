@@ -1,4 +1,29 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/api/ordenes/eliminar_orden.php",
+ *     summary="Eliminar orden",
+ *     description="Elimina una orden del sistema de módulo de servicio",
+ *     tags={"Órdenes"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"id"},
+ *             @OA\Property(property="id", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Orden eliminada exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID de orden no proporcionado"),
+ *     @OA\Response(response=405, description="Método no permitido")
+ * )
+ */
 header('Content-Type: application/json');
 
 // Configuración de la base de datos

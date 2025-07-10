@@ -1,4 +1,37 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/send_email.php",
+ *     summary="Enviar email de contacto",
+ *     description="Envía un email de contacto desde el formulario web",
+ *     tags={"Comunicación"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="application/x-www-form-urlencoded",
+ *             @OA\Schema(
+ *                 required={"nombre","email","asunto","mensaje"},
+ *                 @OA\Property(property="nombre", type="string"),
+ *                 @OA\Property(property="email", type="string", format="email"),
+ *                 @OA\Property(property="telefono", type="string"),
+ *                 @OA\Property(property="asunto", type="string"),
+ *                 @OA\Property(property="mensaje", type="string")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Email enviado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="errors", type="array", @OA\Items(type="string"))
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Error en la validación del formulario"),
+ *     @OA\Response(response=405, description="Método no válido")
+ * )
+ */
 // Configuración de encabezados para respuesta JSON
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');

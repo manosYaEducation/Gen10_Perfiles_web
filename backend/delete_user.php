@@ -1,4 +1,29 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/delete_user.php",
+ *     summary="Eliminar perfil de usuario",
+ *     description="Elimina un perfil de usuario y sus imágenes asociadas",
+ *     tags={"Perfiles"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="query",
+ *         description="ID del perfil a eliminar",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Usuario eliminado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID no válido o no proporcionado"),
+ *     @OA\Response(response=500, description="Error al eliminar el usuario")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type");

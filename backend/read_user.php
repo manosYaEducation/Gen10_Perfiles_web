@@ -1,4 +1,25 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/read_user.php",
+ *     summary="Obtener perfiles de usuarios",
+ *     description="Obtiene todos los perfiles o un perfil específico por ID",
+ *     tags={"Perfiles"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="query",
+ *         description="ID del perfil específico (opcional)",
+ *         required=false,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Datos del perfil o perfiles"
+ *     ),
+ *     @OA\Response(response=400, description="Perfil no encontrado"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

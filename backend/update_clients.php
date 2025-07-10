@@ -1,4 +1,40 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/update_clients.php",
+ *     summary="Actualizar cliente",
+ *     description="Actualiza la información de un cliente existente",
+ *     tags={"Clientes"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"id","basic"},
+ *             @OA\Property(property="id", type="integer"),
+ *             @OA\Property(
+ *                 property="basic",
+ *                 type="object",
+ *                 @OA\Property(property="name", type="string"),
+ *                 @OA\Property(property="company", type="string"),
+ *                 @OA\Property(property="email", type="string"),
+ *                 @OA\Property(property="location", type="string"),
+ *                 @OA\Property(property="phone", type="string"),
+ *                 @OA\Property(property="description", type="string")
+ *             ),
+ *             @OA\Property(property="image", type="string", description="Nueva imagen en formato base64 (opcional)")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Cliente actualizado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID de cliente obligatorio"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");

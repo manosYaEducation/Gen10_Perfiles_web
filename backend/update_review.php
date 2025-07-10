@@ -1,4 +1,30 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/update_review.php",
+ *     summary="Actualizar estado de reseña",
+ *     description="Actualiza el estado de una reseña (aprobación/rechazo)",
+ *     tags={"Reseñas"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"id","statusid"},
+ *             @OA\Property(property="id", type="integer"),
+ *             @OA\Property(property="statusid", type="integer")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Reseña actualizada exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID de reseña obligatorio"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 
 // Se incluye método PATCH para actualizar parcialmente la reseña
 // de esta manera nos aseguramos que solo se cambie el estado y no el contenido que corresponde al cliente

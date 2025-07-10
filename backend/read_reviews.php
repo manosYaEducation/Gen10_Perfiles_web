@@ -1,4 +1,18 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/read_reviews.php",
+ *     summary="Obtener reseñas",
+ *     description="Obtiene todas las reseñas con información del perfil y estado",
+ *     tags={"Reseñas"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Lista de reseñas"
+ *     ),
+ *     @OA\Response(response=400, description="No hay reseñas"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

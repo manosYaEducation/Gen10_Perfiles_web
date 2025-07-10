@@ -1,4 +1,41 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/create-client.php",
+ *     summary="Crear nuevo cliente",
+ *     description="Crea un nuevo cliente con información básica e imagen",
+ *     tags={"Clientes"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"basic"},
+ *             @OA\Property(
+ *                 property="basic",
+ *                 type="object",
+ *                 required={"name","company","email","location","phone","description"},
+ *                 @OA\Property(property="name", type="string"),
+ *                 @OA\Property(property="company", type="string"),
+ *                 @OA\Property(property="email", type="string", format="email"),
+ *                 @OA\Property(property="location", type="string"),
+ *                 @OA\Property(property="phone", type="string"),
+ *                 @OA\Property(property="description", type="string")
+ *             ),
+ *             @OA\Property(property="image", type="string", description="Imagen en formato base64 (opcional)")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Cliente creado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="clienteid", type="integer")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Error en los datos enviados"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

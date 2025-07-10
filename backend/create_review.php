@@ -1,4 +1,35 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/create_review.php",
+ *     summary="Crear nueva reseña",
+ *     description="Crea una nueva reseña para un perfil profesional",
+ *     tags={"Reseñas"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"statusid","profileid","nameClient","company","comments","rating","date_review"},
+ *             @OA\Property(property="statusid", type="integer"),
+ *             @OA\Property(property="profileid", type="integer"),
+ *             @OA\Property(property="nameClient", type="string"),
+ *             @OA\Property(property="company", type="string"),
+ *             @OA\Property(property="comments", type="string"),
+ *             @OA\Property(property="rating", type="integer", minimum=1, maximum=5),
+ *             @OA\Property(property="date_review", type="string", format="date")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Reseña creada exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Datos JSON inválidos"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

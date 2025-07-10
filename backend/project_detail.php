@@ -1,4 +1,25 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/project_detail.php",
+ *     summary="Obtener detalles de proyecto",
+ *     description="Obtiene información detallada de un proyecto específico incluyendo párrafos, imágenes, participantes, clientes, testimonios y enlaces",
+ *     tags={"Proyectos"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="query",
+ *         description="ID del proyecto",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Detalles del proyecto"
+ *     ),
+ *     @OA\Response(response=400, description="ID de proyecto no proporcionado"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *"); // Permite solicitudes desde cualquier origen
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");

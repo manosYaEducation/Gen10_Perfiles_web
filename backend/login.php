@@ -1,4 +1,38 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/login.php",
+ *     summary="Autenticación de usuario",
+ *     description="Autentica un usuario con email y contraseña, devuelve un token de sesión",
+ *     tags={"Autenticación"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", format="email", description="Email del usuario"),
+ *             @OA\Property(property="password", type="string", description="Contraseña del usuario")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Autenticación exitosa",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="token", type="string"),
+ *             @OA\Property(property="user_id", type="integer"),
+ *             @OA\Property(property="user_type", type="string"),
+ *             @OA\Property(property="user_email", type="string"),
+ *             @OA\Property(property="profile_completed", type="boolean"),
+ *             @OA\Property(property="token_expires", type="integer")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Datos incompletos o JSON inválido"),
+ *     @OA\Response(response=401, description="Credenciales incorrectas"),
+ *     @OA\Response(response=403, description="Demasiados intentos fallidos"),
+ *     @OA\Response(response=405, description="Método no permitido"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 // Función para enviar respuestas JSON consistentes
 function enviarJSON($data, $statusCode = 200)
 {

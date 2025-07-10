@@ -1,4 +1,47 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/project_create.php",
+ *     summary="Crear nuevo proyecto",
+ *     description="Crea un nuevo proyecto con información detallada, imágenes, participantes, clientes, enlaces y testimonios",
+ *     tags={"Proyectos"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 required={"titulo_tarjeta","descripcion_tarjeta","titulo_proyecto","fecha","contenido_proyecto"},
+ *                 @OA\Property(property="titulo_tarjeta", type="string"),
+ *                 @OA\Property(property="descripcion_tarjeta", type="string"),
+ *                 @OA\Property(property="titulo_proyecto", type="string"),
+ *                 @OA\Property(property="fecha", type="string", format="date"),
+ *                 @OA\Property(property="ubicacion", type="string"),
+ *                 @OA\Property(property="contenido_proyecto", type="string"),
+ *                 @OA\Property(property="parrafos", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="imagenes", type="array", @OA\Items(type="string", format="binary")),
+ *                 @OA\Property(property="descripciones", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="participantes", type="object", additionalProperties={"type":"string"}),
+ *                 @OA\Property(property="clientes", type="object", additionalProperties={"type":"string"}),
+ *                 @OA\Property(property="descripciones_enlaces", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="enlaces", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="autores_testimonios", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="testimonios", type="array", @OA\Items(type="string"))
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Proyecto creado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="id", type="integer")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Faltan datos obligatorios"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 ob_start(); // Inicia el buffer de salida
 
 // (Opcional) Oculta la visualización de errores en pantalla para evitar HTML accidental

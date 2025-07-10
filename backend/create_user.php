@@ -1,4 +1,70 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/create_user.php",
+ *     summary="Crear nuevo perfil de usuario",
+ *     description="Crea un nuevo perfil profesional con información básica, experiencia, educación, habilidades, intereses y redes sociales",
+ *     tags={"Perfiles"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"basic","experience","education","skill","interest"},
+ *             @OA\Property(
+ *                 property="basic",
+ *                 type="object",
+ *                 required={"name","location","phone","email","description","phrase"},
+ *                 @OA\Property(property="name", type="string"),
+ *                 @OA\Property(property="location", type="string"),
+ *                 @OA\Property(property="phone", type="string"),
+ *                 @OA\Property(property="email", type="string", format="email"),
+ *                 @OA\Property(property="description", type="string"),
+ *                 @OA\Property(property="phrase", type="string")
+ *             ),
+ *             @OA\Property(property="image", type="string", description="Imagen en formato base64 (opcional)"),
+ *             @OA\Property(
+ *                 property="experience",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(property="experienceTitle", type="string"),
+ *                     @OA\Property(property="experienceStartDate", type="string", format="date"),
+ *                     @OA\Property(property="experienceEndDate", type="string", format="date")
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="education",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(property="educationTitle", type="string"),
+ *                     @OA\Property(property="educationInstitution", type="string"),
+ *                     @OA\Property(property="educationStartDate", type="string", format="date"),
+ *                     @OA\Property(property="educationEndDate", type="string", format="date")
+ *                 )
+ *             ),
+ *             @OA\Property(
+ *                 property="social",
+ *                 type="array",
+ *                 @OA\Items(
+ *                     @OA\Property(property="platform", type="string"),
+ *                     @OA\Property(property="url", type="string", format="uri")
+ *                 )
+ *             ),
+ *             @OA\Property(property="skill", type="string"),
+ *             @OA\Property(property="interest", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Perfil creado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="profileid", type="integer")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Error en los datos enviados"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

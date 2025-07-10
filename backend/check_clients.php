@@ -1,4 +1,17 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/check_clients.php",
+ *     summary="Verificar clientes",
+ *     description="Obtiene información básica de clientes para verificación",
+ *     tags={"Clientes"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Información de clientes"
+ *     ),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");

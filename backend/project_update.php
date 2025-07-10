@@ -1,4 +1,51 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/project_update.php",
+ *     summary="Actualizar proyecto",
+ *     description="Actualiza la información de un proyecto existente",
+ *     tags={"Proyectos"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\MediaType(
+ *             mediaType="multipart/form-data",
+ *             @OA\Schema(
+ *                 required={"id_proyecto","titulo_tarjeta","descripcion_tarjeta","titulo_proyecto","fecha","contenido_proyecto"},
+ *                 @OA\Property(property="id_proyecto", type="integer"),
+ *                 @OA\Property(property="titulo_tarjeta", type="string"),
+ *                 @OA\Property(property="descripcion_tarjeta", type="string"),
+ *                 @OA\Property(property="titulo_proyecto", type="string"),
+ *                 @OA\Property(property="fecha", type="string", format="date"),
+ *                 @OA\Property(property="ubicacion", type="string"),
+ *                 @OA\Property(property="contenido_proyecto", type="string"),
+ *                 @OA\Property(property="parrafos", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="imagenes_existentes", type="string"),
+ *                 @OA\Property(property="imagenes_url", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="imagenes_descripcion", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="imagenes", type="array", @OA\Items(type="string", format="binary")),
+ *                 @OA\Property(property="descripciones", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="testimonios_autor", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="testimonios_contenido", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="enlaces_descripcion", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="enlaces_url", type="array", @OA\Items(type="string")),
+ *                 @OA\Property(property="participantes", type="string"),
+ *                 @OA\Property(property="clientes", type="string")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Proyecto actualizado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="mensaje", type="string"),
+ *             @OA\Property(property="id", type="integer")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="ID del proyecto requerido"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 ob_start();
 
 header("Access-Control-Allow-Origin: *");

@@ -1,4 +1,34 @@
 <?php
+/**
+ * @OA\Post(
+ *     path="/api/ordenes/modificar_orden.php",
+ *     summary="Modificar orden",
+ *     description="Modifica una orden existente en el sistema de módulo de servicio",
+ *     tags={"Órdenes"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"id","nombre","correo","estado"},
+ *             @OA\Property(property="id", type="string"),
+ *             @OA\Property(property="nombre", type="string"),
+ *             @OA\Property(property="apellido", type="string"),
+ *             @OA\Property(property="correo", type="string", format="email"),
+ *             @OA\Property(property="telefono", type="string"),
+ *             @OA\Property(property="estado", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Orden actualizada exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="success", type="boolean"),
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     ),
+ *     @OA\Response(response=400, description="Faltan datos requeridos"),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *'); // Considera restringir esto en producción
 header('Access-Control-Allow-Methods: POST, OPTIONS');

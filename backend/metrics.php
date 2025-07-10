@@ -1,4 +1,17 @@
 <?php
+/**
+ * @OA\Get(
+ *     path="/metrics.php",
+ *     summary="Obtener métricas del sistema",
+ *     description="Obtiene estadísticas generales del sistema (total de proyectos, perfiles y clientes)",
+ *     tags={"Estadísticas"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Métricas del sistema"
+ *     ),
+ *     @OA\Response(response=500, description="Error del servidor")
+ * )
+ */
 header("Access-Control-Allow-Origin: *"); 
 
 include 'conexion.php';
