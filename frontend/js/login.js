@@ -53,7 +53,7 @@ loginF.addEventListener("submit", async (event) => {
 
   try {
     // Aquí cambiamos la URL del endpoint a la nueva dirección
-    const response = await fetch("https://systemauth.alphadocere.cl/login.php", {
+    const response = await fetch("https://test-systemauth.alphadocere.cl/login.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,6 +66,7 @@ loginF.addEventListener("submit", async (event) => {
 
     const result = await response.json();
     console.log("Respuesta del servidor:", result);
+    
 
     if (result.success === true) {
       // Reset de intentos fallidos
@@ -79,6 +80,7 @@ loginF.addEventListener("submit", async (event) => {
         localStorage.setItem("userLoggedIn", "true");
         localStorage.setItem("username", username);
         localStorage.setItem("sessionPermanent", "true");
+        localStorage.setItem("proyectoActual", 1);
         
         // Almacenar datos adicionales del usuario si están disponibles
         if (result.token) {
@@ -114,6 +116,11 @@ loginF.addEventListener("submit", async (event) => {
           localStorage.setItem("userName", result.user.nombre);
           sessionStorage.setItem("userCiudad", result.user.ciudad);
           localStorage.setItem("userCiudad", result.user.ciudad);
+        }
+        
+        // Guardar los roles asociados al usuario si están disponibles
+        if (Array.isArray(result.roles)) {
+          localStorage.setItem("roles", JSON.stringify(result.roles));
         }
       }
 

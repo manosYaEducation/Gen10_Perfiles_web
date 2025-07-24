@@ -185,6 +185,26 @@
     </footer>
     
     <link rel="stylesheet" href="../frontend/css/base/footer.css">
+    <script src="../frontend/js/roles.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const rolesRaw = localStorage.getItem("roles");
+    const proyectoId = parseInt(localStorage.getItem("proyectoActual")) || 1;
+
+    if (!rolesRaw) {
+      alert("Debes iniciar sesión para acceder al panel.");
+      window.location.href = "../index.html";
+      return;
+    }
+
+    const esAdmin = tieneRolEnProyecto("admin_k", proyectoId);
+    if (!esAdmin) {
+      alert("No tienes permiso para acceder al panel de administración.");
+      window.location.href = "../index.html";
+    }
+  });
+</script>
+    
 </body>
 
 </html>
