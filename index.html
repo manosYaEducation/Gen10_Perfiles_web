@@ -8,6 +8,7 @@
     <link href="./frontend/css/base/index.css" rel="stylesheet" />
     <link href="./frontend/css/admin/cliente.css" rel="stylesheet" />
     <link href="./frontend/css/base/contacto.css" rel="stylesheet">
+    <!-- <script src="./frontend/js/roles.js"></script> -->
    
     <link rel="stylesheet" href="./frontend/css/base/footer.css">
     <link rel="stylesheet" href="./frontend/css/base/proyectos-timeline.css">
@@ -1121,6 +1122,17 @@
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
     <script src="./frontend/js/clients-index.js"></script>
+    <!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const proyectoId = parseInt(localStorage.getItem("proyectoActual")) || 1;
+    const esAdmin = tieneRolEnProyecto("admin_k", proyectoId);
+
+    const adminLink = document.querySelector('a[href="frontend/index-admin.html"]');
+    if (adminLink && !esAdmin) {
+      adminLink.style.display = "none";
+    }
+  }); -->
+</script>
 </body>
 
 </html>
