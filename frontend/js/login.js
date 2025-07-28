@@ -40,6 +40,32 @@ function actualizarMensajeBloqueo() {
   }
 }
 
+async function obtenerClavePublica() {
+  const res = await fetch('/assets/a9f87e6df4b_secret/f4e2b1c7_keys/public.pem'); // Ruta hacia la clave pública
+  return await res.text();
+}
+
+async function cifrarConClavePublica(textoPlano) {
+  const clavePublica = await obtenerClavePublica();
+  console.log('Clave pública cargada:\n', clavePublica);
+
+  const encryptor = new JSEncrypt();
+  encryptor.setPublicKey(clavePublica);
+
+  const test = encryptor.encrypt('test');
+  if (!test) {
+    console.error("FALLÓ el cifrado simple con 'test'");
+  }
+
+  const cifrado = encryptor.encrypt(textoPlano);
+  if (!cifrado) {
+    console.error('FALLÓ el cifrado de:', textoPlano);
+    throw new Error('Error al cifrar con clave pública.');
+  }
+
+  return cifrado;
+}
+
 loginF.addEventListener("submit", async (event) => {
   event.preventDefault();
   const username = document.querySelector("#username").value;
@@ -53,16 +79,19 @@ loginF.addEventListener("submit", async (event) => {
 
   try {
     // Aquí cambiamos la URL del endpoint a la nueva dirección
-    const response = await fetch("https://test-systemauth.alphadocere.cl/login.php", {
-        method: "POST",
+    const emailCifrado = await cifrarConClavePublica(username);
+    const passwordCifrado = await cifrarConClavePublica(password);
+    // Antes de subir a producción https://systemauth.alphadocere.cl/login.php o a https://test-systemauth.alphadocere.cl/login.php
+    const response = await fetch('http://127.0.0.1/jwt-mail-qr/Version%202-%20SystemAuth/login.php', {  // endpoint local
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: username,
-          password: password,
+          email: emailCifrado,
+          password: passwordCifrado,
         }),
-      });
+      }
+    );
 
     const result = await response.json();
     console.log("Respuesta del servidor:", result);
@@ -141,7 +170,7 @@ loginF.addEventListener("submit", async (event) => {
     }
   } catch (error) {
     console.error("Error completo:", error);
-    alert("Hubo un error al procesar tu solicitud. Inténtalo nuevamente.");
+    alert('Hubo un error al procesar tu solicitud. Inténtalo nuevamente.\n' + error.message);
   }
 });
 
