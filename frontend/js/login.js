@@ -82,7 +82,7 @@ loginF.addEventListener("submit", async (event) => {
     const emailCifrado = await cifrarConClavePublica(username);
     const passwordCifrado = await cifrarConClavePublica(password);
     // Antes de subir a producción https://systemauth.alphadocere.cl/login.php o a https://test-systemauth.alphadocere.cl/login.php
-    const response = await fetch('http://127.0.0.1/jwt-mail-qr/Version%202-%20SystemAuth/login.php', {  // endpoint local
+    const response = await fetch('https://test-systemauth.alphadocere.cl/login.php', {  // endpoint local
         headers: {
           'Content-Type': 'application/json',
         },
