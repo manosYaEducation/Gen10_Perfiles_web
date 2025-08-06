@@ -188,12 +188,24 @@ function closeDialog() {
     const modal = document.getElementById('confirmationDialog');
     modal.close();
 }
+
+
+
 document.getElementById('searchInput').addEventListener('input', function () {
-    const searchTerm = this.value.toLowerCase();
+
+ // Función para normalizar texto:
+    // 1. Separa los caracteres con tilde de las letras
+    // 2. Elimina los caracteres diacríticos
+    // 3. Convierte todo el texto a minúsculas
+    const normalizeText = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    
+    const searchTerm = normalizeText(this.value);
     const cards = document.querySelectorAll('.profile-card'); // Ajusta al selector real si es distinto
 
     cards.forEach(card => {
-        const name = card.querySelector('h2')?.textContent.toLowerCase();
+        const nameElement = card.querySelector('h2');
+        const name = nameElement ? normalizeText(nameElement.textContent) : '';
+
         if (name.includes(searchTerm)) {
             card.style.display = '';
         } else {
