@@ -29,7 +29,19 @@ try {
         if ($imageData) {
             // Convierte la imagen en base64
             $image = 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen']);
+        }else {
+            // Si no hay imagen personalizada, usar la imagen por defecto
+            $rutaImagenDefecto = __DIR__ . '/../assets/img/default-profile.png';
+            if (file_exists($rutaImagenDefecto)) {
+                $binariosImagen = file_get_contents($rutaImagenDefecto);
+                $tipoArchivo = mime_content_type($rutaImagenDefecto);
+                $image = 'data:' . $tipoArchivo . ';base64,' . base64_encode($binariosImagen);
+            } else {
+                $image = null; // O puedes poner una URL pública si prefieres
+            }
         }
+
+        
 
 
         // Estructura la respuesta JSON para un cliente específico
@@ -56,10 +68,19 @@ try {
             $stmtImage = $conn->prepare("SELECT nombre, tipo, imagen FROM imagenes_clientes WHERE clienteid = ?");
             $stmtImage->execute([$client['id']]);
             $imageData = $stmtImage->fetch(PDO::FETCH_ASSOC);
-
-            $client['image'] = $imageData 
-                ? 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen'])
-                : null; // Si no hay imagen, establece null
+            
+            if ($imageData) {
+                $client['image'] = 'data:' . $imageData['tipo'] . ';base64,' . base64_encode($imageData['imagen']);
+            } else {
+                 $rutaImagenDefecto = __DIR__ . '/../assets/img/default-profile.png';
+                  if (file_exists($rutaImagenDefecto)) {
+                    $binariosImagen = file_get_contents($rutaImagenDefecto);
+                    $tipoArchivo = mime_content_type($rutaImagenDefecto);
+                    $client['image'] = 'data:' . $tipoArchivo . ';base64,' . base64_encode($binariosImagen);
+                } else {
+                    $client['image'] = null;
+            }
+}
         }
 
         $response = [
