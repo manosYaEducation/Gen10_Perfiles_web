@@ -41,7 +41,7 @@ function actualizarMensajeBloqueo() {
 }
 
 async function obtenerClavePublica() {
-  const res = await fetch('/assets/a9f87e6df4b_secret/f4e2b1c7_keys/public.pem'); // Ruta hacia la clave pública
+  const res = await fetch('../assets/a9f87e6df4b_secret/f4e2b1c7_keys/public.pem'); // Ruta hacia la clave pública
   return await res.text();
 }
 
@@ -83,6 +83,7 @@ loginF.addEventListener("submit", async (event) => {
     const passwordCifrado = await cifrarConClavePublica(password);
     // Antes de subir a producción https://systemauth.alphadocere.cl/login.php o a https://test-systemauth.alphadocere.cl/login.php
     const response = await fetch('https://test-systemauth.alphadocere.cl/login.php', {  // endpoint local
+      method: "POST",
         headers: {
           'Content-Type': 'application/json',
         },
