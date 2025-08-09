@@ -16,6 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $data = json_decode(file_get_contents("php://input"));
 
 try {
+
+
+    // Comprobar si el email ya existe en la base de datos
+    $email = $data->basic->email;
+    $stmt = $conn->prepare("SELECT id FROM clients WHERE email = ?");
+    $stmt->execute([$email]);
+    
+    if ($stmt->rowCount() > 0) {
+        // Si el correo ya está registrado, retornar error
+        echo json_encode(['success' => false, 'message' => 'El correo electrónico ya está registrado.']);
+        exit(); // Detener la ejecución del script
+    }
+
+
     $conn->beginTransaction(); 
 
     
