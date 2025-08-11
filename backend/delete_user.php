@@ -21,29 +21,34 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
                 echo json_encode([
+                    'success' => true,
                     'status' => 'success',
                     'message' => 'Usuario eliminado con éxito.'
                 ]);
             } else {
                 echo json_encode([
+                     'success' => false,
                     'status' => 'error',
                     'message' => 'No se encontró el usuario con ese ID.'
                 ]);
             }
         } catch (Exception $e) {
             echo json_encode([
+                'success' => false,
                 'status' => 'error',
                 'message' => 'Error al eliminar el usuario: ' . $e->getMessage()
             ]);
         }
     } else {
         echo json_encode([
+            'success' => false,
             'status' => 'error',
             'message' => 'ID no válido.'
         ]);
     }
 } else {
     echo json_encode([
+        'success' => false,
         'status' => 'error',
         'message' => 'No se ha proporcionado un ID de usuario.'
     ]);
