@@ -12,6 +12,7 @@
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />   
         <link href="../css/cliente/profile-templates-styles.css" rel="stylesheet" />
+        <link href="../css/cliente/user-projects.css" rel="stylesheet" />
     </head>
     <body id="top">
         <nav class="navbar" id="sideNav">
@@ -24,6 +25,7 @@
                     <li class="nav-item"><a class="nav-link" href="#education" onclick="DestacarNavbar('education')">Educación</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills" onclick="DestacarNavbar('skills')">Habilidades</a></li>
                     <li class="nav-item"><a class="nav-link" href="#interests" onclick="DestacarNavbar('interests')">Intereses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects" onclick="DestacarNavbar('projects')">Proyectos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact" onclick="DestacarNavbar('contact')">Contacto</a></li>
                     <li class="nav-volver"><a class="volver-link" href="../../index.html">Volver al Inicio</a></li>
                 </ul>
@@ -80,6 +82,20 @@
                 </div>
             </section>
             <hr class="m-0" />
+            <section class="resume-section" id="projects">
+                <div class="user-projects-section">
+                    <h2 class="mb-5">Proyectos</h2>
+                    <div id="user-projects-section">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Cargando proyectos...</span>
+                            </div>
+                            <p class="mt-2">Cargando proyectos...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr class="m-0" />
             <section class="resume-section" id="contact">
                 <div class="contact-section">
                     <h2 class="mb-5">Contacto</h2>
@@ -108,5 +124,6 @@
         <script src="../js/config.js"></script>
         <script src="../js/read_user.js" crossorigin="anonymous"></script>
         <script src="../js/resenas.js"></script>
+        <script src="../js/user-projects.js"></script>
     </body>
 </html>
