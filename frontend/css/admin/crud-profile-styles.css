@@ -4,7 +4,6 @@ body {
   
 }
 
-
 form {
   max-width: 600px;
   margin: 0 auto;
@@ -323,4 +322,26 @@ textarea {
 
 .social-item {
   margin-bottom: 20px;
+}
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.tag {
+  background-color:  #e0e0e0;
+  color: Black;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.tag .remove-tag {
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: bold;
 }

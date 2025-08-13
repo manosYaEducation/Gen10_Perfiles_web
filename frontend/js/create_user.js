@@ -14,8 +14,8 @@ async function createUser(event) {
         platform: item.querySelector('.input-social-name').value.trim(),
         url: item.querySelector('.input-social-url').value.trim()
     }));
-    const skill = document.getElementById('input-skill').value;
-    const interest = document.getElementById('input-interest').value;
+    const skill = document.getElementById('input-skill-hidden').value;
+    const interest = document.getElementById('input-interest-hidden').value;
 
     const experienceItems = document.querySelectorAll('.experience-item');
     const experiences = Array.from(experienceItems).map(item => ({
