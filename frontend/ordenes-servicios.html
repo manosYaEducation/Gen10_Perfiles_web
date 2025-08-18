@@ -170,7 +170,7 @@
   </div>
 
 
-  <footer class="footer">
+  <!--<footer class="footer">
     <div class="footer-container">
       <div class="footer-brand">
         <img src="../assets/img/kreative_white_logo.png" alt="Logo" class="footer-logo">
@@ -215,7 +215,15 @@
         Copyright 2024 Kreative v. gen 13 Inicial | Todos los derechos reservados por empresa Kreative
       </p>
     </div>
-  </footer>
+  </footer>-->
+  <div id="footer-container"></div>
+  <script>
+    fetch('../frontend/components/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      });
+  </script>
 
   <script src="../frontend/js/verifylogin.js"></script>
   <script src="../frontend/js/ordenes-servicios.js"></script>
