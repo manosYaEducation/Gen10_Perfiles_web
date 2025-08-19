@@ -1044,14 +1044,7 @@
             <button class="accept-button" onclick="closeModal()">Aceptar</button>
         </dialog>
     </section>
-    <div id="footer-container"></div>
-    <script>
-      fetch('./frontend/components/footer.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-        });
-    </script>
+    
     
     <!-- Back to Top Button -->
     <button type="button" id="backToTopBtn" title="Volver arriba" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -1115,6 +1108,7 @@
                 }
             });
         });
+    
     </script>
     <script src="./frontend/js/metrics.js"></script>
     <script src="./frontend/js/index.js"></script>
@@ -1123,16 +1117,14 @@
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
     <script src="./frontend/js/clients-index.js"></script>
-    <!-- <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const proyectoId = parseInt(localStorage.getItem("proyectoActual")) || 1;
-    const esAdmin = tieneRolEnProyecto("admin_k", proyectoId);
-
-    const adminLink = document.querySelector('a[href="frontend/index-admin.html"]');
-    if (adminLink && !esAdmin) {
-      adminLink.style.display = "none";
-    }
-  }); -->
+    </script>
+    <div id="footer-container"></div>
+    <script>
+      fetch('./frontend/components/footer-index.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer-container').innerHTML = data;
+        });
     </script>
 
 
