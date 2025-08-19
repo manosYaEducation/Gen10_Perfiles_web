@@ -60,8 +60,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById('input-description').value = profile.basic.description || '';
         
         // Cargar Habilidades e Intereses
-        document.getElementById('input-skill').value = profile.skill || ''; // Si hay habilidades
-        document.getElementById('input-interest').value = profile.interest || ''; // Si hay intereses
+        document.getElementById('input-skill-hidden').value = profile.skill || ''; 
+        document.getElementById('input-interest-hidden').value = profile.interest || ''; 
+        skills = profile.skill.join(',').split(',');
+        interests = profile.interest.join(',').split(',');
+        //mostrar tags
+        renderInterests();
+        renderSkills();
+        
 
         // Redes sociales (array)
         const socialContainer = document.getElementById('social-container');
@@ -211,8 +217,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 platform: item.querySelector('.input-social-name').value.trim(),
                 url: item.querySelector('.input-social-url').value.trim()
             })),
-            skills: document.getElementById('input-skill').value.trim(),
-            interests: document.getElementById('input-interest').value.trim(),
+            skills: document.getElementById('input-skill-hidden').value.trim(),
+            interests: document.getElementById('input-interest-hidden').value.trim(),
             experience: Array.from(document.querySelectorAll('.experience-item')).map(item => ({
                 title: item.querySelector('.input-experience-title').value.trim(),
                 startDate: item.querySelector('.input-experience-startDate').value.trim(),

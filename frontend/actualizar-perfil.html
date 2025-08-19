@@ -62,8 +62,12 @@
                   </div>
                 </div>
                 <h3>Habilidades</h3>
-                <label for="input-skill">Habilidades:</label>
-                <input type="text" id="input-skill" required> 
+                <div>
+                  <input type="text" id="input-skill" name="input-skill" placeholder="Escribe una habilidad">
+                  <input type="hidden" id="input-skill-hidden">
+                  <button type="button" id="add-skill-btn">Agregar</button>
+                </div>
+                <div id="skills-container" class="tags-container"></div>
                 <h2>Redes Sociales <button type="button" id="addSocial">+</button></h2>
                 <div id="social-container">
                   <div class="social-item">
@@ -76,8 +80,12 @@
                 </div>
                 
                 <h3>Intereses</h3>
-                <label for="input-interest">Intereses:</label>
-                <textarea id="input-interest" required></textarea>
+                <div>
+                  <input type="text" id="input-interest" name="input-interest" placeholder="Escribe un interes">
+                  <input type="hidden" id="input-interest-hidden">
+                  <button type="button" id="add-interest-btn">Agregar</button>
+                </div>
+                <div id="interests-container" class="tags-container"></div>
                 <div class="button-container">
                     <button type="submit">Guardar</button>
                     <button type="button" onclick="window.location.href='../frontend/index-admin.html'">Volver</button>
@@ -95,9 +103,10 @@
             <button onclick="addItem()">actualizar</button>
         </div>
     </div>
+    <script src="../frontend/js/interest_etiquetas.js"></script>
+    <script src="../frontend/js/skill_etiquetas.js"></script>
     <script src="./js/verifylogin.js"></script>
     <script src="./js/config.js"></script>
-    
     <script src="./js/update_user.js"></script>
     <script src="../frontend/js/logout.js"></script>
     <script src="../frontend/js/verifylogin.js"></script>
