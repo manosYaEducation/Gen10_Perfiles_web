@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
           <h2>${client.name}</h2>
           <h3 class="profile-subtitle">${client.company || ''}</h3>
-          <a href="./frontend/client-template.html?id=${client.id}" class="button-link">Ver Perfil</a>
+          <a href="./frontend/client-template-public.php?id=${client.id}" class="button-link">Ver Perfil</a>
         </div>
       `;
       carousel.appendChild(clientCard);
