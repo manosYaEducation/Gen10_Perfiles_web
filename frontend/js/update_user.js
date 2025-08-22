@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById('input-phrase').value = profile.basic.phrase || '';
         document.getElementById('input-email').value = profile.basic.email || '';
         document.getElementById('input-description').value = profile.basic.description || '';
+        document.getElementById('input-presentacion-url').value = profile.basic.presentacion_url || '';
         
         // Cargar Habilidades e Intereses
         document.getElementById('input-skill-hidden').value = profile.skill || ''; 
@@ -212,6 +213,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 email: document.getElementById('input-email').value.trim(),
                 description: document.getElementById('input-description').value.trim(),
                 phrase: document.getElementById('input-phrase').value.trim(),
+                presentacion_url: document.getElementById('input-presentacion-url').value.trim(),
             },
             social: Array.from(document.querySelectorAll('.social-item')).map(item => ({
                 platform: item.querySelector('.input-social-name').value.trim(),

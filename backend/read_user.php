@@ -11,7 +11,7 @@ $profileid = isset($_GET['id']) ? $_GET['id'] : null;
 try {
     if ($profileid !== null) {
         // Recupera información básica del perfil
-        $stmt = $conn->prepare("SELECT name, location, phone, email, description, phrase FROM profile WHERE id = ?");
+        $stmt = $conn->prepare("SELECT name, location, phone, email, description, phrase, presentacion_url FROM profile WHERE id = ?");
         $stmt->execute([$profileid]);
         $profile = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -90,7 +90,7 @@ try {
         ];
     } else {
         // Si no hay 'id', devuelve todos los perfiles
-        $stmt = $conn->prepare("SELECT id, name, description, phrase, phone FROM profile order by actividad desc");
+        $stmt = $conn->prepare("SELECT id, name, description, phrase, phone, presentacion_url FROM profile order by actividad desc");
         $stmt->execute();
         $profiles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

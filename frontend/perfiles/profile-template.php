@@ -25,6 +25,7 @@
                     <li class="nav-item"><a class="nav-link" href="#education" onclick="DestacarNavbar('education')">Educación</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills" onclick="DestacarNavbar('skills')">Habilidades</a></li>
                     <li class="nav-item"><a class="nav-link" href="#interests" onclick="DestacarNavbar('interests')">Intereses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#presentation-video" onclick="DestacarNavbar('presentation-video')">Defensa de Práctica</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects" onclick="DestacarNavbar('projects')">Proyectos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact" onclick="DestacarNavbar('contact')">Contacto</a></li>
                     <li class="nav-volver"><a class="volver-link" href="../../index.html">Volver al Inicio</a></li>
@@ -81,6 +82,25 @@
                     <p id="p-interest-section"></p>
                 </div>
             </section>
+            </section>
+            <hr class="m-0" />
+           <section class="resume-section" id="presentation-video">
+            <div class="presentacion-url-section">
+                <h2 class="mb-5">Defensa de práctica</h2>
+                <!-- Contenedor para el mensaje si no hay video -->
+                 <div id="no-video-message" style="display: none;">
+                    <p>No se ha proporcionado un video de presentación.</p>
+                </div>
+                <!-- Iframe para el video de presentación -->
+                 <iframe id="presentacion-url" width="560" height="315" 
+                 src="" 
+                 title="YouTube video player" 
+                 frameborder="0" 
+                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                 allowfullscreen>
+                </iframe>
+            </div>
+        </section>
             <hr class="m-0" />
             <section class="resume-section" id="projects">
                 <div class="user-projects-section">

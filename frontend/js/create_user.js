@@ -8,6 +8,7 @@ async function createUser(event) {
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
     const phrase = document.getElementById('input-phrase').value;
+    const presentacion_url = document.getElementById('input-presentacion-url').value;
     
     const socialItems = document.querySelectorAll('.social-item');
     const social = Array.from(socialItems).map(item => ({
@@ -56,7 +57,8 @@ async function createUser(event) {
                 phone,
                 email,
                 description,
-                phrase
+                phrase,
+                presentacion_url
             },
             experience: experiences,
             education: educations,

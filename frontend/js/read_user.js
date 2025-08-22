@@ -17,11 +17,23 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Información personal
         document.getElementById('name-hero').textContent = profile.basic.name;
-        document.getElementById('personal-information-hero').innerHTML = `
-            <p>${profile.basic.location}</p>
-            <p>${profile.basic.phone}</p>
-            <p>${profile.basic.email}</p>
-        `;
+        // Verifica si la URL del video de presentación es válida y extrae el ID de YouTube
+        const youtubeUrl = profile.basic.presentacion_url;
+        let videoId = '';
+        // Si la URL es de YouTube, extrae el ID
+        const youtubeRegex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = youtubeUrl.match(youtubeRegex);
+        if (match) {
+             videoId = match[1]; // El ID del video es el segundo elemento del array
+        }
+        // Asigna la URL del iframe solo si se extrajo un ID de video válido
+        if (videoId) {
+            document.getElementById('presentacion-url').src = `https://www.youtube.com/embed/${videoId}`;
+            document.getElementById('no-video-message').style.display = 'none';  
+        } else {
+            document.getElementById('presentacion-url').src = ''; 
+            document.getElementById('no-video-message').style.display = 'block';  
+        }
         //funcionalidad: convertir el teléfono en enlace de Wsp
         {
             const infoDiv = document.getElementById('personal-information-hero');
