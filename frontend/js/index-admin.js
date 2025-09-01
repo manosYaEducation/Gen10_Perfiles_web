@@ -4,37 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('API_URL_PHP no está definida');
         return;
     }
-    // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
-    fetch(`${window.API_URL_PHP}read_user.php`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const profilesColumn = document.querySelector('.profiles-column');
-                profilesColumn.innerHTML = ''; // Limpiar la columna antes de agregar los perfiles
-                // Mostrar todos los perfiles
-                data.profiles.forEach(profile => {
-                    const profileCard = document.createElement('div');
-                    profileCard.classList.add('profile-card');
-                    profileCard.innerHTML = `
-                         <div class="profile-content">
-                          <div class="profile-image">
-                                    <img src="${profile.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${profile.name}">
-                                </div>
-                            <h2>${profile.name}</h2>
-                            
-                            <h3 class="profile-subtitle">${profile.phrase}</h3>
-                            <a href="../frontend/perfiles/profile-template.php?id=${profile.id}" class="button-link">Perfil</a>
-                            <button class="buttonActualizar" data-id="${profile.id}" class="button-link" onclick="redirectToUpdate(${profile.id})">Actualizar</button>
-                            <button class="buttonBorrar" data-id="${profile.id}" onclick="deleteUser(event)">Borrar</button>
-                        </div>
-                    `;
-                    profilesColumn.appendChild(profileCard);
-                });
-            } else {
-                console.error('No se pudieron obtener los perfiles:', data.message);
-            }
-        })
-        .catch(error => console.error('Error al obtener perfiles:', error));
 
 
     fetch(`${window.API_URL_PHP}read_reviews.php`)
@@ -119,25 +88,6 @@ function filterReviews() {
     });
 }
 
-function redirectToUpdate(profileId) {
-    window.location.href = `./actualizar-perfil.html?id=${profileId}`;
-}
-
-function changeStatus(reviewId) {
-    const selectElement = document.getElementById(`review-status-${reviewId}`);
-    const originalStatus = selectElement.getAttribute('data-original-status');
-    const selectedStatus = selectElement.value;
-
-    // Si el estado ha cambiado, abre la modal
-    if (originalStatus !== selectedStatus) {
-        const modal = document.getElementById('confirmationDialog');
-        modal.showModal();
-
-        // Guarda el ID y el nuevo estado en atributos del modal para usarlos en la confirmación
-        modal.setAttribute('data-review-id', reviewId);
-        modal.setAttribute('data-new-status', selectedStatus);
-    }
-}
 
 function confirmAction() {
     const modal = document.getElementById('confirmationDialog');

@@ -1,310 +1,369 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get("id");
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get("id");
+    const clientsPerPage = 10;
+    let currentPage = 1;
+    let allClients = [];
 
-  if (!window.API_URL_PHP) {
-    console.error("API_URL_PHP no está definida");
-    return;
-  }
-
-  // Si hay ID → mostrar perfil individual
-  if (id) {
-    try {
-      const response = await fetch(
-        `${window.API_URL_PHP}read_client.php?id=${id}`
-      );
-      const result = await response.json();
-
-      if (!result.success) {
-        console.error("Error al obtener el cliente:", result.message);
+    if (!window.API_URL_PHP) {
+        console.error("API_URL_PHP no está definida");
         return;
-      }
-
-      const client = result.data;
-
-      if (client.image) {
-        const imageElement = document.getElementById("profile_image");
-        if (imageElement) imageElement.src = client.image;
-      }
-
-      const nameElement = document.getElementById("name-hero");
-      if (nameElement) nameElement.textContent = client.basic.name;
-
-      // Descripción
-      const descElement = document.getElementById("description-hero");
-      if (descElement) descElement.textContent = client.basic.description || "";
-
-      // Empresa
-      const expSection = document.getElementById("experience-section");
-      if (expSection) {
-        expSection.innerHTML = `
-            <div class="experience-sub-section">
-              <h3 class="experience-sub-title">${
-                client.basic.company || "Empresa no disponible"
-              }</h3>
-            </div>
-          `;
-      }
-
-      // Correo
-      const correoElement = document.getElementById("p-interest-section");
-      if (correoElement)
-        correoElement.textContent =
-          client.basic.email || "Correo no disponible";
-
-      // Ubicación
-      const ubicacionElement = document.getElementById("p-skill-section");
-      if (ubicacionElement)
-        ubicacionElement.textContent =
-          client.basic.location || "Ubicación no disponible";
-
-      // Teléfono
-      const telefonoElement = document.getElementById("social-links");
-      if (telefonoElement)
-        telefonoElement.textContent =
-          client.basic.phone || "Teléfono no disponible";
-    } catch (error) {
-      console.error("Error al obtener los datos del cliente:", error);
     }
-    return;
-  }
 
-  // Si no hay ID → mostrar lista de clientes
-  fetch(`${window.API_URL_PHP}read_client.php`)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        // Seleccionar el div profiles-column dentro de la sección de clientes
-        const clientsProfilesColumn = document.querySelector("#clientes .profiles-column");
-        // Limpiar el contenedor antes de agregar los clientes
-        clientsProfilesColumn.innerHTML = "";
+    // Si hay ID → mostrar perfil individual
+    if (id) {
+        try {
+            const response = await fetch(`${window.API_URL_PHP}read_client.php?id=${id}`);
+            const result = await response.json();
+            if (!result.success) {
+                console.error("Error al obtener el cliente:", result.message);
+                return;
+            }
 
-                // Mostrar todos los clientes
-                data.clients.forEach(client => {
-                    const clientCard = document.createElement('div');
-                    clientCard.classList.add('profile-card');
-                    clientCard.innerHTML = `
-                        <div class="profile-content">
-                            <div class="profile-image">
-                                <img src="${client.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${client.name}">
-                            </div>
-                            <h2>${client.name}</h2>
-                            <h3 class="profile-subtitle">${client.company || ''}</h3>
-                            <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Perfil</a>
-                            <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
-                            <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
-                        </div>
-                    `;
-                    clientsProfilesColumn.appendChild(clientCard);
-                });
-      } else {
-        console.error("No se pudieron obtener los clientes:", data.message);
-      }
-    })
-    .catch((error) => console.error("Error al obtener clientes:", error));
-});
+            const client = result.data;
+            if (client.image) {
+                const imageElement = document.getElementById("profile_image");
+                if (imageElement) imageElement.src = client.image;
+            }
 
-// Funciones auxiliares
-function redirectToUpdateClient(id) {
-  window.location.href = `update-client.html?id=${id}`;
-}
+            const nameElement = document.getElementById("name-hero");
+            if (nameElement) nameElement.textContent = client.basic.name;
 
-function deleteClient(event) {
-  const clientId = event.target.getAttribute("data-id");
+            const descElement = document.getElementById("description-hero");
+            if (descElement) descElement.textContent = client.basic.description || "";
 
-  // Crear el contenedor del diálogo
-  const dialogOverlay = document.createElement("div");
-  dialogOverlay.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    `;
+            const expSection = document.getElementById("experience-section");
+            if (expSection) {
+                expSection.innerHTML = `<div class="experience-sub-section">
+                    <h3 class="experience-sub-title">${client.basic.company || "Empresa no disponible"}</h3>
+                </div>`;
+            }
 
-  // Crear el diálogo
-  const dialog = document.createElement("div");
-  dialog.style.cssText = `
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      width: 350px;
-      text-align: center;
-    `;
+            const correoElement = document.getElementById("p-interest-section");
+            if (correoElement) correoElement.textContent = client.basic.email || "Correo no disponible";
 
-  // Contenido del diálogo
-  dialog.innerHTML = `
-      <h3 style="color: #333; margin-bottom: 20px; font-size: 20px;">Eliminar Cliente</h3>
-      <p style="margin-bottom: 20px; color: #666;">¿Estás seguro de eliminar este cliente?</p>
-      <div style="
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-      ">
-        <button id="btnAceptar" style="
-          background-color: #8B6E3F;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: background-color 0.3s ease;
-        ">Aceptar</button>
-        <button id="btnCancelar" style="
-          background-color: #f0f0f5;
-          color: #8B6E3F;
-          border: 1px solid #e0e0e8;
-          padding: 10px 20px;
-          border-radius: 6px;
-          cursor: pointer;
-          transition: background-color 0.3s ease;
-        ">Cancelar</button>
-      </div>
-    `;
+            const ubicacionElement = document.getElementById("p-skill-section");
+            if (ubicacionElement) ubicacionElement.textContent = client.basic.location || "Ubicación no disponible";
 
-  // Añadir eventos a los botones
-  dialogOverlay.appendChild(dialog);
-  document.body.appendChild(dialogOverlay);
-
-  const btnAceptar = dialog.querySelector("#btnAceptar");
-  const btnCancelar = dialog.querySelector("#btnCancelar");
-
-  btnAceptar.addEventListener("click", () => {
-    fetch(`${window.API_URL_PHP}delete_client.php?id=${clientId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          // Mostrar el modal de éxito después de un breve retraso
-          setTimeout(() => {
-            showSuccessModal("Cliente eliminado con éxito");
-          }, 500); // 500 milisegundos (medio segundo)
-
-          // Recargar la página después de un poco más de tiempo
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500); // 1.5 segundos para dar tiempo a ver el modal
-        } else {
-          console.error("Error al eliminar:", data.message);
+            const telefonoElement = document.getElementById("social-links");
+            if (telefonoElement) telefonoElement.textContent = client.basic.phone || "Teléfono no disponible";
+        } catch (error) {
+            console.error("Error al obtener los datos del cliente:", error);
         }
-      })
-      .catch((error) => console.error("Error:", error));
+        return;
+    }
 
-    document.body.removeChild(dialogOverlay);
-  });
+    async function fetchClients() {
+        try {
+            const response = await fetch(`${window.API_URL_PHP}read_client.php`);
+            const data = await response.json();
+            if (data.success) {
+                allClients = data.clients;
+                renderClients();
+                renderPagination();
+            } else {
+                console.error("No se pudieron obtener los clientes:", data.message);
+            }
+        } catch (error) {
+            console.error("Error al obtener clientes:", error);
+        }
+    }
 
-  btnCancelar.addEventListener("click", () => {
-    document.body.removeChild(dialogOverlay);
-  });
+function renderClients() {
+    const clientsProfilesColumn = document.querySelector("#clientes .profiles-column");
+    clientsProfilesColumn.innerHTML = "";
 
-  // Añadir hover effects con JavaScript
-  btnAceptar.addEventListener("mouseover", () => {
-    btnAceptar.style.backgroundColor = "#6B5A3A";
-  });
-  btnAceptar.addEventListener("mouseout", () => {
-    btnAceptar.style.backgroundColor = "#8B6E3F";
-  });
+    const start = (currentPage - 1) * clientsPerPage;
+    const end = start + clientsPerPage;
+    const paginatedClients = allClients.slice(start, end);
 
-  btnCancelar.addEventListener("mouseover", () => {
-    btnCancelar.style.backgroundColor = "#f4f4f8";
-  });
-  btnCancelar.addEventListener("mouseout", () => {
-    btnCancelar.style.backgroundColor = "#f0f0f5";
-  });
+    // Eliminar la paginación previa antes de crear una nueva
+    const existingPagination = document.querySelector('#clientes .pagination');
+    if (existingPagination) {
+        existingPagination.remove();
+    }
+
+    paginatedClients.forEach(client => {
+        const clientCard = document.createElement('div');
+        clientCard.classList.add('profile-card');
+        clientCard.innerHTML = `
+            <div class="profile-content">
+                <div class="profile-image">
+                    <img src="${client.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${client.name}">
+                </div>
+                <h2>${client.name}</h2>
+                <h3 class="profile-subtitle">${client.company || ''}</h3>
+                <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Perfil</a>
+                <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
+                <button class="buttonBorrar" data-id="${client.id}">Borrar</button>
+            </div>
+        `;
+        clientsProfilesColumn.appendChild(clientCard);
+
+        const deleteButton = clientCard.querySelector('.buttonBorrar');
+        deleteButton.addEventListener('click', (event) => {
+            deleteClient(event);
+        });
+
+        const updateButton = clientCard.querySelector('.buttonActualizar');
+        updateButton.addEventListener('click', () => {
+            redirectToUpdateClient(client.id);
+        });
+    });
 }
-function showSuccessModal(message = "Cliente eliminado con éxito") {
-  // Crear el contenedor del diálogo
-  const dialogOverlay = document.createElement("div");
-  dialogOverlay.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    `;
+    function renderPagination() {
+        const totalPages = Math.ceil(allClients.length / clientsPerPage);
+        const paginationContainer = document.createElement('div');
+        paginationContainer.classList.add('pagination');
+        paginationContainer.style.cssText = `
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        `;
 
-  // Crear el diálogo
-  const dialog = document.createElement("div");
-  dialog.style.cssText = `
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      width: 350px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    `;
+        // Botón Anterior
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'Anterior';
+        prevButton.disabled = currentPage === 1;
+        prevButton.style.cssText = `
+            padding: 10px 20px;
+            background-color: ${currentPage === 1 ? '#ccc' : '#8B6E3F'};
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: ${currentPage === 1 ? 'not-allowed' : 'pointer'};
+        `;
+        prevButton.addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderClients();
+                renderPagination();
+            }
+        });
 
-  // Ícono de check
-  const checkIcon = document.createElement("div");
-  checkIcon.style.cssText = `
-      width: 70px;
-      height: 70px;
-      border: 4px solid #4CAF50;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      position: relative;
-      animation: pulse 0.5s ease-in-out;
-    `;
+        // Botón Siguiente
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Siguiente';
+        nextButton.disabled = currentPage === totalPages;
+        nextButton.style.cssText = `
+            padding: 10px 20px;
+            background-color: ${currentPage === totalPages ? '#ccc' : '#8B6E3F'};
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: ${currentPage === totalPages ? 'not-allowed' : 'pointer'};
+        `;
+        nextButton.addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderClients();
+                renderPagination();
+            }
+        });
 
-  const checkMark = document.createElement("div");
-  checkMark.style.cssText = `
-      position: absolute;
-      width: 25px;
-      height: 12px;
-      border-left: 4px solid #4CAF50;
-      border-bottom: 4px solid #4CAF50;
-      transform: rotate(-45deg);
-      top: 50%;
-      left: 50%;
-      margin-left: -10px;
-      margin-top: -6px;
-    `;
-  checkIcon.appendChild(checkMark);
+        // Números de página
+        const pageNumbers = document.createElement('div');
+        pageNumbers.style.cssText = `
+            display: flex;
+            gap: 5px;
+        `;
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            pageButton.style.cssText = `
+                padding: 10px;
+                background-color: ${i === currentPage ? '#6B5A3A' : '#f0f0f5'};
+                color: ${i === currentPage ? 'white' : '#8B6E3F'};
+                border: 1px solid #e0e0e8;
+                border-radius: 6px;
+                cursor: pointer;
+            `;
+            pageButton.addEventListener('click', () => {
+                currentPage = i;
+                renderClients();
+                renderPagination();
+            });
+            pageNumbers.appendChild(pageButton);
+        }
 
-  // Texto
-  const messageElement = document.createElement("h3");
-  messageElement.textContent = message;
-  messageElement.style.cssText = `
-      color: #333; 
-      margin-bottom: 10px; 
-      font-size: 18px;
-    `;
+        paginationContainer.appendChild(prevButton);
+        paginationContainer.appendChild(pageNumbers);
+        paginationContainer.appendChild(nextButton);
 
-  // Añadir estilos de animación
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = `
-      @keyframes pulse {
-        0% { transform: scale(0.8); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-      }
-    `;
-  document.head.appendChild(styleSheet);
+        const clientsProfilesColumn = document.querySelector("#clientes .profiles-column");
+        clientsProfilesColumn.insertAdjacentElement('afterend', paginationContainer);
+    }
 
-  // Ensamblar el diálogo
-  dialog.appendChild(checkIcon);
-  dialog.appendChild(messageElement);
-  dialogOverlay.appendChild(dialog);
-  document.body.appendChild(dialogOverlay);
+    // Iniciar la carga de clientes
+    fetchClients();
 
-  // Desaparecer después de 2 segundos
-  setTimeout(() => {
-    document.body.removeChild(dialogOverlay);
-  }, 2000);
-}
+    // Funciones auxiliares
+    function redirectToUpdateClient(id) {
+        window.location.href = `update-client.html?id=${id}`;
+    }
+
+    function deleteClient(event) {
+        const clientId = event.target.getAttribute("data-id");
+
+        const dialogOverlay = document.createElement("div");
+        dialogOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        `;
+
+        const dialog = document.createElement("div");
+        dialog.style.cssText = `
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+        `;
+
+        dialog.innerHTML = `
+            <h3 style="color: #333; margin-bottom: 20px; font-size: 20px;">Eliminar Cliente</h3>
+            <p style="margin-bottom: 20px; color: #666;">¿Estás seguro de eliminar este cliente?</p>
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <button id="btnAceptar" style="background-color: #8B6E3F; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease;">Aceptar</button>
+                <button id="btnCancelar" style="background-color: #f0f0f5; color: #8B6E3F; border: 1px solid #e0e0e8; padding: 10px 20px; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease;">Cancelar</button>
+            </div>
+        `;
+
+        dialogOverlay.appendChild(dialog);
+        document.body.appendChild(dialogOverlay);
+
+        const btnAceptar = dialog.querySelector("#btnAceptar");
+        const btnCancelar = dialog.querySelector("#btnCancelar");
+
+        btnAceptar.addEventListener("click", () => {
+            fetch(`${window.API_URL_PHP}delete_client.php?id=${clientId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        setTimeout(() => {
+                            showSuccessModal("Cliente eliminado con éxito");
+                        }, 500);
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        console.error("Error al eliminar:", data.message);
+                    }
+                })
+                .catch((error) => console.error("Error:", error));
+            document.body.removeChild(dialogOverlay);
+        });
+
+        btnCancelar.addEventListener("click", () => {
+            document.body.removeChild(dialogOverlay);
+        });
+
+        btnAceptar.addEventListener("mouseover", () => {
+            btnAceptar.style.backgroundColor = "#6B5A3A";
+        });
+        btnAceptar.addEventListener("mouseout", () => {
+            btnAceptar.style.backgroundColor = "#8B6E3F";
+        });
+        btnCancelar.addEventListener("mouseover", () => {
+            btnCancelar.style.backgroundColor = "#f4f4f8";
+        });
+        btnCancelar.addEventListener("mouseout", () => {
+            btnCancelar.style.backgroundColor = "#f0f0f5";
+        });
+    }
+
+    function showSuccessModal(message = "Cliente eliminado con éxito") {
+        const dialogOverlay = document.createElement("div");
+        dialogOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        `;
+
+        const dialog = document.createElement("div");
+        dialog.style.cssText = `
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        `;
+
+        const checkIcon = document.createElement("div");
+        checkIcon.style.cssText = `
+            width: 70px;
+            height: 70px;
+            border: 4px solid #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            animation: pulse 0.5s ease-in-out;
+        `;
+
+        const checkMark = document.createElement("div");
+        checkMark.style.cssText = `
+            position: absolute;
+            width: 25px;
+            height: 12px;
+            border-left: 4px solid #4CAF50;
+            border-bottom: 4px solid #4CAF50;
+            transform: rotate(-45deg);
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -6px;
+        `;
+        checkIcon.appendChild(checkMark);
+
+        const messageElement = document.createElement("h3");
+        messageElement.textContent = message;
+        messageElement.style.cssText = `
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        `;
+
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(0.8); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        dialog.appendChild(checkIcon);
+        dialog.appendChild(messageElement);
+        dialogOverlay.appendChild(dialog);
+        document.body.appendChild(dialogOverlay);
+
+        setTimeout(() => {
+            document.body.removeChild(dialogOverlay);
+        }, 2000);
+    }
+});
