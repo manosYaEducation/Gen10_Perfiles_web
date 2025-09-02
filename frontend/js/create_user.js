@@ -8,6 +8,17 @@ async function createUser(event) {
     const email = document.getElementById('input-email').value;
     const description = document.getElementById('input-description').value;
     const phrase = document.getElementById('input-phrase').value;
+
+    // Validación del número telefónico
+    const phoneRegex = /^\+?\d{7,15}$/;
+    if (!phoneRegex.test(phone.trim())) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Número de teléfono inválido',
+            text: 'Por favor, introduce un número de teléfono válido'
+        });
+        return;
+    }
     
     const socialItems = document.querySelectorAll('.social-item');
     const social = Array.from(socialItems).map(item => ({

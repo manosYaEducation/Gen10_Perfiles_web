@@ -65,6 +65,17 @@ async function registerClient(event) {
             });
             return;
         }
+        
+        // Validación del número telefónico
+        const phoneRegex = /^\+?\d{7,15}$/;
+        if (!phoneRegex.test(phone.trim())) {
+            Swal.fire({
+                 icon: 'error',
+                 title: 'Número de teléfono inválido',
+                  text: 'Por favor, introduce un número de teléfono válido'
+                });
+            return;
+        }
 
         const location = document.getElementById('input-location').value.trim();
         const description = document.getElementById('input-description').value.trim();

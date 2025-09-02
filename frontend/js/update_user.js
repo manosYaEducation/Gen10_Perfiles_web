@@ -233,6 +233,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             image: base64Image // Agregar la imagen al objeto
         };
 
+        // Validación del número telefónico
+        const phoneRegex = /^\+?\d{7,15}$/;
+        if (!phoneRegex.test(updatedUser.basic.phone.trim())) {
+             Swal.fire({
+                icon: 'error',
+                 title: 'Número de teléfono inválido',
+                 text: 'Por favor, introduce un número de teléfono válido'
+            });
+        return;
+        }
+
         try {
             const response = await fetch(`${window.API_URL_PHP}update_users.php`, {
                 method: 'PUT',
