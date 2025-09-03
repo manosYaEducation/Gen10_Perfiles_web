@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     obtenerProyectos(); // Cargar proyectos al iniciar
 
     /* -------------------------
@@ -7,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
      * ------------------------- */
     async function obtenerProyectos() {
         try {
-            const response = await fetch(API_URL_PHP +  "project_admin.php");
+            const response = await fetch(API_URL_PHP + "project_admin.php");
             if (!response.ok) throw new Error("Error al obtener proyectos");
             const proyectos = await response.json();
             mostrarProyectosEnTabla(proyectos);
@@ -79,23 +78,44 @@ document.addEventListener("DOMContentLoaded", () => {
      * Eliminar un proyecto (DELETE)
      * ------------------------- */
     async function eliminarProyecto(id) {
-        if (!confirm("¿Estás seguro de eliminar este proyecto?")) return;
+        // confirmar la eliminación
+        const result = await Swal.fire({
+            title: '¿Estás seguro de que quieres eliminar el proyecto?',
+            text: "Esta acción no se puede deshacer",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (!result.isConfirmed) return;
 
         try {
             const response = await fetch(`${API_URL_PHP}project_admin.php?id_proyecto=${id}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             });
-            
 
             if (!response.ok) throw new Error("Error al eliminar el proyecto");
             const resultado = await response.json();
-            alert(resultado.mensaje);
+
+            // Mostrar un mensaje de éxito
+            Swal.fire({
+                icon: 'success',
+                title: 'Proyecto eliminado',
+                text: resultado.mensaje
+            });
+
             obtenerProyectos(); // Recargar la lista después de eliminar
         } catch (error) {
             console.error("Error al eliminar el proyecto:", error);
+
+            // Mostrar un mensaje de error
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: resultado.mensaje
+            });
         }
     }
 });
-
-//<button class="action-btn edit-btn" data-id="${proyecto.id_proyecto}">Editar</button>
