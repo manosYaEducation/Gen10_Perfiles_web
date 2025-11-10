@@ -1124,7 +1124,40 @@
         .then(response => response.text())
         .then(data => {
           document.getElementById('footer-container').innerHTML = data;
+          
+          // Inicializar navegación del footer después de cargar el contenido
+          initFooterNavigation();
         });
+
+      function initFooterNavigation() {
+        // Agregar funcionalidad a los enlaces de navegación del footer
+        const footerLinks = document.querySelectorAll('.footer-section ul li a[href^="#"]');
+        
+        footerLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+              // Scroll suave hacia la sección
+              targetSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+              
+              // Agregar efecto visual temporal
+              targetSection.style.transition = 'background-color 0.3s ease';
+              const originalBg = window.getComputedStyle(targetSection).backgroundColor;
+              targetSection.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+              
+              setTimeout(() => {
+                targetSection.style.backgroundColor = originalBg;
+              }, 1000);
+            }
+          });
+        });
+      }
     </script>
 
 

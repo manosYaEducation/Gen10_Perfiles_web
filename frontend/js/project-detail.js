@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         ${proyecto.detalles.imagenes.map(img => `                            
                             <div class="galeria-item">
                                 <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto">
-                                <p class="descripcion-imagen">${img.descripcion}</p>
+                                ${img.descripcion && img.descripcion !== 'Sin descripción' && img.descripcion !== 'Sin descripcion' ? `<p class="descripcion-imagen">${img.descripcion}</p>` : ''}
                             </div>                            
                         `).join("")}
                         

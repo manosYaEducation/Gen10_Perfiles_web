@@ -16,7 +16,9 @@
     </head>
     <body id="top">
         <nav class="navbar" id="sideNav">
-            <a class="navbar-brand" href="#top"></a>
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../assets/img/logo_kreative.svg" alt="Kreative Logo" class="navbar-logo">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">

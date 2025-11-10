@@ -79,8 +79,21 @@ ul {
 }
 
 .navbar-brand {
+  position: absolute;
+  left: 24px;
   font-size: 24px;
   color: white;
+}
+
+.navbar-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-logo:hover {
+  opacity: 0.8;
 }
 
 .navbar-toggler {

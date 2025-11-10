@@ -69,8 +69,13 @@ body.dark-mode .clients-carousel-container {
     transition: all 0.4s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
     transform: translateY(0);
-    overflow: hidden;
+    overflow: visible;
     position: relative;
+    min-height: 450px;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 body.dark-mode .clients-carousel .profile-card {

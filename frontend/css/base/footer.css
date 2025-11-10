@@ -65,11 +65,44 @@
     text-decoration: none;
     transition: all 0.3s ease;
     opacity: 0.8;
+    padding: 0.5rem 0;
+    display: inline-block;
+    position: relative;
+}
+
+.footer-section ul li a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
 }
 
 .footer-section ul li a:hover {
     opacity: 1;
-    color: #25D366;
+    color: #4CAF50;
+    transform: translateX(3px);
+}
+
+.footer-section ul li a:hover::before {
+    width: 100%;
+}
+
+/* Estilos para los iconos en los enlaces de navegación */
+.footer-section ul li a i {
+    margin-right: 0.5rem;
+    width: 16px;
+    text-align: center;
+    color: #4CAF50;
+    transition: all 0.3s ease;
+}
+
+.footer-section ul li a:hover i {
+    color: #4CAF50;
+    transform: scale(1.1);
 }
 
 .contact-info li {
