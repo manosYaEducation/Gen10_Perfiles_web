@@ -632,6 +632,82 @@
             color: #e0e0e0 !important;
         }
 
+        /* Estilos para el filtro en modo oscuro */
+        body.dark-mode .filter-container {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+            border: 1px solid #333 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+        }
+        
+        body.dark-mode .filter-container h3 {
+            color: #e0e0e0 !important;
+        }
+        
+        body.dark-mode .filter-container input,
+        body.dark-mode .filter-container select {
+            background-color: #2d2d2d !important;
+            color: #e0e0e0 !important;
+            border: 2px solid #444 !important;
+        }
+        
+        body.dark-mode .filter-container input:focus,
+        body.dark-mode .filter-container select:focus {
+            border-color: #4CAF50 !important;
+            box-shadow: 0 0 0 3px rgba(76,175,80,0.2) !important;
+        }
+        
+        body.dark-mode .filter-container input::placeholder {
+            color: #888;
+        }
+        
+        /* Estilos mejorados para las tarjetas de búsqueda */
+        body.dark-mode .search-card {
+            background-color: #1e1e1e !important;
+            border: 1px solid #333 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4) !important;
+        }
+        
+        body.dark-mode .search-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6) !important;
+        }
+        
+        body.dark-mode .search-card h3 {
+            color: #e0e0e0 !important;
+        }
+        
+        body.dark-mode .search-card p {
+            color: #aaa !important;
+        }
+        
+        /* Animación de entrada para las tarjetas */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .search-card {
+            animation: fadeInUp 0.4s ease-out;
+        }
+        
+        /* Responsive para el filtro */
+        @media (max-width: 768px) {
+            .filter-container > div {
+                flex-direction: column !important;
+            }
+            
+            .filter-container input,
+            .filter-container select {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+        }
+
     </style>
 
     <!-- Metadata Principal -->
@@ -827,6 +903,23 @@
             </div>
         </div>
     </section>
+
+    <div class="filter-container" style="margin: 40px auto 30px; padding: 25px 30px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 12px; max-width: 1200px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h3 style="margin: 0 0 20px 0; font-size: 1.5rem; color: #2c3e50; font-weight: 600;">🔍 Buscar Perfiles</h3>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+            
+            <input type="text" id="searchInput" placeholder="Buscar por nombre o descripción..." style="padding: 12px 18px; border-radius: 8px; border: 2px solid #ddd; flex: 1; min-width: 250px; font-size: 0.95rem; transition: all 0.3s;" onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 0 3px rgba(76,175,80,0.1)'" onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none'">
+
+            <select id="roleFilter" style="padding: 12px 18px; border-radius: 8px; border: 2px solid #ddd; min-width: 200px; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: all 0.3s;" onfocus="this.style.borderColor='#4CAF50'; this.style.boxShadow='0 0 0 3px rgba(76,175,80,0.1)'" onblur="this.style.borderColor='#ddd'; this.style.boxShadow='none'">
+                <option value="all">🔍 Todos</option>
+                <option value="trabajador">👨‍💻 Equipo Kreative</option>
+                <option value="cliente">🤝 Clientes</option>
+            </select>
+        </div>
+    </div>
+
+<div id="profiles-container">
+    </div>
 
     <section class="profiles-section" id="perfiles">
         <div class="info-container">
@@ -1117,6 +1210,7 @@
     <script src="./frontend/js/contacto.js"></script>
     <script src="./frontend/js/loading-component.js"></script>
     <script src="./frontend/js/clients-index.js"></script>
+    <script src="./frontend/js/search_logic.js"></script>
     </script>
     <div id="footer-container"></div>
     <script>
