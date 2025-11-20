@@ -1119,14 +1119,15 @@
     <script src="./frontend/js/clients-index.js"></script>
     </script>
     <div id="footer-container"></div>
-    <script>
-      fetch('./frontend/components/footer-index.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('footer-container').innerHTML = data;
-        });
-    </script>
-
+<div id="footer-container"></div>
+<script>
+  fetch('./frontend/components/footer-index.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer-container').innerHTML = data;
+    })
+    .catch(error => console.error('Error cargando el footer:', error));
+</script>
 
 </body>
 
