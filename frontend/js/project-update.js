@@ -75,10 +75,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                 alert('Proyecto actualizado correctamente');
                 window.location.href = 'proyectos-admin.html';
             } else {
-                throw new Error(result.mensaje || 'Error al actualizar el proyecto');
+                throw new Error(result.mensaje || 'Error al eliminar el proyecto');
             }
         } catch (error) {
-            alert(error.message || 'Error al actualizar el proyecto');
+            alert(error.message || 'Error al editar el proyecto');
             console.error("Error:", error);
         }
     });
@@ -163,7 +163,7 @@ function configurarFormulario(idProyecto) {
     form.appendChild(inputId);
     
     const submitButton = form.querySelector('button[type="submit"]');
-    submitButton.textContent = 'Actualizar Proyecto';
+    submitButton.textContent = 'Editar Proyecto';
 }
 
 function agregarCampoParrafo(contenido = '') {
