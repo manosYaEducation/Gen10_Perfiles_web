@@ -1,7 +1,7 @@
 console.log('Cargando métricas...');
 
 // Se pide el contenido de metrics.php
-fetch('http://localhost/Gen10_Perfiles_web/backend/metrics.php') // Para Deploy: 'https://kreative.alphadocere.cl/backend/metrics.php'
+fetch('https://kreative.alphadocere.cl/backend/metrics.php') // Para Deploy: 'https://kreative.alphadocere.cl/backend/metrics.php'
   // Toma la respuesta y la convierte en formato JSON
   .then((response) => response.json())
   // Llama un elemento en el HTML que tenga dicha id y luego cambia su valor al extraido en data

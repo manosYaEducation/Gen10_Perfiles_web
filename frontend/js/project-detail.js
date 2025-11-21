@@ -103,6 +103,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </section>
             `;
         }
+        
+        // Clientes
+        if (proyecto.detalles?.cliente?.length > 0) {
+            html += `
+                <section class="participantes">
+                    <h2>Cliente del proyecto</h2>
+                    <div class="participantes-container">
+                        ${proyecto.detalles.cliente.map(cliente => `
+                            <div class="participante">
+                                <a href="./client-template-public.php?id=${cliente.id}" class="participante-enlace">
+                                    <p class="nombre-participante">${cliente.name}</p>
+                                </a>
+                            </div>
+                        `).join("")}
+                    </div>
+                </section>
+            `;
+        }
     
 
         // Agregar todo el HTML al contenedor
