@@ -91,8 +91,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                             <h2>${client.name}</h2>
                             <h3 class="profile-subtitle">${client.company || ''}</h3>
                             <a href="../frontend/client-template.html?id=${client.id}" class="button-link">Perfil</a>
-                            <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Actualizar</button>
-                            <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Borrar</button>
+                            <button class="buttonActualizar" data-id="${client.id}" onclick="redirectToUpdateClient(${client.id})">Editar</button>
+                            <button class="buttonBorrar" data-id="${client.id}" onclick="deleteClient(event)">Eliminar</button>
                         </div>
                     `;
                     clientsProfilesColumn.appendChild(clientCard);

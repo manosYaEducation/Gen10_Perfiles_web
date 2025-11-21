@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
 
             } else {
-                console.error("Error al actualizar perfil:", result.message);
+                console.error("Error al Editar perfil:", result.message);
                 Swal.fire({
                     icon: 'error',
                     title: 'Error al actualizar perfil',
