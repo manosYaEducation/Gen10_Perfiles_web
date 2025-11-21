@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (!email) return; // No hay sesión iniciada
 
   try {
-    const apiUrl = window.API_URL_PHP || "https://kreative.alphadocere.cl/backend/";
+    const apiUrl = window.API_URL_PHP || "http://localhost/Gen10_Perfiles_web/backend/";
     const response = await fetch(`${apiUrl}read_profile_by_email.php?email=${encodeURIComponent(email)}`);
     const result = await response.json();
 

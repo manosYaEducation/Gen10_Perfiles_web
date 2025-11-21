@@ -45,7 +45,7 @@ function mostrarProyectosUsuario(projects) {
                     ${project.ubicacion ? `<p class="project-location"><strong>Ubicación:</strong> ${escapeHtml(project.ubicacion)}</p>` : ''}
                 </div>
                 <div class="project-footer">
-                    <a href="../proyecto-detalle.php?id=${project.id_proyecto}" class="project-link" target="_blank">
+                    <a href="../proyecto-admin-detalle.html?id=${project.id_proyecto}" class="project-link" target="_blank">
                         Ver proyecto completo <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
