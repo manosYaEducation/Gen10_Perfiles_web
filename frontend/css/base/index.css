@@ -132,6 +132,7 @@ body {
     overflow-x: hidden;
     margin: 0 auto;
     height: auto;
+    padding: 20px 40px;
 }
 
 header {
@@ -2824,3 +2825,16 @@ body.dark-mode .hero-right li:hover::before {
     align-items: center;
     flex-shrink: 0;
     }
+
+    /* Ajuste automático para tablets */
+@media (max-width: 992px) {
+    body {
+        padding: 20px;
+    }
+}
+/* Ajuste perfecto para móviles */
+@media (max-width: 576px) {
+    body {
+        padding: 16px;
+    }
+}
