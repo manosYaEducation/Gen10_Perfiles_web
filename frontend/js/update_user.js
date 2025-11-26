@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     title: 'Perfil actualizado con éxito',
                     showConfirmButton: false,
                     timer: 1500, 
-                    willClose: () => {history.back();}
+                    willClose: () => {location.reload();}
             });
 
             } else {
