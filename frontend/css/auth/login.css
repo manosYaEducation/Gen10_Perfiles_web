@@ -153,3 +153,40 @@ h1 {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+/* ===== Ventana modal para error en el login===== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background: #fff;
+    margin: 12% auto;
+    padding: 20px;
+    width: 320px;
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+
+
+#h2modalError-Login {
+    color: #3EA041;
+}
+
+.close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 22px;
+    cursor: pointer;
+}

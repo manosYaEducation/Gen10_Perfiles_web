@@ -73,7 +73,7 @@ loginF.addEventListener("submit", async (event) => {
   const mantenerSesion = document.querySelector("#mantenerSesion").checked;
 
   if (!username || !password) {
-    alert("Por favor ingresa ambos campos: usuario y contraseña.");
+    mostrarErrorLogin("Por favor ingresa ambos campos: usuario y contraseña.");
     return;
   }
 
@@ -157,7 +157,7 @@ loginF.addEventListener("submit", async (event) => {
       // Redirigir al usuario
       window.location.href = "../index.html";
     } else {
-      alert(result.error || "Usuario o contraseña incorrectos.");
+      mostrarErrorLogin(result.error || "Usuario o contraseña incorrectos.");
 
       // Agrega intento fallido y si es igual o supera los intentos empieza el timer
       intentosFallidos++;
@@ -171,7 +171,7 @@ loginF.addEventListener("submit", async (event) => {
     }
   } catch (error) {
     console.error("Error completo:", error);
-    alert('Hubo un error al procesar tu solicitud. Inténtalo nuevamente.\n' + error.message);
+    mostrarErrorLogin('Hubo un error al procesar tu solicitud. Inténtalo nuevamente.\n' + error.message);
   }
 });
 
@@ -186,3 +186,21 @@ togglePassword.addEventListener("click", () => {
   togglePassword.classList.toggle("bi-eye");
   togglePassword.classList.toggle("bi-eye-slash");
 });
+
+
+// === Ventna modal para error en el login ===
+function mostrarErrorLogin(mensaje) {
+    const modal = document.getElementById("modalError-Login");
+    const mensajeError = document.getElementById("mensajeError");
+
+    mensajeError.textContent = mensaje;
+    modal.style.display = "block";
+
+    document.getElementById("cerrarModal").onclick = () => {
+        modal.style.display = "none";
+    };
+
+    window.onclick = (e) => {
+        if (e.target === modal) modal.style.display = "none";
+    };
+}
