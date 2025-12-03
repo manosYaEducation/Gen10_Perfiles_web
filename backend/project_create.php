@@ -85,13 +85,15 @@ try {
             if (!empty($tmp_name)) {
                 // Obtener la extensión del archivo (ej: .jpg, .png)
                 $extension = pathinfo($_FILES['imagenes']['name'][$key], PATHINFO_EXTENSION);
-
+// <<< CAMBIO 1: Inicializar el peso del archivo con su valor correcto >>>
+                $peso_archivo = $_FILES['imagenes']['size'][$key];
                 // Validar el tamaño del archivo
                 if ($peso_archivo > $peso_maximo) {
                     if (ob_get_length()) { ob_clean(); }
                     echo json_encode([
                         'success' => false, 
-                        'message' => "La imagen '{$$_FILES['imagenes']['name'][$key]}' supera el tamaño máximo permitido de 2 MB."
+                        'message' => "La imagen '{$_FILES['imagenes']['name'][$key]}' supera el tamaño máximo permitido de 2 MB."
+// <<< CAMBIO 2: ERROR DE SINTAXIS -> '{$$_FILES -> ES -> '{$_FILES   >>>
                     ]);
                     exit();
                 }
