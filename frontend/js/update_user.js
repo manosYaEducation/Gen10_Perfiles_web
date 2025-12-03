@@ -253,18 +253,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                     title: 'Perfil actualizado con éxito',
                     showConfirmButton: false,
                     timer: 1500, 
-                    willClose: () => {
-                        // Usar sessionStorage para forzar recarga
-                        sessionStorage.setItem('profileUpdated', 'true');
-            
-                        // Intentar redireccionar a la página referente o por defecto
-                        if (document.referrer && document.referrer.includes(window.location.hostname)) {
-                            window.location.href = document.referrer;
-                        } else {
-                            window.location.href = '../frontend/index-admin.html';
-                        }
-                    }
-                });
+                    willClose: () => {location.reload();}
+            });
 
             } else {
                 console.error("Error al editar perfil:", result.message);
