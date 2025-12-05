@@ -15,6 +15,38 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById('profile_image').src = result.data.image;
         }
 
+        // Función para formatear etiquetas 
+        function formatTags(tagData) {
+            
+            if (!tagData) {
+                return '<p class="no-data">No hay información disponible</p>';
+            }
+            
+            let tagsArray = [];
+            
+            // Si es un array, usarlo directamente
+            if (Array.isArray(tagData)) {
+                tagsArray = tagData;
+            }
+            // Si es un string, dividir por comas
+            else if (typeof tagData === 'string') {
+                tagsArray = tagData.split(',').map(tag => tag.trim());
+            }
+            // Si es otro tipo, convertirlo a string primero
+            else {
+                tagsArray = tagData.toString().split(',').map(tag => tag.trim());
+            }
+            
+            // Filtrar elementos vacíos
+            tagsArray = tagsArray.filter(tag => tag && tag !== '');
+            
+            if (tagsArray.length === 0) {
+                return '<p class="no-data">No hay información disponible</p>';
+            }
+            
+            return tagsArray.map(tag => `<span class="tag">${tag}</span>`).join('');
+        }
+
         // Información personal
         document.getElementById('name-hero').textContent = profile.basic.name;
         document.getElementById('personal-information-hero').innerHTML = `
@@ -22,7 +54,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             <p>${profile.basic.phone}</p>
             <p>${profile.basic.email}</p>
         `;
-        //funcionalidad: convertir el teléfono en enlace de Wsp
+        
+        // Convertir el teléfono en enlace de WhatsApp
         {
             const infoDiv = document.getElementById('personal-information-hero');
             const paragraphs = infoDiv.getElementsByTagName('p');
@@ -34,6 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             }
         }
+        
         document.getElementById('description-hero').textContent = profile.basic.description;
        
         // Experiencia
@@ -41,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const experienceData = profile.experience || [];
         experienceSection.innerHTML = experienceData.map(exp => `
             <div class="experience-sub-section">
-                <h3 class="experience-sub-title">${exp.title || 'titulo no disponible'}</h3>
+                <h3 class="experience-sub-title">${exp.title || 'Título no disponible'}</h3>
                 <span class="text-primary">${exp.startdate || 'Fecha de inicio no disponible'} - ${exp.enddate || 'Fecha de finalización no disponible'}</span>
             </div>
         `).join('');
@@ -52,25 +86,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         educationSection.innerHTML = educationData.map(edc => `
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <h3 class="mb-0">${edc.title || 'titulo no disponible'}</h3>
+                    <h3 class="mb-0">${edc.title || 'Título no disponible'}</h3>
                     <span class="text-primary">${edc.startdate || 'Fecha de inicio no disponible'} - ${edc.enddate || 'Fecha de finalización no disponible'}</span>
                     <div class="subheading mb-3">${edc.institution || 'Institución no disponible'}</div>
                 </div>
             </div>
         `).join('');
         
-        // Intereses
-        document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest}</p>`;
+        // Intereses - 
+        document.getElementById('p-interest-section').innerHTML = formatTags(profile.interest);
         
-        // Habilidades
-        if (profile.skill && Array.isArray(profile.skill)) {
-            document.getElementById('p-skill-section').innerHTML = '';
-            profile.skill.forEach(function(skill) {
-                document.getElementById('p-skill-section').innerHTML += `<p>${skill}</p>`;
-            });
-        } else {
-            document.getElementById('p-skill-section').innerHTML = 'No hay habilidades disponibles.';
-        }
+        // Habilidades - 
+        document.getElementById('p-skill-section').innerHTML = formatTags(profile.skill);
         
         // Redes sociales
         const socialLinksElement = document.getElementById('social-links');
@@ -85,14 +112,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         const reviewsSection = document.getElementById('p-review-section'); 
         const reviewsData = profile.review || [];
         reviewsSection.innerHTML = reviewsData.map(review => {
-            const rating = review.rating || 0; // Calificación del 1 al 5
-                const starImages = Array.from({ length: 5 }) // Generar 5 elementos para estrellas
-                    .map((_, index) => 
-                        `<img src="${index < rating ? starFilled : starEmpty}" alt="star" class="star-icon" />`
-                    )
-                    .join('');                
-                
-            return    `
+            const rating = review.rating || 0;
+            const starImages = Array.from({ length: 5 })
+                .map((_, index) => 
+                    `<img src="${index < rating ? starFilled : starEmpty}" alt="star" class="star-icon" />`
+                )
+                .join('');                
+            
+            return `
                 <div class="review-card">
                     <div class="review-header">
                         <h3 class="review-name">${review.nameClient || 'Nombre no disponible'}</h3>
@@ -100,23 +127,23 @@ document.addEventListener("DOMContentLoaded", async function () {
                             <p class="review-company">${review.company || 'Empresa no disponible'}</p>
                         </div>
                     </div>
-            <div class="review-rating">
-                <span class="rating">${starImages}</span> 
-            </div>
+                    <div class="review-rating">
+                        <span class="rating">${starImages}</span> 
+                    </div>
                     <div class="review-comments">
                         <p>${review.comments || 'Comentarios no disponibles'}</p>
                     </div>
-               </div>
+                </div>
             `}).join('');
-    // Contacto
-    const contactSection = document.getElementById('contact-info-section');
-    contactSection.innerHTML = `
-        <p><strong>Correo:</strong> <a href="mailto:${profile.basic.email}">${profile.basic.email}</a></p>
-        <p><strong>Teléfono:</strong> <a href="https://wa.me/${profile.basic.phone.replace(/\D/g, '')}" target="_blank">${profile.basic.phone}</a></p>
-    `;
+            
+        // Contacto
+        const contactSection = document.getElementById('contact-info-section');
+        contactSection.innerHTML = `
+            <p><strong>Correo:</strong> <a href="mailto:${profile.basic.email}">${profile.basic.email}</a></p>
+            <p><strong>Teléfono:</strong> <a href="https://wa.me/${profile.basic.phone.replace(/\D/g, '')}" target="_blank">${profile.basic.phone}</a></p>
+        `;
 
     } catch (error) {
         console.error("Error al obtener los datos:", error);
     }
-
 });
