@@ -1,0 +1,9 @@
+diff a/frontend/css/base/index.css b/frontend/css/base/index.css	(rejected hunks)
+@@ -132,6 +132,7 @@
+     overflow-x: hidden;
+     margin: 0 auto;
+     height: auto;
++    padding: 20px 40px;
+ }
+ 
+ header {

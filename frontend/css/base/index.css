@@ -128,11 +128,27 @@ html {
 body {
     font-family: poppins, sans-serif;
     width: 100%;
-    min-width: 100%;
     overflow-x: hidden;
     margin: 0 auto;
-    height: auto;
+    padding: 20px;
 }
+
+/* Tablets */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        
+    }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+}
+
+
 
 header {
     color: rgb(172, 182, 169);
@@ -2824,3 +2840,16 @@ body.dark-mode .hero-right li:hover::before {
     align-items: center;
     flex-shrink: 0;
     }
+
+    /* Ajuste automático para tablets */
+@media (max-width: 992px) {
+    body {
+        padding: 20px;
+    }
+}
+/* Ajuste perfecto para móviles */
+@media (max-width: 576px) {
+    body {
+        padding: 16px;
+    }
+}
