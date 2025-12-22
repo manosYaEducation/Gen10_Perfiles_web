@@ -48,8 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Escuchar cambios en el tamaño de la ventana
   window.addEventListener('resize', updateCardsPerView);
 
-  // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
-  fetch(`${window.API_URL_PHP}read_user.php`)
+  // Realiza una solicitud para obtener todos los perfiles desde el endpoint OPTIMIZADO
+  // El nuevo endpoint no carga imágenes base64, solo referencias a ellas
+  fetch(`${window.API_URL_PHP}read_profiles_optimized.php`)
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
@@ -67,19 +68,25 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderProfiles() {
     if (!carousel) return;
     carousel.innerHTML = "";
-    profiles.forEach((profile) => {
+    profiles.forEach((profile, index) => {
       const profileCard = document.createElement("div");
       profileCard.className = "profile-card";
       // Limitar la descripción a 100 caracteres
       const shortDescription = profile.description && profile.description.length > 100
         ? profile.description.substring(0, 100) + "..."
         : profile.description || "";
+      
+      // Lazy load: cargar imágenes de los primeros 6 perfiles inmediatamente
+      // El resto las carga bajo demanda
+      const shouldLoadEager = index < 6;
+      const imageSrc = profile.image_url || "./assets/img/default-profile.png";
+      
       profileCard.innerHTML = `
         <div class="profile-image-container">
             <img 
-            ${profiles.indexOf(profile) < 3 
-            ? `src="${profile.image || "./assets/img/default-profile.png"}"` 
-            : `data-src="${profile.image || "./assets/img/default-profile.png"}" src="./assets/img/loading-placeholder.png" loading="lazy"`} 
+            ${shouldLoadEager 
+            ? `src="${imageSrc}"` 
+            : `data-src="${imageSrc}" src="./assets/img/loading-placeholder.png" loading="lazy"`} 
             alt="${profile.name}" 
             width="300" height="300"
             class="profile-img"
