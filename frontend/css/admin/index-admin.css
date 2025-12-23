@@ -193,10 +193,6 @@ nav {
     transition: all 0.3s ease;
 }
 
-.back-to-site:hover {
-    background-color: #f0f0f0;
-    color: #4CAF50;
-}
 
 .back-to-site i {
     margin-right: 8px;
