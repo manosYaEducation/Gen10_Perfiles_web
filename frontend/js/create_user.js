@@ -107,6 +107,15 @@ async function createUser(event) {
     }
 }
 
+//Evita que se envien datos en campos de entrada al presionar ENTER (redireccione al index)
+document.getElementById('userForm').addEventListener('keypress', (event) => {
+
+    if (event.key === 'Enter') {
+        event.preventDefault();//evita el envio con al presioanr Enter
+    }
+
+});
+
 document.getElementById('userForm').addEventListener('submit', createUser);
 
 document.getElementById('addExperience').addEventListener('click', () => {
