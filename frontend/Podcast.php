@@ -950,12 +950,13 @@
             
             podcastsGrid.innerHTML = podcasts.map((podcast, index) => {
                 const isLive = esEnVivo(podcast.fecha);
+                const youtubeId = extraerIdYoutube(podcast.url_youtube);
                 return `
                     <div class="podcast-card" style="animation-delay: ${index * 0.1}s">
-                        <div class="podcast-thumbnail" onclick="reproducirPodcast('${podcast.url_youtube}', '${escapeHtml(podcast.titulo)}')">
-                            <img src="https://img.youtube.com/vi/${extraerIdYoutube(podcast.url_youtube)}/maxresdefault.jpg" 
+                        <div class="podcast-thumbnail" data-url="${escapeHtml(podcast.url_youtube)}" data-titulo="${escapeHtml(podcast.titulo)}" onclick="reproducirPodcast(this.dataset.url, this.dataset.titulo)">
+                            <img src="https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg" 
                                  alt="${escapeHtml(podcast.titulo)}"
-                                 onerror="this.src='https://img.youtube.com/vi/${extraerIdYoutube(podcast.url_youtube)}/hqdefault.jpg'">
+                                 onerror="this.src='https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg'">
                             ${isLive ? `
                                 <span class="live-badge">
                                     <span class="live-dot"></span>
@@ -977,11 +978,11 @@
                             </p>
                             <p class="podcast-description">${escapeHtml(podcast.descripcion)}</p>
                             <div class="podcast-actions">
-                                <button class="btn-watch" onclick="reproducirPodcast('${podcast.url_youtube}', '${escapeHtml(podcast.titulo)}')">
+                                <button class="btn-watch" data-url="${escapeHtml(podcast.url_youtube)}" data-titulo="${escapeHtml(podcast.titulo)}" onclick="reproducirPodcast(this.dataset.url, this.dataset.titulo)">
                                     <i class="fas fa-play-circle"></i>
                                     Ver ahora
                                 </button>
-                                <a href="${podcast.url_youtube}" target="_blank" class="btn-youtube">
+                                <a href="${escapeHtml(podcast.url_youtube)}" target="_blank" class="btn-youtube">
                                     <i class="fab fa-youtube"></i>
                                     YouTube
                                 </a>
