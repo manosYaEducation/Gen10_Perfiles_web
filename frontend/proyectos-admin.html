@@ -6,6 +6,7 @@
     <title>Proyectos - Gen10 Alpha Docere</title>
     <link href="../frontend/css/admin/index-admin.css" rel="stylesheet" />
     <link rel="stylesheet" href="../frontend/css/base/footer.css">
+    <link rel="stylesheet" href="../frontend/css/proyectos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -36,52 +37,6 @@
             background-color: #45a049;
         }
 
-        /* Estilos de la tabla */
-        .project-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .project-table th, .project-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .project-table th {
-            background-color: #f4f4f4;
-        }
-
-        .project-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .project-table tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .action-btn {
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            color: white;
-        }
-
-        .ver-btn {
-            background-color: #4eb5f0;
-            margin-right: 7px;
-        }
-
-        .edit-btn {
-            background-color: #f0ad4e;
-            margin-right: 7px;
-        }
-
-        .delete-btn {
-            background-color: #d9534f;
-        }
     </style>
 </head>
 <body>
@@ -114,20 +69,9 @@
             <h1 class="info-title">Lista de Proyectos</h1>
         </div>
 
-        <!-- Tabla de proyectos -->
-        <table class="project-table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre del Proyecto</th>
-                    <th>Descripción del Proyecto</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tablaProyectos">
-                <!-- Los proyectos se cargan dinámicamente aquí -->
-            </tbody>
-        </table>
+        <!-- Contenedor de tarjetas de proyectos -->
+        <div id="tablaProyectos" class="contenedor-cards"></div>
+
     </section>   
     <script src="./js/config.js"></script>  
     <script src="./js/project-admin.js"></script>

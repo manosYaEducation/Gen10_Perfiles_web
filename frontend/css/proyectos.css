@@ -148,4 +148,58 @@ body {
         font-size: 1.4rem;
         line-height: 1.4;
     }
-    
+        
+
+
+
+
+.contenedor-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.proyecto-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform .2s;
+}
+
+.proyecto-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-info {
+    margin: 10px 0;
+    color: #555;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.card-actions button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.ver-btn {
+    background: #4CAF50;
+    color: white;
+}
+
+.edit-btn {
+    background: #2196F3;
+    color: white;
+}
+
+.delete-btn {
+    background: #f44336;
+    color: white;
+}
