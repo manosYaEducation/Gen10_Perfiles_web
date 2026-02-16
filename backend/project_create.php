@@ -124,14 +124,27 @@ try {
     }
 
 
-    // Guardar Participantes (enviados como participantes[id_participante] => nombre)
+    // Guardar Participantes (enviados como participantes[id_participante] => {nombre, estado})
     if (!empty($_POST['participantes']) && is_array($_POST['participantes'])) {
-        foreach ($_POST['participantes'] as $id_participante => $nombre_participante) {
+        foreach ($_POST['participantes'] as $id_participante => $datos_participante) {
+            // Extraer nombre y estado (compatible con ambos formatos)
+            if (is_array($datos_participante)) {
+                $nombre = $datos_participante['nombre'] ?? '';
+                $estado = $datos_participante['estado'] ?? 'activo';
+            } else {
+                // Compatibilidad hacia atrás: si es string, asumir nombre sin estado
+                $nombre = $datos_participante;
+                $estado = 'activo';
+            }
+            
+            // Crear tipo compuesto: "participante:activo"
+            $tipo_participante = "participante:{$estado}";
+            
             $stmt = $conn->prepare("
                 INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
-                VALUES ('participante', ?, ?, ?)
+                VALUES (?, ?, ?, ?)
             ");
-            $stmt->execute([$nombre_participante, $id_participante, $id_proyecto]);
+            $stmt->execute([$tipo_participante, $nombre, $id_participante, $id_proyecto]);
         }
     }
         // Guardar Clientes (enviados como clientes[id_cliente] => nombre)

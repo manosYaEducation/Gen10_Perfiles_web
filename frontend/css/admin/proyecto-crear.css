@@ -196,6 +196,28 @@ button:disabled {
   margin: 0 5px;
 }
 
+/* Estilos especiales para el botón de guardar proyecto */
+#btn-guardar-proyecto {
+  background-color: #28a745;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin: 30px auto 10px auto;
+  min-width: 200px;
+  text-align: center;
+}
+
+#btn-guardar-proyecto:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+#btn-guardar-proyecto:active {
+  background-color: #1e7e34;
+  transform: scale(0.95);
+}
+
 /* Clase para ocultar elementos */
 .hidden {
   display: none;

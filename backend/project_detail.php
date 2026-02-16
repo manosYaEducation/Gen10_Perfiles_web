@@ -18,7 +18,7 @@ $sql = "SELECT p.id_proyecto,p.titulo_tarjeta, p.titulo_proyecto, p.descripcion_
         FROM proyectos p
         LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
         WHERE p.id_proyecto = :id
-        ORDER BY FIELD(d.tipo, 'parrafo', 'imagen', 'participante', 'cliente', 'testimonio', 'enlace')";
+        ORDER BY FIELD(SUBSTRING_INDEX(d.tipo, ':', 1), 'parrafo', 'imagen', 'participante', 'cliente', 'testimonio', 'enlace'), d.tipo";
 
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':id', $id_proyecto, PDO::PARAM_INT);
@@ -51,7 +51,10 @@ foreach ($datos as $fila) {
     }
 
     // Clasificar detalles por tipo
-    switch ($fila['tipo']) {
+    // Extraer tipo base (antes del ':') para compatibilidad con 'participante:estado'
+    $tipoBase = explode(':', $fila['tipo'])[0];
+    
+    switch ($tipoBase) {
         case 'parrafo':
             $proyectos[$id_proyecto]['detalles']['parrafos'][] = $fila['descripcion'];
             break;
@@ -62,28 +65,43 @@ foreach ($datos as $fila) {
             ];
             break;
         case 'participante':
+            // Capturar participantes (tanto 'participante' como 'participante:estado')
             $id_participante = $fila['detalle'];
-        
+            
+            // Extraer estado del tipo (participante:a, participante:i, participante:l)
+            // Si solo dice 'participante', usar fallback 'activo'
+            $partes = explode(':', $fila['tipo']);
+            $codigo_estado = isset($partes[1]) ? $partes[1] : 'a'; // Fallback a 'a' (activo) si no existe
+            
+            // Convertir código a estado completo
+            $estado_map = ['a' => 'activo', 'i' => 'inactivo', 'l' => 'legacy', 'eliminado' => 'eliminado'];
+            $estado = isset($estado_map[$codigo_estado]) ? $estado_map[$codigo_estado] : 'activo';
+            
+            // Saltar participantes eliminados
+            if ($estado === 'eliminado') {
+                break;
+            }
+            
             // **Consulta para obtener la imagen desde la base de datos**
             $sqlImg = "SELECT imagen FROM imagenes WHERE profileid = :profileid LIMIT 1";
             $stmtImg = $conn->prepare($sqlImg);
             $stmtImg->bindParam(':profileid', $id_participante, PDO::PARAM_INT);
             $stmtImg->execute();
             $imagen = $stmtImg->fetch(PDO::FETCH_ASSOC);
-        
+            
             // **Convertir BLOB a Base64**
             $imagen_base64 = "../assets/profile/default-profile.png"; // Imagen por defecto /* Gen10 */
             if ($imagen && !empty($imagen['imagen'])) {
                 $imagen_base64 = "data:image/jpeg;base64," . base64_encode($imagen['imagen']);
             }
-        
+            
             $proyectos[$id_proyecto]['detalles']['participantes'][] = [
                 'id' => $id_participante,
                 'nombre' => $fila['descripcion'],
-                'imagen' => $imagen_base64
+                'imagen' => $imagen_base64,
+                'estado' => $estado
             ];
             break;
-            /*  */
         case 'cliente':
             $proyectos[$id_proyecto]['detalles']['cliente'][] = [
                 'id' => $fila['detalle'],
