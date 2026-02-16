@@ -726,8 +726,8 @@
             </span>
             <select class="filter-select" id="filter-year">
                 <option value="">Todos los años</option>
-                <option value="2025">2026</option>
-                <option value="2024">2025</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
             </select>
             <select class="filter-select" id="filter-month">
                 <option value="">Todos los meses</option>
