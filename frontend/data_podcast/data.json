@@ -1,0 +1,99 @@
+[
+    {
+        "id": 1,
+        "titulo": "Podcast Kreative Cap 01 : En vivo en Viaje 4 Estaciones.",
+        "descripcion": "Un encuentro para inspirar, conectar, profundizar y resonar con la IA.",
+        "url_youtube": "https://www.youtube.com/watch?v=xSduoyedi68",
+        "fecha": "2025-11-27",
+        "estado": "finalizado"
+    },
+    {
+        "id": 2,
+        "titulo": "Podcast Kreative Cap 02 / ¿que es la blockchain ?",
+        "descripcion": "Juan desde argentina y Camilo desde chile nos cuentan sobre como funciona la blockchain y como la aplicaran en sus proyectos.",
+        "url_youtube": "https://www.youtube.com/watch?v=Gd-wJkdBBAg",
+        "fecha": "2025-12-04",
+        "estado": "finalizado"
+    },
+    {
+        "id": 3,
+        "titulo": "Podcast Kreative Cap 03: IA y Web 3.0 - En vivo desde AIDAY - Los Reyunos 2025",
+        "descripcion": "¿Cómo conviven la humanidad y la Inteligencia Artificial? ¿Hacia dónde va la economía con la Web 3.0? Sumate a este episodio especial desde AIDAY - Los Reyunos 2025. Analizamos estos temas junto a Pablo Paredes y Camilo Yonhson para entender el futuro que ya está aquí.",
+        "url_youtube": "https://www.youtube.com/watch?v=geY6TAhdfsI",
+        "fecha": "2025-12-12",
+        "estado": "finalizado"
+    },
+    {
+        "id": 4,
+        "titulo": "Capitulo 5 AD Kreative Podcast desde UTN Polo IT San rafael y Polo Tic Mendoza",
+        "descripcion": "",
+        "url_youtube": "https://www.youtube.com/watch?v=aZtOy6K29CQ",
+        "fecha": "2025-12-18",
+        "estado": "finalizado"
+    },
+    {
+        "id": 5,
+        "titulo": "Podcast Kreative Cap 06: Humanidad en tiempos de IA Cuidadoras y Hackdash",
+        "descripcion": "Acompáñanos a conversar sobre dos proyectos: - Cuidadoras de Calbuco: Web para apoyar una agrupación de cuidadoras. - Hackdash: Plataforma que nuclea proyectos IT y eventos.",
+        "url_youtube": "https://www.youtube.com/watch?v=qTL5vHhf4hA",
+        "fecha": "2025-12-26",
+        "estado": "finalizado"
+    },
+    {
+        "id": 6,
+        "titulo": "Podcast Kreative Cap 7 la Incertidumbre de pasar a la acción",
+        "descripcion": "Mauricio Caceres y Gabriel Calcagni nos hablan sobre sus proyectos para el 2026 y sobre como pasar a la acción en este mundo tecnologico.",
+        "url_youtube": "https://www.youtube.com/watch?v=aF8S8Kx2Os4",
+        "fecha": "2026-01-02",
+        "estado": "finalizado"
+    },
+    {
+        "id": 7,
+        "titulo": "Podcast Kreative Cap 8",
+        "descripcion": "",
+        "url_youtube": "https://www.youtube.com/watch?v=HcB0J4ntxM4",
+        "fecha": "2026-01-09",
+        "estado": "finalizado"
+    },
+    {
+        "id": 8,
+        "titulo": "Podcast Kreative - Cap 9 - Humanidad en tiempos de tecnología: Una charla con Mizu Chin",
+        "descripcion": "En este noveno episodio de Podcast Kreative, nos alejamos de los tecnicismos para poner en el centro a las personas que construyen el futuro de la tecnología. Bajo el título \"Humanidad en tiempos de tecnología\", exploramos la industria de los videojuegos desde una mirada profundamente humana y honesta. Contamos con la presencia de Mizu Chin, CEO y Productora de Dreams of Heaven Games, speaker internacional y referente clave de la industria en Chile. Más allá de sus títulos profesionales, Mizu nos comparte su historia, sus procesos y la importancia de los vínculos en un entorno altamente digital.",
+        "url_youtube": "https://www.youtube.com/watch?v=3Q4b84dSVl4",
+        "fecha": "2026-01-16",
+        "estado": "finalizado"
+    },
+    {
+        "id": 9,
+        "titulo": "Podcast Kreative Cap 10 - Proyecto social Con Tribu Ir",
+        "descripcion": "Acompáñanos a descubrir la ONG CON TRIBU IR, un equipo multidisciplinario apasionado por la educación, la salud mental, la inclusión y el bienestar integral. Su propósito es generar experiencias formativas e innovadoras que impacten la vida de las personas y fortalezcan desde lo individual a lo colectivo a diversos profesionales y organismos, utilizando la colaboración, la creatividad y el aprendizaje como motores de transformación social. En este episodio, reflexionaremos sobre cómo la pasión por el bienestar humano y la educación puede estructurarse en proyectos concretos que fortalecen el tejido social.",
+        "url_youtube": "https://www.youtube.com/watch?v=QaVz_Sos6No&t=2567s",
+        "fecha": "2026-01-23",
+        "estado": "finalizado"
+    },
+    {
+        "id": 10,
+        "titulo": "Podcast Kreative Cap 11 - Global Game Jam",
+        "descripcion": "",
+        "url_youtube": "https://www.youtube.com/watch?v=OwY1aAuv8nI",
+        "fecha": "2026-01-30",
+        "estado": "finalizado"
+    },
+    {
+        "id": 11,
+        "titulo": "Podcast Kreative Cap 12 - Global Game Jam Recap",
+        "descripcion": "Conoce más sobre la experiencia de la participación en la Global Game Jam, el evento anual de creación de videojuegos más grande del mundo! 🕹️",
+        "url_youtube": "https://www.youtube.com/watch?v=A-Qi2SZUuBQ&t=5s",
+        "fecha": "2026-02-06",
+        "estado": "finalizado"
+    },
+        {
+        "id": 1,
+        "titulo": "Podcast Kreative Cap 12 - Global Game Jam Recap",
+        "descripcion": "Conoce más sobre la experiencia de la participación en la Global Game Jam, el evento anual de creación de videojuegos más grande del mundo! 🕹️",
+        "url_youtube": "https://www.youtube.com/watch?v=A-Qi2SZUuBQ&t=5s",
+        "fecha": "2026-02-06",
+        "estado": "finalizado"
+    }
+    
+]
