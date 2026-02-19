@@ -8,683 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Podcasts de los Viernes | Kreative</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e9 100%);
-            color: #333;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-            padding: 80px 20px 60px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: pulse 15s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-10%, -10%) scale(1.1); }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .header h1 {
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            animation: slideDown 0.8s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            animation: bounce 2s ease infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .header p {
-            font-size: 1.3em;
-            opacity: 0.95;
-            line-height: 1.6;
-            animation: fadeIn 1s ease 0.3s both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .header-subtitle {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 12px 30px;
-            border-radius: 30px;
-            margin-top: 20px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: -40px auto 0;
-            padding: 0 20px 80px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Filtros */
-        .filters {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(76, 175, 80, 0.15);
-            margin-bottom: 40px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .filter-label {
-            font-weight: 600;
-            color: #4CAF50;
-            font-size: 1.1em;
-        }
-
-        .filter-select {
-            padding: 12px 20px;
-            border: 2px solid #4CAF50;
-            border-radius: 25px;
-            background: white;
-            color: #333;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .filter-select:hover {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            max-width: 400px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 45px 12px 20px;
-            border: 2px solid #4CAF50;
-            border-radius: 25px;
-            font-size: 1em;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-input:focus {
-            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #4CAF50;
-            font-size: 1.2em;
-        }
-
-        /* Grid de Podcasts */
-        .podcasts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 35px;
-            margin-top: 40px;
-        }
-
-        .podcast-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            border: 3px solid transparent;
-            animation: cardAppear 0.6s ease both;
-        }
-
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .podcast-card:nth-child(1) { animation-delay: 0.1s; }
-        .podcast-card:nth-child(2) { animation-delay: 0.2s; }
-        .podcast-card:nth-child(3) { animation-delay: 0.3s; }
-        .podcast-card:nth-child(4) { animation-delay: 0.4s; }
-        .podcast-card:nth-child(5) { animation-delay: 0.5s; }
-        .podcast-card:nth-child(6) { animation-delay: 0.6s; }
-
-        .podcast-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(76, 175, 80, 0.3);
-            border-color: #4CAF50;
-        }
-
-        .podcast-thumbnail {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .podcast-thumbnail img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .podcast-card:hover .podcast-thumbnail img {
-            transform: scale(1.1);
-        }
-
-        .play-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.7) 0%, rgba(69, 160, 73, 0.9) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .podcast-thumbnail:hover .play-overlay {
-            opacity: 1;
-        }
-
-        .play-btn {
-            background: white;
-            border: none;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .play-btn:hover {
-            transform: scale(1.2) rotate(360deg);
-        }
-
-        .play-btn i {
-            color: #4CAF50;
-            font-size: 32px;
-            margin-left: 5px;
-        }
-
-        .live-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #ff4444;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            animation: livePulse 1.5s ease infinite;
-            z-index: 10;
-        }
-
-        @keyframes livePulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            animation: dotPulse 1.5s ease infinite;
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-        }
-
-        .podcast-info {
-            padding: 28px;
-        }
-
-        .podcast-episode {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #4CAF50;
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-size: 0.85em;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .podcast-info h3 {
-            font-size: 1.5em;
-            margin-bottom: 12px;
-            color: #333;
-            font-weight: 700;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .podcast-date {
-            color: #4CAF50;
-            font-weight: 600;
-            margin-bottom: 15px;
-            font-size: 0.95em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .podcast-description {
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 25px;
-            font-size: 0.95em;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .podcast-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-watch, .btn-youtube {
-            flex: 1;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 600;
-            text-decoration: none;
-            text-align: center;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-watch {
-            background: #4CAF50;
-            color: white;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .btn-watch:hover {
-            background: #45a049;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
-
-        .btn-youtube {
-            background: white;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
-        }
-
-        .btn-youtube:hover {
-            background: #4CAF50;
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Modal de Video */
-        .modal-video {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-video-content {
-            position: relative;
-            margin: 5% auto;
-            width: 90%;
-            max-width: 1100px;
-            animation: modalSlideDown 0.5s ease;
-        }
-
-        @keyframes modalSlideDown {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .close-video {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            color: white;
-            background: #4CAF50;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10001;
-        }
-
-        .close-video:hover {
-            background: #45a049;
-            transform: rotate(90deg) scale(1.1);
-        }
-
-        #videoContainer {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 5px solid #4CAF50;
-        }
-
-        #videoContainer iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Estado vacío */
-        .podcasts-empty {
-            text-align: center;
-            padding: 80px 20px;
-            color: #666;
-            grid-column: 1 / -1;
-        }
-
-        .podcasts-empty i {
-            font-size: 100px;
-            color: #4CAF50;
-            margin-bottom: 25px;
-            animation: bounce 2s ease infinite;
-        }
-
-        .podcasts-empty h3 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .podcasts-empty p {
-            font-size: 1.2em;
-            color: #666;
-        }
-
-        /* Loading Spinner */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            grid-column: 1 / -1;
-        }
-
-        .spinner {
-            border: 5px solid #e8f5e9;
-            border-top: 5px solid #4CAF50;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(76, 175, 80, 0.15);
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .stat-item {
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #4CAF50;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 0.95em;
-        }
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .podcasts-grid {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 25px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5em;
-            }
-
-            .header p {
-                font-size: 1.1em;
-            }
-
-            .podcasts-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .filters {
-                flex-direction: column;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-
-            .podcast-actions {
-                flex-direction: column;
-            }
-
-            .modal-video-content {
-                width: 95%;
-                margin: 15% auto;
-            }
-
-            .close-video {
-                top: -45px;
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-
-            .stats-bar {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .header-icon {
-                font-size: 3em;
-            }
-
-            .podcast-info h3 {
-                font-size: 1.3em;
-            }
-
-            .play-btn {
-                width: 65px;
-                height: 65px;
-            }
-
-            .play-btn i {
-                font-size: 26px;
-            }
-        }
-
-        /* Scroll to Top Button */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #4CAF50;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .scroll-top:hover {
-            background: #45a049;
-            transform: translateY(-5px);
-        }
-
-        .scroll-top.show {
-            display: flex;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/podcast.css">
 </head>
 <body>
     <!-- Header -->
@@ -700,6 +24,9 @@
             </span>
         </div>
     </div>
+
+    <!-- JS del modal -->
+<script src="js/admin-podcast.js"></script>
 
     <!-- Container Principal -->
     <div class="container">
@@ -775,54 +102,36 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
+
     <script>
         // Variables globales
         let todosLosPodcasts = [];
         let podcastsFiltrados = [];
 
         // Cargar podcasts desde JSON
-        async function cargarPodcasts() {
-            try {
-                const response = await fetch('./data_podcast/data.json');
-                if (!response.ok) {
-                    throw new Error('Error al cargar el archivo JSON');
-                }
-                const podcasts = await response.json();
-                
-                todosLosPodcasts = podcasts;
-                podcastsFiltrados = podcasts;
-                
-                actualizarEstadisticas();
-                renderizarPodcasts(podcasts);
-                
-            } catch (error) {
-                console.error('Error al cargar podcasts:', error);
-                mostrarError();
-            }
-        }
-
-        /* ================================================
-           VERSIÓN PARA USAR CON BASE DE DATOS 
-           (Descomenta esta función y comenta la de arriba cuando tengas la BD lista)
-           ================================================
+// Cargar podcasts desde JSON
+async function cargarPodcasts() {
+    try {
+        // Agregar timestamp para evitar caché
+        const response = await fetch('./data_podcast/data.json?t=' + new Date().getTime());
         
-        async function cargarPodcasts() {
-            try {
-                const response = await fetch('./backend/get-podcasts.php');
-                const podcasts = await response.json();
-                
-                todosLosPodcasts = podcasts;
-                podcastsFiltrados = podcasts;
-                
-                actualizarEstadisticas();
-                renderizarPodcasts(podcasts);
-                
-            } catch (error) {
-                console.error('Error al cargar podcasts:', error);
-                mostrarError();
-            }
+        if (!response.ok) {
+            throw new Error('Error al cargar data.json');
         }
-        */
+        
+        const podcasts = await response.json();
+        
+        todosLosPodcasts = podcasts;
+        podcastsFiltrados = podcasts;
+        
+        actualizarEstadisticas();
+        renderizarPodcasts(podcasts);
+        
+    } catch (error) {
+        console.error('Error al cargar podcasts:', error);
+        mostrarError();
+    }
+}
 
         // Actualizar estadísticas
         function actualizarEstadisticas() {
@@ -883,13 +192,21 @@
                             <p class="podcast-description">${escapeHtml(podcast.descripcion)}</p>
                             <div class="podcast-actions">
                                 <button class="btn-watch" onclick="reproducirPodcast('${podcast.url_youtube}', '${escapeHtml(podcast.titulo)}')">
-                                    <i class="fas fa-play-circle"></i>
-                                    Ver ahora
+                                     <i class="fas fa-play-circle"></i>
+                                             Ver ahora
                                 </button>
-                                <a href="${podcast.url_youtube}" target="_blank" class="btn-youtube">
+                             <a href="${podcast.url_youtube}" target="_blank" class="btn-youtube">
                                     <i class="fab fa-youtube"></i>
                                     YouTube
                                 </a>
+                            </div>
+                            <div class="podcast-admin-actions">
+                                <button class="btn-editar" onclick="editarPodcast(${podcast.id})" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-eliminar" onclick="eliminarPodcast(${podcast.id})" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1039,5 +356,40 @@
         // Cargar podcasts al cargar la página
         document.addEventListener('DOMContentLoaded', cargarPodcasts);
     </script>
+
+    <!-- Modal Administrar Podcast -->
+<div id="adminPodcastModal" class="modal-admin">
+    <div class="modal-admin-content">
+        <span class="close-admin" onclick="cerrarModal()">&times;</span>
+        <h2>Agregar Nuevo Podcast</h2>
+        
+        <form id="formPodcast" onsubmit="guardarPodcast(event)">
+            <label>Título *</label>
+            <input type="text" id="titulo" placeholder="Ej: Episodio #12 - Desarrollo Web" required>
+            
+            <label>Descripción *</label>
+            <textarea id="descripcion" rows="4" placeholder="Describe de qué trata el episodio..." required></textarea>
+            
+            <label>URL de YouTube *</label>
+            <input type="url" id="url_youtube" placeholder="https://www.youtube.com/watch?v=..." required>
+            
+            <label>Fecha de publicación *</label>
+            <input type="date" id="fecha" required>
+            
+            <div class="botones">
+                <button type="button" onclick="cerrarModal()">Cancelar</button>
+                <button type="submit">Guardar Podcast</button>
+            </div>
+        </form>
+        
+        <div id="mensajeResultado"></div>
+    </div>
+</div>
+
+<!-- Botón flotante para abrir modal -->
+<button class="btn-admin-float" onclick="abrirModal()">
+    <i class="fas fa-plus"></i>
+</button>
+
 </body>
 </html>
