@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function cargarTabla(idTabla, proyectos) {
-        const tabla = document.getElementById(idTabla);
-        if (!tabla) {
+        const contenedor = document.getElementById(idTabla);
+        if (!contenedor) {
             console.error(`Elemento #${idTabla} no encontrado.`);
             return;
         }
@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
         contenedor.innerHTML = "";
 
         proyectos.forEach(proyecto => {
-
             const card = document.createElement("div");
             card.className = "proyecto-card";
 
