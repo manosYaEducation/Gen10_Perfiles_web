@@ -20,6 +20,11 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
+                    <li class="nav-volver">
+                    <a class="volver-link" href="../../index.html">
+                        <img src="/GEN10_PERFILES_WEB/assets/img/letra-k.png" alt="Inicio" class="icon">
+                    </a>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="#about" onclick="DestacarNavbar('about')">Sobre mi</a></li>
                     <li class="nav-item"><a class="nav-link" href="#experience" onclick="DestacarNavbar('experience')">Experiencia</a></li>
                     <li class="nav-item"><a class="nav-link" href="#education" onclick="DestacarNavbar('education')">Educación</a></li>
@@ -27,7 +32,6 @@
                     <li class="nav-item"><a class="nav-link" href="#interests" onclick="DestacarNavbar('interests')">Intereses</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects" onclick="DestacarNavbar('projects')">Proyectos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact" onclick="DestacarNavbar('contact')">Contacto</a></li>
-                    <li class="nav-volver"><a class="volver-link" href="../../index.html">Volver al Inicio</a></li>
                 </ul>
             </div>
         </nav>
