@@ -1,101 +1,91 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    obtenerProyectos(); // Cargar proyectos al iniciar
+    obtenerProyectos();
 
-    /* -------------------------
-     * Obtener y mostrar proyectos (GET)
-     * ------------------------- */
     async function obtenerProyectos() {
         try {
-            const response = await fetch(API_URL_PHP +  "project_admin.php");
+            const response = await fetch(API_URL_PHP + "project_admin.php");
+
             if (!response.ok) throw new Error("Error al obtener proyectos");
+
             const proyectos = await response.json();
+
             mostrarProyectosEnTabla(proyectos);
+
         } catch (error) {
             console.error("Error al obtener proyectos:", error);
         }
-    }
+    };
 
     function mostrarProyectosEnTabla(proyectos) {
-        const tabla = document.getElementById("tablaProyectos");
-        if (!tabla) {
-            console.error("Elemento #tablaProyectos no encontrado.");
+
+        const contenedor = document.getElementById("tablaProyectos");
+
+        if (!contenedor) {
+            console.error("Contenedor no encontrado");
             return;
         }
-        tabla.innerHTML = ""; // Limpiar la tabla antes de agregar nuevos datos
-    
+
+        contenedor.innerHTML = "";
+
         proyectos.forEach(proyecto => {
-            const fila = document.createElement("tr");
-            fila.innerHTML = `
-                <td>${proyecto.id_proyecto}</td>
-                <td>${proyecto.titulo_tarjeta}</td>
-                <td>${proyecto.descripcion_tarjeta}</td>
-                <td>
-                    <button class="action-btn ver-btn" data-id="${proyecto.id_proyecto}">Ver</button>                    
-                    <button class="action-btn delete-btn" data-id="${proyecto.id_proyecto}">Eliminar</button>
-                    <button class="action-btn edit-btn" data-id="${proyecto.id_proyecto}">Actualizar</button>
-                </td>
+
+            const card = document.createElement("div");
+            card.className = "proyecto-card";
+
+            card.innerHTML = `
+                <h3>${proyecto.titulo_tarjeta}</h3>
+                <p>${proyecto.descripcion_tarjeta}</p>
+
+                <div class="card-info">
+                    <strong>ID:</strong> ${proyecto.id_proyecto}
+                </div>
+
+                <div class="card-actions">
+                    <button class="ver-btn">Ver</button>
+                    <button class="edit-btn">Editar</button>
+                    <button class="delete-btn">Eliminar</button>
+                </div>
             `;
-            tabla.appendChild(fila);
-        });
-    
-        // Asignar eventos a los botones de "Eliminar"
-        document.querySelectorAll(".delete-btn").forEach(button => {
-            button.addEventListener("click", () => {
-                const idProyecto = button.getAttribute("data-id");
-                eliminarProyecto(idProyecto);
-            });
-        });
-    
-        // Asignar eventos a los botones de "Ver"
-        document.querySelectorAll(".ver-btn").forEach(button => {
-            button.addEventListener("click", () => {
-                const idProyecto = button.getAttribute("data-id");
-    
-                if (idProyecto) {
-                    window.location.href = `proyecto-admin-detalle.html?id=${idProyecto}`;
-                } else {
-                    console.error("Error: No se encontró el ID del proyecto.");
-                }
-            });
-        });
 
-        // Asignar eventos a los botones de "Editar"
-        document.querySelectorAll(".edit-btn").forEach(button => {
-            button.addEventListener("click", () => {
-                const idProyecto = button.getAttribute("data-id");
-
-                if (idProyecto) {
-                    window.location.href = `proyecto-actualizar.html?id=${idProyecto}`;
-                } else {
-                    console.error("Error: No se encontró el ID del proyecto.");
-                }
+            card.querySelector(".ver-btn").addEventListener("click", () => {
+                window.location.href = `proyecto-admin-detalle.html?id=${proyecto.id_proyecto}`;
             });
+
+            card.querySelector(".edit-btn").addEventListener("click", () => {
+                window.location.href = `proyecto-actualizar.html?id=${proyecto.id_proyecto}`;
+            });
+
+            card.querySelector(".delete-btn").addEventListener("click", () => {
+                eliminarProyecto(proyecto.id_proyecto);
+            });
+
+            contenedor.appendChild(card);
         });
     }
-    
 
-    /* -------------------------
-     * Eliminar un proyecto (DELETE)
-     * ------------------------- */
     async function eliminarProyecto(id) {
-        if (!confirm("¿Estás seguro de eliminar este proyecto?")) return;
+
+        if (!confirm("¿Eliminar este proyecto?")) return;
 
         try {
+
             const response = await fetch(`${API_URL_PHP}project_admin.php?id_proyecto=${id}`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             });
-            
 
-            if (!response.ok) throw new Error("Error al eliminar el proyecto");
+            if (!response.ok) throw new Error("Error al eliminar");
+
             const resultado = await response.json();
+
             alert(resultado.mensaje);
-            obtenerProyectos(); // Recargar la lista después de eliminar
+
+            obtenerProyectos();
+
         } catch (error) {
-            console.error("Error al eliminar el proyecto:", error);
+            console.error("Error al eliminar:", error);
         }
     }
-});
 
-//<button class="action-btn edit-btn" data-id="${proyecto.id_proyecto}">Editar</button>
+});
