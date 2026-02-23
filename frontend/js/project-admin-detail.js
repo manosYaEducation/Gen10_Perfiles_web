@@ -35,13 +35,41 @@ document.addEventListener("DOMContentLoaded", async function () {
             `;
         }
 
+
+        //carga Video de YouTube 
         if (proyecto.detalles?.enlaces?.length > 0) {
             html += `
                 <section class="enlaces">
                     <div class="enlaces-container">
-                        ${proyecto.detalles.enlaces.map(enlace => `
-                            <a id="enlace-proyecto" href="${enlace.url}" target="_blank">${enlace.descripcion}</a>
-                        `).join("")}
+                        ${proyecto.detalles.enlaces.map(enlace => {
+                            let videoHtml = '';
+                            const url = enlace.url;
+                            let videoId = null;
+                            
+                            if (url.includes('youtu.be/')) {
+                                videoId = url.split('youtu.be/')[1].split('?')[0];
+                            } else if (url.includes('v=')) {
+                                videoId = url.split('v=')[1].split('&')[0];
+                            }
+                            
+                            if (videoId) {
+                                videoHtml = `
+                                    <div class="video-item">
+                                        <iframe 
+                                            width="100%" 
+                                            height="400" 
+                                            src="https://www.youtube.com/embed/${videoId}" 
+                                            title="${enlace.descripcion}" 
+                                            frameborder="0" 
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen>
+                                        </iframe>
+                                    </div>`;
+                            } else {
+                                videoHtml = `<a id="enlace-proyecto" href="${url}" target="_blank">${enlace.descripcion}</a>`;
+                            }
+                            return videoHtml;
+                        }).join("")}
                     </div>
                 </section>
             `;
