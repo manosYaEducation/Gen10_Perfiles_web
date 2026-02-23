@@ -315,6 +315,11 @@ function agregarParticipanteSeleccionado() {
     const inputBuscar = document.getElementById("input-buscar-participante");
     const nombreSeleccionado = inputBuscar.value;
     const idSeleccionado = inputBuscar.dataset.selectedId;
+    const estadoSeleccionado = document.getElementById("estado-participante").value; // NUEVO
+    
+    // Convertir estado a código corto para guardar en BD (max 20 caracteres)
+    const codigoEstado = estadoSeleccionado === 'activo' ? 'a' : 
+                         estadoSeleccionado === 'inactivo' ? 'i' : 'l';
 
     if (!idSeleccionado || participantesSeleccionados.includes(idSeleccionado)) {
         alert("Este participante ya fue agregado o no es válido.");
@@ -325,16 +330,22 @@ function agregarParticipanteSeleccionado() {
 
     const divLista = document.getElementById("lista-participantes");
     const nuevoDiv = document.createElement("div");
-    nuevoDiv.className = "participante-item";
-    nuevoDiv.textContent = nombreSeleccionado;
+    nuevoDiv.className = `participante-item estado-${estadoSeleccionado}`; // NUEVO: CSS dinámico
+    nuevoDiv.textContent = `${nombreSeleccionado} (${estadoSeleccionado})`; // NUEVO: mostrar estado
     
-    // Input oculto para enviar el dato
+    // Input oculto para enviar el nombre
     const hiddenInput = document.createElement("input");
     hiddenInput.type = "hidden";
-    // Se envía como participantes[id] => nombre
-    hiddenInput.name = `participantes[${idSeleccionado}]`;
+    hiddenInput.name = `participantes[${idSeleccionado}][nombre]`; // NUEVO formato
     hiddenInput.value = nombreSeleccionado;
     nuevoDiv.appendChild(hiddenInput);
+    
+    // NUEVO: Input para el estado (guardado como código corto)
+    const hiddenEstado = document.createElement("input");
+    hiddenEstado.type = "hidden";
+    hiddenEstado.name = `participantes[${idSeleccionado}][estado]`;
+    hiddenEstado.value = codigoEstado;
+    nuevoDiv.appendChild(hiddenEstado);
 
     // Botón para eliminar el participante
     const btnEliminar = document.createElement("button");
@@ -352,6 +363,8 @@ function agregarParticipanteSeleccionado() {
     // Resetea el input de búsqueda
     inputBuscar.value = "";
     delete inputBuscar.dataset.selectedId;
+    // Resetear el SELECT a 'activo' por defecto
+    document.getElementById("estado-participante").value = "activo";
     document.getElementById("btn-agregar-participante").disabled = true;
 }
 

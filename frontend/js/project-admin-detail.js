@@ -113,23 +113,82 @@ document.addEventListener("DOMContentLoaded", async function () {
             `;
         }
 
-        // Participantes  <a href="/Gen10_Perfiles_web/frontend/perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
+        // Participantes: Agrupar por estado
         if (proyecto.detalles?.participantes?.length > 0) {
-            html += `
-                <section class="participantes">
-                    <h2>Colaboradores Kreative</h2>
-                    <div class="participantes-container">
-                        ${proyecto.detalles.participantes.map(participante => `
-                            <div class="participante">
-                                <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                    <p class="nombre-participante">${participante.nombre}</p>
-                                </a>
-                            </div>
-                        `).join("")}
+            let activos = [], inactivos = [], legacy = [];
+            
+            console.log("PARTICIPANTES RECIBIDOS:", proyecto.detalles.participantes);
+            
+            proyecto.detalles.participantes.forEach(p => {
+                const estado = p.estado || 'activo';
+                console.log(`Participante: ${p.nombre}, Estado en JSON: ${p.estado}, Estado usado: ${estado}`);
+                if (estado === 'activo') activos.push(p);
+                else if (estado === 'inactivo') inactivos.push(p);
+                else if (estado === 'legacy') legacy.push(p);
+            });
+            
+            console.log("ARRAYS FINALES:", { activos: activos.length, inactivos: inactivos.length, legacy: legacy.length });
+            
+            html += `<section class="participantes">`;
+            
+            // EQUIPO ACTUAL (ACTIVOS)
+            if (activos.length > 0) {
+                html += `
+                    <div class="participantes-activos">
+                        <h2>Equipo Actual</h2>
+                        <div class="participantes-container">
+                            ${activos.map(participante => `
+                                <div class="participante estado-activo">
+                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
+                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+                                        <p class="nombre-participante">${participante.nombre}</p>
+                                    </a>
+                                </div>
+                            `).join("")}
+                        </div>
                     </div>
-                </section>
-            `;
+                `;
+            }
+            
+            // COLABORADORES HISTÓRICOS (INACTIVOS)
+            if (inactivos.length > 0) {
+                html += `
+                    <div class="participantes-inactivos">
+                        <h2>Miembros que han pasado por el proyecto</h2>
+                        <div class="participantes-container">
+                            ${inactivos.map(participante => `
+                                <div class="participante estado-inactivo">
+                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
+                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+                                        <p class="nombre-participante">${participante.nombre}</p>
+                                    </a>
+                                </div>
+                            `).join("")}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // FUNDADORES/LEGACY
+            if (legacy.length > 0) {
+                html += `
+                    <div class="participantes-legacy">
+                        <h2>Participantes Fundadores</h2>
+                        <div class="participantes-container">
+                            ${legacy.map(participante => `
+                                <div class="participante estado-legacy">
+                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
+                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+                                        <p class="nombre-participante">${participante.nombre}</p>
+                                    </a>
+                                </div>
+                            `).join("")}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += `</section>`;
         }
         // Clientes  <a href="/Gen10_Perfiles_web/frontend/perfil.php?id=${participante.id}" class="participante-enlace">
         if (proyecto.detalles?.cliente?.length > 0) {

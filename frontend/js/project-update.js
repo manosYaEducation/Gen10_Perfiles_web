@@ -126,10 +126,21 @@ function cargarParticipantesExistentes(participantes) {
     participantes.forEach(participante => {
         participantesSeleccionados.add(participante.id);
         const divParticipante = document.createElement("div");
-        divParticipante.className = "participante-item";
+        const estado = participante.estado || 'activo'; // Default a 'activo' si no existe
+        
+        // Convertir c\u00f3digo a estado completo si es necesario
+        const estado_map = {'a': 'activo', 'i': 'inactivo', 'l': 'legacy'};
+        const estadoCompleto = estado_map[estado] || estado; // Si no est\u00e1 en el map, usar como est\u00e1
+        
+        // Convertir de vuelta a c\u00f3digo para guardar
+        const codigoEstado = estadoCompleto === 'activo' ? 'a' : 
+                             estadoCompleto === 'inactivo' ? 'i' : 'l';
+        
+        divParticipante.className = `participante-item estado-${estadoCompleto}`;
         divParticipante.innerHTML = `
-            <span>${participante.nombre}</span>
-            <input type="hidden" name="participantes[]" value="${participante.id}">
+            <span>${participante.nombre} (${estadoCompleto})</span>
+            <input type="hidden" name="participantes[${participante.id}][nombre]" value="${participante.nombre}">
+            <input type="hidden" name="participantes[${participante.id}][estado]" value="${codigoEstado}">
             <button type="button" class="btn-delete" onclick="eliminarParticipante(this, '${participante.id}')">Eliminar</button>
         `;
         document.getElementById("lista-participantes").appendChild(divParticipante);
@@ -267,12 +278,20 @@ function nuevosDatos() {
 
     // Recuperar participantes
     const participantes = [];
-    document.querySelectorAll('input[name="participantes[]"]').forEach(input => {
-        const participanteDiv = input.closest('.participante-item');
-        participantes.push({
-            id: input.value,
-            nombre: participanteDiv.querySelector('span').textContent
-        });
+    document.querySelectorAll('.participante-item').forEach(participanteDiv => {
+        const nombreInput = participanteDiv.querySelector('input[name*="[nombre]"]');
+        const estadoInput = participanteDiv.querySelector('input[name*="[estado]"]');
+        
+        if (nombreInput && estadoInput) {
+            const idMatch = nombreInput.name.match(/\[(\d+)\]\[nombre\]/);
+            if (idMatch) {
+                participantes.push({
+                    id: idMatch[1],
+                    nombre: nombreInput.value,
+                    estado: estadoInput.value || 'activo'
+                });
+            }
+        }
     });
     formData.append('participantes', JSON.stringify(participantes));
 
@@ -477,6 +496,11 @@ function agregarParticipanteSeleccionado() {
     const inputBuscar = document.getElementById("input-buscar-participante");
     const id = inputBuscar.dataset.selectedId;
     const nombre = inputBuscar.dataset.selectedName;
+    const estadoSeleccionado = document.getElementById("estado-participante").value; // NUEVO
+    
+    // Convertir estado a código corto para guardar en BD (max 20 caracteres)
+    const codigoEstado = estadoSeleccionado === 'activo' ? 'a' : 
+                         estadoSeleccionado === 'inactivo' ? 'i' : 'l';
 
     if (!id || participantesSeleccionados.has(id)) {
         alert("Este participante ya fue agregado o no es válido.");
@@ -487,10 +511,11 @@ function agregarParticipanteSeleccionado() {
 
     const listaParticipantes = document.getElementById("lista-participantes");
     const divParticipante = document.createElement("div");
-    divParticipante.className = "participante-item";
+    divParticipante.className = `participante-item estado-${estadoSeleccionado}`; // NUEVO: CSS dinámico
     divParticipante.innerHTML = `
-        <span>${nombre}</span>
-        <input type="hidden" name="participantes[]" value="${id}">
+        <span>${nombre} (${estadoSeleccionado})</span>
+        <input type="hidden" name="participantes[${id}][nombre]" value="${nombre}">
+        <input type="hidden" name="participantes[${id}][estado]" value="${codigoEstado}">
         <button type="button" class="btn-delete" onclick="eliminarParticipante(this, '${id}')">Eliminar</button>
     `;
 
@@ -500,6 +525,8 @@ function agregarParticipanteSeleccionado() {
     inputBuscar.value = "";
     delete inputBuscar.dataset.selectedId;
     delete inputBuscar.dataset.selectedName;
+    // Resetear el SELECT a 'activo' por defecto
+    document.getElementById("estado-participante").value = "activo";
     document.getElementById("btn-agregar-participante").disabled = true;
 }
 

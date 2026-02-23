@@ -46,8 +46,8 @@ try {
         'id_proyecto' => $data['id_proyecto']
     ]);
 
-    // Modificar la eliminación para excluir participantes e imágenes
-    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo NOT IN ('participante', 'imagen', 'cliente')";
+    // Modificar la eliminación para excluir participantes e imágenes (usar LIKE para capturar "participante:*")
+    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo NOT IN ('cliente') AND tipo NOT LIKE 'participante:%' AND tipo != 'imagen'";
     $stmtLimpiar = $conn->prepare($sqlLimpiar);
     $stmtLimpiar->execute([':id_proyecto' => $data['id_proyecto']]);
 
@@ -188,24 +188,32 @@ try {
         }
     }
 
-    // Actualizar participantes (primero eliminar los existentes)
+    // Actualizar participantes (DELETE/INSERT para evitar duplicados, mantiene 'eliminado' como historial)
     if (isset($data['participantes'])) {
-        $sqlEliminarParticipantes = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo = 'participante'";
-        $stmtEliminarParticipantes = $conn->prepare($sqlEliminarParticipantes);
-        $stmtEliminarParticipantes->execute([':id_proyecto' => $data['id_proyecto']]);
-
+        // Eliminar TODOS los participantes activos/inactivos/legacy (mantener los eliminados como historial)
+        $sqlDelete = "DELETE FROM proyectos_detalles 
+                      WHERE id_proyecto = :id_proyecto 
+                      AND tipo LIKE 'participante:%' 
+                      AND tipo != 'participante:eliminado'";
+        $stmtDelete = $conn->prepare($sqlDelete);
+        $stmtDelete->execute([':id_proyecto' => $data['id_proyecto']]);
+        
         $participantes = is_string($data['participantes']) ? json_decode($data['participantes'], true) : $data['participantes'];
         
         if (!empty($participantes)) {
             $sqlParticipantes = "INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion, detalle) 
-                                VALUES (:id_proyecto, 'participante', :nombre, :id_participante)";
+                                VALUES (:id_proyecto, :tipo, :nombre, :id_participante)";
             $stmtParticipantes = $conn->prepare($sqlParticipantes);
             
             foreach ($participantes as $participante) {
                 if (!empty($participante['id'])) {
+                    $estado = isset($participante['estado']) ? $participante['estado'] : 'activo';
+                    $tipo = "participante:{$estado}";
+                    
                     $stmtParticipantes->execute([
                         ':id_proyecto' => $data['id_proyecto'],
-                        ':nombre' => $participante['nombre'],
+                        ':tipo' => $tipo,
+                        ':nombre' => isset($participante['nombre']) ? $participante['nombre'] : '',
                         ':id_participante' => $participante['id']
                     ]);
                 }

@@ -1,0 +1,170 @@
+/* ========== SISTEMA DE ESTATUS DE PARTICIPANTES ========== */
+/* Estilos para diferenciar participantes activos, inactivos y legacy */
+
+/* PARTICIPANTES ACTIVOS */
+.estado-activo {
+    opacity: 1 !important;
+    border: 2px solid #4CAF50 !important;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.estado-activo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3) !important;
+}
+
+.estado-activo .imagen-participante {
+    filter: brightness(1);
+}
+
+.participantes-activos {
+    margin: 20px 0;
+}
+
+.participantes-activos h2 {
+    color: #4CAF50;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 1.8rem;
+}
+
+/* PARTICIPANTES INACTIVOS */
+.estado-inactivo {
+    opacity: 0.7 !important;
+    border: 2px solid #FFC107 !important;
+    filter: grayscale(30%);
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.estado-inactivo:hover {
+    opacity: 0.85 !important;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3) !important;
+}
+
+.estado-inactivo .imagen-participante {
+    filter: brightness(0.9);
+}
+
+.participantes-inactivos {
+    padding: 30px 0;
+    margin-top: 40px;
+    border-top: 3px solid #f0f0f0;
+}
+
+.participantes-inactivos h2 {
+    color: #FFC107;
+    font-style: italic;
+    margin-top: 10px;
+    font-size: 1.6rem;
+}
+
+/* PARTICIPANTES LEGACY/FUNDADORES */
+.estado-legacy {
+    opacity: 0.6 !important;
+    border: 2px solid #9C27B0 !important;
+    filter: grayscale(60%);
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.estado-legacy:hover {
+    opacity: 0.75 !important;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(156, 39, 176, 0.3) !important;
+}
+
+.estado-legacy .imagen-participante {
+    filter: brightness(0.8);
+}
+
+.participantes-legacy {
+    padding: 30px 0;
+    margin-top: 40px;
+    border-top: 3px solid #f0f0f0;
+}
+
+.participantes-legacy h2 {
+    color: #9C27B0;
+    font-style: italic;
+    font-size: 1.6rem;
+    margin-top: 10px;
+}
+
+.participantes-legacy h2::before {
+    content: "🏛️ ";
+}
+
+/* Container de participantes */
+.participantes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.participante {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.participante-enlace {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagen-participante {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.nombre-participante {
+    margin: 5px 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .participantes-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 15px;
+    }
+    
+    .imagen-participante {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .participantes-activos h2,
+    .participantes-inactivos h2,
+    .participantes-legacy h2 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .participantes-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 10px;
+    }
+    
+    .imagen-participante {
+        width: 80px;
+        height: 80px;
+    }
+}

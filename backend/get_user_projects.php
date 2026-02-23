@@ -22,6 +22,7 @@ try {
     }
 
     // Consulta para obtener los proyectos donde el usuario es participante
+    // Captura tanto 'participante' (datos viejos) como 'participante:estado' (datos nuevos)
     $sql = "
         SELECT DISTINCT 
             p.id_proyecto,
@@ -33,7 +34,8 @@ try {
             p.contenido_proyecto
         FROM proyectos p
         INNER JOIN proyectos_detalles pd ON p.id_proyecto = pd.id_proyecto
-        WHERE pd.tipo = 'participante' 
+        WHERE (pd.tipo = 'participante' OR pd.tipo LIKE 'participante:%') 
+        AND pd.tipo NOT LIKE 'participante:eliminado'
         AND pd.detalle = ?
         ORDER BY p.fecha DESC
     ";
