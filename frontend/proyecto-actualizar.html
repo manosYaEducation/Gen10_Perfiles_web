@@ -44,6 +44,14 @@
     <div id="contenedor-parrafos"></div>
     <button type="button" onclick="agregarCampoParrafo()">Agregar Párrafo</button>
 
+    <h3>Estado actual del Proyecto:</h3>
+    <select name="estado_proyecto" id="estado_proyecto" class="campo">
+      <option value="">Seleccionar estado:</option>
+      <option value="Activo">🟢 Activo</option>
+      <option value="StandBy">🟠 Standby</option>
+      <option value="Finalizado">🔵 Finalizado</option>
+    </select>
+
     <h3>Imágenes</h3>
     <input type="file" id="input-imagenes" multiple class="campo" accept="image/*">
     <div id="preview-imagenes"></div>

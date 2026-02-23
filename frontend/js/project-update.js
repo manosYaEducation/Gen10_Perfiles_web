@@ -29,6 +29,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             agregarCampoParrafo(parrafo);
         });
 
+        // Cargar estado del proyecto
+        if (project.detalles.estado && project.detalles.estado.length > 0) {
+            document.getElementById('estado_proyecto').value = project.detalles.estado[0];
+        }
+
         // Cargar imágenes
         cargarImagenes(project.detalles.imagenes);
 
@@ -238,6 +243,7 @@ function nuevosDatos() {
     formData.append('fecha', document.getElementById('fecha').value);
     formData.append('ubicacion', document.getElementById('ubicacion').value);
     formData.append('contenido_proyecto', document.getElementById('contenido_proyecto').value);
+    formData.append('estado_proyecto', document.getElementById('estado_proyecto').value);
 
     // Párrafos
     document.querySelectorAll('textarea[name="parrafos[]"]').forEach(parrafo => {

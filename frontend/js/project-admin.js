@@ -18,11 +18,42 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     function mostrarProyectosEnTabla(proyectos) {
+        // Separar proyectos por estado
+        const proyectosActivos = [];
+        const proyectosFinalizados = [];
+        const proyectosStandBy = [];
+        const proyectosSinClasificar = [];
 
-        const contenedor = document.getElementById("tablaProyectos");
+        proyectos.forEach(proyecto => {
+            if (proyecto.estado === 'Activo') {
+                proyectosActivos.push(proyecto);
+            } else if (proyecto.estado === 'Finalizado') {
+                proyectosFinalizados.push(proyecto);
+            } else if (proyecto.estado === 'StandBy') {
+                proyectosStandBy.push(proyecto);
+            } else {
+                proyectosSinClasificar.push(proyecto);
+            }
+        });
 
-        if (!contenedor) {
-            console.error("Contenedor no encontrado");
+        // Mostrar u ocultar secciones según si tienen proyectos
+        document.getElementById('seccion-activos').style.display = proyectosActivos.length > 0 ? 'block' : 'none';
+        document.getElementById('seccion-finalizados').style.display = proyectosFinalizados.length > 0 ? 'block' : 'none';
+        document.getElementById('seccion-standby').style.display = proyectosStandBy.length > 0 ? 'block' : 'none';
+        document.getElementById('seccion-sin-clasificar').style.display = proyectosSinClasificar.length > 0 ? 'block' : 'none';
+
+        // Cargar proyectos en cada tabla
+        cargarTabla('tablaProyectosActivos', proyectosActivos);
+        cargarTabla('tablaProyectosFinalizados', proyectosFinalizados);
+        cargarTabla('tablaProyectosStandBy', proyectosStandBy);
+        cargarTabla('tablaProyectosSinClasificar', proyectosSinClasificar);
+        cargarTabla('tablaProyectos', proyectos); // Todos los proyectos
+    }
+
+    function cargarTabla(idTabla, proyectos) {
+        const tabla = document.getElementById(idTabla);
+        if (!tabla) {
+            console.error(`Elemento #${idTabla} no encontrado.`);
             return;
         }
 

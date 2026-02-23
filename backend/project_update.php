@@ -46,10 +46,25 @@ try {
         'id_proyecto' => $data['id_proyecto']
     ]);
 
-    // Modificar la eliminación para excluir participantes e imágenes (usar LIKE para capturar "participante:*")
-    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo NOT IN ('cliente') AND tipo NOT LIKE 'participante:%' AND tipo != 'imagen'";
+    // Modificar la eliminación para excluir participantes, imágenes, clientes y estado
+    $sqlLimpiar = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo NOT IN ('participante', 'imagen', 'cliente', 'estado')";
     $stmtLimpiar = $conn->prepare($sqlLimpiar);
     $stmtLimpiar->execute([':id_proyecto' => $data['id_proyecto']]);
+
+    // Guardar el estado del proyecto
+    if (!empty($data['estado_proyecto'])) {
+        $sqlEliminarEstado = "DELETE FROM proyectos_detalles WHERE id_proyecto = :id_proyecto AND tipo = 'estado'";
+        $stmtEliminarEstado = $conn->prepare($sqlEliminarEstado);
+        $stmtEliminarEstado->execute([':id_proyecto' => $data['id_proyecto']]);
+
+        $sqlEstado = "INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion) 
+                      VALUES (:id_proyecto, 'estado', :estado)";
+        $stmtEstado = $conn->prepare($sqlEstado);
+        $stmtEstado->execute([
+            ':id_proyecto' => $data['id_proyecto'],
+            ':estado' => $data['estado_proyecto']
+        ]);
+    }
 
     // Insertar párrafos actualizados
     if (!empty($data['parrafos'])) {

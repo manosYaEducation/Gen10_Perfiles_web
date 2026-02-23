@@ -28,7 +28,10 @@ switch ($method) {
 
 // Función para obtener todos los proyectos
 function obtenerProyectos($conn) {
-    $sql = "SELECT id_proyecto, titulo_tarjeta, descripcion_tarjeta, fecha FROM proyectos";
+    $sql = "SELECT p.id_proyecto, p.titulo_tarjeta, p.descripcion_tarjeta, p.fecha,
+                   COALESCE((SELECT descripcion FROM proyectos_detalles WHERE id_proyecto = p.id_proyecto AND tipo = 'estado' LIMIT 1), '') as estado
+            FROM proyectos p
+            ORDER BY p.id_proyecto DESC";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $proyectos = $stmt->fetchAll(PDO::FETCH_ASSOC);
