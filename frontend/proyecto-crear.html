@@ -40,6 +40,13 @@
     <label>Contenido del Proyecto:</label>
     <textarea name="contenido_proyecto" required class="campo"></textarea>
 
+    <h3>Estado del Proyecto:</h3>
+    <select name="estado_proyecto" id="estado_proyecto" class="campo">
+      <option value="Activo" selected>🟢 Activo</option>
+      <option value="StandBy">🟠 Standby</option>
+      <option value="Finalizado">🔵 Finalizado</option>
+    </select>
+
     <h3>Párrafos</h3>
     <div id="contenedor-parrafos"></div>
     <button type="button" onclick="agregarCampoParrafo()">Agregar Párrafo</button>

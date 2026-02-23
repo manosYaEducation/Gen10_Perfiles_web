@@ -53,6 +53,15 @@ try {
 
     $id_proyecto = $conn->lastInsertId(); // ID del proyecto recién insertado
 
+    // Guardar Estado del Proyecto
+    if (!empty($_POST['estado_proyecto'])) {
+        $stmt = $conn->prepare("
+            INSERT INTO proyectos_detalles (tipo, descripcion, id_proyecto) 
+            VALUES ('estado', ?, ?)
+        ");
+        $stmt->execute([$_POST['estado_proyecto'], $id_proyecto]);
+    }
+
     //Peso máximo de las imágenes
     $peso_maximo = 2 * 1024 * 1024;
 

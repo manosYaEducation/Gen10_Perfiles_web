@@ -25,11 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const proyectosSinClasificar = [];
 
         proyectos.forEach(proyecto => {
-            if (proyecto.estado === 'Activo') {
+            // Normalizar estado: trim y comparación exacta
+            const estado = (proyecto.estado || '').trim();
+            
+            if (estado === 'Activo') {
                 proyectosActivos.push(proyecto);
-            } else if (proyecto.estado === 'Finalizado') {
+            } else if (estado === 'Finalizado') {
                 proyectosFinalizados.push(proyecto);
-            } else if (proyecto.estado === 'StandBy') {
+            } else if (estado === 'StandBy') {
                 proyectosStandBy.push(proyecto);
             } else {
                 proyectosSinClasificar.push(proyecto);
@@ -47,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarTabla('tablaProyectosFinalizados', proyectosFinalizados);
         cargarTabla('tablaProyectosStandBy', proyectosStandBy);
         cargarTabla('tablaProyectosSinClasificar', proyectosSinClasificar);
-        cargarTabla('tablaProyectos', proyectos); // Todos los proyectos
+        // Nota: Se eliminó cargarTabla('tablaProyectos', proyectos) porque ese elemento no existe en el HTML
     }
 
     function cargarTabla(idTabla, proyectos) {
