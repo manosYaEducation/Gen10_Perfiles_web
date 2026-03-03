@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('API_URL_PHP no está definida');
         return;
     }
-    // Realiza una solicitud para obtener todos los perfiles desde el endpoint configurado
-    fetch(`${window.API_URL_PHP}read_user.php`)
+    // Realiza una solicitud para obtener todos los perfiles desde el endpoint OPTIMIZADO
+    fetch(`${window.API_URL_PHP}read_profiles_optimized.php`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -15,10 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.profiles.forEach(profile => {
                     const profileCard = document.createElement('div');
                     profileCard.classList.add('profile-card');
+                    // Construir la URL de imagen correctamente usando API_URL_PHP
+                    const imageUrl = `${window.API_URL_PHP}get_profile_image.php?id=${profile.id}`;
                     profileCard.innerHTML = `
                          <div class="profile-content">
                           <div class="profile-image">
-                                    <img src="${profile.image || 'data:image/png;base64,DEFAULT_BASE64_IMAGE'}" alt="${profile.name}">
+                                    <img src="${imageUrl}" alt="${profile.name}" loading="lazy">
                                 </div>
                             <h2>${profile.name}</h2>
                             
