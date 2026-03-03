@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
     // Función para inicializar el carrusel de clientes
     function initializeClientsCarousel() {
-        const clientCards = document.querySelectorAll('.profile-card');
+        const clientCards = document.querySelectorAll('#clientsCarousel .profile-card');
         const prevButton = document.getElementById('clientsPrevButton');
         const nextButton = document.getElementById('clientsNextButton');
         const indicators = document.getElementById('clientsCarouselIndicators');
