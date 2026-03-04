@@ -9,6 +9,12 @@
     <title>Podcasts de los Viernes | Kreative</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./css/podcast.css">
+    <style>
+        /* Ocultar admin por defecto, se muestra con JS si está logueado */
+        .podcast-admin-actions,
+        .btn-admin-float { display: none !important; }
+    </style>
+    <style id="admin-styles"></style>
 </head>
 <body>
     <!-- Header -->
@@ -27,6 +33,21 @@
 
     <!-- JS del modal -->
 <script src="js/admin-podcast.js"></script>
+<script>
+    // Verificar si está logueado para mostrar botones admin
+    (function() {
+        const userLoggedIn = sessionStorage.getItem('userLoggedIn') || localStorage.getItem('userLoggedIn');
+        const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+        
+        if (userLoggedIn === 'true' && token) {
+            // Mostrar botones de admin
+            document.getElementById('admin-styles').textContent = `
+                .podcast-admin-actions,
+                .btn-admin-float { display: flex !important; }
+            `;
+        }
+    })();
+</script>
 
     <!-- Container Principal -->
     <div class="container">
