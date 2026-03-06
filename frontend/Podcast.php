@@ -3,6 +3,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +13,13 @@
     <style>
         /* Ocultar admin por defecto, se muestra con JS si está logueado */
         .podcast-admin-actions,
-        .btn-admin-float { display: none !important; }
+        .btn-admin-float {
+            display: none !important;
+        }
     </style>
     <style id="admin-styles"></style>
 </head>
+
 <body>
     <!-- Header -->
     <div class="header">
@@ -32,22 +36,22 @@
     </div>
 
     <!-- JS del modal -->
-<script src="js/admin-podcast.js"></script>
-<script>
-    // Verificar si está logueado para mostrar botones admin
-    (function() {
-        const userLoggedIn = sessionStorage.getItem('userLoggedIn') || localStorage.getItem('userLoggedIn');
-        const token = sessionStorage.getItem('token') || localStorage.getItem('token');
-        
-        if (userLoggedIn === 'true' && token) {
-            // Mostrar botones de admin
-            document.getElementById('admin-styles').textContent = `
+    <script src="js/admin-podcast.js"></script>
+    <script>
+        // Verificar si está logueado para mostrar botones admin
+        (function () {
+            const userLoggedIn = sessionStorage.getItem('userLoggedIn') || localStorage.getItem('userLoggedIn');
+            const token = sessionStorage.getItem('token') || localStorage.getItem('token');
+
+            if (userLoggedIn === 'true' && token) {
+                // Mostrar botones de admin
+                document.getElementById('admin-styles').textContent = `
                 .podcast-admin-actions,
                 .btn-admin-float { display: flex !important; }
             `;
-        }
-    })();
-</script>
+            }
+        })();
+    </script>
 
     <!-- Container Principal -->
     <div class="container">
@@ -130,38 +134,38 @@
         let podcastsFiltrados = [];
 
         // Cargar podcasts desde JSON
-// Cargar podcasts desde JSON
-async function cargarPodcasts() {
-    try {
-        // Agregar timestamp para evitar caché
-        const response = await fetch('./data_podcast/data.json?t=' + new Date().getTime());
-        
-        if (!response.ok) {
-            throw new Error('Error al cargar data.json');
+        // Cargar podcasts desde JSON
+        async function cargarPodcasts() {
+            try {
+                // Agregar timestamp para evitar caché
+                const response = await fetch('./data_podcast/data.json?t=' + new Date().getTime());
+
+                if (!response.ok) {
+                    throw new Error('Error al cargar data.json');
+                }
+
+                const podcasts = await response.json();
+
+                todosLosPodcasts = podcasts;
+                podcastsFiltrados = podcasts;
+
+                actualizarEstadisticas();
+                renderizarPodcasts(podcasts);
+
+            } catch (error) {
+                console.error('Error al cargar podcasts:', error);
+                mostrarError();
+            }
         }
-        
-        const podcasts = await response.json();
-        
-        todosLosPodcasts = podcasts;
-        podcastsFiltrados = podcasts;
-        
-        actualizarEstadisticas();
-        renderizarPodcasts(podcasts);
-        
-    } catch (error) {
-        console.error('Error al cargar podcasts:', error);
-        mostrarError();
-    }
-}
 
         // Actualizar estadísticas
         function actualizarEstadisticas() {
             document.getElementById('total-episodes').textContent = todosLosPodcasts.length;
-            
+
             // Calcular horas aproximadas (estimando 1 hora por episodio)
             const horas = todosLosPodcasts.length;
             document.getElementById('total-hours').textContent = horas + 'h';
-            
+
             // Visualizaciones totales
             const totalVistas = todosLosPodcasts.reduce((sum, p) => sum + (p.visualizaciones || 0), 0);
             document.getElementById('total-views').textContent = totalVistas.toLocaleString();
@@ -170,7 +174,7 @@ async function cargarPodcasts() {
         // Renderizar podcasts
         function renderizarPodcasts(podcasts) {
             const podcastsGrid = document.getElementById('podcastsGrid');
-            
+
             if (podcasts.length === 0) {
                 podcastsGrid.innerHTML = `
                     <div class="podcasts-empty">
@@ -181,7 +185,7 @@ async function cargarPodcasts() {
                 `;
                 return;
             }
-            
+
             podcastsGrid.innerHTML = podcasts.map((podcast, index) => {
                 const isLive = esEnVivo(podcast.fecha);
                 return `
@@ -214,7 +218,7 @@ async function cargarPodcasts() {
                             <div class="podcast-actions">
                                 <button class="btn-watch" onclick="reproducirPodcast('${podcast.url_youtube}', '${escapeHtml(podcast.titulo)}')">
                                      <i class="fas fa-play-circle"></i>
-                                             Ver ahora
+                                            Ver ahora
                                 </button>
                              <a href="${podcast.url_youtube}" target="_blank" class="btn-youtube">
                                     <i class="fab fa-youtube"></i>
@@ -247,7 +251,7 @@ async function cargarPodcasts() {
             const videoId = extraerIdYoutube(urlYoutube);
             const videoContainer = document.getElementById('videoContainer');
             const modal = document.getElementById('videoModal');
-            
+
             videoContainer.innerHTML = `
                 <iframe 
                     src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
@@ -257,7 +261,7 @@ async function cargarPodcasts() {
                     allowfullscreen>
                 </iframe>
             `;
-            
+
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -266,7 +270,7 @@ async function cargarPodcasts() {
         function cerrarVideoModal() {
             const modal = document.getElementById('videoModal');
             const videoContainer = document.getElementById('videoContainer');
-            
+
             modal.style.display = 'none';
             videoContainer.innerHTML = '';
             document.body.style.overflow = 'auto';
@@ -281,11 +285,11 @@ async function cargarPodcasts() {
 
         // Formatear fecha
         function formatearFecha(fecha) {
-            const opciones = { 
+            const opciones = {
                 weekday: 'long',
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
             };
             return new Date(fecha + 'T00:00:00').toLocaleDateString('es-ES', opciones);
         }
@@ -324,10 +328,10 @@ async function cargarPodcasts() {
                 const fecha = new Date(podcast.fecha + 'T00:00:00');
                 const year = fecha.getFullYear().toString();
                 const month = (fecha.getMonth() + 1).toString().padStart(2, '0');
-                
+
                 const matchYear = !yearFilter || year === yearFilter;
                 const matchMonth = !monthFilter || month === monthFilter;
-                const matchSearch = !searchTerm || 
+                const matchSearch = !searchTerm ||
                     podcast.titulo.toLowerCase().includes(searchTerm) ||
                     podcast.descripcion.toLowerCase().includes(searchTerm);
 
@@ -343,14 +347,14 @@ async function cargarPodcasts() {
         document.getElementById('search-input').addEventListener('input', aplicarFiltros);
 
         // Cerrar modal con tecla ESC o click fuera
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             const modal = document.getElementById('videoModal');
             if (event.target === modal) {
                 cerrarVideoModal();
             }
         }
 
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 cerrarVideoModal();
             }
@@ -365,7 +369,7 @@ async function cargarPodcasts() {
         }
 
         // Mostrar/ocultar botón scroll to top
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             if (window.pageYOffset > 300) {
                 scrollTopBtn.classList.add('show');
@@ -379,38 +383,40 @@ async function cargarPodcasts() {
     </script>
 
     <!-- Modal Administrar Podcast -->
-<div id="adminPodcastModal" class="modal-admin">
-    <div class="modal-admin-content">
-        <span class="close-admin" onclick="cerrarModal()">&times;</span>
-        <h2>Agregar Nuevo Podcast</h2>
-        
-        <form id="formPodcast" onsubmit="guardarPodcast(event)">
-            <label>Título *</label>
-            <input type="text" id="titulo" placeholder="Ej: Episodio #12 - Desarrollo Web" required>
-            
-            <label>Descripción *</label>
-            <textarea id="descripcion" rows="4" placeholder="Describe de qué trata el episodio..." required></textarea>
-            
-            <label>URL de YouTube *</label>
-            <input type="url" id="url_youtube" placeholder="https://www.youtube.com/watch?v=..." required>
-            
-            <label>Fecha de publicación *</label>
-            <input type="date" id="fecha" required>
-            
-            <div class="botones">
-                <button type="button" onclick="cerrarModal()">Cancelar</button>
-                <button type="submit">Guardar Podcast</button>
-            </div>
-        </form>
-        
-        <div id="mensajeResultado"></div>
-    </div>
-</div>
+    <div id="adminPodcastModal" class="modal-admin">
+        <div class="modal-admin-content">
+            <span class="close-admin" onclick="cerrarModal()">&times;</span>
+            <h2>Agregar Nuevo Podcast</h2>
 
-<!-- Botón flotante para abrir modal -->
-<button class="btn-admin-float" onclick="abrirModal()">
-    <i class="fas fa-plus"></i>
-</button>
+            <form id="formPodcast" onsubmit="guardarPodcast(event)">
+                <label>Título *</label>
+                <input type="text" id="titulo" placeholder="Ej: Episodio #12 - Desarrollo Web" required>
+
+                <label>Descripción *</label>
+                <textarea id="descripcion" rows="4" placeholder="Describe de qué trata el episodio..."
+                    required></textarea>
+
+                <label>URL de YouTube *</label>
+                <input type="url" id="url_youtube" placeholder="https://www.youtube.com/watch?v=..." required>
+
+                <label>Fecha de publicación *</label>
+                <input type="date" id="fecha" required>
+
+                <div class="botones">
+                    <button type="button" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit">Guardar Podcast</button>
+                </div>
+            </form>
+
+            <div id="mensajeResultado"></div>
+        </div>
+    </div>
+
+    <!-- Botón flotante para abrir modal -->
+    <button class="btn-admin-float" onclick="abrirModal()">
+        <i class="fas fa-plus"></i>
+    </button>
 
 </body>
+
 </html>
