@@ -129,12 +129,13 @@
 }
 
 .imagen-participante {
-    width: 120px;
-    height: 120px;
+    width: clamp(80px, 8vw, 120px);
+    height: clamp(80px, 8vw, 120px);
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
     transition: all 0.3s ease;
+    max-width: 100%;
 }
 
 .nombre-participante {
@@ -151,10 +152,6 @@
         gap: 15px;
     }
     
-    .imagen-participante {
-        width: 100px;
-        height: 100px;
-    }
     
     .participantes-activos h2,
     .participantes-inactivos h2,
@@ -169,8 +166,5 @@
         gap: 10px;
     }
     
-    .imagen-participante {
-        width: 80px;
-        height: 80px;
-    }
+
 }
