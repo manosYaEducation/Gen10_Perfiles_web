@@ -275,7 +275,4 @@ flechaDerecha.addEventListener("click", function () {
 });
 
 // Modal cerrado al inicio
-document.addEventListener("DOMContentLoaded", function () {
-    modal.style.display = "none";
-});
-
+modal.style.display = "none";
