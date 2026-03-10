@@ -17,34 +17,93 @@
     <style>
         /* Ajuste para que el contenido no quede debajo del navbar fijo */
         body {
-            padding-top: 0;
+            padding: 20px;
+        }
+
+        header, header nav, header nav a, header .nav-links li a {
+            font-family: 'Poppins', sans-serif !important;
         }
 
         header {
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background: #111;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        nav .nav-links a,
-        nav .nav-links li a {
-            color: #e0e0e0 !important;
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0.5rem;
+            transition: all 0.3s ease;
         }
 
-        nav .nav-links a:hover,
-        nav .nav-links li a:hover {
-            color: #4CAF50 !important;
+        .dark-mode-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.08);
         }
 
-        nav .nav-links .nav-active>a {
-            color: #4CAF50 !important;
+        .dark-mode-toggle.dark {
+            color: #ffd700;
         }
 
-        .menu-icon i {
-            color: #e0e0e0 !important;
+        /* Dark mode navbar */
+        body.dark-mode header {
+            background-color: #151515 !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
+
+        body.dark-mode .nav-links a,
+        body.dark-mode .nav-links li a {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .nav-links a:hover {
+            color: #4CAF50;
+        }
+
+        body.dark-mode .nav-logo {
+            filter: brightness(0) invert(1);
+        }
+
+        body.dark-mode .menu-icon i {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .profile-btn {
+            background-color: #151515;
+            color: #e0e0e0;
+            border: none;
+        }
+
+        body.dark-mode .dropdown-content {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+        }
+
+        body.dark-mode .dropdown-content a {
+            color: #e0e0e0;
+            border-bottom: 1px solid #333;
+        }
+
+        body.dark-mode .dropdown-content a:hover {
+            background-color: #2a2a2a;
+            color: #4CAF50;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            color: #ffd700;
+        }
+
+
 
         /* Hamburguesa */
         .menu-icon {
@@ -115,31 +174,7 @@
             background: #45a049;
         }
 
-        /* Dropdown en navbar negro */
-        .dropdown-content {
-            background-color: #1e1e1e;
-            border: 1px solid #333;
-        }
 
-        .dropdown-content a {
-            color: #e0e0e0;
-            border-bottom: 1px solid #333;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #2a2a2a;
-            color: #4CAF50;
-        }
-
-        .profile-btn {
-            background-color: #111;
-            color: #e0e0e0;
-            border: none;
-        }
-
-        .nav-logo {
-            filter: brightness(0) invert(1);
-        }
 
         /* Podcast active link */
         .nav-links .nav-active>a {
@@ -207,6 +242,10 @@
                 <i class="fas fa-bars"></i>
             </div>
 
+            <!-- Dark Mode Toggle -->
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
 
         </nav>
     </header>
@@ -640,6 +679,20 @@
             document.getElementById('nav-center').classList.toggle('active');
         });
 
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.classList.add('dark');
+            darkModeToggle.querySelector('i').className = 'fas fa-sun';
+        }
+        darkModeToggle.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            this.classList.toggle('dark', isDark);
+            this.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
 
     </script>
 </body>
