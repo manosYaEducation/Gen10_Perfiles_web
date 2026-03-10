@@ -8,6 +8,7 @@
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .estado-activo:hover {
@@ -38,6 +39,7 @@
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .estado-inactivo:hover {
@@ -71,6 +73,7 @@
     transition: all 0.3s ease;
     padding: 10px;
     border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .estado-legacy:hover {
@@ -111,6 +114,9 @@
 .participante {
     text-align: center;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
 }
 
 .participante-enlace {
