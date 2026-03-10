@@ -1,20 +1,9 @@
 <?php
 header('Content-Type: application/json');
 
-// ============================================================
-// PARA PRUEBAS LOCALES (XAMPP): usar estas credenciales
-//   $username = "root";
-//   $password = "";
-//
-// PARA PRODUCCIÓN (servidor real): usar estas credenciales
-//   $username = "alphadocere_modulo_3_pasos";
-//   $password = "pLYm6&6Z=O*V";
-//
-// ============================================================
-
 $servername = "localhost";
-$username = "alphadocere_modulo_3_pasos"; // Producción
-$password = "pLYm6&6Z=O*V";
+$username = "alphadocere_modulo_3_pasos"; // Ajusta si tu usuario es diferente
+$password = "pLYm6&6Z=O*V"; // Ajusta si tienes contraseña
 $dbname = "alphadocere_modulo_3_pasos";
 
 // Crear conexión
