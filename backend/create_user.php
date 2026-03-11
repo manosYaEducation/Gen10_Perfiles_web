@@ -16,10 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $data = json_decode(file_get_contents("php://input"));
 
 try {
-    $conn->beginTransaction();
+    $conn->beginTransaction(); // Comienza la transacción
 
-    // ── Bug #2: Validación de duplicados ──────────────────────────────
-    // 1) Verificar email (bloquea)
+    //Verificar email
     $stmtEmail = $conn->prepare("SELECT COUNT(*) FROM profile WHERE email = ?");
     $stmtEmail->execute([$data->basic->email]);
     if ($stmtEmail->fetchColumn() > 0) {
@@ -28,7 +27,7 @@ try {
         exit();
     }
 
-    // 2) Verificar nombre (bloquea)
+    // Verificar nombre
     $stmtName = $conn->prepare("SELECT COUNT(*) FROM profile WHERE name = ?");
     $stmtName->execute([$data->basic->name]);
     if ($stmtName->fetchColumn() > 0) {
@@ -37,7 +36,7 @@ try {
         exit();
     }
 
-    // 3) Verificar teléfono (sólo advierte, permite forzar con force:true)
+    // Verificar teléfono
     $force = isset($data->force) && $data->force === true;
     if (!$force) {
         $stmtPhone = $conn->prepare("SELECT COUNT(*) FROM profile WHERE phone = ?");

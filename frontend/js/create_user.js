@@ -64,7 +64,7 @@ async function createUser(event) {
             social,
             interest,
             image: imageBase64,
-            force: force  // true si el usuario confirmó guardar con teléfono duplicado
+            force: force  // true si el usuario confirmó guardar con teléfono duplicado (ya que puede pasar por X motivo)
         };
 
         // Enviar los datos al servidor
@@ -92,7 +92,7 @@ async function createUser(event) {
                     window.location.href = "index-admin.html";
                 }, 1600);
             } else if (result.warning) {
-                // Solo el teléfono coincide → preguntar si está seguro
+                // Solo el teléfono coincide → preguntar si está seguro para guardar de todos formas
                 Swal.fire({
                     icon: 'warning',
                     title: '¿Estás seguro?',
@@ -108,7 +108,7 @@ async function createUser(event) {
                     }
                 });
             } else {
-                // Email o nombre duplicados → bloquear con error
+                // Email o nombre duplicados → bloquear con error informando que los datos ya han sido agregados previamente
                 Swal.fire({
                     icon: 'error',
                     title: 'Perfil duplicado',
