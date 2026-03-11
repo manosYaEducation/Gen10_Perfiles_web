@@ -16,7 +16,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 $data = json_decode(file_get_contents("php://input"));
 
 try {
-    $conn->beginTransaction(); // Comienza la transacción
+    $conn->beginTransaction();
+
+    // ── Bug #2: Validación de duplicados ──────────────────────────────
+    // 1) Verificar email (bloquea)
+    $stmtEmail = $conn->prepare("SELECT COUNT(*) FROM profile WHERE email = ?");
+    $stmtEmail->execute([$data->basic->email]);
+    if ($stmtEmail->fetchColumn() > 0) {
+        $conn->rollBack();
+        echo json_encode(['success' => false, 'message' => 'Ya existe un perfil con ese correo electrónico. No se permiten perfiles duplicados.']);
+        exit();
+    }
+
+    // 2) Verificar nombre (bloquea)
+    $stmtName = $conn->prepare("SELECT COUNT(*) FROM profile WHERE name = ?");
+    $stmtName->execute([$data->basic->name]);
+    if ($stmtName->fetchColumn() > 0) {
+        $conn->rollBack();
+        echo json_encode(['success' => false, 'message' => 'Ya existe un perfil con ese nombre. No se permiten perfiles duplicados.']);
+        exit();
+    }
+
+    // 3) Verificar teléfono (sólo advierte, permite forzar con force:true)
+    $force = isset($data->force) && $data->force === true;
+    if (!$force) {
+        $stmtPhone = $conn->prepare("SELECT COUNT(*) FROM profile WHERE phone = ?");
+        $stmtPhone->execute([$data->basic->phone]);
+        if ($stmtPhone->fetchColumn() > 0) {
+            $conn->rollBack();
+            echo json_encode([
+                'success' => false,
+                'warning' => true,
+                'message'  => 'Ya existe un perfil con ese número de teléfono. ¿Estás seguro de que deseas guardar este perfil de todas formas?'
+            ]);
+            exit();
+        }
+    }
+    // ────────────────────────────────────────────────────────────────
 
     // Inserta en la tabla `profile`
     $stmt = $conn->prepare("INSERT INTO profile (name, location, phone, email, description,phrase) VALUES (?, ?, ?, ?, ?,?)");

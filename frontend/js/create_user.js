@@ -48,7 +48,7 @@ async function createUser(event) {
         sendUserData(null); 
     }
 
-    function sendUserData(imageBase64) {
+    function sendUserData(imageBase64, force = false) {
         const newUser = {
             basic: {
                 name,
@@ -63,7 +63,8 @@ async function createUser(event) {
             skill,
             social,
             interest,
-            image: imageBase64
+            image: imageBase64,
+            force: force  // true si el usuario confirmó guardar con teléfono duplicado
         };
 
         // Enviar los datos al servidor
@@ -90,8 +91,31 @@ async function createUser(event) {
                 setTimeout(() => {
                     window.location.href = "index-admin.html";
                 }, 1600);
+            } else if (result.warning) {
+                // Solo el teléfono coincide → preguntar si está seguro
+                Swal.fire({
+                    icon: 'warning',
+                    title: '¿Estás seguro?',
+                    text: result.message,
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, guardar igual',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33'
+                }).then((swalResult) => {
+                    if (swalResult.isConfirmed) {
+                        sendUserData(imageBase64, true); // reenvía con force:true
+                    }
+                });
             } else {
-                console.error("Error creating user", result.message);
+                // Email o nombre duplicados → bloquear con error
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Perfil duplicado',
+                    text: result.message,
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#d33'
+                });
             }
         })
         .catch(error => {
