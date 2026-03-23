@@ -504,7 +504,7 @@ function exportarOrdenesExcel() {
     try {
         // Crear encabezados personalizados
         const headers = [
-            "ID Orden", "Cliente", "Fecha Compra", "Total Pagado", 
+            "ID Orden", "Cliente", "Teléfono", "Correo", "Fecha Compra", "Total Pagado", 
             "Tipo Servicio", "Fecha Servicio", "Estado"
         ];
 
@@ -512,6 +512,8 @@ function exportarOrdenesExcel() {
         const data = dataToExport.map(orden => [
             orden.id,
             orden.cliente,
+            orden.telefono || orden.numero || 'N/A',
+            orden.correo || 'N/A',
             orden.fechaCompra,
             orden.totalPagado,
             orden.tipoServicio,
@@ -522,9 +524,39 @@ function exportarOrdenesExcel() {
         // Crear la hoja de trabajo
         const ws = XLSX.utils.aoa_to_sheet([headers, ...data]);
 
-        // Ajustar anchos de columnas (opcional, pero mejora la presentación)
-        const columnWidths = headers.map((_, i) => ({ wch: i === 1 || i === 4 ? 30 : 15 })); // Cliente y Tipo Servicio más anchos
+        // --- ESTILOS ---
+        const borderStyle = {
+            top:    { style: "thin", color: { rgb: "AAAAAA" } },
+            bottom: { style: "thin", color: { rgb: "AAAAAA" } },
+            left:   { style: "thin", color: { rgb: "AAAAAA" } },
+            right:  { style: "thin", color: { rgb: "AAAAAA" } }
+        };
+
+        // Estilo encabezado (fila 0): fondo verde, texto blanco y negrita
+        headers.forEach((_, colIndex) => {
+            const cellRef = XLSX.utils.encode_cell({ r: 0, c: colIndex });
+            if (!ws[cellRef]) ws[cellRef] = { v: headers[colIndex], t: 's' };
+            ws[cellRef].s = {
+                fill: { patternType: "solid", fgColor: { rgb: "1B6B35" } },
+                font: { bold: true, color: { rgb: "FFFFFF" }, sz: 11 },
+                alignment: { horizontal: "center", vertical: "center" },
+                border: borderStyle
+            };
+        });
+
+        // Estilo filas de datos: bordes en todas las celdas
+        data.forEach((_, rowIndex) => {
+            headers.forEach((_, colIndex) => {
+                const cellRef = XLSX.utils.encode_cell({ r: rowIndex + 1, c: colIndex });
+                if (!ws[cellRef]) ws[cellRef] = { v: '', t: 's' };
+                ws[cellRef].s = { border: borderStyle };
+            });
+        });
+
+        // Ajustar anchos de columnas
+        const columnWidths = headers.map((h, i) => ({ wch: [1,4,6].includes(i) ? 30 : 18 }));
         ws['!cols'] = columnWidths;
+
 
         // Crear el libro de trabajo
         const wb = XLSX.utils.book_new();
