@@ -20,7 +20,10 @@
             padding: 20px;
         }
 
-        header, header nav, header nav a, header .nav-links li a {
+        header,
+        header nav,
+        header nav a,
+        header .nav-links li a {
             font-family: 'Poppins', sans-serif !important;
         }
 
@@ -615,59 +618,32 @@
         <div class="modal-admin-content">
             <span class="close-admin" onclick="cerrarModal()">&times;</span>
             <h2>Agregar Nuevo Podcast</h2>
-<<<<<<< HEAD
 
-            <form id="formPodcast" onsubmit="guardarPodcast(event)">
-                <label>Título *</label>
-                <input type="text" id="titulo" placeholder="Ej: Episodio #12 - Desarrollo Web" required>
 
-                <label>Descripción *</label>
-                <textarea id="descripcion" rows="4" placeholder="Describe de qué trata el episodio..."
-                    required></textarea>
+    <form id="formPodcast" onsubmit="guardarPodcast(event)">
+        <label>Título *</label>
+        <input type="text" id="titulo" placeholder="Ej: Episodio #12 - Desarrollo Web" required>
 
-                <label>URL de YouTube *</label>
-                <input type="url" id="url_youtube" placeholder="https://www.youtube.com/watch?v=..." required>
+        <label>Descripción *</label>
+        <textarea id="descripcion" rows="4" placeholder="Describe de qué trata el episodio..." required></textarea>
 
-                <label>Fecha de publicación *</label>
-                <input type="date" id="fecha" required>
+        <label>URL de YouTube *</label>
+        <input type="url" id="url_youtube" placeholder="https://www.youtube.com/watch?v=..." required>
 
-                <div class="botones">
-                    <button type="button" onclick="cerrarModal()">Cancelar</button>
-                    <button type="submit">Guardar Podcast</button>
-                </div>
-            </form>
+        <label>Fecha de publicación *</label>
+        <input type="date" id="fecha" required>
 
-            <div id="mensajeResultado"></div>
+        <div class="botones">
+            <button type="button" onclick="cerrarModal()">Cancelar</button>
+            <button type="submit">Guardar Podcast</button>
         </div>
+    </form>
+
+    <div id="mensajeResultado"></div>
+    </div>
     </div>
 
-=======
 
-            <form id="formPodcast" onsubmit="guardarPodcast(event)">
-                <label>Título *</label>
-                <input type="text" id="titulo" placeholder="Ej: Episodio #12 - Desarrollo Web" required>
-
-                <label>Descripción *</label>
-                <textarea id="descripcion" rows="4" placeholder="Describe de qué trata el episodio..."
-                    required></textarea>
-
-                <label>URL de YouTube *</label>
-                <input type="url" id="url_youtube" placeholder="https://www.youtube.com/watch?v=..." required>
-
-                <label>Fecha de publicación *</label>
-                <input type="date" id="fecha" required>
-
-                <div class="botones">
-                    <button type="button" onclick="cerrarModal()">Cancelar</button>
-                    <button type="submit">Guardar Podcast</button>
-                </div>
-            </form>
-
-            <div id="mensajeResultado"></div>
-        </div>
-    </div>
-
->>>>>>> Feature/JRivera/2026-03-09-Fix-18-Navbar-Podcast
     <!-- Botón flotante para abrir modal -->
     <button class="btn-admin-float" onclick="abrirModal()">
         <i class="fas fa-plus"></i>
