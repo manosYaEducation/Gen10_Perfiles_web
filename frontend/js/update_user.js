@@ -19,15 +19,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Agregar el manejo de la imagen
     const imageInput = document.getElementById('input-image');
     const imagePreview = document.getElementById('image-preview');
-    let base64Image = null;
+    window.base64Image = null;
+    window.removeImage = false;
 
     imageInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                base64Image = e.target.result;
-                imagePreview.innerHTML = `<img src="${base64Image}" alt="Vista previa" style="max-width: 200px;">`;
+                window.base64Image = e.target.result;
+                window.removeImage = false;
+                imagePreview.innerHTML = `<img src="${window.base64Image}" alt="Vista previa" style="max-width: 200px;">`;
             };
             reader.readAsDataURL(file);
         }
@@ -185,7 +187,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Mostrar la imagen actual si existe
         if (profile.image) {
             imagePreview.innerHTML = `<img src="${profile.image}" alt="Foto de perfil actual" style="max-width: 200px;">`;
-            base64Image = profile.image;
         }
 
     } catch (error) {
@@ -230,7 +231,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 endDate: item.querySelector('.input-education-endDate').value.trim(),
                 institution: item.querySelector('.input-education-institution').value.trim(),
             })),
-            image: base64Image // Agregar la imagen al objeto
+            image: window.removeImage ? null : window.base64Image,
+            removeImage: window.removeImage
         };
 
         try {

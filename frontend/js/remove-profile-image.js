@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
         removeBtn.addEventListener("click", function () {
             preview.innerHTML = "";
             inputImage.value = "";
+
+            window.removeImage = true;
+            window.base64Image = null;
         });
     }
 });
