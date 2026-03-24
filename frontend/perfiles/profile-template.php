@@ -22,7 +22,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-volver">
                     <a class="volver-link" href="../../index.html">
-                        <img src="/GEN10_PERFILES_WEB/assets/img/letra-k.png" alt="Inicio" class="icon">
+                        <img src="../../assets/img/letra-k.png" alt="Inicio" class="icon">
                     </a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#about" onclick="DestacarNavbar('about')">Sobre mi</a></li>
