@@ -11,7 +11,7 @@
     <link href="../frontend/css/participantes-estados.css" rel="stylesheet" />
     <link rel="stylesheet" href="../frontend/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" href="../assets/img/letra-k (1).png" type="image/x-icon">
+    <link rel="icon" href="../assets/img/letra-k.png" type="image/x-icon">
 </head>
 <body>
     <header>
