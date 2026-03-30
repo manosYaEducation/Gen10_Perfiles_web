@@ -73,6 +73,12 @@ try {
         $stmt->execute([$userId, $edu['title'], $edu['startDate'], $edu['endDate'], $edu['institution']]);
     }
 
+    // Eliminar la imagen si el frontend lo solicita
+if (isset($data['removeImage']) && $data['removeImage'] === true) {
+    $stmt = $conn->prepare("DELETE FROM imagenes WHERE profileid = ?");
+    $stmt->execute([$userId]);
+}
+
     // Actualizar la imagen si se proporciona una nueva
     if (isset($data['image']) && $data['image']) {
         // Obtener el tipo de imagen y los datos base64
