@@ -83,8 +83,8 @@ function checkLoginStatus() {
 
     // Get username (primero de localStorage, luego de sessionStorage)
     const username =
-      localStorage.getItem("username") ||
-      sessionStorage.getItem("username") ||
+      localStorage.getItem("userName") ||
+      sessionStorage.getItem("userName") ||
       "Usuario";
 
     // Update profile name
