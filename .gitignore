@@ -2,6 +2,7 @@
 .env
 .env.backup
 *.sql
+alphadocere_Kreative_red
 
 /vendor/
 
