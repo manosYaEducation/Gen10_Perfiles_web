@@ -22,19 +22,27 @@
    - Configura tus credenciales locales
    - Ajusta la configuración de producción según sea necesario
 
-5. **Edita el archivo `my.ini`**
-   - Desde xampp ve a Config del módulo MySQL
-   - Selecciona el archivo `my.ini`
-   - Modifica la línea:
-   ```bash
-   max_alowed_packet=1M
-   ```
-   por
-   ```bash
-   max_allowed_packet=64M
-   ```
+6. **Importa la Base de Datos**  
+   > [!IMPORTANT]
+   > El archivo de base de datos (`alphadocere_Kreative_red.sql`) **no está incluido en el repositorio** por seguridad. Debes solicitárselo al encargado del proyecto.
 
-6. **¡Listo para comenzar!**
+   Una vez que tengas el archivo en la raíz del proyecto, tienes dos opciones:
+
+   **Opción A: Script Automático (Recomendado)**
+   - Ejecuta el archivo `setup_database.bat` haciendo doble clic.
+   - Esto importará la base de datos automáticamente usando la terminal, saltándose los límites de tamaño de PHP.
+
+   **Opción B: phpMyAdmin (Manual)**
+   Si prefieres usar phpMyAdmin, debes aumentar los límites de XAMPP:
+   1. **Editar `my.ini` (MySQL):**
+      - Cambia `max_allowed_packet=64M` (o más, ej. `128M`).
+   2. **Editar `php.ini` (Apache):**
+      - Cambia `upload_max_filesize=128M`
+      - Cambia `post_max_size=128M`
+      - Cambia `memory_limit=256M`
+   3. **Reinicia Apache y MySQL** desde el panel de XAMPP.
+
+7. **¡Listo para comenzar!**
 
 ## 📋 Registro
 
