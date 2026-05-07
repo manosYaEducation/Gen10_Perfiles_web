@@ -52,9 +52,16 @@ try {
         'cached' => true
     ];
 
-    echo json_encode($response);
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+    exit;
+    
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Error en la base de datos']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Error al obtener perfiles',
+        'message' => $e->getMessage()
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
 }
 ?>

@@ -21,8 +21,13 @@ if($environment === 'production') {
     $nameDb = $_ENV['DEV_DB_NAME'];
 }
 
+// Validar que las variables de entorno estén cargadas
+if (!$host || !$port || !$user || !$nameDb) {
+    die("Error: Variables de entorno no configuradas. Verifica tu archivo .env");
+}
 
-$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;user=$user;password=$password;charset=utf8mb4";
+// DSN correcto para PDO (sin user ni password en el DSN)
+$dsn = "mysql:host=$host;port=$port;dbname=$nameDb;charset=utf8mb4";
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -31,12 +36,26 @@ $options = [
 ];
 
 try {
+    // Parámetros correctos: DSN, usuario, contraseña, opciones
     $conn = new PDO($dsn, $user, $password, $options);
     
-     // FORZAR UTF8MB4 EN LA SESION
+    // FORZAR UTF8MB4 EN LA SESION
     $conn->exec("SET NAMES utf8mb4");
     
 } catch (\PDOException $e) {
-    echo "Error de conexión: " . $e->getMessage();
+    // Determinar si es una solicitud AJAX/API
+    $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+              strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     
+    if ($isAjax || (isset($_SERVER['CONTENT_TYPE']) && strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false)) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false,
+            'error' => 'Error de conexión a la base de datos',
+            'message' => 'No se pudo conectar a la base de datos. Verifica tu archivo .env'
+        ]);
+    } else {
+        die("❌ Error de conexión a la base de datos: " . $e->getMessage());
+    }
+    exit;
 }

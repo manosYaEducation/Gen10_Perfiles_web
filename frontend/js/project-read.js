@@ -1,8 +1,18 @@
 async function cargarProyectos() {
     try {
         const response = await fetch(API_URL_PHP + "/project_read.php");
-        const text = await response.text(); 
-        const proyectos = JSON.parse(text); // Convertir a JSON
+        const json = await response.json();
+
+        // La API puede devolver directamente un array o un objeto { success, data }
+        let proyectos = [];
+        if (Array.isArray(json)) {
+            proyectos = json;
+        } else if (json && Array.isArray(json.data)) {
+            proyectos = json.data;
+        } else {
+            console.error('Respuesta inesperada al obtener proyectos:', json);
+            throw new Error('Formato de respuesta inválido');
+        }
 
         // Ordenar los proyectos por fecha en orden descendente
         proyectos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
