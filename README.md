@@ -19,12 +19,13 @@
    ```
 
 4. **Edita el archivo `.env`**
-   - Configura tus credenciales locales
+   - Configura tus credenciales locales nombre de la base de datos alphadocere_kreative
    - Ajusta la configuración de producción según sea necesario
 
 6. **Importa la Base de Datos**  
    > [!IMPORTANT]
    > El archivo de base de datos (`alphadocere_Kreative_red.sql`) **no está incluido en el repositorio** por seguridad. Debes solicitárselo al encargado del proyecto.
+   - debe dejarse en la rais del proyecto y seguir uno de los pasos por el tamaño 
 
    Una vez que tengas el archivo en la raíz del proyecto, tienes dos opciones:
 
