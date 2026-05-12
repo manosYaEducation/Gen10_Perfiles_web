@@ -29,7 +29,7 @@ body {
     height: 2px;
     background-color: #4CAF4F;
     margin: 0 auto;
-    
+
 }
 
 
@@ -129,7 +129,7 @@ body {
     .contenedor-proyectos {
         grid-template-columns: 1fr;
     }
-    
+
     .tarjeta-proyecto {
         max-width: 600px;
         margin: 0 auto;
@@ -137,18 +137,18 @@ body {
 }
 
 .pr-2 {
-        font-size: 1.2em;
-        line-height: 1.6;
-        color: #717171;
-        text-align: center;
-        font-family: "Poppins", sans-serif;
-    }
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #717171;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
 
-    .pr-2 {
-        font-size: 1.4rem;
-        line-height: 1.4;
-    }
-        
+.pr-2 {
+    font-size: 1.4rem;
+    line-height: 1.4;
+}
+
 
 
 
@@ -163,7 +163,7 @@ body {
     background: white;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform .2s;
     display: flex;
     flex-direction: column;
@@ -173,7 +173,19 @@ body {
 
 .proyecto-card p {
     text-align: justify;
-    flex-grow: 1;
+
+    /* ====== CONFIGURACIÓN DE TEXTO ====== */
+    font-size: 15px;
+    /* <-- CAMBIA EL TAMAÑO DEL TEXTO AQUÍ (ej. 14px, 16px) */
+
+    /* Truncado de texto (puntos suspensivos) */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    /* <-- CAMBIA LA CANTIDAD DE LÍNEAS VISIBLES AQUÍ */
+    line-clamp: 5;
+    /* <-- DEBE SER EXACTAMENTE EL MISMO NÚMERO QUE ARRIBA */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .proyecto-card:hover {
@@ -183,6 +195,8 @@ body {
 .card-info {
     margin: 10px 0;
     color: #555;
+    margin-top: auto;
+    /* Empuja esta información y los botones a la parte inferior */
 }
 
 .card-actions {
