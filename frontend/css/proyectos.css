@@ -165,6 +165,15 @@ body {
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: transform .2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.proyecto-card p {
+    text-align: justify;
+    flex-grow: 1;
 }
 
 .proyecto-card:hover {
