@@ -89,7 +89,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (proyecto.detalles?.participantes?.length > 0) {
             let activos = [], inactivos = [], legacy = [];
             
-            proyecto.detalles.participantes.forEach(p => {
+            // Deduplicar participantes por ID
+            const seen = new Set();
+            const participantesUnicos = proyecto.detalles.participantes.filter(p => {
+                if (seen.has(p.id)) return false;
+                seen.add(p.id);
+                return true;
+            });
+
+            participantesUnicos.forEach(p => {
                 const estado = p.estado || 'activo';
                 if (estado === 'activo') activos.push(p);
                 else if (estado === 'inactivo') inactivos.push(p);
