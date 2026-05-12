@@ -1081,13 +1081,17 @@
             const darkModeToggle = document.getElementById('darkModeToggle');
             const darkModeIcon = darkModeToggle.querySelector('i');
 
-            // Check for saved user preference, if any
+            // Check for saved user preference (soporte para valores legacy 'enabled' y nuevos 'true')
             const savedMode = localStorage.getItem('darkMode');
-            if (savedMode === 'enabled') {
+            const isDarkSaved = savedMode === 'true' || savedMode === 'enabled';
+
+            if (isDarkSaved) {
                 document.body.classList.add('dark-mode');
                 darkModeIcon.classList.remove('fa-moon');
                 darkModeIcon.classList.add('fa-sun');
                 darkModeToggle.classList.add('dark');
+                // Normalizar al formato estándar
+                localStorage.setItem('darkMode', 'true');
             }
 
             // Toggle dark mode
@@ -1097,9 +1101,9 @@
                 darkModeIcon.classList.toggle('fa-sun');
                 darkModeToggle.classList.toggle('dark');
 
-                // Save user preference
+                // Guardar preferencia en formato estándar 'true'/'false'
                 const isDarkMode = document.body.classList.contains('dark-mode');
-                localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+                localStorage.setItem('darkMode', isDarkMode ? 'true' : 'false');
             });
 
             // Detect system color scheme preference
