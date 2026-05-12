@@ -683,19 +683,54 @@
             document.getElementById('nav-center').classList.toggle('active');
         });
 
-        // Dark mode toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.classList.add('dark');
-            darkModeToggle.querySelector('i').className = 'fas fa-sun';
-        }
-        darkModeToggle.addEventListener('click', function () {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', isDark);
-            this.classList.toggle('dark', isDark);
-            this.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        // Dark Mode Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeIcon = darkModeToggle.querySelector('i');
+
+            // Check for saved user preference, if any
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'enabled' || savedMode === 'true') {
+                document.body.classList.add('dark-mode');
+                darkModeIcon.className = 'fas fa-sun';
+                darkModeToggle.classList.add('dark');
+            }
+
+            // Detect system color scheme preference
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+            // If no saved preference, use system preference
+            if (!savedMode && prefersDarkScheme.matches) {
+                document.body.classList.add('dark-mode');
+                darkModeIcon.className = 'fas fa-sun';
+                darkModeToggle.classList.add('dark');
+            }
+
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                darkModeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                darkModeToggle.classList.toggle('dark', isDark);
+
+                // Save user preference
+                localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+            });
+
+            // Listen for changes in system color scheme
+            prefersDarkScheme.addEventListener('change', e => {
+                if (localStorage.getItem('darkMode')) return; // Don't override user's explicit choice
+
+                if (e.matches) {
+                    document.body.classList.add('dark-mode');
+                    darkModeIcon.className = 'fas fa-sun';
+                    darkModeToggle.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    darkModeIcon.className = 'fas fa-moon';
+                    darkModeToggle.classList.remove('dark');
+                }
+            });
         });
 
     </script>
