@@ -6,7 +6,7 @@ let logoutTimer;
 
 function logoutPorInactividad() {
   alert("Sesión cerrada por inactividad.");
-  cerrarSesion(); // Reutilizamos la función existente en logout.js
+  cerrarSesion(true); // Reutilizamos la función existente en logout.js con el parámetro forzar = true
 }
 
 // Limpia el Timer y luego crea uno nuevo que ejecutará logoutPorInactividad cuando pase el tiempo indicado en const TIMEOUT
