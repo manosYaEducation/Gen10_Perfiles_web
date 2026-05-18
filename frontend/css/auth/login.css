@@ -190,3 +190,120 @@ h1 {
     font-size: 22px;
     cursor: pointer;
 }
+
+/* ===== Dark Mode Styles ===== */
+/* Se aplica en body (cuando JS sincroniza) y en html (para evitar parpadeo inicial) */
+body.dark-mode,
+html.dark-mode body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .login-container,
+html.dark-mode body .login-container {
+    background-color: #1e1e1e;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h1,
+html.dark-mode body h1 {
+    color: #fff;
+}
+
+body.dark-mode .form-group label,
+html.dark-mode body .form-group label {
+    color: #ccc;
+}
+
+body.dark-mode .form-group input,
+html.dark-mode body .form-group input {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    color: #fff;
+}
+
+body.dark-mode .form-group input::placeholder,
+html.dark-mode body .form-group input::placeholder {
+    color: #888;
+}
+
+body.dark-mode .hide-show,
+html.dark-mode body .hide-show {
+    color: #ccc;
+}
+
+body.dark-mode .login-button,
+html.dark-mode body .login-button {
+    color: #fff;
+}
+
+body.dark-mode .forgot-password,
+html.dark-mode body .forgot-password {
+    color: #aaa;
+}
+
+body.dark-mode .forgot-password:hover,
+html.dark-mode body .forgot-password:hover {
+    color: #4CAF50;
+}
+
+body.dark-mode .modal-content,
+html.dark-mode body .modal-content {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode #mensajeError,
+html.dark-mode body #mensajeError {
+    color: #e0e0e0;
+}
+
+body.dark-mode .close,
+html.dark-mode body .close {
+    color: #fff;
+}
+
+body.dark-mode .remember-me label,
+html.dark-mode body .remember-me label {
+    color: #ccc;
+}
+
+/* Dark mode toggle button */
+.dark-mode-toggle {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: white;
+    border: none;
+    color: #333;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode-toggle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dark-mode-toggle,
+html.dark-mode body .dark-mode-toggle {
+    background: #2c2c2c;
+    color: #ffd700;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .dark-mode-toggle:hover,
+html.dark-mode body .dark-mode-toggle:hover {
+    background: #3a3a3a;
+}
+
