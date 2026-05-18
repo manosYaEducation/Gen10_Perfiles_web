@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,  user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Equipo profesional Gen10 Alpha Docere - Soluciones innovadoras en software y diseño">
+    <meta name="description"
+        content="Equipo profesional Gen10 Alpha Docere - Soluciones innovadoras en software y diseño">
     <!-- Preload recursos críticos -->
     <link rel="preload" as="style" href="./frontend/css/base/index.css">
     <link rel="preload" as="script" href="./frontend/js/config.js">
@@ -14,7 +15,7 @@
     <link href="./frontend/css/admin/cliente.css" rel="stylesheet" />
     <link href="./frontend/css/base/contacto.css" rel="stylesheet">
     <!-- <script src="./frontend/js/roles.js"></script> -->
-   
+
     <link rel="stylesheet" href="./frontend/css/base/footer.css">
     <link rel="stylesheet" href="./frontend/css/base/proyectos-timeline.css">
     <link rel="stylesheet" href="./frontend/css/base/clients-index.css">
@@ -45,9 +46,11 @@
             margin-left: 1rem;
             transition: all 0.3s ease;
         }
+
         .dark-mode-toggle:hover {
             background-color: rgba(0, 0, 0, 0.1);
         }
+
         .dark-mode-toggle.dark {
             color: #ffd700;
         }
@@ -90,8 +93,8 @@
         }
 
         body.dark-mode .info-subtitle.cursive {
-    color: #ffffff !important;
-}
+            color: #ffffff !important;
+        }
 
         body.dark-mode .profiles-section,
         body.dark-mode .proyectos-destacados,
@@ -123,256 +126,241 @@
         /* Mejora la visibilidad del texto de ayuda dentro del input */
         body.dark-mode input::placeholder,
         body.dark-mode textarea::placeholder {
-            color: #bbbbbb; /* O usa #f0f0f0 si prefieres más contraste */
+            color: #bbbbbb;
+            /* O usa #f0f0f0 si prefieres más contraste */
         }
-        
+
         body.dark-mode label {
-        color: #e0e0e0;
-    }
+            color: #e0e0e0;
+        }
 
 
         /* Cambiar logo a blanco en modo oscuro */
         body.dark-mode .nav-logo {
             filter: brightness(0) invert(1);
         }
-        
+
         /* Estilos para la sección hero en modo oscuro */
         body.dark-mode .hero {
             background-color: var(--bg-color);
         }
-        
+
         body.dark-mode .hero h1,
         body.dark-mode .hero p,
         body.dark-mode .prf1 {
             color: #ffffff;
         }
-        
+
         body.dark-mode .btnr {
             background-color: #239e34;
             color: white;
             border: 2px solid #22973f;
         }
-        
+
         body.dark-mode .btnr:hover {
             background-color: #1a692e;
             border-color: #1a692e;
         }
-        
+
         body.dark-mode .hero-image img {
             filter: brightness(0.9) contrast(1.1);
         }
-        
+
         /* Estilos para la sección hero2 en modo oscuro */
         body.dark-mode .hero2 {
             background-color: #1e1e1e;
         }
-        
+
         body.dark-mode .hero-title2 {
             color: #ffffff;
         }
-        
+
         body.dark-mode #hero-paragraph2 {
             color: var(--text-color);
         }
-        
+
         body.dark-mode .hero-text2 {
             color: var(--text-color);
         }
-        
+
         body.dark-mode .hero-image2 img {
             filter: brightness(0.9) contrast(1.1);
         }
-        
-<<<<<<< HEAD
-        /* Estilos para el carrusel */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            overflow: hidden;
-            padding: 20px 0;
-            background-color: #f5f5f5;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-=======
 
->>>>>>> origin/Fix/Mnavarro/2026-05-13-reposicionar-flechas-carrusel
-        
         body.dark-mode .carousel-container {
             background-color: rgba(20, 20, 20, 0.8);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Estilos para la sección del equipo en modo oscuro */
         body.dark-mode .profiles-section {
             background-color: var(--bg-color);
             color: var(--text-color);
         }
-        
+
         body.dark-mode .info-title,
         body.dark-mode .info-subtitle {
             color: #ffffff;
         }
-        
+
         body.dark-mode .cursive {
             color: #bbbbbb;
         }
-        
+
         body.dark-mode .carousel-button {
             background-color: #333333;
             color: #ffffff;
             border: none;
         }
-        
+
         body.dark-mode .carousel-button:hover {
             background-color: #444444;
         }
-        
+
         body.dark-mode .profile-card {
             background-color: #1e1e1e;
             border: 1px solid #333333;
             color: #e0e0e0;
         }
-        
+
         body.dark-mode .profile-card:hover {
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             transform: translateY(-5px);
         }
-        
+
         body.dark-mode .profile-name {
             color: #ffffff;
         }
-        
+
         body.dark-mode .profile-role {
             color: #bbbbbb;
         }
-        
+
         body.dark-mode .carousel-indicators button {
             background-color: #555555;
             border: none;
         }
-        
+
         body.dark-mode .carousel-indicators .active {
             background-color: #239e34;
         }
-        
+
         /* Estilos para el hover de los proyectos - Solución definitiva */
         .proyecto-descripcion {
             transition: color 0.3s ease !important;
         }
-        
+
         .proyecto-tarjeta:hover .proyecto-descripcion,
         .proyecto:hover .proyecto-descripcion,
         .proyecto-timeline:hover .proyecto-descripcion {
             color: #000000 !important;
         }
-        
+
         body.dark-mode .proyecto-tarjeta:hover .proyecto-descripcion,
         body.dark-mode .proyecto:hover .proyecto-descripcion,
         body.dark-mode .proyecto-timeline:hover .proyecto-descripcion {
             color: #ffffff !important;
         }
-        
+
         /* Estilos sutiles para el footer en modo oscuro */
         body.dark-mode .footer {
             background-color: #121212;
             border-top: 1px solid #2a2a2a;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
         }
-        
+
         body.dark-mode .footer-section h3 {
             color: #4CAF50;
             text-shadow: 0 0 2px rgba(76, 175, 80, 0.3);
         }
-        
+
         body.dark-mode .footer-section a {
             color: #e0e0e0;
             transition: all 0.3s ease;
         }
-        
+
         body.dark-mode .footer-section a:hover {
             color: #4CAF50;
         }
-        
+
         body.dark-mode .social-links a {
             background-color: #1e1e1e;
             border: 1px solid #333;
         }
-        
+
         body.dark-mode .social-links a:hover {
             background-color: #2a2a2a;
             border-color: #4CAF50;
         }
-        
+
         body.dark-mode .footer-brand {
             position: relative;
         }
-        
+
         body.dark-mode .footer-logo {
             filter: brightness(1.05);
         }
-        
+
         body.dark-mode .contact-info li {
             color: #bbbbbb;
         }
-        
+
         body.dark-mode .contact-info .contacto-nombre {
             color: #ffffff;
         }
-        
+
         body.dark-mode .copyright {
             background-color: #121212;
             border-top: 1px solid #2a2a2a;
             color: #aaaaaa;
         }
-        
+
         /* Estilos mejorados para la navbar */
         body.dark-mode header {
             background-color: #151515;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
-        
+
         body.dark-mode .nav-links a {
             color: #e0e0e0;
         }
-        
+
         body.dark-mode .nav-links a:hover {
             background-color: #2a2a2a;
             color: #4CAF50;
         }
-        
+
         body.dark-mode .login-btn {
             background-color: #4CAF50;
             color: white;
             border: none;
         }
-        
+
         body.dark-mode .login-btn:hover {
             background-color: #3d8b40;
         }
-        
+
         /* Estilos mejorados para el menú desplegable */
         body.dark-mode .profile-btn {
             background-color: #151515;
             color: #e0e0e0;
             border: 1px solid #15151500;
             transition: all 0.3s ease;
-        }   
+        }
 
-        
-        
+
+
         body.dark-mode .profile-btn:hover {
             background-color: #000000;
             border-color: #4CAF50;
         }
-        
+
         body.dark-mode .dropdown-content {
             background-color: #1e1e1e;
             border: 1px solid #000000;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            margin-top: 0; /* Elimina el espacio entre el botón y el menú */
+            margin-top: 0;
+            /* Elimina el espacio entre el botón y el menú */
             display: none;
             position: absolute;
             z-index: 1000;
@@ -380,167 +368,168 @@
             top: 100%;
             left: 0;
         }
-        
+
         /* Clase para mostrar el menú desplegable */
         .dropdown-content.show {
             display: block;
         }
-        
+
         /* Estilos para el contenedor del menú desplegable */
         .profile-dropdown {
             position: relative;
             display: inline-block;
         }
-        
+
         body.dark-mode .dropdown-content a {
             color: #e0e0e0;
             border-bottom: 1px solid #333;
         }
-        
+
         body.dark-mode .dropdown-content a:hover {
             background-color: #2a2a2a;
             color: #4CAF50;
         }
-        
+
         body.dark-mode .dropdown-content a.button-53 {
             background-color: #1e1e1e;
             color: #e0e0e0;
             border: 1px solid #333;
         }
-        
+
         body.dark-mode .dropdown-content a.button-53:hover {
             background-color: #2a2a2a;
             color: #ff5555;
             border-color: #ff5555;
         }
-        
+
         /* Estilos para el menú hamburguesa en modo oscuro */
         body.dark-mode .menu-icon i {
             color: #e0e0e0;
         }
-        
+
         body.dark-mode .menu-icon:hover {
             background-color: rgba(76, 175, 80, 0.2);
         }
-        
+
         body.dark-mode .menu-icon:hover i {
             color: #4CAF50;
         }
-        
+
         body.dark-mode .nav-center.active {
             background-color: #1e1e1e;
             border-top: 1px solid #333;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        
+
         body.dark-mode .nav-links li a {
             color: #e0e0e0;
         }
-        
+
         body.dark-mode .nav-links li a:hover {
             background-color: rgba(76, 175, 80, 0.2);
             color: #4CAF50;
         }
+
         /* Estilos para la sección de visión-misión en modo oscuro */
         body.dark-mode .vision-mision {
             background-color: #1e1e1e;
         }
-        
+
         body.dark-mode .flip-card-front {
             background: linear-gradient(135deg, #4CAF50 0%, #3d8b40 100%);
             color: white;
         }
-        
+
         body.dark-mode .flip-card-back {
             background-color: var(--card-bg);
             color: var(--text-color);
             border: 1px solid var(--border-color);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         body.dark-mode .flip-card-back h2 {
             color: #4CAF50;
         }
-        
+
         body.dark-mode .flip-card-back p {
             color: #ffffff;
         }
-        
+
         body.dark-mode .flip-card {
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
-        
+
         body.dark-mode .flip-card-front .flip-hint {
             color: rgba(255, 255, 255, 0.8);
         }
-        
+
         /* Estilos para la sección FAQ en modo oscuro */
         body.dark-mode .faq-section {
             background-color: var(--bg-color);
         }
-        
+
         body.dark-mode .faq-container {
             background-color: var(--bg-color);
         }
-        
+
         body.dark-mode .faq-title,
         body.dark-mode .faq-category h3 {
             color: #ffffff;
         }
-        
+
         body.dark-mode .faq-item {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
-        
+
         body.dark-mode .faq-question {
             background-color: rgba(0, 0, 0, 0.2);
         }
-        
+
         body.dark-mode .faq-answer {
             background-color: rgba(0, 0, 0, 0.1);
         }
-        
+
         body.dark-mode .faq-question h4 {
             color: var(--text-color);
         }
-        
+
         body.dark-mode .faq-toggle {
             color: #4CAF50;
         }
-        
+
         body.dark-mode .faq-answer p {
             color: var(--text-color);
         }
-        
+
         body.dark-mode .faq-category h3 {
             color: #4CAF50;
             border-bottom: 2px solid #4CAF50;
         }
-        
+
         /* Estilos para el modal de éxito en modo oscuro */
         body.dark-mode .modal {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
-        
+
         body.dark-mode .modal h2,
         body.dark-mode .modal p {
             color: var(--text-color);
         }
-        
+
         body.dark-mode .accept-button {
             background-color: #4CAF50;
             color: white;
             border: none;
         }
-        
+
         body.dark-mode .accept-button:hover {
             background-color: #3d8b40;
         }
-        
+
         /* Estilos para el botón de volver arriba en modo oscuro */
         body.dark-mode #backToTopBtn {
             background: #4CAF50;
@@ -548,44 +537,46 @@
             border: none;
             color: white;
         }
-        
+
         body.dark-mode #backToTopBtn:hover {
             background: #45a049;
             color: white;
         }
-        
+
         /* Estilos para la sección de clientes en modo oscuro */
         body.dark-mode .clients-carousel-container {
             background-color: rgba(20, 20, 20, 0.8);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         body.dark-mode .clients-carousel-button {
             background-color: #333333;
             color: #ffffff;
         }
-        
+
         body.dark-mode .clients-carousel-button:hover {
             background-color: #444444;
         }
-        
+
         body.dark-mode .clients-carousel-indicators button {
             background-color: #555555;
         }
-        
+
         body.dark-mode .clients-carousel-indicators .active {
             background-color: #239e34;
         }
-        
+
         /* --- PROYECTOS: Hover modo claro y oscuro --- */
         .proyecto-tarjeta:hover {
             background-color: #ffffff;
             color: #000000;
         }
+
         body.dark-mode .proyecto-tarjeta:hover {
             background-color: #1e1e1e;
             color: #ffffff;
         }
+
         body.dark-mode .proyecto-tarjeta:hover .proyecto-descripcion,
         body.dark-mode .proyecto-tarjeta:hover h3,
         body.dark-mode .proyecto-tarjeta:hover p {
@@ -616,9 +607,11 @@
             color: var(--text-color) !important;
             border-radius: 12px 12px 0 0;
         }
+
         body.dark-mode .faq-question h4 {
             color: var(--text-color) !important;
         }
+
         body.dark-mode .faq-toggle {
             color: #4CAF50 !important;
         }
@@ -627,6 +620,7 @@
         body.dark-mode .faq-answer {
             background-color: var(--card-bg) !important;
         }
+
         body.dark-mode .faq-answer p {
             color: var(--text-color) !important;
         }
@@ -654,21 +648,21 @@
         .hero-text .prf1 {
             color: #222222;
             font-weight: 600;
-            opacity: 1 ;
+            opacity: 1;
         }
 
-        
+
         body.dark-mode .hero-text .prf1 {
-            color: #ffffff ;
+            color: #ffffff;
         }
-
     </style>
 
     <!-- Metadata Principal -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ms.alphadocere.cl" />
     <meta property="og:title" content="Impulsa la innovación con nosotros" />
-    <meta property="og:description" content="Únete a Kreative Alpha Docere y desarrolla pruebas de concepto que transforman ideas en soluciones." />
+    <meta property="og:description"
+        content="Únete a Kreative Alpha Docere y desarrolla pruebas de concepto que transforman ideas en soluciones." />
     <meta property="og:image" content="https://kreative.alphadocere.cl/assets/img/kreative_transparent.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="keywords" content="Innovación profesional, pruebas de concepto, talento joven, soluciones creativas" />
@@ -714,7 +708,7 @@
                             <div class="dropdown-content">
                                 <a href="frontend/index-admin.html">Panel de administración</a>
                                 <a id="perfil-link" href="#">Perfil</a> <!-- 🔹 Nuevo botón perfil -->
-                                <a href="#" class="button-53">Cerrar sesión</a>
+                                <a href="#" id="logout-btn" class="button-53">Cerrar sesión</a>
                             </div>
                         </div>
                     </li>
@@ -749,15 +743,17 @@
                 </p>
                 <p class="prf1">¿Dónde hacer crecer tu negocio digitalmente?</p>
                 <div class="hero-buttons">
-                    <a href="#perfiles"><button class="btnr"><strong>Conoce a nuestro equipo profesional</strong></button></a>
-                    <a href="https://servicios.alphadocere.cl/servicio.html"><button class="btnr"><strong>Explora nuestros servicios</strong></button></a>
+                    <a href="#perfiles"><button class="btnr"><strong>Conoce a nuestro equipo
+                                profesional</strong></button></a>
+                    <a href="https://servicios.alphadocere.cl/servicio.html"><button class="btnr"><strong>Explora
+                                nuestros servicios</strong></button></a>
                 </div>
             </div>
             <div class="hero-image">
                 <img src="./assets/img/img_soft.png" alt="Imagen de Bienvenida">
             </div>
         </div>
-        
+
         <!-- Segunda fila: Métricas -->
         <div id="div3" class="metricas-container">
             <div class="metricas-grid">
@@ -776,19 +772,21 @@
                     <p class="metrica-numero" id="proyectos-count">0</p>
                     <p class="metrica-label">Proyectos exitosos que demuestran nuestra excelencia.</p>
                 </a>
-                
+
             </div>
             <div id="div4" class="metricas-cierre-section">
                 <div class="metricas-container">
                     <div class="metricas-cierre">
-                        <p>Estos números representan nuestro compromiso con la excelencia en el desarrollo de software. Cada proyecto es una oportunidad para demostrar nuestra pasión por la tecnología y la innovación. ¿Listo para ser nuestro próximo caso de éxito?</p>
+                        <p>Estos números representan nuestro compromiso con la excelencia en el desarrollo de software.
+                            Cada proyecto es una oportunidad para demostrar nuestra pasión por la tecnología y la
+                            innovación. ¿Listo para ser nuestro próximo caso de éxito?</p>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Tercera fila: Cierre de métricas -->
-        
+
     </section>
 
     <section class="hero2">
@@ -803,7 +801,7 @@
                 <div class="hero-right">
                     <h3 class="hero-title3">Nos especializamos en el desarrollo de software personalizado:</h3>
                     <ul>
-                        <li>Soluciones innovadoras</li> 
+                        <li>Soluciones innovadoras</li>
                         <li>Adaptadas a tus necesidades</li>
                         <li>Optimizando procesos</li>
                         <li>Potenciando tu crecimiento</li>
@@ -824,8 +822,10 @@
                         <p class="flip-hint">Pasa el mouse para ver más</p>
                     </div>
                     <div class="flip-card-back">
-                        
-                        <p>Ser líderes en la transformación digital, impulsando la innovación y el desarrollo de soluciones tecnológicas que empoderen a las empresas y transformen ideas en realidades tangibles.</p>
+
+                        <p>Ser líderes en la transformación digital, impulsando la innovación y el desarrollo de
+                            soluciones tecnológicas que empoderen a las empresas y transformen ideas en realidades
+                            tangibles.</p>
                     </div>
                 </div>
             </div>
@@ -837,8 +837,10 @@
                         <p class="flip-hint">Pasa el mouse para ver más</p>
                     </div>
                     <div class="flip-card-back">
-                        
-                        <p>Proporcionar soluciones de software personalizadas y de alta calidad, trabajando en estrecha colaboración con nuestros clientes para entender sus necesidades y ofrecer resultados que superen sus expectativas.</p>
+
+                        <p>Proporcionar soluciones de software personalizadas y de alta calidad, trabajando en estrecha
+                            colaboración con nuestros clientes para entender sus necesidades y ofrecer resultados que
+                            superen sus expectativas.</p>
                     </div>
                 </div>
             </div>
@@ -850,8 +852,12 @@
                         <p class="flip-hint">Pasa el mouse para ver más</p>
                     </div>
                     <div class="flip-card-back">
-                        
-                        <p>Somos un equipo de profesionales apasionados por la tecnología y la innovación. Nos especializamos en el desarrollo de software personalizado, creando soluciones que se adaptan perfectamente a las necesidades de cada cliente. Nuestro enfoque combina creatividad, experiencia técnica y compromiso con la excelencia para entregar productos que marcan la diferencia.</p>
+
+                        <p>Somos un equipo de profesionales apasionados por la tecnología y la innovación. Nos
+                            especializamos en el desarrollo de software personalizado, creando soluciones que se adaptan
+                            perfectamente a las necesidades de cada cliente. Nuestro enfoque combina creatividad,
+                            experiencia técnica y compromiso con la excelencia para entregar productos que marcan la
+                            diferencia.</p>
                     </div>
                 </div>
             </div>
@@ -889,7 +895,8 @@
     <section class="profiles-section" id="clientes">
         <div class="info-container">
             <h1 class="info-title">Nuestros Clientes</h1>
-            <h3 class="info-subtitle cursive">Empresas y personas que han confiado en nosotros para desarrollar sus proyectos</h3>
+            <h3 class="info-subtitle cursive">Empresas y personas que han confiado en nosotros para desarrollar sus
+                proyectos</h3>
         </div>
         <div class="clients-carousel-container">
             <button class="clients-carousel-button prev" id="clientsPrevButton">
@@ -932,7 +939,7 @@
     <section class="faq-section" id="faq">
         <div class="faq-container">
             <h2 class="faq-title">Preguntas Frecuentes</h2>
-            
+
             <div class="faq-categories">
                 <div class="faq-category">
                     <h3>Para Usuarios</h3>
@@ -943,7 +950,9 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Puedes contactarnos a través del formulario de contacto en nuestra página web, por WhatsApp o correo electrónico. Nuestro equipo te responderá para agendar una reunión y discutir los detalles de tu proyecto.</p>
+                                <p>Puedes contactarnos a través del formulario de contacto en nuestra página web, por
+                                    WhatsApp o correo electrónico. Nuestro equipo te responderá para agendar una reunión
+                                    y discutir los detalles de tu proyecto.</p>
                             </div>
                         </div>
 
@@ -953,7 +962,9 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>El tiempo de desarrollo varía según la complejidad y alcance del proyecto. Durante la fase inicial de planificación, te proporcionaremos un cronograma detallado con los tiempos estimados.</p>
+                                <p>El tiempo de desarrollo varía según la complejidad y alcance del proyecto. Durante la
+                                    fase inicial de planificación, te proporcionaremos un cronograma detallado con los
+                                    tiempos estimados.</p>
                             </div>
                         </div>
 
@@ -963,7 +974,9 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Desarrollamos una amplia gama de proyectos, incluyendo aplicaciones web, sistemas de gestión, plataformas educativas, sitios web corporativos y soluciones personalizadas según las necesidades de cada cliente.</p>
+                                <p>Desarrollamos una amplia gama de proyectos, incluyendo aplicaciones web, sistemas de
+                                    gestión, plataformas educativas, sitios web corporativos y soluciones personalizadas
+                                    según las necesidades de cada cliente.</p>
                             </div>
                         </div>
                     </div>
@@ -978,7 +991,9 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Estamos constantemente buscando talento. Puedes enviar tu CV y portafolio a nuestro correo electrónico. Valoramos especialmente la pasión por la tecnología y la capacidad de trabajar en equipo.</p>
+                                <p>Estamos constantemente buscando talento. Puedes enviar tu CV y portafolio a nuestro
+                                    correo electrónico. Valoramos especialmente la pasión por la tecnología y la
+                                    capacidad de trabajar en equipo.</p>
                             </div>
                         </div>
 
@@ -988,7 +1003,9 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Trabajamos con un stack tecnológico moderno que incluye JavaScript, PHP, CSS y bases de datos SQL. También utilizamos herramientas de desarrollo ágil y metodologías modernas.</p>
+                                <p>Trabajamos con un stack tecnológico moderno que incluye JavaScript, PHP, CSS y bases
+                                    de datos SQL. También utilizamos herramientas de desarrollo ágil y metodologías
+                                    modernas.</p>
                             </div>
                         </div>
 
@@ -998,7 +1015,9 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Sí, fomentamos el crecimiento profesional continuo. Ofrecemos capacitación, mentorías y la oportunidad de trabajar en proyectos desafiantes que permiten desarrollar nuevas habilidades.</p>
+                                <p>Sí, fomentamos el crecimiento profesional continuo. Ofrecemos capacitación, mentorías
+                                    y la oportunidad de trabajar en proyectos desafiantes que permiten desarrollar
+                                    nuevas habilidades.</p>
                             </div>
                         </div>
                     </div>
@@ -1042,22 +1061,27 @@
 
                         <div class="form-group">
                             <label for="email">Correo electrónico:</label>
-                            <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
+                            <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico"
+                                required>
                         </div>
 
                         <div class="form-group">
                             <label for="telefono">Teléfono:</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="Ingrese su número de teléfono (ejemplo: +56912345678)" required>
+                            <input type="tel" id="telefono" name="telefono"
+                                placeholder="Ingrese su número de teléfono (ejemplo: +56912345678)" required>
                         </div>
 
                         <div class="form-group">
                             <label for="asunto">Asunto:</label>
-                            <input type="text" id="asunto" name="asunto" placeholder="Debe escribir lo que quiera tratar con nosotros EJ: Empleabilidad, Negocios, etc..." required>
+                            <input type="text" id="asunto" name="asunto"
+                                placeholder="Debe escribir lo que quiera tratar con nosotros EJ: Empleabilidad, Negocios, etc..."
+                                required>
                         </div>
 
                         <div class="form-group">
                             <label for="mensaje">Mensaje:</label>
-                            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escriba un mensaje" required></textarea>
+                            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escriba un mensaje"
+                                required></textarea>
                         </div>
 
                         <button type="submit"><i class="fas fa-envelope"></i> Enviar</button>
@@ -1074,10 +1098,11 @@
             <button class="accept-button" onclick="closeModal()">Aceptar</button>
         </dialog>
     </section>
-    
-    
+
+
     <!-- Back to Top Button -->
-    <button type="button" id="backToTopBtn" title="Volver arriba" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <button type="button" id="backToTopBtn" title="Volver arriba"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
         <i class="fas fa-arrow-up"></i>
     </button>
 
@@ -1085,7 +1110,7 @@
     <script src="./frontend/js/config.js"></script>
     <script>
         // Dark Mode Functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const darkModeToggle = document.getElementById('darkModeToggle');
             const darkModeIcon = darkModeToggle.querySelector('i');
 
@@ -1103,7 +1128,7 @@
             }
 
             // Toggle dark mode
-            darkModeToggle.addEventListener('click', function() {
+            darkModeToggle.addEventListener('click', function () {
                 document.body.classList.toggle('dark-mode');
                 darkModeIcon.classList.toggle('fa-moon');
                 darkModeIcon.classList.toggle('fa-sun');
@@ -1142,7 +1167,7 @@
                 }
             });
         });
-    
+
     </script>
     <script src="./frontend/js/metrics.js"></script>
     <script src="./frontend/js/index.js"></script>
@@ -1153,15 +1178,14 @@
     <script src="./frontend/js/clients-index.js"></script>
     <script src="./frontend/js/back-to-top.js"></script>
     <div id="footer-container"></div>
-<div id="footer-container"></div>
-<script>
-  fetch('./frontend/components/footer-index.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('footer-container').innerHTML = data;
-    })
-    .catch(error => console.error('Error cargando el footer:', error));
-</script>
+    <script>
+        fetch('./frontend/components/footer-index.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error cargando el footer:', error));
+    </script>
 </body>
 
 </html>

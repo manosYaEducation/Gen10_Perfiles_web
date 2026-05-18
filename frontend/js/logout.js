@@ -1,148 +1,117 @@
-// Función para cerrar sesión
-<<<<<<< HEAD
-function cerrarSesion(forzar = false) {
-  if (!forzar) {
-    if (!confirm("¿Estás seguro de que deseas cerrar sesión?")) {
-      return; // El cuadro nativo se cierra solo al hacer Cancel
-    }
-  }
+/**
+ * logout.js — Manejo centralizado del cierre de sesión.
+ *
+ * Estrategia:
+ *  1. Se enlaza primero al botón con id="logout-btn" (método directo y fiable).
+ *  2. Como fallback, busca cualquier enlace cuyo texto contenga "cerrar sesión"
+ *     en los selectores habituales del navbar.
+ *  3. Muestra un diálogo de confirmación con SweetAlert2 (lo carga si aún no
+ *     está disponible).
+ *  4. Al confirmar, limpia localStorage/sessionStorage y redirige.
+ */
 
-  // Limpiar localStorage y sessionStorage
-  const keys = ["token", "user", "userName", "username", "userLoggedIn"];
-  keys.forEach((k) => {
-    localStorage.removeItem(k);
-    sessionStorage.removeItem(k);
+// ─── Ejecutar logout ───────────────────────────────────────────────────────────
+function ejecutarLogout() {
+  console.log("[logout] Cerrando sesión...");
+
+  const keysToRemove = [
+    "token", "user", "userName", "username",
+    "userLoggedIn", "userEmail", "sessionPermanent",
+  ];
+
+  keysToRemove.forEach((key) => {
+    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   });
 
-  // Redirigir según la página actual
+  // Redirigir: si estamos en una sub-ruta, volver a la raíz
   const currentPath = window.location.pathname;
 
   if (
     currentPath.endsWith("index.html") ||
     currentPath === "/" ||
-    currentPath.endsWith("/")
+    currentPath.endsWith("/Gen10_Perfiles_web/") ||
+    currentPath === "/Gen10_Perfiles_web"
   ) {
-    // Forzar recarga limpia evitando caché del navegador
-    window.location.replace(window.location.origin + window.location.pathname);
+    window.location.reload();
   } else if (currentPath.includes("/frontend/")) {
-    window.location.replace("../index.html");
+    window.location.href = "../../index.html";
   } else {
-    window.location.replace("index.html");
-=======
-function cerrarSesion() {
-  const ejecutarLogout = () => {
-    console.log("Cerrando sesión...");
-
-    // Limpiar localStorage
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("username");
-    localStorage.removeItem("userLoggedIn");
-
-    // También limpiar sessionStorage para mayor seguridad
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("userName");
-    sessionStorage.removeItem("username");
-    sessionStorage.removeItem("userLoggedIn");
-
-    // Redirigir dependiendo de la página actual
-    const currentPath = window.location.pathname;
-    console.log("Ruta actual:", currentPath);
-
-    // Si estamos en index.html (página principal), solo recargar la página
-    if (
-      currentPath.endsWith("index.html") ||
-      currentPath === "/" ||
-      currentPath.endsWith("/")
-    ) {
-      window.location.reload();
-    }
-    // Si estamos en alguna subpágina dentro de frontend
-    else if (currentPath.includes("/frontend/")) {
-      window.location.href = "../index.html";
-    }
-    // Cualquier otro caso
-    else {
-      window.location.href = "index.html";
-    }
-  };
-
-  const mostrarModal = () => {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-
-    Swal.fire({
-      title: '¿Cerrar sesión?',
-      text: '¿Estás seguro de que deseas cerrar tu sesión actual?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#4CAF50',
-      cancelButtonColor: isDarkMode ? '#444' : '#d33',
-      confirmButtonText: 'Sí, cerrar sesión',
-      cancelButtonText: 'Cancelar',
-      background: isDarkMode ? '#1e1e1e' : '#fff',
-      color: isDarkMode ? '#e0e0e0' : '#545454',
-      customClass: {
-        popup: 'kreative-swal-popup'
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        ejecutarLogout();
-      }
-    });
-  };
-
-  if (typeof Swal !== 'undefined') {
-    mostrarModal();
-  }
-  else {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
-    script.onload = mostrarModal;
-    document.head.appendChild(script);
->>>>>>> Fix/Mnavarro/2026-05-14-confirmacion-logout
+    window.location.href = "index.html";
   }
 }
 
-// Función para inicializar los botones de cerrar sesión
-// Usa data-logout-bound para evitar registrar el listener más de una vez,
-// aunque esta función se llame varias veces.
-function initLogoutButtons() {
-  const logoutLinks = document.querySelectorAll(
-    "a.button-53, .dropdown-content a"
-  );
+// ─── Diálogo de confirmación ──────────────────────────────────────────────────
+function mostrarConfirmacion() {
+  const isDarkMode = document.body.classList.contains("dark-mode");
 
-  logoutLinks.forEach((link) => {
-    const text = link.textContent.trim().toLowerCase();
-    if (
-      text.includes("cerrar sesión") ||
-      text.includes("cerrar sesion")
-    ) {
-      if (!link.dataset.logoutBound) {
-        link.dataset.logoutBound = "true";
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          cerrarSesion();
-        });
-      }
-    }
+  const opciones = {
+    title: "¿Cerrar sesión?",
+    text: "¿Estás seguro de que deseas cerrar tu sesión actual?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#4CAF50",
+    cancelButtonColor: isDarkMode ? "#444" : "#d33",
+    confirmButtonText: "Sí, cerrar sesión",
+    cancelButtonText: "Cancelar",
+    background: isDarkMode ? "#1e1e1e" : "#fff",
+    color: isDarkMode ? "#e0e0e0" : "#545454",
+    customClass: { popup: "kreative-swal-popup" },
+  };
+
+  Swal.fire(opciones).then((result) => {
+    if (result.isConfirmed) ejecutarLogout();
   });
+}
 
-  // Asegurar también el botón específico del dropdown en index.html
-  const dropdownLogoutBtn = document.querySelector(
-    ".dropdown-content .button-53"
-  );
-  if (dropdownLogoutBtn && !dropdownLogoutBtn.dataset.logoutBound) {
-    dropdownLogoutBtn.dataset.logoutBound = "true";
-    dropdownLogoutBtn.addEventListener("click", function (e) {
+function cerrarSesion() {
+  if (typeof Swal !== "undefined") {
+    mostrarConfirmacion();
+  } else {
+    // Cargar SweetAlert2 dinámicamente y luego mostrar el modal
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/sweetalert2@11";
+    script.onload = mostrarConfirmacion;
+    document.head.appendChild(script);
+  }
+}
+
+// ─── Inicializar botones de logout ────────────────────────────────────────────
+function initLogoutButtons() {
+  // 1. Enlace directo por ID (método preferido)
+  const logoutById = document.getElementById("logout-btn");
+  if (logoutById && !logoutById.dataset.logoutBound) {
+    logoutById.dataset.logoutBound = "true";
+    logoutById.addEventListener("click", (e) => {
       e.preventDefault();
       cerrarSesion();
     });
+    console.log("[logout] Botón #logout-btn vinculado.");
   }
+
+  // 2. Fallback: buscar por texto dentro del dropdown/navbar
+  const candidatos = document.querySelectorAll(
+    "a.button-53, .dropdown-content a, .nav-links a"
+  );
+  candidatos.forEach((link) => {
+    if (link.dataset.logoutBound) return; // ya vinculado
+
+    const texto = link.textContent.trim().toLowerCase();
+    const esCerrarSesion =
+      texto.includes("cerrar sesión") || texto.includes("cerrar sesion");
+
+    if (esCerrarSesion) {
+      link.dataset.logoutBound = "true";
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        cerrarSesion();
+      });
+      console.log("[logout] Botón fallback vinculado:", link.textContent.trim());
+    }
+  });
 }
 
-// Inicializar una sola vez cuando el DOM esté listo
+// ─── Arranque ─────────────────────────────────────────────────────────────────
 if (
   document.readyState === "complete" ||
   document.readyState === "interactive"
@@ -151,3 +120,9 @@ if (
 } else {
   document.addEventListener("DOMContentLoaded", initLogoutButtons);
 }
+
+// Segundo intento retrasado para cuando el DOM cambia dinámicamente
+// (p. ej. si el perfil se renderiza después del primer DOMContentLoaded)
+window.addEventListener("load", () => {
+  setTimeout(initLogoutButtons, 300);
+});
