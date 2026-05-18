@@ -414,3 +414,86 @@
     }
 }
 
+/* ===========================
+   DARK MODE STYLES
+   =========================== */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --header-bg: #1a1a1a;
+  --border-color: #444;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body.dark-mode header {
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .nav-logo {
+  filter: brightness(0) invert(1);
+}
+
+body.dark-mode .btn-volver-atras {
+  color: #fff !important;
+}
+
+body.dark-mode .evento-info {
+  background-color: var(--bg-color);
+}
+
+body.dark-mode .evento-info h2 {
+  color: #6dd990;
+}
+
+body.dark-mode #descripcion-evento,
+body.dark-mode #descripcion-detallada {
+  color: var(--text-color);
+}
+
+body.dark-mode .galeria h2,
+body.dark-mode .testimonios h2,
+body.dark-mode .participantes h2 {
+  color: #fff;
+}
+
+body.dark-mode .galeria-item {
+  background-color: var(--card-bg);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .galeria-item:hover {
+  background-color: #2d2d2d;
+}
+
+body.dark-mode .descripcion-imagen {
+  color: var(--text-color);
+}
+
+body.dark-mode .testimonio {
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 10px #4caf5050;
+}
+
+body.dark-mode .testimonio-contenido h3 {
+  color: #fff;
+}
+
+body.dark-mode .comentario {
+  color: #bbb;
+}
+
+body.dark-mode .participante-enlace {
+  background-color: var(--card-bg);
+}
+
+body.dark-mode .nombre-participante {
+  color: #fff;
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(255,255,255,0.1) !important;
+}
+
