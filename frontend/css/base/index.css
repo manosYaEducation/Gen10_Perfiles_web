@@ -439,9 +439,9 @@ button:hover {
 }
 
 .profiles-section {
-    background-color: #000000;
+    background-color: #ffffff;
     padding: 30px 0;
-    color: white;
+    color: #333;
 
 }
 
@@ -453,8 +453,7 @@ button:hover {
 .info-title {
     font-size: 2em;
     margin-bottom: 15px;
-    color: rgb(194 220 203);
-    ;
+    color: #333;
 }
 
 .profiles-column {
@@ -504,7 +503,7 @@ button:hover {
 .profile-text-container h2 {
     font-size: 2em;
     margin-bottom: 20px;
-    color: white;
+    color: #333;
 }
 
 .profile-text-container p,
