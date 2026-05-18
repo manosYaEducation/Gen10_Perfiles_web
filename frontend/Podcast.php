@@ -669,11 +669,13 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', function (e) {
                     e.preventDefault();
-                    sessionStorage.clear();
-                    localStorage.removeItem('userLoggedIn');
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('userName');
-                    window.location.href = '../index.html';
+                    if (confirm("¿Estás seguro de que deseas cerrar sesión?")) {
+                        sessionStorage.clear();
+                        localStorage.removeItem('userLoggedIn');
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('userName');
+                        window.location.href = '../index.html';
+                    }
                 });
             }
         })();
