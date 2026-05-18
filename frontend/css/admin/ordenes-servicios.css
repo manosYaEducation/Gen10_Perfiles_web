@@ -479,3 +479,405 @@ tr:hover {
   background-color: #f0f0f0;
     color: #4CAF50;
 }
+
+/* ===========================
+   FIX NAVBAR (acomodar dark mode toggle)
+   =========================== */
+nav {
+  max-width: 100% !important;
+  padding: 1rem !important;
+}
+
+.headernav {
+  flex-wrap: nowrap !important;
+  gap: 0 !important;
+}
+
+.headernav li {
+  margin-left: 0.8em !important;
+}
+
+.headernav li a.button-53 {
+  white-space: nowrap !important;
+  padding: 0.5em 0.8em !important;
+  font-size: 1rem !important;
+}
+
+/* ===========================
+   DARK MODE TOGGLE BUTTON
+   =========================== */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-toggle.dark {
+  color: #ffd700;
+}
+
+/* ===========================
+   DARK MODE STYLES
+   =========================== */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --header-bg: #1a1a1a;
+  --border-color: #444;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Header & Nav */
+body.dark-mode header {
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .headernav li a.button-53 {
+  color: var(--text-color);
+}
+
+body.dark-mode .headernav li a.button-53:hover {
+  background-color: #333;
+  color: #4CAF50;
+}
+
+body.dark-mode .hamburger span {
+  background-color: var(--text-color);
+}
+
+body.dark-mode .icon {
+  filter: brightness(0) invert(1);
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Main Container */
+body.dark-mode .ordenes-container {
+  color: var(--text-color);
+}
+
+body.dark-mode .titulo-principal {
+  color: #ffffff;
+}
+
+/* Search & Filters */
+body.dark-mode .buscador-fecha {
+  color: var(--text-color);
+}
+
+body.dark-mode .buscador-fecha label {
+  color: var(--text-color);
+}
+
+body.dark-mode .buscador-fecha input[type="date"] {
+  background-color: #2d2d2d;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+body.dark-mode #filtroEstado {
+  background-color: #2d2d2d;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+/* View Toggle Buttons */
+body.dark-mode .view-toggle {
+  background-color: rgba(255,255,255,0.08) !important;
+}
+
+body.dark-mode .view-toggle-btn {
+  color: #aaa;
+}
+
+body.dark-mode .view-toggle-btn i {
+  color: #888;
+}
+
+body.dark-mode .view-toggle-btn.active {
+  background-color: #2d2d2d !important;
+  color: #4CAF50 !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3) !important;
+}
+
+body.dark-mode .view-toggle-btn.active i {
+  color: #4CAF50 !important;
+}
+
+body.dark-mode .view-toggle-btn:hover:not(.active) {
+  background-color: rgba(255,255,255,0.1) !important;
+  color: var(--text-color);
+}
+
+body.dark-mode .view-toggle-btn:hover:not(.active) i {
+  color: var(--text-color);
+}
+
+/* Export Button */
+body.dark-mode .btn-export {
+  background-color: #1a7a34 !important;
+}
+
+body.dark-mode .btn-export:hover {
+  background-color: #15612a !important;
+}
+
+/* Cards (Tarjetas) */
+body.dark-mode .orden-tarjeta {
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .orden-tarjeta:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+body.dark-mode .orden-detalles p {
+  color: var(--text-color);
+}
+
+body.dark-mode .orden-detalles p span {
+  color: #ffffff;
+}
+
+body.dark-mode .btn-ver {
+  background-color: #1a7a34;
+}
+
+body.dark-mode .btn-ver:hover {
+  background-color: #15612a;
+}
+
+/* Tables - Simple & Admin */
+body.dark-mode table {
+  background: var(--card-bg) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+}
+
+body.dark-mode thead {
+  background-color: #252525 !important;
+}
+
+body.dark-mode th {
+  color: #ccc !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+body.dark-mode td {
+  color: var(--text-color);
+  border-bottom-color: #333 !important;
+}
+
+body.dark-mode tr:hover {
+  background-color: #2a2a2a !important;
+}
+
+body.dark-mode .tabla-admin-ordenes {
+  background-color: var(--card-bg) !important;
+}
+
+body.dark-mode .tabla-admin-ordenes th {
+  background-color: #252525 !important;
+  color: #ccc !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+body.dark-mode .tabla-admin-ordenes td {
+  border-bottom-color: #333 !important;
+}
+
+body.dark-mode .tabla-admin-ordenes tbody tr:hover {
+  background-color: #2a2a2a !important;
+}
+
+/* Table action buttons */
+body.dark-mode .btn-tabla-ver {
+  background: #1a7a34;
+}
+
+body.dark-mode .btn-tabla-ver:hover {
+  background: #15612a;
+}
+
+/* Status Badges */
+body.dark-mode .estado-pendiente {
+  background-color: #3d3520;
+  color: #ffd666;
+}
+
+body.dark-mode .estado-en-proceso {
+  background-color: #1a2a3d;
+  color: #6db3f2;
+}
+
+body.dark-mode .estado-completado {
+  background-color: #1a3323;
+  color: #6dd990;
+}
+
+body.dark-mode .status-pendiente {
+  background-color: #3d3520;
+  color: #ffd666;
+  border-color: #5a4d2a;
+}
+
+body.dark-mode .status-completado {
+  background-color: #1a3323;
+  color: #6dd990;
+  border-color: #2a5a3a;
+}
+
+body.dark-mode .status-en-progreso {
+  background-color: #1a2a3d;
+  color: #6db3f2;
+  border-color: #2a3d5a;
+}
+
+body.dark-mode .status-cancelado {
+  background-color: #3d1a1a;
+  color: #f26d6d;
+  border-color: #5a2a2a;
+}
+
+body.dark-mode .status-default {
+  background-color: #2d2d2d;
+  color: #aaa;
+  border-color: var(--border-color);
+}
+
+/* Modal */
+body.dark-mode .modal-overlay {
+  background-color: rgba(0,0,0,0.75);
+}
+
+body.dark-mode .modal-content {
+  background-color: var(--card-bg);
+  box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .modal-content h2 {
+  color: #ffffff;
+  border-bottom-color: var(--border-color);
+}
+
+body.dark-mode .modal-close-btn {
+  color: #888;
+}
+
+body.dark-mode .modal-close-btn:hover,
+body.dark-mode .modal-close-btn:focus {
+  color: #fff;
+}
+
+/* Form Controls */
+body.dark-mode .form-group label {
+  color: #ccc;
+}
+
+body.dark-mode .form-control {
+  background-color: #2d2d2d;
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+body.dark-mode .form-control:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 0.2rem rgba(76,175,80,0.25);
+}
+
+body.dark-mode .form-control-readonly {
+  background-color: #252525;
+  color: #aaa;
+  border-color: var(--border-color);
+}
+
+body.dark-mode .form-actions {
+  border-top-color: var(--border-color);
+}
+
+body.dark-mode .form-actions .btn-primary {
+  background-color: #4CAF50;
+}
+
+body.dark-mode .form-actions .btn-primary:hover {
+  background-color: #3d8b40;
+}
+
+body.dark-mode .form-actions .btn-secondary {
+  background-color: #555;
+}
+
+body.dark-mode .form-actions .btn-secondary:hover {
+  background-color: #666;
+}
+
+/* Notification */
+body.dark-mode .notification {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Footer */
+body.dark-mode .footer {
+  background-color: #121212;
+  border-top: 1px solid #2a2a2a;
+}
+
+body.dark-mode .footer-section h3 {
+  color: #4CAF50;
+}
+
+body.dark-mode .footer-section a {
+  color: var(--text-color);
+}
+
+body.dark-mode .footer-section a:hover {
+  color: #4CAF50;
+}
+
+body.dark-mode .copyright {
+  background-color: #121212;
+  border-top: 1px solid #2a2a2a;
+  color: #aaa;
+}
+
+/* Responsive dark mode */
+@media (max-width: 768px) {
+  body.dark-mode .navbar {
+    background-color: var(--header-bg);
+  }
+
+  body.dark-mode .headernav li a.button-53 {
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+
+  body.dark-mode .headernav li a.button-53:hover {
+    background-color: #333;
+    color: #4CAF50;
+    border-color: #4CAF50;
+  }
+}

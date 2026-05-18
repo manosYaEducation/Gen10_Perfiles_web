@@ -35,6 +35,10 @@
         <span></span>
         <span></span>
       </div>
+      <!-- Dark Mode Toggle -->
+      <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
     </nav>
   </header>
 
@@ -231,5 +235,42 @@
   <script src="../frontend/js/logout.js"></script>
   <script src="../frontend/js/timeout.js"></script>
   <script src="../frontend/js/hamburger-menu.js"></script>
+
+  <!-- Dark Mode Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const darkModeIcon = darkModeToggle.querySelector('i');
+
+      // Check for saved user preference
+      const savedMode = localStorage.getItem('darkMode');
+      if (savedMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+        darkModeIcon.classList.remove('fa-moon');
+        darkModeIcon.classList.add('fa-sun');
+        darkModeToggle.classList.add('dark');
+      }
+
+      // Toggle dark mode
+      darkModeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('dark-mode');
+        darkModeIcon.classList.toggle('fa-moon');
+        darkModeIcon.classList.toggle('fa-sun');
+        darkModeToggle.classList.toggle('dark');
+
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+      });
+
+      // Detect system color scheme preference
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      if (!savedMode && prefersDarkScheme.matches) {
+        document.body.classList.add('dark-mode');
+        darkModeIcon.classList.remove('fa-moon');
+        darkModeIcon.classList.add('fa-sun');
+        darkModeToggle.classList.add('dark');
+      }
+    });
+  </script>
 </body>
 </html>
