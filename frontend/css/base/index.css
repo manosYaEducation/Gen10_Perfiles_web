@@ -1903,16 +1903,13 @@ footer p {
 }
 
 .faq-answer {
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    display: none;
     background: #ffffff;
 }
 
 .faq-item.active .faq-answer {
+    display: block;
     padding: 20px;
-    max-height: 500px;
 }
 
 .faq-answer p {
