@@ -1,3 +1,19 @@
+# PHP limits para subida de imágenes grandes (base64 en JSON)
+<IfModule mod_php8.c>
+  php_value post_max_size 50M
+  php_value upload_max_filesize 50M
+  php_value max_execution_time 120
+  php_value max_input_time 120
+  php_value memory_limit 256M
+</IfModule>
+<IfModule mod_php7.c>
+  php_value post_max_size 50M
+  php_value upload_max_filesize 50M
+  php_value max_execution_time 120
+  php_value max_input_time 120
+  php_value memory_limit 256M
+</IfModule>
+
 # Enable GZIP Compression
 <IfModule mod_deflate.c>
   # Compress HTML, CSS, JavaScript, JSON, XML and fonts

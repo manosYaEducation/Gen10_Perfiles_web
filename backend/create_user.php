@@ -1,4 +1,8 @@
 <?php
+// Suprimir errores/warnings para que no corrompan la respuesta JSON
+error_reporting(0);
+ini_set('display_errors', 0);
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -14,6 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Decodifica la entrada JSON
 $data = json_decode(file_get_contents("php://input"));
+
+// Si el body está vacío (post_max_size excedido) o no es JSON válido
+if ($data === null) {
+    echo json_encode(['success' => false, 'message' => 'No se recibieron datos. La imagen puede ser demasiado grande (límite del servidor).']);
+    exit();
+}
 
 try {
     $conn->beginTransaction(); // Comienza la transacción
