@@ -251,6 +251,14 @@
         darkModeToggle.classList.add('dark');
       }
 
+      // Logo swap for dark mode: use a white/transparent logo when enabled
+      const logoImg = document.querySelector('.nav-left .icon') || document.querySelector('.icon');
+      const logoOriginalSrc = logoImg ? logoImg.getAttribute('src') : null;
+      const logoWhiteSrc = '../assets/img/kreative_white_logo.png';
+      if (savedMode === 'enabled' && logoImg) {
+        logoImg.setAttribute('src', logoWhiteSrc);
+      }
+
       // Toggle dark mode
       darkModeToggle.addEventListener('click', function () {
         document.body.classList.toggle('dark-mode');
@@ -260,6 +268,16 @@
 
         const isDarkMode = document.body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+
+        // Swap logo image depending on mode (avoid filter that turns PNG to white box)
+        if (logoImg) {
+          if (isDarkMode) {
+            logoImg.setAttribute('src', logoWhiteSrc);
+          } else {
+            // restore original src if available
+            if (logoOriginalSrc) logoImg.setAttribute('src', logoOriginalSrc);
+          }
+        }
       });
 
       // Detect system color scheme preference
@@ -269,6 +287,9 @@
         darkModeIcon.classList.remove('fa-moon');
         darkModeIcon.classList.add('fa-sun');
         darkModeToggle.classList.add('dark');
+        if (logoImg) {
+          logoImg.setAttribute('src', logoWhiteSrc);
+        }
       }
     });
   </script>

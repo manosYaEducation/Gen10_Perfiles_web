@@ -1,4 +1,9 @@
 <?php
+// Desactivar compresión de salida antes de cualquier header (cPanel suele tenerla activa)
+if (ini_get('zlib.output_compression')) {
+    ini_set('zlib.output_compression', 'Off');
+}
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -24,9 +29,11 @@ try {
     $imageData = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($imageData) {
-        // Servir como imagen binaria, no como base64
+        // Limpiar buffers de salida para evitar corrupción de datos binarios
+        while (ob_get_level()) ob_end_clean();
         header('Content-Type: ' . $imageData['tipo']);
-        header('Content-Length: ' . strlen($imageData['imagen']));
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . mb_strlen($imageData['imagen'], '8bit'));
         echo $imageData['imagen'];
     } else {
         // Servir imagen por defecto
@@ -34,8 +41,10 @@ try {
         if (file_exists($defaultImagePath)) {
             $imageContent = file_get_contents($defaultImagePath);
             $mimeType = mime_content_type($defaultImagePath);
+            while (ob_get_level()) ob_end_clean();
             header('Content-Type: ' . $mimeType);
-            header('Content-Length: ' . strlen($imageContent));
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . mb_strlen($imageContent, '8bit'));
             echo $imageContent;
         } else {
             http_response_code(404);
