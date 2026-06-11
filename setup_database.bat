@@ -1,37 +1,67 @@
 @echo off
-set DB_NAME=alphadocere_kreative
-set SQL_FILE=alphadocere_Kreative_red.sql
+chcp 65001 >nul
+echo ================================================
+echo  Gen10 - Importador de Base de Datos
+echo ================================================
+echo.
 
-echo 🚀 Gen10 - Importador Automatico de Base de Datos
-echo --------------------------------------------------
-
-:: Intentar encontrar mysql en la ruta de XAMPP
+:: Configuracion - ajusta si tu XAMPP esta en otro disco
 set MYSQL_PATH=C:\xampp\mysql\bin\mysql.exe
+set DB_USER=root
+set DB_PASS=
+set DB_NAME=alphadocere_kreative
+set SQL_FILE=%~dp0alphadocere_kreative.sql
 
+:: Verificar que MySQL existe
 if not exist "%MYSQL_PATH%" (
-    echo ❌ No se encontro MySQL en %MYSQL_PATH%
-    set /p MYSQL_PATH="Por favor, ingresa la ruta completa a mysql.exe: "
-)
-
-:: Verificar si el archivo SQL existe
-if not exist "%SQL_FILE%" (
-    echo ❌ ERROR: No se encontro el archivo %SQL_FILE%
-    echo ℹ️  Debes solicitar la base de datos actualizada al encargado del proyecto, 
-    echo    ya que por seguridad no se incluye en el repositorio de Git.
+    echo [ERROR] No se encontro MySQL en: %MYSQL_PATH%
+    echo Edita este archivo y ajusta la variable MYSQL_PATH
     pause
-    exit /b
+    exit /b 1
 )
 
-echo 📦 Creando base de datos si no existe: %DB_NAME%
-"%MYSQL_PATH%" -u root -e "CREATE DATABASE IF NOT EXISTS %DB_NAME%;"
+:: Verificar que el archivo SQL existe
+if not exist "%SQL_FILE%" (
+    echo [ERROR] No se encontro el archivo: %SQL_FILE%
+    echo Asegurate de que alphadocere_kreative.sql este en la misma carpeta que este .bat
+    pause
+    exit /b 1
+)
 
-echo ⏳ Importando %SQL_FILE%... esto puede tardar un minuto...
-"%MYSQL_PATH%" -u root %DB_NAME% < %SQL_FILE%
+echo [1/3] Creando base de datos si no existe: %DB_NAME%
+"%MYSQL_PATH%" -u%DB_USER% %DB_PASS% -e "CREATE DATABASE IF NOT EXISTS `%DB_NAME%` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;"
+if errorlevel 1 (
+    echo [ERROR] No se pudo conectar a MySQL. Verifica que XAMPP este corriendo.
+    pause
+    exit /b 1
+)
 
-if %ERRORLEVEL% equ 0 (
-    echo ✅ Importacion completada con exito!
+echo [2/3] Aumentando limite de paquetes para imagenes grandes...
+"%MYSQL_PATH%" -u%DB_USER% %DB_PASS% -e "SET GLOBAL max_allowed_packet=256*1024*1024;"
+
+echo [3/3] Importando %DB_NAME%.sql... esto puede tardar varios minutos...
+"%MYSQL_PATH%" -u%DB_USER% %DB_PASS% --max_allowed_packet=256M %DB_NAME% < "%SQL_FILE%"
+
+if errorlevel 1 (
+    echo.
+    echo [ERROR] Hubo un error en la importacion.
+    echo.
+    echo Posibles causas:
+    echo  - XAMPP no esta corriendo (inicia Apache y MySQL desde XAMPP Control Panel)
+    echo  - El archivo SQL esta corrupto
+    echo  - La contrasena de MySQL es incorrecta (edita DB_PASS en este archivo)
+    echo.
 ) else (
-    echo ❌ Hubo un error en la importacion.
+    echo.
+    echo ================================================
+    echo  Importacion completada exitosamente!
+    echo  Base de datos: %DB_NAME%
+    echo  Tablas importadas: clients, education, experience,
+    echo    imagenes, imagenes_clientes, interest, profile,
+    echo    proyectos, proyectos_detalles, review, skill,
+    echo    social, status, users  (14 tablas)
+    echo ================================================
 )
 
+echo.
 pause
