@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="../frontend/css/base/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="../assets/img/letra-k.png" type="image/x-icon">
+    <style>
+        nav {
+            max-width: 100% !important;
+            padding: 1rem !important;
+        }
+        .headernav li a.button-53 {
+            white-space: nowrap !important;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -31,6 +40,9 @@
                 <span></span>
                 <span></span>
             </div>
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
         </nav>
     </header>
     <div id="proyecto-container">
@@ -109,6 +121,7 @@
         </div>
     </footer>
     
+    <script src="./js/theme-toggle.js"></script>
     <script src="./js/project-admin-detail.js"></script>
     <script src="./js/project-admin.js"></script>
     <script src="./js/config.js"></script>    

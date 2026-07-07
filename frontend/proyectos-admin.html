@@ -37,6 +37,13 @@
             background-color: #45a049;
         }
 
+        nav {
+            max-width: 100% !important;
+            padding: 1rem !important;
+        }
+        .headernav li a.button-53 {
+            white-space: nowrap !important;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +68,9 @@
                 <span></span>
                 <span></span>
             </div>
+            <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon"></i>
+            </button>
         </nav>
     </header>
 
@@ -103,8 +113,9 @@
         </div>
 
     </section>   
-    <script src="./js/config.js"></script>  
+    <script src="./js/config.js"></script>
     <script src="./js/project-admin.js"></script>
+    <script src="./js/theme-toggle.js"></script>
     
     <script src="../frontend/js/logout.js"></script>
     <script src="../frontend/js/verifylogin.js"></script>
