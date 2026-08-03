@@ -46,33 +46,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 data.data.reviews.forEach((review, index) => {
                     const reviewTable = document.createElement('tr');
                     reviewTable.classList.add('review-row'); 
+                    reviewTable.setAttribute('data-review-id', review.id);
 
                     reviewTable.innerHTML = `
-                        <td class="td-medium">${review.nameClient}</td>
+                        <td class="td-medium" style="cursor: pointer; font-weight: bold; color: #2e7d32;" onclick="toggleReviewDetails(${review.id})">
+                            <i class="fa-solid fa-chevron-right" id="icon-review-${review.id}" style="margin-right: 8px; transition: transform 0.3s;"></i>
+                            ${review.nameClient}
+                        </td>
                         <td class="td-medium">${review.nombre_perfil}</td>
-                        <td class="td-medium">${review.company}</td>
-                        <td class="td-large">${review.comments}</td>
-                        <td class="td-small">
-                            <div class="imgRating-${review.id}"></div>
-                        </td>
                         <td class="status td-small" id="actualState">${review.estado_reseña}</td>
-                        <td class="td-small">
-                            <select id="review-status-${review.id}" onchange="changeStatus(${review.id})">
-                                <option>Cambiar estado</option>
-                                <option value="1" ${review.estado_reseña === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
-                                <option value="2" ${review.estado_reseña === 'Aprobada' ? 'selected' : ''}>Aprobada</option>
-                                <option value="3" ${review.estado_reseña === 'Rechazada' ? 'selected' : ''}>Rechazada</option>
-                            </select>
-                        </td>
                     `;
                     tbReviews.appendChild(reviewTable);
 
-                    // Inserta la fila en el cuerpo de la tabla
-                    /*                 console.log(reviewTable) */
-                    tbReviews.appendChild(reviewTable);
+                    const detailRow = document.createElement('tr');
+                    detailRow.classList.add('review-detail-row');
+                    detailRow.id = `detail-review-${review.id}`;
+                    detailRow.style.display = 'none';
+                    detailRow.innerHTML = `
+                        <td colspan="3" style="padding: 15px 30px; background-color: #f9f9f9; text-align: left; border-bottom: 2px solid #ddd;">
+                            <div style="margin-bottom: 8px;"><strong>Empresa:</strong> ${review.company}</div>
+                            <div style="margin-bottom: 8px;"><strong>Comentario:</strong> ${review.comments}</div>
+                            <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px;">
+                                <strong>Valoración:</strong> 
+                                <div class="imgRating-${review.id}" style="display: flex;"></div>
+                            </div>
+                            <div>
+                                <strong>Acciones:</strong>
+                                <select id="review-status-${review.id}" onchange="changeStatus(${review.id})" style="padding: 4px; margin-left: 5px;">
+                                    <option>Cambiar estado</option>
+                                    <option value="1" ${review.estado_reseña === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                                    <option value="2" ${review.estado_reseña === 'Aprobada' ? 'selected' : ''}>Aprobada</option>
+                                    <option value="3" ${review.estado_reseña === 'Rechazada' ? 'selected' : ''}>Rechazada</option>
+                                </select>
+                            </div>
+                        </td>
+                    `;
+                    tbReviews.appendChild(detailRow);
 
                     // Agregar estrellas en la valoración
-                    const imgRatingContainer = reviewTable.querySelector(`.imgRating-${review.id}`);
+                    const imgRatingContainer = detailRow.querySelector(`.imgRating-${review.id}`);
                     const numberRating = review.rating;
                     // Se itera sobre el valor de la valoración para agregar las estrellas
                     for (let i = 0; i < numberRating; i++) {
@@ -80,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         // URL de la estrella
                         estrella.src = "../assets/img/star.png";
                         estrella.alt = "Estrella";
-                        estrella.classList.add('rating')
+                        estrella.classList.add('rating');
                         imgRatingContainer.appendChild(estrella);
                     }
                 });
@@ -97,29 +109,38 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function filterReviews() {
     const filter = document.getElementById("filter-reviews").value;  // El valor del filtro seleccionado
-    const rows = document.querySelectorAll("#tbReviews tr");          // Las filas de la tabla
-    const estado = document.getElementById("actualState").textContent.trim();  // El valor actual del estado
+    const rows = document.querySelectorAll("#tbReviews tr.review-row"); // Iterar solo las principales
 
-    console.log(filter)
-    console.log(estado)
     rows.forEach(row => {
-        const statusCell = row.querySelector(".status"); // Ajusta el selector según tu HTML
+        const statusCell = row.querySelector(".status"); 
+        const reviewId = row.getAttribute('data-review-id');
+        const detailRow = document.getElementById(`detail-review-${reviewId}`);
+
         if (statusCell) {
-            const status = statusCell.textContent.trim();  // Obtén el texto de la celda de estado
-            if (filter === "todas") {
-                row.style.display = "";  // Muestra la fila si se seleccionan todas
-            }
-            // Si el estado de la fila coincide con el filtro, muestra la fila
-            else if (status === filter) {
-                // Si el estado coincide con el filtro o el filtro es "todos", muestra la fila
-                row.style.display = "";
+            const status = statusCell.textContent.trim();  
+            if (filter === "todas" || status === filter) {
+                row.style.display = "";  
             } else {
-                // Si no coincide, oculta la fila
                 row.style.display = "none";
+                if(detailRow) detailRow.style.display = "none";
+                const icon = document.getElementById(`icon-review-${reviewId}`);
+                if(icon) icon.style.transform = 'rotate(0deg)';
             }
         }
     });
 }
+
+window.toggleReviewDetails = function(id) {
+    const detailRow = document.getElementById(`detail-review-${id}`);
+    const icon = document.getElementById(`icon-review-${id}`);
+    if (detailRow.style.display === 'none') {
+        detailRow.style.display = 'table-row';
+        icon.style.transform = 'rotate(90deg)';
+    } else {
+        detailRow.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+    }
+};
 
 function redirectToUpdate(profileId) {
     window.location.href = `./actualizar-perfil.html?id=${profileId}`;

@@ -71,7 +71,10 @@
 
     <section class="profiles-section" id="perfiles">
         <div class="info-container">
-            <h1 class="info-title">Equipo de trabajadores</h1>
+            <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 10px;">
+                <h1 class="info-title" style="margin-bottom: 0;">Equipo de trabajadores</h1>
+                <button class="button-link" style="border: none; cursor: pointer; font-family: inherit; font-size: 1rem;" onclick="document.getElementById('reviewsModal').showModal()">Ver Reseñas <i class="fa-solid fa-table-list" style="margin-left: 5px;"></i></button>
+            </div>
                 <div id="filtro-nombre" style="margin-bottom: 5px;">
                     <label for="searchInput" style="font-weight: bold;">Buscar por nombre:</label>
                     <input type="text" id="searchInput" placeholder="Escribe un nombre..." style="padding: 5px; width: 250px;">
@@ -96,35 +99,36 @@
         </div>
     </section>
 
-    <section class="reviews-section" id="reviews">
-        <div class="info-container">
-            <h1 class="info-title">Reseñas</h1>
-            <div>
-                <label>Filtrar reseñas:</label>
-                <select id="filter-reviews" onchange="filterReviews()">
-                    <option value="todas">Todas</option>
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="Aprobada">Aprobada</option>
-                    <option value="Rechazada">Rechazada</option>
-                </select>
+    <dialog id="reviewsModal" class="modal" style="width: 90%; max-width: 1200px; padding: 20px; border-radius: 10px;">
+        <button onclick="document.getElementById('reviewsModal').close()" style="float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #333;"><i class="fa-solid fa-xmark"></i></button>
+        <section class="reviews-section" id="reviews" style="padding: 20px;">
+            <div class="info-container" style="margin-bottom: 20px;">
+                <h1 class="info-title">Reseñas</h1>
+                <div>
+                    <label>Filtrar reseñas:</label>
+                    <select id="filter-reviews" onchange="filterReviews()">
+                        <option value="todas">Todas</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aprobada">Aprobada</option>
+                        <option value="Rechazada">Rechazada</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Desarrollador</th>
-                    <th>Empresa</th>
-                    <th>Comentario</th>
-                    <th>Valoración</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tbReviews"></tbody>
-        </table>
-    </section>
+            <div style="overflow-x: auto;">
+                <table style="margin-bottom: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Desarrollador</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbReviews"></tbody>
+                </table>
+            </div>
+        </section>
+    </dialog>
 
 
     
