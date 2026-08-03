@@ -7,6 +7,7 @@
     <link href="../frontend/css/admin/index-admin.css" rel="stylesheet" />
     <link rel="stylesheet" href="../frontend/css/base/footer.css">
     <link rel="stylesheet" href="../frontend/css/proyectos.css">
+    <link rel="stylesheet" href="../frontend/css/modal-detalle-proyecto.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -100,6 +101,19 @@
             <div class="contenedor-cards" id="tablaProyectosSinClasificar">
                 <!-- Los proyectos sin clasificar se cargan dinámicamente aquí -->
             </div>
+        <!-- Modal Detalle de Proyecto -->
+        <div id="modal-detalle-proyecto" class="modal-proyecto-overlay" aria-hidden="true">
+            <div class="modal-proyecto-container">
+                <button class="modal-proyecto-cerrar" id="cerrar-modal-proyecto" aria-label="Cerrar modal">&times;</button>
+                <div id="modal-proyecto-contenido">
+                    <!-- Contenido cargado dinámicamente -->
+                </div>
+            </div>
+        </div>
+        <!-- Toast Notificación -->
+        <div id="compartir-toast" class="compartir-toast">
+            <i class="fas fa-check-circle"></i>
+            <span>¡Enlace copiado al portapapeles!</span>
         </div>
 
     </section>   

@@ -19,10 +19,36 @@ document.addEventListener("DOMContentLoaded", async function () {
         const contenedor = document.getElementById("proyecto-container");
         contenedor.innerHTML = ""; // Limpiar contenido previo
 
+        const shareUrl = window.location.href;
+        const shareText = `Echa un vistazo a este proyecto: ${proyecto.titulo || 'Proyecto Alpha Docere'}`;
+
         //Sección de información del evento
         let html = `
             <div id="evento" class="evento-info">
                 <h2 id="titulo-evento">${proyecto.titulo}</h2>
+
+                <!-- Menú desplegable Compartir -->
+                <div class="proyecto-compartir-contenedor" id="compartir-contenedor" style="margin-bottom: 1.5rem;">
+                    <button type="button" class="btn-compartir-main" id="btn-toggle-compartir">
+                        <i class="fas fa-share-alt"></i> Compartir proyecto
+                    </button>
+
+                    <div class="compartir-menu-desplegable" id="menu-compartir">
+                        <button type="button" class="compartir-item copiar" id="btn-copiar-enlace">
+                            <i class="far fa-copy"></i> Copiar Enlace
+                        </button>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}" target="_blank" rel="noopener noreferrer" class="compartir-item linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}" target="_blank" rel="noopener noreferrer" class="compartir-item whatsapp">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}" target="_blank" rel="noopener noreferrer" class="compartir-item twitter">
+                            <i class="fab fa-twitter"></i> X (Twitter)
+                        </a>
+                    </div>
+                </div>
+
                 <p id="descripcion-evento">${proyecto.contenido}</p>
         `;
 
@@ -187,6 +213,44 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Agregar todo el HTML al contenedor
         contenedor.innerHTML = html;
+
+        // Inicializar menú de compartir
+        const compartirContenedor = document.getElementById("compartir-contenedor");
+        const toggleBtn = document.getElementById("btn-toggle-compartir");
+        const copiarBtn = document.getElementById("btn-copiar-enlace");
+
+        if (toggleBtn && compartirContenedor) {
+            toggleBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                compartirContenedor.classList.toggle("open");
+            });
+        }
+
+        document.addEventListener("click", (e) => {
+            if (compartirContenedor && !compartirContenedor.contains(e.target)) {
+                compartirContenedor.classList.remove("open");
+            }
+        });
+
+        if (copiarBtn) {
+            copiarBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(shareUrl).then(() => {
+                        alert("¡Enlace copiado al portapapeles!");
+                    });
+                } else {
+                    const ta = document.createElement("textarea");
+                    ta.value = shareUrl;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(ta);
+                    alert("¡Enlace copiado al portapapeles!");
+                }
+                if (compartirContenedor) compartirContenedor.classList.remove("open");
+            });
+        }
 
     } catch (error) {
         console.error("Error en la petición:", error);

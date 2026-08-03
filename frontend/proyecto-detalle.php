@@ -9,6 +9,7 @@
     <link href="../frontend/css/admin/proyecto-detalle.css" rel="stylesheet" />    
     <link href="../frontend/css/base/index.css" rel="stylesheet" />
     <link href="../frontend/css/participantes-estados.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../frontend/css/modal-detalle-proyecto.css">
     <link rel="stylesheet" href="../frontend/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="../assets/img/letra-k.png" type="image/x-icon">
