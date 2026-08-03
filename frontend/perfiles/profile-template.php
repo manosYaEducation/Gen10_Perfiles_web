@@ -39,20 +39,19 @@
         <div class="container-fluid p-0">
             <section id="about">
                 <div id="resume-section-hero">
-                    <img src="<?php echo htmlspecialchars($metaImage); ?>"
-                     id="profile_image"
-                     class="imagen-participante" 
-                     alt="Imagen de <?php echo htmlspecialchars($profile['name']); ?>">
+                    <div class="profile-cover" role="img" aria-label="Banner del perfil">
+                        <span class="profile-cover-brand" aria-hidden="true">K</span>
+                    </div>
+                    <div class="profile-identity-row">
+                        <img src="<?php echo htmlspecialchars($metaImage); ?>"
+                         id="profile_image"
+                         class="imagen-participante"
+                         alt="Imagen de <?php echo htmlspecialchars($profile['name']); ?>">
+                        <div id="social-icons-hero" class="social-icons-hero" aria-label="Redes sociales" hidden></div>
+                    </div>
                     <h1 id="name-hero" class="mb-0"><?php echo htmlspecialchars($profile['name']); ?></h1>
                     <div id="personal-information-hero"></div>
                     <p id="description-hero"></p>
-                    <!-- <div id="social-icons-hero">
-                        <a class="social-icon" href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="social-icon" href="#" target="_blank"><i class="fab fa-github"></i></a>
-                        <a class="social-icon" href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a class="social-icon" href="#" target="_blank"><i class="fab fa-twitch"></i></a>
-                        <a class="social-icon" href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-                    </div> -->
                 </div>
             </section>
             <hr class="m-0" />
@@ -106,13 +105,6 @@
                     <p id="contact-info-section"></p>
                 </div>
             </section>
-            <hr class="m-0" />
-            <section class="resume-section" id="social" >
-                <div class="social-section">
-                    <h2 class="mb-5">Redes Sociales</h2>
-                    <p id="social-links"></p>
-                </div>
-
             <hr class="m-0" />
             <section class="resume-section" id="review">
                 <div class="review-section">

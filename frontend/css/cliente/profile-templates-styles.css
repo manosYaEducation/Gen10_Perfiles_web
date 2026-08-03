@@ -117,13 +117,59 @@ ul {
 }
 
 #about {
-    padding: 30px 0;
+    padding: 0 0 30px;
     margin-top: 80px;
     font-size: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
+}
+
+#resume-section-hero {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface-color);
+  box-shadow: var(--shadow-md);
+}
+
+.profile-cover {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 82% 28%, rgb(255 255 255 / 0.2) 0 7%, transparent 7.5%),
+    radial-gradient(circle at 90% 70%, rgb(255 255 255 / 0.12) 0 13%, transparent 13.5%),
+    linear-gradient(125deg, #194d34 0%, #4caf4f 58%, #8acb78 100%);
+}
+
+.profile-cover::after {
+  content: "";
+  position: absolute;
+  inset: auto -8% -65% 34%;
+  height: 115%;
+  border: 2px solid rgb(255 255 255 / 0.22);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+.profile-cover-brand {
+  position: absolute;
+  top: 50%;
+  right: 7%;
+  color: rgb(255 255 255 / 0.16);
+  font-family: "Saira Extra Condensed", sans-serif;
+  font-size: 13rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-50%);
+  user-select: none;
+}
+
+.profile-identity-row {
+  min-height: 88px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 38px;
 }
 
 
@@ -146,34 +192,51 @@ ul {
 }
 
 #name-hero {
-  font-size: 64px;
-  margin: 36px;
+  font-size: 56px;
+  margin: 28px 32px 18px;
 }
 
-#social-icons-hero {
+.social-icons-hero {
   display: flex;
-  justify-content: center;
-  margin: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-bottom: 16px;
 }
 
 .social-icon {
-  display: flex;
-  margin: 12px;
-  color: black;
-  transition: transform 0.3s, margin 0.3s;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  font-size: 20px;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .social-icon:hover {
-  transform: scale(1.9);
-  margin: 0 20px;
+  transform: translateY(-3px);
+  color: var(--primary-color);
+  box-shadow: var(--shadow-md);
 }
 
 .imagen-participante {
   width: 220px;
   height: 220px;
+  margin-top: -145px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #4caf50;
+  border: 6px solid var(--surface-color);
+  background: var(--surface-color);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -413,6 +476,24 @@ hr {
     gap: 1rem;
   }
 
+  .profile-cover {
+    height: 190px;
+  }
+
+  .profile-cover-brand {
+    font-size: 9rem;
+  }
+
+  .profile-identity-row {
+    padding: 0 24px;
+  }
+
+  .imagen-participante {
+    width: 180px;
+    height: 180px;
+    margin-top: -115px;
+  }
+
   .reviews-column {
     grid-template-columns: 1fr;
   }
@@ -429,11 +510,35 @@ hr {
 @media (max-width: 480px) {
   #name-hero {
     font-size: 2.5rem;
+    margin-top: 22px;
+  }
+
+  .profile-cover {
+    height: 150px;
+  }
+
+  .profile-identity-row {
+    min-height: 76px;
+    align-items: flex-end;
+    padding: 0 16px;
   }
 
   .imagen-participante {
-    width: 150px;
-    height: 150px;
+    width: 132px;
+    height: 132px;
+    margin-top: -82px;
+    border-width: 4px;
+  }
+
+  .social-icons-hero {
+    gap: 7px;
+    padding-bottom: 10px;
+  }
+
+  .social-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
   }
 
   .timeline-item {
@@ -468,7 +573,7 @@ hr {
 .nav-link:focus,
 .volver-link:focus,
 .add-review-button:focus,
-#social-links a:focus {
+.social-icon:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }

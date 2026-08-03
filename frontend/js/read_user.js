@@ -72,11 +72,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById('p-skill-section').innerHTML = 'No hay habilidades disponibles.';
         }
         
-        // Redes sociales
-        const socialLinksElement = document.getElementById('social-links');
-        socialLinksElement.innerHTML = profile.social.map(social => `
-            <a href="${social.url}" target="_blank">${social.platform || 'Plataforma no disponible'}</a>
-        `).join(', ');
+        // Redes sociales de la cabecera
+        renderSocialLinks(profile.social || []);
 
         // Reviews
         const starFilled = 'https://kreative.alphadocere.cl/assets/img/star.png';
@@ -120,3 +117,48 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 });
+
+function renderSocialLinks(socialNetworks) {
+    const container = document.getElementById('social-icons-hero');
+    if (!container) return;
+
+    const iconByPlatform = {
+        facebook: ['fa-brands', 'fa-facebook-f'],
+        github: ['fa-brands', 'fa-github'],
+        instagram: ['fa-brands', 'fa-instagram'],
+        linkedin: ['fa-brands', 'fa-linkedin-in'],
+        tiktok: ['fa-brands', 'fa-tiktok'],
+        twitch: ['fa-brands', 'fa-twitch'],
+        twitter: ['fa-brands', 'fa-x-twitter'],
+        x: ['fa-brands', 'fa-x-twitter'],
+        whatsapp: ['fa-brands', 'fa-whatsapp'],
+        youtube: ['fa-brands', 'fa-youtube']
+    };
+
+    container.replaceChildren();
+
+    socialNetworks.forEach((social) => {
+        const platform = String(social.platform || '').trim();
+        const platformKey = platform.toLowerCase();
+        const url = String(social.url || '').trim();
+
+        if (!url || !/^https?:\/\//i.test(url)) return;
+
+        const link = document.createElement('a');
+        const icon = document.createElement('i');
+        const iconClasses = iconByPlatform[platformKey] || ['fa-solid', 'fa-link'];
+
+        link.className = `social-icon social-icon--${platformKey.replace(/[^a-z0-9-]/g, '') || 'web'}`;
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.setAttribute('aria-label', platform || 'Sitio web');
+        link.title = platform || 'Sitio web';
+        icon.classList.add(...iconClasses);
+        icon.setAttribute('aria-hidden', 'true');
+        link.appendChild(icon);
+        container.appendChild(link);
+    });
+
+    container.hidden = container.childElementCount === 0;
+}
