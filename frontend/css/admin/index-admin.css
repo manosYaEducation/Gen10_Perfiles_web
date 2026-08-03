@@ -330,6 +330,100 @@ nav {
     padding: 50px;
 }
 
+/* ============================
+   RE-02 / RE-03: Dashboard de indicadores de reseñas
+   ============================ */
+.reviews-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px 25px;
+    min-width: 130px;
+    text-align: center;
+    border-top: 4px solid #ccc;
+}
+
+.dashboard-card .dashboard-value {
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.dashboard-card .dashboard-label {
+    font-size: 0.85em;
+    color: #666;
+}
+
+.dashboard-card--pendiente {
+    border-top-color: #f39c12;
+}
+
+.dashboard-card--aprobada {
+    border-top-color: #2ecc71;
+}
+
+.dashboard-card--rechazada {
+    border-top-color: #e74c3c;
+}
+
+/* ============================
+   RE-06 / RE-09 / RE-10: Filtros avanzados de reseñas
+   ============================ */
+.reviews-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f7f7f7;
+    border-radius: 8px;
+}
+
+.reviews-filters .filter-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.reviews-filters label {
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.reviews-filters select,
+.reviews-filters input[type="date"] {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-left: 0;
+    width: auto;
+}
+
+.btn-limpiar-filtros {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #7f8c8d;
+    color: white;
+    cursor: pointer;
+    height: fit-content;
+}
+
+.btn-limpiar-filtros:hover {
+    background-color: #626b6b;
+}
+
 h4 {
     text-align: center;
 }
@@ -994,6 +1088,27 @@ body.dark-mode #searchInput {
 body.dark-mode .modal {
   background-color: var(--card-bg);
   color: var(--text-color);
+}
+
+body.dark-mode .dashboard-card {
+  background: var(--card-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  color: var(--text-color);
+}
+
+body.dark-mode .dashboard-card .dashboard-label {
+  color: #ccc;
+}
+
+body.dark-mode .reviews-filters {
+  background: #1e1e1e;
+}
+
+body.dark-mode .reviews-filters select,
+body.dark-mode .reviews-filters input[type="date"] {
+  background-color: #2d2d2d;
+  color: var(--text-color);
+  border-color: var(--border-color);
 }
 
 body.dark-mode .modal::backdrop {

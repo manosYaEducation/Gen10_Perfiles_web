@@ -104,15 +104,65 @@
         <section class="reviews-section" id="reviews" style="padding: 20px;">
             <div class="info-container" style="margin-bottom: 20px;">
                 <h1 class="info-title">Reseñas</h1>
-                <div>
-                    <label>Filtrar reseñas:</label>
-                    <select id="filter-reviews" onchange="filterReviews()">
+            </div>
+
+            <!-- RE-02 / RE-03: Dashboard de indicadores -->
+            <div class="reviews-dashboard" id="reviewsDashboard">
+                <div class="dashboard-card">
+                    <span class="dashboard-value" id="dashTotal">0</span>
+                    <span class="dashboard-label">Total reseñas</span>
+                </div>
+                <div class="dashboard-card">
+                    <span class="dashboard-value" id="dashPromedio">0.0</span>
+                    <span class="dashboard-label">Calificación promedio</span>
+                </div>
+                <div class="dashboard-card dashboard-card--pendiente">
+                    <span class="dashboard-value" id="dashPendientes">0</span>
+                    <span class="dashboard-label">Pendientes</span>
+                </div>
+                <div class="dashboard-card dashboard-card--aprobada">
+                    <span class="dashboard-value" id="dashAprobadas">0</span>
+                    <span class="dashboard-label">Aprobadas</span>
+                </div>
+                <div class="dashboard-card dashboard-card--rechazada">
+                    <span class="dashboard-value" id="dashRechazadas">0</span>
+                    <span class="dashboard-label">Rechazadas</span>
+                </div>
+            </div>
+
+            <!-- RE-06 / RE-09 / RE-10: Estructura base de filtros avanzados -->
+            <div class="reviews-filters" id="reviewsFilters">
+                <div class="filter-group">
+                    <label for="filter-reviews">Estado</label>
+                    <select id="filter-reviews">
                         <option value="todas">Todas</option>
                         <option value="Pendiente">Pendiente</option>
                         <option value="Aprobada">Aprobada</option>
                         <option value="Rechazada">Rechazada</option>
                     </select>
                 </div>
+                <div class="filter-group">
+                    <label for="filter-fecha-desde">Desde</label>
+                    <input type="date" id="filter-fecha-desde">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-fecha-hasta">Hasta</label>
+                    <input type="date" id="filter-fecha-hasta">
+                </div>
+                <div class="filter-group">
+                    <label for="filter-rating">Calificación</label>
+                    <select id="filter-rating">
+                        <option value="0">Todas</option>
+                        <option value="1">⭐ 1 estrella (crítica)</option>
+                        <option value="2">⭐⭐ 2 estrellas</option>
+                        <option value="3">⭐⭐⭐ 3 estrellas</option>
+                        <option value="4">⭐⭐⭐⭐ 4 estrellas</option>
+                        <option value="5">⭐⭐⭐⭐⭐ 5 estrellas (destacada)</option>
+                    </select>
+                </div>
+                <button type="button" class="btn-limpiar-filtros" id="btnLimpiarFiltrosReseñas">
+                    <i class="fa-solid fa-filter-circle-xmark"></i> Limpiar filtros
+                </button>
             </div>
 
             <div style="overflow-x: auto;">
