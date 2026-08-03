@@ -76,6 +76,27 @@ try {
         }
     }
 
+// Guardar Tecnologías
+if (!empty($_POST['tecnologias_json'])) {
+
+    $tecnologias = json_decode($_POST['tecnologias_json'], true);
+
+    if (is_array($tecnologias)) {
+
+        $stmt = $conn->prepare("
+            INSERT INTO proyectos_detalles (tipo, descripcion, id_proyecto)
+            VALUES ('tecnologia', ?, ?)
+        ");
+
+        foreach ($tecnologias as $tecnologia) {
+            $stmt->execute([
+                $tecnologia,
+                $id_proyecto
+            ]);
+        }
+    }
+}
+
     // Guardar Imágenes (permitiendo subir múltiples imágenes)
     if (!empty($_FILES['imagenes']['name'][0])) {
         // Definir la carpeta de destino al mismo nivel que el backend

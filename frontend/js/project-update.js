@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             agregarCampoParrafo(parrafo);
         });
 
+        // Cargar tecnologías
+        tecnologias = project.detalles.tecnologias || [];
+        renderizarTecnologias();
+
         // Cargar estado del proyecto
         if (project.detalles.estado && project.detalles.estado.length > 0) {
             document.getElementById('estado_proyecto').value = project.detalles.estado[0];
@@ -244,6 +248,7 @@ function nuevosDatos() {
     formData.append('ubicacion', document.getElementById('ubicacion').value);
     formData.append('contenido_proyecto', document.getElementById('contenido_proyecto').value);
     formData.append('estado_proyecto', document.getElementById('estado_proyecto').value);
+    formData.append("tecnologias_json", JSON.stringify(tecnologias));
 
     // Párrafos
     document.querySelectorAll('textarea[name="parrafos[]"]').forEach(parrafo => {
@@ -317,6 +322,8 @@ function nuevosDatos() {
         formData.append('enlaces_url[]', enlacesUrl[i].value);
     }
     
+
+
     return formData;
 }
 
@@ -324,6 +331,7 @@ function nuevosDatos() {
  * Variables globales
  * ------------------------- */
 let selectedImages = [];
+let tecnologias = [];
 let listaGlobalClientes = [];
 let listaGlobalParticipantes = [];
 let clientesSeleccionados = new Set();
@@ -597,4 +605,44 @@ function renderizarImagenes() {
             preview.appendChild(divImagen);
         });
     }
+}
+function agregarTecnologia() {
+    const input = document.getElementById("input-tecnologia");
+    const tecnologia = input.value.trim();
+
+    if (tecnologia === "") return;
+
+    if (!tecnologias.includes(tecnologia)) {
+        tecnologias.push(tecnologia);
+    }
+
+    renderizarTecnologias();
+
+    input.value = "";
+}
+
+function eliminarTecnologia(index) {
+    tecnologias.splice(index, 1);
+    renderizarTecnologias();
+}
+
+function renderizarTecnologias() {
+    const contenedor = document.getElementById("contenedor-tecnologias");
+
+    contenedor.innerHTML = "";
+
+    tecnologias.forEach((tec, index) => {
+        contenedor.innerHTML += `
+            <div class="tecnologia-item">
+                <span>${tec}</span>
+                <button type="button"
+                        onclick="eliminarTecnologia(${index})">
+                    ✕
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById("tecnologias-json").value =
+        JSON.stringify(tecnologias);
 }

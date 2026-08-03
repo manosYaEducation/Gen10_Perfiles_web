@@ -6,6 +6,51 @@ let listaGlobalClientes = [];
 let clientesSeleccionados = [];
 let listaGlobalParticipantes = [];
 let participantesSeleccionados = [];
+let tecnologias = [];
+
+/* -------------------------
+ * Manejo de Tecnologías
+ * ------------------------- */
+
+function agregarTecnologia() {
+    const input = document.getElementById("input-tecnologia");
+    const tecnologia = input.value.trim();
+
+    if (tecnologia === "") return;
+
+    tecnologias.push(tecnologia);
+    renderizarTecnologias();
+
+    input.value = "";
+}
+
+function eliminarTecnologia(index) {
+    tecnologias.splice(index, 1);
+    renderizarTecnologias();
+}
+
+function renderizarTecnologias() {
+    const contenedor = document.getElementById("contenedor-tecnologias");
+
+    contenedor.innerHTML = "";
+
+    tecnologias.forEach((tec, index) => {
+        contenedor.innerHTML += `
+            <div class="tecnologia-item">
+                ${tec}
+                <button type="button"
+                        onclick="eliminarTecnologia(${index})">
+                    ✕
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById("tecnologias-json").value =
+        JSON.stringify(tecnologias);
+}
+
+
 
 /* -------------------------
  * Manejo de Párrafos
@@ -402,7 +447,10 @@ document.getElementById("form-proyecto").addEventListener("submit", async functi
         formData.append("imagenes[]", item.file);
         formData.append(`descripciones[]`, item.descripcion);
     });
-
+    formData.append(
+    "tecnologias_json",
+    JSON.stringify(tecnologias)
+    );
     try {
         const response = await fetch(form.action, {
             method: 'POST',

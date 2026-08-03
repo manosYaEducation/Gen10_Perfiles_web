@@ -66,6 +66,40 @@ try {
         ]);
     }
 
+    // Guardar Tecnologías
+if (!empty($data['tecnologias_json'])) {
+
+    $tecnologias = json_decode($data['tecnologias_json'], true);
+
+    if (is_array($tecnologias)) {
+
+        // Eliminar tecnologías anteriores
+        $stmt = $conn->prepare("
+            DELETE FROM proyectos_detalles
+            WHERE id_proyecto = ?
+            AND tipo = 'tecnologia'
+        ");
+
+        $stmt->execute([
+            $data['id_proyecto']
+        ]);
+
+        // Insertar las nuevas
+        $stmt = $conn->prepare("
+            INSERT INTO proyectos_detalles
+            (id_proyecto, tipo, descripcion)
+            VALUES (?, 'tecnologia', ?)
+        ");
+
+        foreach ($tecnologias as $tec) {
+            $stmt->execute([
+                $data['id_proyecto'],
+                $tec
+            ]);
+        }
+    }
+}
+
     // Insertar párrafos actualizados
     if (!empty($data['parrafos'])) {
         $sqlParrafos = "INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion) 

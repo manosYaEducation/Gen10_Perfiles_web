@@ -40,6 +40,25 @@
     <label>Contenido del Proyecto:</label>
     <textarea name="contenido_proyecto" required class="campo" id="contenido_proyecto"></textarea>
 
+    <h3>Tecnologías Utilizadas</h3>
+
+<div id="contenedor-tecnologias"></div>
+
+<div class="agregar-tecnologia">
+    <input 
+        type="text" 
+        id="input-tecnologia" 
+        placeholder="Ej: PHP, MySQL, JavaScript" 
+        class="campo"
+    >
+
+    <button type="button" onclick="agregarTecnologia()">
+        Agregar Tecnología
+    </button>
+</div>
+
+<input type="hidden" name="tecnologias_json" id="tecnologias-json">
+
     <h3>Párrafos</h3>
     <div id="contenedor-parrafos"></div>
     <button type="button" onclick="agregarCampoParrafo()">Agregar Párrafo</button>
