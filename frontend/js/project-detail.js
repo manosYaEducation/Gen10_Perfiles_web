@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         html += `</div>`;
 
-        // Galería de imágenes
+        // Galería de imágenes (con fallback de imagen por defecto)
         if (proyecto.detalles?.imagenes?.length > 0) {
             html += `
                 <section class="galeria">
@@ -56,11 +56,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                     <div class="galeria-container">
                         ${proyecto.detalles.imagenes.map(img => `                            
                             <div class="galeria-item">
-                                <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto">
+                                <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto" onerror="this.onerror=null; this.src='../assets/img/proyecto-default.svg';">
                                 <p class="descripcion-imagen">${img.descripcion}</p>
                             </div>                            
                         `).join("")}
                         
+                    </div>
+                </section>
+            `;
+        } else {
+            // Imagen por defecto cuando no hay recursos visuales
+            html += `
+                <section class="galeria">
+                    <h2>Vista Previa del Proyecto</h2>
+                    <div class="galeria-container" style="grid-template-columns: 1fr; justify-content: center;">
+                        <div class="galeria-item" style="max-width: 600px; width: 100%; margin: 0 auto;">
+                            <img src="../assets/img/proyecto-default.svg" class="imagen-galeria" alt="Proyecto sin imagen específica" style="height: 280px; object-fit: cover;">
+                            <p class="descripcion-imagen">Recursos visuales en actualización para este proyecto.</p>
+                        </div>
                     </div>
                 </section>
             `;
