@@ -115,9 +115,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                             ${activos.map(participante => `
                                 <div class="participante estado-activo">
                                     <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                        <p class="nombre-participante">${participante.nombre}</p>
-                                    </a>
+    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+
+    <p class="nombre-participante">${participante.nombre}</p>
+
+    ${participante.rol
+        ? `<p class="rol-participante">${participante.rol}</p>`
+        : ''
+    }
+</a>
                                 </div>
                             `).join("")}
                         </div>
@@ -133,10 +139,16 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <div class="participantes-container">
                             ${inactivos.map(participante => `
                                 <div class="participante estado-inactivo">
-                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                        <p class="nombre-participante">${participante.nombre}</p>
-                                    </a>
+                                   <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
+    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+
+    <p class="nombre-participante">${participante.nombre}</p>
+
+    ${participante.rol
+        ? `<p class="rol-participante">${participante.rol}</p>`
+        : ''
+    }
+</a>
                                 </div>
                             `).join("")}
                         </div>
@@ -153,9 +165,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                             ${legacy.map(participante => `
                                 <div class="participante estado-legacy">
                                     <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                        <p class="nombre-participante">${participante.nombre}</p>
-                                    </a>
+    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+
+    <p class="nombre-participante">${participante.nombre}</p>
+
+    ${participante.rol
+        ? `<p class="rol-participante">${participante.rol}</p>`
+        : ''
+    }
+</a>
                                 </div>
                             `).join("")}
                         </div>

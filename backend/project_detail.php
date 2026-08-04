@@ -18,15 +18,35 @@ $sql = "SELECT p.id_proyecto,p.titulo_tarjeta, p.titulo_proyecto, p.descripcion_
         FROM proyectos p
         LEFT JOIN proyectos_detalles d ON p.id_proyecto = d.id_proyecto
         WHERE p.id_proyecto = :id
-        ORDER BY FIELD(d.tipo, 'estado', 'parrafo', 'imagen', 'participante', 'cliente', 'testimonio', 'enlace')";
+        ORDER BY FIELD(
+        d.tipo,
+        'estado',
+        'parrafo',
+        'imagen',
+        'participante',
+        'participante_rol',
+        'cliente',
+        'testimonio',
+        'enlace'
+)";
 
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':id', $id_proyecto, PDO::PARAM_INT);
 $stmt->execute();
 $datos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Reunir los roles de cada participante usando su ID
+$rolesParticipantes = [];
+
+foreach ($datos as $fila) {
+    if ($fila['tipo'] === 'participante_rol') {
+        $rolesParticipantes[$fila['detalle']] = $fila['descripcion'];
+    }
+}
+
 // Agrupar los datos por proyecto
 $proyectos = [];
+
 foreach ($datos as $fila) {
     $id_proyecto = $fila['id_proyecto'];
     
@@ -97,11 +117,12 @@ foreach ($datos as $fila) {
             }
             
             $proyectos[$id_proyecto]['detalles']['participantes'][] = [
-                'id' => $id_participante,
-                'nombre' => $fila['descripcion'],
-                'imagen' => $imagen_base64,
-                'estado' => $estado
-            ];
+            'id' => $id_participante,
+            'nombre' => $fila['descripcion'],
+            'imagen' => $imagen_base64,
+            'estado' => $estado,
+            'rol' => $rolesParticipantes[$id_participante] ?? ''
+];
             break;
         case 'cliente':
             $proyectos[$id_proyecto]['detalles']['cliente'][] = [
