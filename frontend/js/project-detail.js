@@ -1,23 +1,127 @@
-document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", function () {
     const idProyecto = new URL(window.location.href).searchParams.get("id");
+    cargarDetalleProyecto(idProyecto);
+});
+
+async function cargarDetalleProyecto(idProyecto) {
+    const contenedor = document.getElementById("proyecto-container");
 
     if (!idProyecto) {
-        console.error("No se proporcionó un ID de proyecto.");
+        renderizarMensajeErrorStandalone("404", contenedor);
+        return;
+    }
+
+    if (contenedor) {
+        contenedor.innerHTML = `
+            <div class="skeleton-container" style="max-width: 900px; margin: 2rem auto; padding: 0 1.5rem;">
+                <div class="skeleton-header">
+                    <div class="skeleton-box skeleton-title"></div>
+                    <div class="skeleton-box skeleton-pill"></div>
+                </div>
+                <div class="skeleton-box skeleton-text"></div>
+                <div class="skeleton-box skeleton-text"></div>
+                <div class="skeleton-box skeleton-text short"></div>
+                <div class="skeleton-grid">
+                    <div class="skeleton-box skeleton-card"></div>
+                    <div class="skeleton-box skeleton-card"></div>
+                </div>
+            </div>
+        `;
+    }
+
+    if (!navigator.onLine) {
+        renderizarMensajeErrorStandalone("offline", contenedor, idProyecto);
         return;
     }
 
     try {
         const response = await fetch(API_URL_PHP + `/project_detail.php?id=${idProyecto}`);
+
+        if (!response.ok) {
+            if (response.status === 404) {
+                renderizarMensajeErrorStandalone("404", contenedor, idProyecto);
+            } else {
+                renderizarMensajeErrorStandalone("500", contenedor, idProyecto);
+            }
+            return;
+        }
+
         const data = await response.json();
 
-        if (!data || data.length === 0) {
-            console.error("No se encontraron datos para este proyecto.");
+        if (!data || data.length === 0 || data.error) {
+            renderizarMensajeErrorStandalone("404", contenedor, idProyecto);
             return;
         }
 
         const proyecto = data[0];
-        const contenedor = document.getElementById("proyecto-container");
-        contenedor.innerHTML = ""; // Limpiar contenido previo
+        renderizarVistaStandalone(proyecto, contenedor);
+
+    } catch (error) {
+        console.error("Error al obtener detalle del proyecto:", error);
+        if (!navigator.onLine || error.name === 'TypeError') {
+            renderizarMensajeErrorStandalone("offline", contenedor, idProyecto);
+        } else {
+            renderizarMensajeErrorStandalone("server_error", contenedor, idProyecto);
+        }
+    }
+}
+
+function renderizarMensajeErrorStandalone(tipoError, contenedor, idProyecto) {
+    let titulo = "Error al cargar proyecto";
+    let mensaje = "Ocurrió un problema inesperado al obtener los detalles del proyecto.";
+    let iconClass = "fas fa-exclamation-triangle";
+    let colorClass = "orange";
+    let mostrarReintentar = true;
+
+    if (tipoError === "offline" || !navigator.onLine) {
+        titulo = "Sin conexión a Internet";
+        mensaje = "No se pudo conectar con el servidor. Revisa tu conexión de red e inténtalo de nuevo.";
+        iconClass = "fas fa-wifi";
+        colorClass = "red";
+    } else if (tipoError === "404" || tipoError === "not_found") {
+        titulo = "Proyecto no encontrado";
+        mensaje = "El proyecto solicitado no existe, fue removido o no se encuentra disponible actualmente.";
+        iconClass = "fas fa-folder-open";
+        colorClass = "blue";
+        mostrarReintentar = false;
+    } else if (tipoError === "500" || tipoError === "server_error") {
+        titulo = "Error en el Servidor";
+        mensaje = "El servidor experimentó un problema interno procesando la información del proyecto.";
+        iconClass = "fas fa-server";
+        colorClass = "red";
+    }
+
+    if (!contenedor) return;
+
+    contenedor.innerHTML = `
+        <div class="modal-proyecto-error-card" style="margin: 4rem auto; min-height: 50vh;">
+            <div class="error-icon-box ${colorClass}">
+                <i class="${iconClass}"></i>
+            </div>
+            <h3>${titulo}</h3>
+            <p>${mensaje}</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem; justify-content: center; flex-wrap: wrap;">
+                ${mostrarReintentar && idProyecto ? `
+                    <button type="button" class="btn-reintentar-error" id="btn-reintentar-standalone">
+                        <i class="fas fa-sync-alt"></i> Reintentar
+                    </button>
+                ` : ''}
+                <a href="../index.html" class="btn-reintentar-error btn-secundario-error" style="text-decoration: none;">
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    `;
+
+    const btnRetry = contenedor.querySelector('#btn-reintentar-standalone');
+    if (btnRetry && idProyecto) {
+        btnRetry.onclick = () => {
+            cargarDetalleProyecto(idProyecto);
+        };
+    }
+}
+
+function renderizarVistaStandalone(proyecto, contenedor) {
 
         //Sección de información del evento
         let html = `

@@ -53,6 +53,123 @@ document.addEventListener("DOMContentLoaded", () => {
         // Nota: Se eliminó cargarTabla('tablaProyectos', proyectos) porque ese elemento no existe en el HTML
     }
 
+    async function abrirModalDetalleProyecto(idProyecto) {
+        const modalOverlay = document.getElementById("modal-detalle-proyecto");
+        const modalContenido = document.getElementById("modal-proyecto-contenido");
+
+        if (!modalOverlay || !modalContenido) return;
+
+        modalContenido.innerHTML = `
+            <div class="skeleton-container">
+                <div class="skeleton-header">
+                    <div class="skeleton-box skeleton-title"></div>
+                    <div class="skeleton-box skeleton-pill"></div>
+                </div>
+                <div class="skeleton-box skeleton-text"></div>
+                <div class="skeleton-box skeleton-text"></div>
+                <div class="skeleton-box skeleton-text short"></div>
+                <div class="skeleton-grid">
+                    <div class="skeleton-box skeleton-card"></div>
+                    <div class="skeleton-box skeleton-card"></div>
+                </div>
+            </div>
+        `;
+
+        modalOverlay.classList.add("activo");
+        modalOverlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        if (!navigator.onLine) {
+            renderizarMensajeError("offline", modalContenido, idProyecto);
+            return;
+        }
+
+        try {
+            const url = API_URL_PHP + (API_URL_PHP.endsWith("/") ? "" : "/") + `project_detail.php?id=${idProyecto}`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                if (response.status === 404) {
+                    renderizarMensajeError("404", modalContenido, idProyecto);
+                } else {
+                    renderizarMensajeError("500", modalContenido, idProyecto);
+                }
+                return;
+            }
+
+            const data = await response.json();
+
+            if (!data || data.length === 0 || data.error) {
+                renderizarMensajeError("404", modalContenido, idProyecto);
+                return;
+            }
+
+            const proyecto = data[0];
+            renderizarDetalleEnModal(proyecto, modalContenido);
+
+        } catch (error) {
+            console.error("Error al cargar detalle del proyecto:", error);
+            if (!navigator.onLine || error.name === 'TypeError') {
+                renderizarMensajeError("offline", modalContenido, idProyecto);
+            } else {
+                renderizarMensajeError("server_error", modalContenido, idProyecto);
+            }
+        }
+    }
+
+    function renderizarMensajeError(tipoError, contenedor, idProyecto) {
+        let titulo = "Error al cargar proyecto";
+        let mensaje = "Ocurrió un problema inesperado al obtener los detalles del proyecto.";
+        let iconClass = "fas fa-exclamation-triangle";
+        let colorClass = "orange";
+        let mostrarReintentar = true;
+
+        if (tipoError === "offline" || !navigator.onLine) {
+            titulo = "Sin conexión a Internet";
+            mensaje = "No se pudo conectar con el servidor. Revisa tu conexión de red e inténtalo de nuevo.";
+            iconClass = "fas fa-wifi";
+            colorClass = "red";
+        } else if (tipoError === "404" || tipoError === "not_found") {
+            titulo = "Proyecto no encontrado";
+            mensaje = "El proyecto solicitado no existe, fue removido o no se encuentra disponible en este momento.";
+            iconClass = "fas fa-folder-open";
+            colorClass = "blue";
+            mostrarReintentar = false;
+        } else if (tipoError === "500" || tipoError === "server_error") {
+            titulo = "Error en el Servidor";
+            mensaje = "El servidor experimentó un problema interno procesando la información del proyecto.";
+            iconClass = "fas fa-server";
+            colorClass = "red";
+        }
+
+        contenedor.innerHTML = `
+            <div class="modal-proyecto-error-card">
+                <div class="error-icon-box ${colorClass}">
+                    <i class="${iconClass}"></i>
+                </div>
+                <h3>${titulo}</h3>
+                <p>${mensaje}</p>
+                <div style="display: flex; gap: 1rem; margin-top: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                    ${mostrarReintentar && idProyecto ? `
+                        <button type="button" class="btn-reintentar-error" id="btn-reintentar-proyecto-admin">
+                            <i class="fas fa-sync-alt"></i> Reintentar
+                        </button>
+                    ` : ''}
+                    <button type="button" class="btn-reintentar-error btn-secundario-error" onclick="cerrarModalDetalleProyecto()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        `;
+
+        const btnRetry = contenedor.querySelector('#btn-reintentar-proyecto-admin');
+        if (btnRetry && idProyecto) {
+            btnRetry.onclick = () => {
+                abrirModalDetalleProyecto(idProyecto);
+            };
+        }
+    }
+
     function cargarTabla(idTabla, proyectos) {
         const contenedor = document.getElementById(idTabla);
         if (!contenedor) {
