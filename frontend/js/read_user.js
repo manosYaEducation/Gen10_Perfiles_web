@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         // Información personal
-        document.getElementById('name-hero').textContent = profile.basic.name;
-        document.getElementById('personal-information-hero').innerHTML = `
-            <p>${profile.basic.location}</p>
-            <p>${profile.basic.phone}</p>
-            <p>${profile.basic.email}</p>
+        document.getElementById('name-hero-lateral').textContent = profile.basic.name;
+        document.getElementById('personal-information-hero-lateral').innerHTML = `
+            <p class="mb-2"><i class="fas fa-map-marker-alt me-2 text-success"></i> ${profile.basic.location}</p>
+            <p class="mb-2"><i class="fas fa-phone me-2 text-success"></i> ${profile.basic.phone}</p>
+            <p class="mb-2"><i class="fas fa-envelope me-2 text-success"></i> ${profile.basic.email}</p>
         `;
         //funcionalidad: convertir el teléfono en enlace de Wsp
         {
