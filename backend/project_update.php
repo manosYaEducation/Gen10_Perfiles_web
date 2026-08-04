@@ -239,32 +239,79 @@ if (!empty($data['tecnologias_json'])) {
 
     // Actualizar participantes (DELETE/INSERT para evitar duplicados, mantiene 'eliminado' como historial)
     if (isset($data['participantes'])) {
-        // Eliminar TODOS los participantes activos/inactivos/legacy (mantener los eliminados como historial)
+
+        // Eliminar TODOS los participantes activos/inactivos/legacy
+        // Mantener los eliminados como historial
         $sqlDelete = "DELETE FROM proyectos_detalles 
                       WHERE id_proyecto = :id_proyecto 
                       AND tipo LIKE 'participante:%' 
                       AND tipo != 'participante:eliminado'";
+
         $stmtDelete = $conn->prepare($sqlDelete);
-        $stmtDelete->execute([':id_proyecto' => $data['id_proyecto']]);
-        
-        $participantes = is_string($data['participantes']) ? json_decode($data['participantes'], true) : $data['participantes'];
-        
+
+        $stmtDelete->execute([
+            ':id_proyecto' => $data['id_proyecto']
+        ]);
+
+        // Eliminar los roles anteriores de los participantes
+        $sqlDeleteRoles = "DELETE FROM proyectos_detalles
+                           WHERE id_proyecto = :id_proyecto
+                           AND tipo = 'participante_rol'";
+
+        $stmtDeleteRoles = $conn->prepare($sqlDeleteRoles);
+
+        $stmtDeleteRoles->execute([
+            ':id_proyecto' => $data['id_proyecto']
+        ]);
+
+        $participantes = is_string($data['participantes'])
+            ? json_decode($data['participantes'], true)
+            : $data['participantes'];
+
         if (!empty($participantes)) {
             $sqlParticipantes = "INSERT INTO proyectos_detalles (id_proyecto, tipo, descripcion, detalle) 
                                 VALUES (:id_proyecto, :tipo, :nombre, :id_participante)";
             $stmtParticipantes = $conn->prepare($sqlParticipantes);
             
-            foreach ($participantes as $participante) {
-                if (!empty($participante['id'])) {
-                    $estado = isset($participante['estado']) ? $participante['estado'] : 'activo';
-                    $tipo = "participante:{$estado}";
-                    
-                    $stmtParticipantes->execute([
-                        ':id_proyecto' => $data['id_proyecto'],
-                        ':tipo' => $tipo,
-                        ':nombre' => isset($participante['nombre']) ? $participante['nombre'] : '',
-                        ':id_participante' => $participante['id']
-                    ]);
+           foreach ($participantes as $participante) {
+    if (!empty($participante['id'])) {
+        $estado = isset($participante['estado'])
+            ? $participante['estado']
+            : 'activo';
+
+        $tipo = "participante:{$estado}";
+
+        // Guardar participante
+        $stmtParticipantes->execute([
+            ':id_proyecto' => $data['id_proyecto'],
+            ':tipo' => $tipo,
+            ':nombre' => isset($participante['nombre'])
+                ? $participante['nombre']
+                : '',
+            ':id_participante' => $participante['id']
+        ]);
+
+                    // Guardar rol del participante
+                    $rol = trim($participante['rol'] ?? '');
+
+                    if ($rol !== '') {
+                        $sqlRol = "INSERT INTO proyectos_detalles
+                                   (id_proyecto, tipo, descripcion, detalle)
+                                   VALUES (
+                                       :id_proyecto,
+                                       'participante_rol',
+                                       :rol,
+                                       :id_participante
+                                   )";
+
+                        $stmtRol = $conn->prepare($sqlRol);
+
+                        $stmtRol->execute([
+                            ':id_proyecto' => $data['id_proyecto'],
+                            ':rol' => $rol,
+                            ':id_participante' => $participante['id']
+                        ]);
+                    }
                 }
             }
         }

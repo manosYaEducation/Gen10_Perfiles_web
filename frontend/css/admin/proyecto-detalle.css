@@ -384,6 +384,15 @@
     color: #333;
 }
 
+.rol-participante {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #636e72;
+    text-align: center;
+}
+
 
 /* Media queries para responsividad */
 @media (max-width: 768px) {
@@ -534,4 +543,8 @@ body.dark-mode .tecnologias h2 {
 body.dark-mode .tecnologia-item {
     background: #6dd990;
     color: #121212;
+}
+
+body.dark-mode .rol-participante {
+    color: #b8c2bc;
 }

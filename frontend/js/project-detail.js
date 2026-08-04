@@ -129,9 +129,15 @@ if (proyecto.detalles?.tecnologias?.length > 0) {
                             ${activos.map(participante => `
                                 <div class="participante estado-activo">
                                     <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                        <p class="nombre-participante">${participante.nombre}</p>
-                                    </a>
+    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+
+    <p class="nombre-participante">${participante.nombre}</p>
+
+    ${participante.rol
+        ? `<p class="rol-participante">${participante.rol}</p>`
+        : ''
+    }
+</a>
                                 </div>
                             `).join("")}
                         </div>
@@ -147,10 +153,16 @@ if (proyecto.detalles?.tecnologias?.length > 0) {
                         <div class="participantes-container">
                             ${inactivos.map(participante => `
                                 <div class="participante estado-inactivo">
-                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                        <p class="nombre-participante">${participante.nombre}</p>
-                                    </a>
+                                   <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
+    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+
+    <p class="nombre-participante">${participante.nombre}</p>
+
+    ${participante.rol
+        ? `<p class="rol-participante">${participante.rol}</p>`
+        : ''
+    }
+</a>
                                 </div>
                             `).join("")}
                         </div>
@@ -167,9 +179,15 @@ if (proyecto.detalles?.tecnologias?.length > 0) {
                             ${legacy.map(participante => `
                                 <div class="participante estado-legacy">
                                     <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-                                        <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-                                        <p class="nombre-participante">${participante.nombre}</p>
-                                    </a>
+    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
+
+    <p class="nombre-participante">${participante.nombre}</p>
+
+    ${participante.rol
+        ? `<p class="rol-participante">${participante.rol}</p>`
+        : ''
+    }
+</a>
                                 </div>
                             `).join("")}
                         </div>

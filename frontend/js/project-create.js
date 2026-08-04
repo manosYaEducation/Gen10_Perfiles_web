@@ -358,6 +358,22 @@ function mostrarSugerencias(participantesFiltrados) {
 
 function agregarParticipanteSeleccionado() {
     const inputBuscar = document.getElementById("input-buscar-participante");
+    const rolSeleccionado =
+    document.getElementById("rol-participante").value;
+
+const rolPersonalizado =
+    document.getElementById("rol-personalizado").value.trim();
+
+const rolFinal =
+    rolSeleccionado === "Otro"
+        ? rolPersonalizado
+        : rolSeleccionado;
+
+        if (!rolFinal) {
+    alert("Debes seleccionar o escribir un rol.");
+    return;
+}
+
     const nombreSeleccionado = inputBuscar.value;
     const idSeleccionado = inputBuscar.dataset.selectedId;
     const estadoSeleccionado = document.getElementById("estado-participante").value; // NUEVO
@@ -376,7 +392,7 @@ function agregarParticipanteSeleccionado() {
     const divLista = document.getElementById("lista-participantes");
     const nuevoDiv = document.createElement("div");
     nuevoDiv.className = `participante-item estado-${estadoSeleccionado}`; // NUEVO: CSS dinámico
-    nuevoDiv.textContent = `${nombreSeleccionado} (${estadoSeleccionado})`; // NUEVO: mostrar estado
+    nuevoDiv.textContent = `${nombreSeleccionado} — ${rolFinal} (${estadoSeleccionado})`; // NUEVO: mostrar estado
     
     // Input oculto para enviar el nombre
     const hiddenInput = document.createElement("input");
@@ -391,6 +407,11 @@ function agregarParticipanteSeleccionado() {
     hiddenEstado.name = `participantes[${idSeleccionado}][estado]`;
     hiddenEstado.value = codigoEstado;
     nuevoDiv.appendChild(hiddenEstado);
+    const hiddenRol = document.createElement("input");
+    hiddenRol.type = "hidden";
+    hiddenRol.name = `participantes[${idSeleccionado}][rol]`;
+    hiddenRol.value = rolFinal;
+    nuevoDiv.appendChild(hiddenRol);
 
     // Botón para eliminar el participante
     const btnEliminar = document.createElement("button");
@@ -514,4 +535,17 @@ function mostrarModal(data) {
 document.addEventListener("DOMContentLoaded", function () {
     cargarParticipantes();
     cargarClientes();
+
+    document.getElementById("rol-participante").addEventListener("change", function () {
+        const campoPersonalizado = document.getElementById("rol-personalizado");
+
+        if (this.value === "Otro") {
+            campoPersonalizado.style.display = "block";
+            campoPersonalizado.required = true;
+        } else {
+            campoPersonalizado.style.display = "none";
+            campoPersonalizado.required = false;
+            campoPersonalizado.value = "";
+        }
+    });
 });

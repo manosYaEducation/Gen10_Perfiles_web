@@ -96,6 +96,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     await cargarParticipantes();
     await cargarClientes();
 
+document.getElementById("rol-participante").addEventListener("change", function () {
+    const campoPersonalizado = document.getElementById("rol-personalizado");
+
+    if (this.value === "Otro") {
+        campoPersonalizado.style.display = "block";
+        campoPersonalizado.required = true;
+    } else {
+        campoPersonalizado.style.display = "none";
+        campoPersonalizado.required = false;
+        campoPersonalizado.value = "";
+    }
+});
+
     // Agregar evento para manejo de imágenes
     document.getElementById("input-imagenes").addEventListener("change", function(event) {
         const files = Array.from(event.target.files);
@@ -134,28 +147,69 @@ function cargarClientesExistentes(cliente) {
 function cargarParticipantesExistentes(participantes) {
     participantes.forEach(participante => {
         participantesSeleccionados.add(participante.id);
+
         const divParticipante = document.createElement("div");
-        const estado = participante.estado || 'activo'; // Default a 'activo' si no existe
-        
-        // Convertir c\u00f3digo a estado completo si es necesario
-        const estado_map = {'a': 'activo', 'i': 'inactivo', 'l': 'legacy'};
-        const estadoCompleto = estado_map[estado] || estado; // Si no est\u00e1 en el map, usar como est\u00e1
-        
-        // Convertir de vuelta a c\u00f3digo para guardar
-        const codigoEstado = estadoCompleto === 'activo' ? 'a' : 
-                             estadoCompleto === 'inactivo' ? 'i' : 'l';
-        
-        divParticipante.className = `participante-item estado-${estadoCompleto}`;
+
+        const estado = participante.estado || "activo";
+        const rol = participante.rol || "";
+
+        // Convertir código a estado completo si es necesario
+        const estadoMap = {
+            a: "activo",
+            i: "inactivo",
+            l: "legacy"
+        };
+
+        const estadoCompleto = estadoMap[estado] || estado;
+
+        // Convertir nuevamente a código corto para guardar
+        const codigoEstado =
+            estadoCompleto === "activo"
+                ? "a"
+                : estadoCompleto === "inactivo"
+                    ? "i"
+                    : "l";
+
+        divParticipante.className =
+            `participante-item estado-${estadoCompleto}`;
+
         divParticipante.innerHTML = `
-            <span>${participante.nombre} (${estadoCompleto})</span>
-            <input type="hidden" name="participantes[${participante.id}][nombre]" value="${participante.nombre}">
-            <input type="hidden" name="participantes[${participante.id}][estado]" value="${codigoEstado}">
-            <button type="button" class="btn-delete" onclick="eliminarParticipante(this, '${participante.id}')">Eliminar</button>
+            <span>
+                ${participante.nombre} — ${rol || "Sin rol"} (${estadoCompleto})
+            </span>
+
+            <input
+                type="hidden"
+                name="participantes[${participante.id}][nombre]"
+                value="${participante.nombre}"
+            >
+
+            <input
+                type="hidden"
+                name="participantes[${participante.id}][estado]"
+                value="${codigoEstado}"
+            >
+
+            <input
+                type="hidden"
+                name="participantes[${participante.id}][rol]"
+                value="${rol}"
+            >
+
+            <button
+                type="button"
+                class="btn-delete"
+                onclick="eliminarParticipante(this, '${participante.id}')"
+            >
+                Eliminar
+            </button>
         `;
-        document.getElementById("lista-participantes").appendChild(divParticipante);
+
+        document
+            .getElementById("lista-participantes")
+            .appendChild(divParticipante);
     });
 }
-
 function cargarTestimonios(testimonios) {
     const contenedorTestimonios = document.getElementById('contenedor-testimonios');
     contenedorTestimonios.innerHTML = '';
@@ -292,14 +346,16 @@ function nuevosDatos() {
     document.querySelectorAll('.participante-item').forEach(participanteDiv => {
         const nombreInput = participanteDiv.querySelector('input[name*="[nombre]"]');
         const estadoInput = participanteDiv.querySelector('input[name*="[estado]"]');
+        const rolInput = participanteDiv.querySelector('input[name*="[rol]"]');
         
-        if (nombreInput && estadoInput) {
+        if (nombreInput && estadoInput && rolInput) {
             const idMatch = nombreInput.name.match(/\[(\d+)\]\[nombre\]/);
             if (idMatch) {
                 participantes.push({
                     id: idMatch[1],
                     nombre: nombreInput.value,
-                    estado: estadoInput.value || 'activo'
+                    estado: estadoInput.value || 'activo',
+                    rol: rolInput.value
                 });
             }
         }
@@ -510,37 +566,100 @@ function agregarParticipanteSeleccionado() {
     const inputBuscar = document.getElementById("input-buscar-participante");
     const id = inputBuscar.dataset.selectedId;
     const nombre = inputBuscar.dataset.selectedName;
-    const estadoSeleccionado = document.getElementById("estado-participante").value; // NUEVO
-    
-    // Convertir estado a código corto para guardar en BD (max 20 caracteres)
-    const codigoEstado = estadoSeleccionado === 'activo' ? 'a' : 
-                         estadoSeleccionado === 'inactivo' ? 'i' : 'l';
+    const estadoSeleccionado = document.getElementById("estado-participante").value;
 
+    // Obtener el rol seleccionado
+    const rolSeleccionado = document.getElementById("rol-participante").value;
+    const rolPersonalizado = document
+        .getElementById("rol-personalizado")
+        .value
+        .trim();
+
+    // Si seleccionó "Otro", usar el texto personalizado
+    const rolFinal =
+        rolSeleccionado === "Otro"
+            ? rolPersonalizado
+            : rolSeleccionado;
+
+    // Validar participante
     if (!id || participantesSeleccionados.has(id)) {
         alert("Este participante ya fue agregado o no es válido.");
         return;
     }
 
+    // Validar rol
+    if (!rolFinal) {
+        alert("Debes seleccionar o escribir un rol.");
+        return;
+    }
+
+    // Convertir estado a código corto
+    const codigoEstado =
+        estadoSeleccionado === "activo"
+            ? "a"
+            : estadoSeleccionado === "inactivo"
+                ? "i"
+                : "l";
+
     participantesSeleccionados.add(id);
 
-    const listaParticipantes = document.getElementById("lista-participantes");
+    const listaParticipantes =
+        document.getElementById("lista-participantes");
+
     const divParticipante = document.createElement("div");
-    divParticipante.className = `participante-item estado-${estadoSeleccionado}`; // NUEVO: CSS dinámico
+
+    divParticipante.className =
+        `participante-item estado-${estadoSeleccionado}`;
+
     divParticipante.innerHTML = `
-        <span>${nombre} (${estadoSeleccionado})</span>
-        <input type="hidden" name="participantes[${id}][nombre]" value="${nombre}">
-        <input type="hidden" name="participantes[${id}][estado]" value="${codigoEstado}">
-        <button type="button" class="btn-delete" onclick="eliminarParticipante(this, '${id}')">Eliminar</button>
+        <span>
+            ${nombre} — ${rolFinal} (${estadoSeleccionado})
+        </span>
+
+        <input
+            type="hidden"
+            name="participantes[${id}][nombre]"
+            value="${nombre}"
+        >
+
+        <input
+            type="hidden"
+            name="participantes[${id}][estado]"
+            value="${codigoEstado}"
+        >
+
+        <input
+            type="hidden"
+            name="participantes[${id}][rol]"
+            value="${rolFinal}"
+        >
+
+        <button
+            type="button"
+            class="btn-delete"
+            onclick="eliminarParticipante(this, '${id}')"
+        >
+            Eliminar
+        </button>
     `;
 
     listaParticipantes.appendChild(divParticipante);
 
-    // Limpiar el input y deshabilitar el botón
+    // Limpiar buscador
     inputBuscar.value = "";
     delete inputBuscar.dataset.selectedId;
     delete inputBuscar.dataset.selectedName;
-    // Resetear el SELECT a 'activo' por defecto
+
+    // Resetear estado
     document.getElementById("estado-participante").value = "activo";
+
+    // Resetear rol
+    document.getElementById("rol-participante").value = "";
+    document.getElementById("rol-personalizado").value = "";
+    document.getElementById("rol-personalizado").style.display = "none";
+    document.getElementById("rol-personalizado").required = false;
+
+    // Deshabilitar botón nuevamente
     document.getElementById("btn-agregar-participante").disabled = true;
 }
 
