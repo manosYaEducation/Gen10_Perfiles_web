@@ -1,6 +1,5 @@
-
 /* ==========================================================================
-   Modal / Panel Lateral de Proyecto, Compartir, Skeleton y Errores
+   Modal de Proyecto, Compartir, Skeleton, Errores, Duración y Navegación
    ========================================================================== */
 
 .modal-proyecto-overlay {
@@ -77,9 +76,124 @@
 }
 
 /* ==========================================================================
-   Tarjetas de Error
+   Navegación Vertical por Puntos
    ========================================================================== */
 
+.proyecto-dot-nav {
+    position: sticky;
+    top: 50%;
+    float: right;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    z-index: 100;
+    margin-left: 1.5rem;
+    margin-right: -0.5rem;
+    padding: 0.8rem 0.5rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Variante fija para la página principal */
+.main-page-dot-nav {
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    z-index: 9998;
+    padding: 0.9rem 0.6rem;
+    background-color: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.dot-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    outline: none;
+}
+
+.dot-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #666666;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dot-nav-item:hover .dot-circle {
+    background-color: #81c784;
+    transform: scale(1.25);
+}
+
+.dot-circle.active {
+    background-color: #4CAF50 !important;
+    transform: scale(1.5) !important;
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.85) !important;
+}
+
+/* Tooltip emergente */
+.dot-label {
+    position: absolute;
+    right: 26px;
+    background-color: #222222;
+    color: #ffffff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: all 0.25s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dot-nav-item:hover .dot-label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* Insignia de duración o período */
+.modal-proyecto-duracion {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #bbdefb;
+    padding: 0.35rem 1.1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(21, 101, 192, 0.08);
+}
+
+.modal-proyecto-duracion i {
+    color: #1e88e5;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Tarjetas de Error
+   ========================================================================== */
 .modal-proyecto-error-card {
     display: flex;
     flex-direction: column;
@@ -280,6 +394,7 @@
     gap: 1rem;
     flex-wrap: wrap;
 }
+
 .modal-proyecto-fecha {
     display: inline-block;
     background-color: #e8f5e9;
@@ -291,9 +406,8 @@
 }
 
 /* ==========================================================================
-   Sección de Compartir y Menú Desplegable (Social Share)
+   Sección de Compartir y Menú Desplegable
    ========================================================================== */
-
 .proyecto-compartir-contenedor {
     position: relative;
     display: inline-block;
@@ -588,6 +702,38 @@ body.dark-mode .modal-proyecto-container {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
 }
 
+body.dark-mode .proyecto-dot-nav {
+    background-color: rgba(30, 30, 30, 0.85);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .dot-circle {
+    background-color: #555555;
+}
+
+body.dark-mode .dot-nav-item:hover .dot-circle {
+    background-color: #6dd990;
+}
+
+body.dark-mode .dot-circle.active {
+    background-color: #4CAF50 !important;
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.9) !important;
+}
+
+body.dark-mode .dot-label {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+body.dark-mode .modal-proyecto-duracion {
+    background-color: #152938;
+    color: #90caf9;
+    border-color: #1e3a50;
+}
+
+body.dark-mode .modal-proyecto-duracion i {
+    color: #64b5f6;
+}
 
 body.dark-mode .skeleton-box {
     background-color: #2a2a2a;
@@ -632,7 +778,6 @@ body.dark-mode .btn-secundario-error:hover {
     color: #ffffff;
 }
 
-
 body.dark-mode .modal-proyecto-cerrar {
     background: #333333;
     color: #cccccc;
@@ -656,7 +801,6 @@ body.dark-mode .modal-proyecto-fecha {
     color: #81c784;
 }
 
-
 body.dark-mode .btn-compartir-main {
     background-color: #1b3823;
     color: #81c784;
@@ -675,7 +819,6 @@ body.dark-mode .compartir-item {
 body.dark-mode .compartir-item:hover {
     background-color: #383838;
 }
-
 
 body.dark-mode .modal-proyecto-descripcion,
 body.dark-mode .modal-proyecto-parrafos p {
@@ -722,5 +865,10 @@ body.dark-mode .modal-proyecto-participante span {
 
     .modal-proyecto-header h2 {
         font-size: 1.6rem;
+    }
+
+    .proyecto-dot-nav,
+    .main-page-dot-nav {
+        display: none;
     }
 }

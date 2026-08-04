@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function mostrarProyectosEnTabla(proyectos) {
-        // Separar proyectos por estado
         const proyectosActivos = [];
         const proyectosFinalizados = [];
         const proyectosStandBy = [];
@@ -41,10 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Mostrar u ocultar secciones
-        const seccionActivos = document.getElementById("seccion-activos");
-        const seccionFinalizados = document.getElementById("seccion-finalizados");
-        const seccionStandBy = document.getElementById("seccion-standby");
-        const seccionSinClasificar = document.getElementById("seccion-sin-clasificar");
+        const seccionActivos =
+            document.getElementById("seccion-activos");
+
+        const seccionFinalizados =
+            document.getElementById("seccion-finalizados");
+
+        const seccionStandBy =
+            document.getElementById("seccion-standby");
+
+        const seccionSinClasificar =
+            document.getElementById("seccion-sin-clasificar");
 
         if (seccionActivos) {
             seccionActivos.style.display =
@@ -93,6 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="card-info">
                     <strong>ID:</strong> ${proyecto.id_proyecto}
+                    ${
+                        proyecto.fecha
+                            ? ` | <strong>Período:</strong> ${proyecto.fecha}`
+                            : ""
+                    }
                 </div>
 
                 <div class="card-actions">
@@ -106,6 +117,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const editarBtn = card.querySelector(".edit-btn");
             const eliminarBtn = card.querySelector(".delete-btn");
 
+            if (verBtn) {
+                verBtn.addEventListener("click", event => {
+                    event.preventDefault();
+                    abrirModalDetalleProyecto(proyecto.id_proyecto);
+                });
+            }
             if (verBtn) {
                 verBtn.addEventListener("click", () => {
                     abrirModalDetalleProyecto(proyecto.id_proyecto);
@@ -150,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const resultado = await response.json();
-
             alert(resultado.mensaje);
             obtenerProyectos();
 

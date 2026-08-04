@@ -3,7 +3,6 @@ async function cargarProyectos() {
         const response = await fetch(API_URL_PHP + "project_read.php");
         const json = await response.json();
 
-        // La API puede devolver directamente un array o un objeto { success, data }
         let proyectos = [];
 
         if (Array.isArray(json)) {
@@ -15,15 +14,11 @@ async function cargarProyectos() {
             throw new Error("Formato de respuesta inválido");
         }
 
-        // Ordenar los proyectos por fecha en orden descendente
         proyectos.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-        // Tomar solo los últimos 5 proyectos
         const ultimosProyectos = proyectos.slice(0, 5);
 
         mostrarProyectos(ultimosProyectos);
         inicializarEventosModalProyecto();
-
     } catch (error) {
         console.error("Error al obtener proyectos:", error);
 
@@ -69,7 +64,6 @@ function mostrarProyectos(proyectos) {
                 </div>
             </div>
         `;
-
         const tituloBtn = div.querySelector(".proyecto-titulo");
         const tarjeta = div.querySelector(".proyecto-tarjeta");
 
@@ -98,9 +92,47 @@ function mostrarProyectos(proyectos) {
 // Lógica de Modal de Detalle de Proyecto
 // ==========================================
 
+function obtenerOCrearModalOverlay() {
+    let modalOverlay = document.getElementById("modal-detalle-proyecto");
+    let modalContenido = document.getElementById("modal-proyecto-contenido");
+
+    if (!modalOverlay) {
+        modalOverlay = document.createElement("div");
+        modalOverlay.id = "modal-detalle-proyecto";
+        modalOverlay.className = "modal-proyecto-overlay";
+        modalOverlay.setAttribute("aria-hidden", "true");
+
+        modalOverlay.innerHTML = `
+            <div class="modal-proyecto-container">
+                <button
+                    class="modal-proyecto-cerrar"
+                    id="cerrar-modal-proyecto"
+                    aria-label="Cerrar modal"
+                >
+                    &times;
+                </button>
+
+                <div id="modal-proyecto-contenido"></div>
+            </div>
+        `;
+
+        document.body.appendChild(modalOverlay);
+        inicializarEventosModalProyecto();
+    }
+
+    modalContenido = document.getElementById("modal-proyecto-contenido");
+
+    return {
+        modalOverlay,
+        modalContenido
+    };
+}
+
 async function abrirModalDetalleProyecto(idProyecto) {
-    const modalOverlay = document.getElementById("modal-detalle-proyecto");
-    const modalContenido = document.getElementById("modal-proyecto-contenido");
+    const {
+        modalOverlay,
+        modalContenido
+    } = obtenerOCrearModalOverlay();
 
     if (!modalOverlay || !modalContenido) return;
 
@@ -129,7 +161,12 @@ async function abrirModalDetalleProyecto(idProyecto) {
     document.body.style.overflow = "hidden";
 
     if (!navigator.onLine) {
-        renderizarMensajeError("offline", modalContenido, idProyecto);
+        renderizarMensajeError(
+            "offline",
+            modalContenido,
+            idProyecto
+        );
+
         return;
     }
 
@@ -143,9 +180,17 @@ async function abrirModalDetalleProyecto(idProyecto) {
 
         if (!response.ok) {
             if (response.status === 404) {
-                renderizarMensajeError("404", modalContenido, idProyecto);
+                renderizarMensajeError(
+                    "404",
+                    modalContenido,
+                    idProyecto
+                );
             } else {
-                renderizarMensajeError("500", modalContenido, idProyecto);
+                renderizarMensajeError(
+                    "500",
+                    modalContenido,
+                    idProyecto
+                );
             }
 
             return;
@@ -154,19 +199,27 @@ async function abrirModalDetalleProyecto(idProyecto) {
         const data = await response.json();
 
         if (!data || data.length === 0 || data.error) {
-            renderizarMensajeError("404", modalContenido, idProyecto);
+            renderizarMensajeError(
+                "404",
+                modalContenido,
+                idProyecto
+            );
+
             return;
         }
 
         const proyecto = data[0];
-
         renderizarDetalleEnModal(proyecto, modalContenido);
 
     } catch (error) {
         console.error("Error al cargar detalle del proyecto:", error);
 
         if (!navigator.onLine || error.name === "TypeError") {
-            renderizarMensajeError("offline", modalContenido, idProyecto);
+            renderizarMensajeError(
+                "offline",
+                modalContenido,
+                idProyecto
+            );
         } else {
             renderizarMensajeError(
                 "server_error",
@@ -296,7 +349,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         }`;
 
     let html = `
-        <div class="modal-proyecto-header">
+        <div class="modal-proyecto-header" id="sec-encabezado">
             <h2>
                 ${proyecto.titulo || "Proyecto sin título"}
             </h2>
@@ -308,6 +361,18 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
                             <span class="modal-proyecto-fecha">
                                 <i class="far fa-calendar-alt"></i>
                                 ${proyecto.fecha}
+                            </span>
+                        `
+                        : ""
+                }
+
+                ${
+                    proyecto.duracion || proyecto.fecha
+                        ? `
+                            <span class="modal-proyecto-duracion">
+                                <i class="far fa-clock"></i>
+                                <strong>Período:</strong>
+                                ${proyecto.duracion || proyecto.fecha}
                             </span>
                         `
                         : ""
@@ -376,24 +441,32 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         <div class="modal-proyecto-body">
     `;
 
-    // Descripción principal
-    if (proyecto.contenido) {
-        html += `
-            <div class="modal-proyecto-descripcion">
-                <p>${proyecto.contenido}</p>
-            </div>
-        `;
-    }
+        // Descripción principal y párrafos
+    if (
+        proyecto.contenido ||
+        proyecto.detalles?.parrafos?.length > 0
+    ) {
+        html += `<div id="sec-descripcion">`;
 
-    // Párrafos adicionales
-    if (proyecto.detalles?.parrafos?.length > 0) {
-        html += `
-            <div class="modal-proyecto-parrafos">
-                ${proyecto.detalles.parrafos
-                    .map(parrafo => `<p>${parrafo}</p>`)
-                    .join("")}
-            </div>
-        `;
+        if (proyecto.contenido) {
+            html += `
+                <div class="modal-proyecto-descripcion">
+                    <p>${proyecto.contenido}</p>
+                </div>
+            `;
+        }
+
+        if (proyecto.detalles?.parrafos?.length > 0) {
+            html += `
+                <div class="modal-proyecto-parrafos">
+                    ${proyecto.detalles.parrafos
+                        .map(parrafo => `<p>${parrafo}</p>`)
+                        .join("")}
+                </div>
+            `;
+        }
+
+        html += `</div>`;
     }
 
     // Tecnologías
@@ -420,7 +493,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Enlaces
+    // Enlaces del proyecto
     if (proyecto.detalles?.enlaces?.length > 0) {
         html += `
             <div class="modal-proyecto-enlaces">
@@ -443,10 +516,10 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Galería con imagen alternativa
+    // Galería de imágenes con fallback
     if (proyecto.detalles?.imagenes?.length > 0) {
         html += `
-            <div>
+            <div id="sec-galeria">
                 <h3 class="modal-proyecto-seccion-titulo">
                     <i class="fas fa-images"></i>
                     Galería del Proyecto
@@ -483,7 +556,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     } else {
         html += `
-            <div>
+            <div id="sec-galeria">
                 <h3 class="modal-proyecto-seccion-titulo">
                     <i class="fas fa-image"></i>
                     Vista Previa del Proyecto
@@ -524,7 +597,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
     // Testimonios
     if (proyecto.detalles?.testimonios?.length > 0) {
         html += `
-            <div>
+            <div id="sec-testimonios">
                 <h3 class="modal-proyecto-seccion-titulo">
                     <i class="fas fa-quote-left"></i>
                     Testimonios
@@ -546,7 +619,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Participantes
+    // Participantes / Equipo
     if (proyecto.detalles?.participantes?.length > 0) {
         const participantesVistos = new Set();
 
@@ -561,7 +634,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
             });
 
         html += `
-            <div>
+            <div id="sec-equipo">
                 <h3 class="modal-proyecto-seccion-titulo">
                     <i class="fas fa-users"></i>
                     Equipo del Proyecto
@@ -611,7 +684,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
     // Clientes
     if (proyecto.detalles?.cliente?.length > 0) {
         html += `
-            <div>
+            <div id="sec-cliente">
                 <h3 class="modal-proyecto-seccion-titulo">
                     <i class="fas fa-building"></i>
                     Cliente
@@ -645,21 +718,157 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
 
     contenedor.innerHTML = html;
 
+    // Navegación vertical por secciones
+    inicializarNavegacionPuntosVert(contenedor);
+
+    // Menú para compartir
     inicializarManejadorCompartir(shareUrl);
 }
 
+function inicializarNavegacionPuntosVert(contenedorModal) {
+    const seccionesDefinidas = [
+        { id: "sec-encabezado", label: "Inicio" },
+        { id: "sec-descripcion", label: "Descripción" },
+        { id: "sec-galeria", label: "Galería" },
+        { id: "sec-testimonios", label: "Testimonios" },
+        { id: "sec-equipo", label: "Equipo" },
+        { id: "sec-cliente", label: "Cliente" }
+    ];
+
+    const seccionesExistentes = seccionesDefinidas.filter(seccion =>
+        contenedorModal.querySelector(`#${seccion.id}`)
+    );
+
+    if (seccionesExistentes.length < 2) {
+        return;
+    }
+
+    // Eliminar una navegación anterior, si existe
+    const navegacionAnterior =
+        contenedorModal.querySelector(".proyecto-dot-nav");
+
+    if (navegacionAnterior) {
+        navegacionAnterior.remove();
+    }
+
+    const dotNavContainer = document.createElement("div");
+    dotNavContainer.className = "proyecto-dot-nav";
+    dotNavContainer.setAttribute(
+        "aria-label",
+        "Navegación rápida por secciones"
+    );
+
+    seccionesExistentes.forEach((seccion, index) => {
+        const itemBtn = document.createElement("button");
+
+        itemBtn.type = "button";
+        itemBtn.className = "dot-nav-item";
+        itemBtn.setAttribute("data-target", seccion.id);
+
+        itemBtn.innerHTML = `
+            <span class="dot-circle ${index === 0 ? "active" : ""}"></span>
+            <span class="dot-label">${seccion.label}</span>
+        `;
+
+        itemBtn.addEventListener("click", () => {
+            const destino =
+                contenedorModal.querySelector(`#${seccion.id}`);
+
+            if (destino) {
+                destino.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
+
+        dotNavContainer.appendChild(itemBtn);
+    });
+
+    contenedorModal.insertBefore(
+        dotNavContainer,
+        contenedorModal.firstChild
+    );
+
+    const modalScrollParent =
+        contenedorModal.closest(".modal-proyecto-container") ||
+        window;
+
+    const actualizarPuntoActivo = () => {
+        const scrollPos =
+            modalScrollParent === window
+                ? window.scrollY
+                : modalScrollParent.scrollTop;
+
+        const containerHeight =
+            modalScrollParent === window
+                ? window.innerHeight
+                : modalScrollParent.clientHeight;
+
+        const totalHeight =
+            modalScrollParent === window
+                ? document.documentElement.scrollHeight
+                : modalScrollParent.scrollHeight;
+
+        let actualId = seccionesExistentes[0].id;
+
+        // Si llega al fondo, activar el último punto
+        if (
+            scrollPos + containerHeight >=
+            totalHeight - 35
+        ) {
+            actualId =
+                seccionesExistentes[
+                    seccionesExistentes.length - 1
+                ].id;
+        } else {
+            seccionesExistentes.forEach(seccion => {
+                const elemento =
+                    contenedorModal.querySelector(`#${seccion.id}`);
+
+                if (
+                    elemento &&
+                    scrollPos >= elemento.offsetTop - 150
+                ) {
+                    actualId = seccion.id;
+                }
+            });
+        }
+
+        dotNavContainer
+            .querySelectorAll(".dot-nav-item")
+            .forEach(item => {
+                const circle =
+                    item.querySelector(".dot-circle");
+
+                if (!circle) {
+                    return;
+                }
+
+                circle.classList.toggle(
+                    "active",
+                    item.getAttribute("data-target") === actualId
+                );
+            });
+    };
+
+    modalScrollParent.addEventListener(
+        "scroll",
+        actualizarPuntoActivo
+    );
+
+    actualizarPuntoActivo();
+}
+
 function inicializarManejadorCompartir(shareUrl) {
-    const compartirContenedor = document.getElementById(
-        "compartir-contenedor"
-    );
+    const compartirContenedor =
+        document.getElementById("compartir-contenedor");
 
-    const toggleBtn = document.getElementById(
-        "btn-toggle-compartir"
-    );
+    const toggleBtn =
+        document.getElementById("btn-toggle-compartir");
 
-    const copiarBtn = document.getElementById(
-        "btn-copiar-enlace"
-    );
+    const copiarBtn =
+        document.getElementById("btn-copiar-enlace");
 
     if (toggleBtn && compartirContenedor) {
         toggleBtn.addEventListener("click", event => {
@@ -762,9 +971,8 @@ function mostrarToastNotificacion(mensaje) {
 }
 
 function cerrarModalDetalleProyecto() {
-    const modalOverlay = document.getElementById(
-        "modal-detalle-proyecto"
-    );
+    const modalOverlay =
+        document.getElementById("modal-detalle-proyecto");
 
     if (modalOverlay) {
         modalOverlay.classList.remove("activo");
@@ -774,13 +982,11 @@ function cerrarModalDetalleProyecto() {
 }
 
 function inicializarEventosModalProyecto() {
-    const cerrarBtn = document.getElementById(
-        "cerrar-modal-proyecto"
-    );
+    const cerrarBtn =
+        document.getElementById("cerrar-modal-proyecto");
 
-    const modalOverlay = document.getElementById(
-        "modal-detalle-proyecto"
-    );
+    const modalOverlay =
+        document.getElementById("modal-detalle-proyecto");
 
     if (cerrarBtn) {
         cerrarBtn.onclick = cerrarModalDetalleProyecto;

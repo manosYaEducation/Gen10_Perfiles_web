@@ -35,21 +35,40 @@ async function cargarDetalleProyecto(idProyecto) {
     }
 
     try {
-        const response = await fetch(API_URL_PHP + `/project_detail.php?id=${idProyecto}`);
+        const url =
+            API_URL_PHP +
+            (API_URL_PHP.endsWith("/") ? "" : "/") +
+            `project_detail.php?id=${idProyecto}`;
+
+        const response = await fetch(url);
 
         if (!response.ok) {
             if (response.status === 404) {
-                renderizarMensajeErrorStandalone("404", contenedor, idProyecto);
+                renderizarMensajeErrorStandalone(
+                    "404",
+                    contenedor,
+                    idProyecto
+                );
             } else {
-                renderizarMensajeErrorStandalone("500", contenedor, idProyecto);
+                renderizarMensajeErrorStandalone(
+                    "500",
+                    contenedor,
+                    idProyecto
+                );
             }
+
             return;
         }
 
         const data = await response.json();
 
         if (!data || data.length === 0 || data.error) {
-            renderizarMensajeErrorStandalone("404", contenedor, idProyecto);
+            renderizarMensajeErrorStandalone(
+                "404",
+                contenedor,
+                idProyecto
+            );
+
             return;
         }
 
@@ -57,13 +76,589 @@ async function cargarDetalleProyecto(idProyecto) {
         renderizarVistaStandalone(proyecto, contenedor);
 
     } catch (error) {
-        console.error("Error al obtener detalle del proyecto:", error);
-        if (!navigator.onLine || error.name === 'TypeError') {
-            renderizarMensajeErrorStandalone("offline", contenedor, idProyecto);
+        console.error(
+            "Error al obtener detalle del proyecto:",
+            error
+        );
+
+        if (!navigator.onLine || error.name === "TypeError") {
+            renderizarMensajeErrorStandalone(
+                "offline",
+                contenedor,
+                idProyecto
+            );
         } else {
-            renderizarMensajeErrorStandalone("server_error", contenedor, idProyecto);
+            renderizarMensajeErrorStandalone(
+                "server_error",
+                contenedor,
+                idProyecto
+            );
         }
     }
+}
+
+function renderizarMensajeErrorStandalone(
+    tipoError,
+    contenedor,
+    idProyecto
+) {
+    let titulo = "Error al cargar proyecto";
+    let mensaje =
+        "Ocurrió un problema inesperado al obtener los detalles del proyecto.";
+    let iconClass = "fas fa-exclamation-triangle";
+    let colorClass = "orange";
+    let mostrarReintentar = true;
+
+    if (tipoError === "offline" || !navigator.onLine) {
+        titulo = "Sin conexión a Internet";
+        mensaje =
+            "No se pudo conectar con el servidor. Revisa tu conexión de red e inténtalo de nuevo.";
+        iconClass = "fas fa-wifi";
+        colorClass = "red";
+
+    } else if (
+        tipoError === "404" ||
+        tipoError === "not_found"
+    ) {
+        titulo = "Proyecto no encontrado";
+        mensaje =
+            "El proyecto solicitado no existe, fue removido o no se encuentra disponible actualmente.";
+        iconClass = "fas fa-folder-open";
+        colorClass = "blue";
+        mostrarReintentar = false;
+
+    } else if (
+        tipoError === "500" ||
+        tipoError === "server_error"
+    ) {
+        titulo = "Error en el Servidor";
+        mensaje =
+            "El servidor experimentó un problema interno procesando la información del proyecto.";
+        iconClass = "fas fa-server";
+        colorClass = "red";
+    }
+
+    if (!contenedor) {
+        return;
+    }
+
+    contenedor.innerHTML = `
+        <div
+            class="modal-proyecto-error-card"
+            style="margin: 4rem auto; min-height: 50vh;"
+        >
+            <div class="error-icon-box ${colorClass}">
+                <i class="${iconClass}"></i>
+            </div>
+
+            <h3>${titulo}</h3>
+            <p>${mensaje}</p>
+
+            <div
+                style="
+                    display: flex;
+                    gap: 1rem;
+                    margin-top: 1rem;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                "
+            >
+                ${
+                    mostrarReintentar && idProyecto
+                        ? `
+                            <button
+                                type="button"
+                                class="btn-reintentar-error"
+                                id="btn-reintentar-standalone"
+                            >
+                                <i class="fas fa-sync-alt"></i>
+                                Reintentar
+                            </button>
+                        `
+                        : ""
+                }
+
+                <a
+                    href="../index.html"
+                    class="btn-reintentar-error btn-secundario-error"
+                    style="text-decoration: none;"
+                >
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    `;
+
+    const btnRetry = contenedor.querySelector(
+        "#btn-reintentar-standalone"
+    );
+
+    if (btnRetry && idProyecto) {
+        btnRetry.onclick = () => {
+            cargarDetalleProyecto(idProyecto);
+        };
+    }
+}
+
+function renderizarVistaStandalone(proyecto, contenedor) {
+    // Sección de información del proyecto
+    let html = `
+        <div id="evento" class="evento-info">
+            <h2 id="titulo-evento">
+                ${proyecto.titulo}
+            </h2>
+
+            <p id="descripcion-evento">
+                ${proyecto.contenido}
+            </p>
+    `;
+
+    // Párrafos
+    if (proyecto.detalles?.parrafos?.length > 0) {
+        html += `
+            <div class="parrafos-proyecto">
+                ${proyecto.detalles.parrafos
+                    .map(
+                        parrafo => `
+                            <p id="descripcion-detallada">
+                                ${parrafo}
+                            </p>
+                        `
+                    )
+                    .join("")}
+            </div>
+        `;
+    }
+
+    // Enlaces
+    if (proyecto.detalles?.enlaces?.length > 0) {
+        html += `
+            <section class="enlaces">
+                <div class="enlaces-container">
+                    ${proyecto.detalles.enlaces
+                        .map(
+                            enlace => `
+                                <a
+                                    id="enlace-proyecto"
+                                    href="${enlace.url}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    ${enlace.descripcion}
+                                </a>
+                            `
+                        )
+                        .join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    html += `</div>`;
+
+    // Tecnologías
+    if (proyecto.detalles?.tecnologias?.length > 0) {
+        html += `
+            <section class="tecnologias">
+                <h2>Tecnologías</h2>
+
+                <div class="tecnologias-container">
+                    ${proyecto.detalles.tecnologias
+                        .map(
+                            tecnologia => `
+                                <span class="tecnologia-item">
+                                    ${tecnologia}
+                                </span>
+                            `
+                        )
+                        .join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    // Galería de imágenes
+    if (proyecto.detalles?.imagenes?.length > 0) {
+        html += `
+            <section class="galeria">
+                <h2>Galería del Evento</h2>
+
+                <div class="galeria-container">
+                    ${proyecto.detalles.imagenes
+                        .map(
+                            imagen => `
+                                <div class="galeria-item">
+                                    <img
+                                        src="${imagen.url}"
+                                        class="imagen-galeria"
+                                        alt="${
+                                            imagen.descripcion ||
+                                            "Imagen del proyecto"
+                                        }"
+                                        onerror="
+                                            this.onerror = null;
+                                            this.src = '../assets/img/proyecto-default.svg';
+                                        "
+                                    >
+
+                                    <p class="descripcion-imagen">
+                                        ${imagen.descripcion || ""}
+                                    </p>
+                                </div>
+                            `
+                        )
+                        .join("")}
+                </div>
+            </section>
+        `;
+    } else {
+        // Imagen por defecto cuando no hay recursos visuales
+        html += `
+            <section class="galeria">
+                <h2>Vista Previa del Proyecto</h2>
+
+                <div
+                    class="galeria-container"
+                    style="
+                        grid-template-columns: 1fr;
+                        justify-content: center;
+                    "
+                >
+                    <div
+                        class="galeria-item"
+                        style="
+                            max-width: 600px;
+                            width: 100%;
+                            margin: 0 auto;
+                        "
+                    >
+                        <img
+                            src="../assets/img/proyecto-default.svg"
+                            class="imagen-galeria"
+                            alt="Proyecto sin imagen específica"
+                            style="
+                                height: 280px;
+                                object-fit: cover;
+                            "
+                        >
+
+                        <p class="descripcion-imagen">
+                            Recursos visuales en actualización para este proyecto.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        `;
+    }
+
+    // Testimonios
+    if (proyecto.detalles?.testimonios?.length > 0) {
+        html += `
+            <section class="testimonios">
+                <h2>Testimonios de Asistentes</h2>
+
+                <div class="testimonios-container">
+                    ${proyecto.detalles.testimonios
+                        .map(
+                            testimonio => `
+                                <div class="testimonio">
+                                    <div class="testimonio-contenido">
+                                        <h3>
+                                            ${testimonio.autor}
+                                        </h3>
+
+                                        <p class="comentario">
+                                            "${testimonio.contenido}"
+                                        </p>
+                                    </div>
+                                </div>
+                            `
+                        )
+                        .join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    // Participantes
+    if (proyecto.detalles?.participantes?.length > 0) {
+        const activos = [];
+        const inactivos = [];
+        const legacy = [];
+
+        // Deduplicar participantes por ID
+        const participantesVistos = new Set();
+
+        const participantesUnicos =
+            proyecto.detalles.participantes.filter(
+                participante => {
+                    if (
+                        participantesVistos.has(
+                            participante.id
+                        )
+                    ) {
+                        return false;
+                    }
+
+                    participantesVistos.add(
+                        participante.id
+                    );
+
+                    return true;
+                }
+            );
+
+        participantesUnicos.forEach(participante => {
+            const estado =
+                participante.estado || "activo";
+
+            if (estado === "activo") {
+                activos.push(participante);
+            } else if (estado === "inactivo") {
+                inactivos.push(participante);
+            } else if (estado === "legacy") {
+                legacy.push(participante);
+            }
+        });
+
+        html += `<section class="participantes">`;
+
+        // Equipo actual
+        if (activos.length > 0) {
+            html += `
+                <div class="participantes-activos">
+                    <h2>Equipo Actual</h2>
+
+                    <div class="participantes-container">
+                        ${activos
+                            .map(
+                                participante => `
+                                    <div class="participante estado-activo">
+                                        <a
+                                            href="./perfiles/profile-template.php?id=${participante.id}"
+                                            class="participante-enlace"
+                                        >
+                                            <img
+                                                src="${participante.imagen}"
+                                                class="imagen-participante"
+                                                alt="${participante.nombre}"
+                                                onerror="
+                                                    this.onerror = null;
+                                                    this.src = '../assets/profile/default-profile.png';
+                                                "
+                                            >
+
+                                            <p class="nombre-participante">
+                                                ${participante.nombre}
+                                            </p>
+
+                                            ${
+                                                participante.rol
+                                                    ? `
+                                                        <p class="rol-participante">
+                                                            ${participante.rol}
+                                                        </p>
+                                                    `
+                                                    : ""
+                                            }
+                                        </a>
+                                    </div>
+                                `
+                            )
+                            .join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Miembros históricos
+        if (inactivos.length > 0) {
+            html += `
+                <div class="participantes-inactivos">
+                    <h2>
+                        Miembros que han pasado por el proyecto
+                    </h2>
+
+                    <div class="participantes-container">
+                        ${inactivos
+                            .map(
+                                participante => `
+                                    <div class="participante estado-inactivo">
+                                        <a
+                                            href="./perfiles/profile-template.php?id=${participante.id}"
+                                            class="participante-enlace"
+                                        >
+                                            <img
+                                                src="${participante.imagen}"
+                                                class="imagen-participante"
+                                                alt="${participante.nombre}"
+                                                onerror="
+                                                    this.onerror = null;
+                                                    this.src = '../assets/profile/default-profile.png';
+                                                "
+                                            >
+
+                                            <p class="nombre-participante">
+                                                ${participante.nombre}
+                                            </p>
+
+                                            ${
+                                                participante.rol
+                                                    ? `
+                                                        <p class="rol-participante">
+                                                            ${participante.rol}
+                                                        </p>
+                                                    `
+                                                    : ""
+                                            }
+                                        </a>
+                                    </div>
+                                `
+                            )
+                            .join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Participantes fundadores
+        if (legacy.length > 0) {
+            html += `
+                <div class="participantes-legacy">
+                    <h2>Participantes Fundadores</h2>
+
+                    <div class="participantes-container">
+                        ${legacy
+                            .map(
+                                participante => `
+                                    <div class="participante estado-legacy">
+                                        <a
+                                            href="./perfiles/profile-template.php?id=${participante.id}"
+                                            class="participante-enlace"
+                                        >
+                                            <img
+                                                src="${participante.imagen}"
+                                                class="imagen-participante"
+                                                alt="${participante.nombre}"
+                                                onerror="
+                                                    this.onerror = null;
+                                                    this.src = '../assets/profile/default-profile.png';
+                                                "
+                                            >
+
+                                            <p class="nombre-participante">
+                                                ${participante.nombre}
+                                            </p>
+
+                                            ${
+                                                participante.rol
+                                                    ? `
+                                                        <p class="rol-participante">
+                                                            ${participante.rol}
+                                                        </p>
+                                                    `
+                                                    : ""
+                                            }
+                                        </a>
+                                    </div>
+                                `
+                            )
+                            .join("")}
+                    </div>
+                </div>
+            `;
+        }
+
+        html += `</section>`;
+    }
+
+    // Clientes
+    if (proyecto.detalles?.cliente?.length > 0) {
+        html += `
+            <section class="participantes">
+                <h2>Cliente del proyecto</h2>
+
+                <div class="participantes-container">
+                    ${proyecto.detalles.cliente
+                        .map(
+                            cliente => `
+                                <div class="participante">
+                                    <a
+                                        href="./client-template-public.php?id=${cliente.id}"
+                                        class="participante-enlace"
+                                    >
+                                        <p class="nombre-participante">
+                                            ${cliente.name}
+                                        </p>
+                                    </a>
+                                </div>
+                            `
+                        )
+                        .join("")}
+                </div>
+            </section>
+        `;
+    }
+
+    // Agregar todo el contenido
+    contenedor.innerHTML = html;
+}
+
+// Manejo del modal para ver imágenes más grandes
+const modal = document.getElementById("modal-imagen");
+const modalImg = document.getElementById("imagen-modal");
+const modalDescripcion =
+    document.getElementById("descripcion-modal");
+const cerrarModal =
+    document.querySelector(".cerrar-modal");
+const flechaIzquierda =
+    document.querySelector(".izquierda");
+const flechaDerecha =
+    document.querySelector(".derecha");
+
+let imagenes = [];
+let imagenActual = 0;
+
+// Capturar las imágenes de la galería
+document.addEventListener("click", event => {
+    if (
+        event.target.classList.contains(
+            "imagen-galeria"
+        )
+    ) {
+        imagenes = [
+            ...document.querySelectorAll(
+                ".imagen-galeria"
+            )
+        ];
+
+        imagenActual = imagenes.indexOf(
+            event.target
+        );
+
+        abrirModal(imagenActual);
+    }
+});
+
+// Abrir el modal con la imagen seleccionada
+function abrirModal(indice) {
+    if (
+        !modal ||
+        !modalImg ||
+        !modalDescripcion ||
+        !imagenes[indice]
+    ) {
+        return;
+    }
+
+    modal.style.display = "flex";
+    modalImg.src = imagenes[indice].src;
+
+    const descripcion =
+        imagenes[indice].nextElementSibling;
+
+    modalDescripcion.textContent =
+        descripcion?.textContent || "";
 }
 
 function renderizarMensajeErrorStandalone(tipoError, contenedor, idProyecto) {
@@ -122,278 +717,207 @@ function renderizarMensajeErrorStandalone(tipoError, contenedor, idProyecto) {
 }
 
 function renderizarVistaStandalone(proyecto, contenedor) {
+    if (!contenedor) return;
 
-        //Sección de información del evento
-        let html = `
-            <div id="evento" class="evento-info">
-                <h2 id="titulo-evento">${proyecto.titulo}</h2>
-                <p id="descripcion-evento">${proyecto.contenido}</p>
+    // Sección Encabezado e Info
+    let html = `
+        <div id="sec-encabezado" class="evento-info">
+            <h2 id="titulo-evento">${proyecto.titulo || 'Proyecto sin título'}</h2>
+            
+            ${(proyecto.duracion || proyecto.fecha) ? `
+                <div style="margin-bottom: 1rem;">
+                    <span class="modal-proyecto-duracion">
+                        <i class="far fa-clock"></i> <strong>Período de Ejecución:</strong> ${proyecto.duracion || proyecto.fecha}
+                    </span>
+                </div>
+            ` : ''}
+
+            <div id="sec-descripcion">
+                <p id="descripcion-evento">${proyecto.contenido || ''}</p>
+    `;
+
+    // Párrafos adicionales
+    if (proyecto.detalles?.parrafos?.length > 0) {
+        html += `
+            <div class="parrafos-proyecto">        
+                ${proyecto.detalles.parrafos.map(p => `<p id="descripcion-detallada">${p}</p>`).join("")}
+            </div>        
         `;
+    }
 
-        // Párrafos
-        if (proyecto.detalles?.parrafos?.length > 0) {
-            html += `
-                <div class="parrafos-proyecto">        
-                    ${proyecto.detalles.parrafos.map(p => `<p id="descripcion-detallada">${p}</p>`).join("")}
-                </div>        
-            `;
-        }
+    // Enlaces del proyecto
+    if (proyecto.detalles?.enlaces?.length > 0) {
+        html += `
+            <section class="enlaces">
+                <div class="enlaces-container">
+                    ${proyecto.detalles.enlaces.map(enlace => `
+                        <a id="enlace-proyecto" href="${enlace.url}" target="_blank">${enlace.descripcion || 'Ver enlace'}</a>
+                    `).join("")}
+                </div>
+            </section>
+        `;
+    }
+    html += `</div></div>`;
 
-        if (proyecto.detalles?.enlaces?.length > 0) {
-            html += `
-                <section class="enlaces">
-                    <div class="enlaces-container">
-                        ${proyecto.detalles.enlaces.map(enlace => `
-                            <a id="enlace-proyecto" href="${enlace.url}" target="_blank">${enlace.descripcion}</a>
-                        `).join("")}
+    // Galería de imágenes
+    if (proyecto.detalles?.imagenes?.length > 0) {
+        html += `
+            <section class="galeria" id="sec-galeria">
+                <h2>Galería del Evento</h2>
+                <div class="galeria-container">
+                    ${proyecto.detalles.imagenes.map(img => `                            
+                        <div class="galeria-item">
+                            <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto" onerror="this.onerror=null; this.src='../assets/img/proyecto-default.svg';">
+                            <p class="descripcion-imagen">${img.descripcion || ''}</p>
+                        </div>                            
+                    `).join("")}
+                </div>
+            </section>
+        `;
+    } else {
+        html += `
+            <section class="galeria" id="sec-galeria">
+                <h2>Vista Previa del Proyecto</h2>
+                <div class="galeria-container" style="grid-template-columns: 1fr; justify-content: center;">
+                    <div class="galeria-item" style="max-width: 600px; width: 100%; margin: 0 auto;">
+                        <img src="../assets/img/proyecto-default.svg" class="imagen-galeria" alt="Proyecto sin imagen específica" style="height: 280px; object-fit: cover;">
+                        <p class="descripcion-imagen">Recursos visuales en actualización para este proyecto.</p>
                     </div>
-                </section>
-            `;
-        }
-        html += `</div>`;
+                </div>
+            </section>
+        `;
+    }
 
-        // Tecnologías
-        if (proyecto.detalles?.tecnologias?.length > 0) {
-            html += `
-                <section class="tecnologias">
-                    <h2>Tecnologías</h2>
-                    <div class="tecnologias-container">
-                        ${proyecto.detalles.tecnologias.map(tec => `
-                            <span class="tecnologia-item">${tec}</span>
-                        `).join("")}
-                    </div>
-                </section>
-            `;
-        }
-
-        // Galería de imágenes (con fallback de imagen por defecto)
-        if (proyecto.detalles?.imagenes?.length > 0) {
-            html += `
-                <section class="galeria">
-                    <h2>Galería del Evento</h2>
-                    <div class="galeria-container">
-                        ${proyecto.detalles.imagenes.map(img => `                            
-                            <div class="galeria-item">
-                                <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto" onerror="this.onerror=null; this.src='../assets/img/proyecto-default.svg';">
-                                <p class="descripcion-imagen">${img.descripcion}</p>
-                            </div>                            
-                        `).join("")}
-                        
-                    </div>
-                </section>
-            `;
-        } else {
-            // Imagen por defecto cuando no hay recursos visuales
-            html += `
-                <section class="galeria">
-                    <h2>Vista Previa del Proyecto</h2>
-                    <div class="galeria-container" style="grid-template-columns: 1fr; justify-content: center;">
-                        <div class="galeria-item" style="max-width: 600px; width: 100%; margin: 0 auto;">
-                            <img src="../assets/img/proyecto-default.svg" class="imagen-galeria" alt="Proyecto sin imagen específica" style="height: 280px; object-fit: cover;">
-                            <p class="descripcion-imagen">Recursos visuales en actualización para este proyecto.</p>
+    // Testimonios
+    if (proyecto.detalles?.testimonios?.length > 0) {
+        html += `
+            <section class="testimonios" id="sec-testimonios">
+                <h2>Testimonios de Asistentes</h2>
+                <div class="testimonios-container">
+                    ${proyecto.detalles.testimonios.map(testimonio => `
+                        <div class="testimonio">
+                            <p class="contenido-testimonio">"${testimonio.contenido}"</p>
+                            <p class="autor-testimonio">- ${testimonio.autor}</p>
                         </div>
-                    </div>
-                </section>
-            `;
-        }
-
-        // Testimonios
-        if (proyecto.detalles?.testimonios?.length > 0) {
-            html += `
-                <section class="testimonios">
-                    <h2>Testimonios de Asistentes</h2>
-                    <div class="testimonios-container">
-                        ${proyecto.detalles.testimonios.map(testimonio => `
-                            <div class="testimonio">
-                                <div class="testimonio-contenido">
-                                    <h3>${testimonio.autor}</h3>
-                                    <p class="comentario">"${testimonio.contenido}"</p>
-                                </div>
-                            </div>
-                        `).join("")}
-                    </div>
-                </section>
-            `;
-        }
-
-        // Participantes: Agrupar por estado (activos, históricos, legacy)
-        if (proyecto.detalles?.participantes?.length > 0) {
-            let activos = [], inactivos = [], legacy = [];
-            
-            // Deduplicar participantes por ID
-            const seen = new Set();
-            const participantesUnicos = proyecto.detalles.participantes.filter(p => {
-                if (seen.has(p.id)) return false;
-                seen.add(p.id);
-                return true;
-            });
-
-            participantesUnicos.forEach(p => {
-                const estado = p.estado || 'activo';
-                if (estado === 'activo') activos.push(p);
-                else if (estado === 'inactivo') inactivos.push(p);
-                else if (estado === 'legacy') legacy.push(p);
-            });
-            
-            html += `<section class="participantes">`;
-            
-            // EQUIPO ACTUAL (ACTIVOS)
-            if (activos.length > 0) {
-                html += `
-                    <div class="participantes-activos">
-                        <h2>Equipo Actual</h2>
-                        <div class="participantes-container">
-                            ${activos.map(participante => `
-                                <div class="participante estado-activo">
-                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-
-    <p class="nombre-participante">${participante.nombre}</p>
-
-    ${participante.rol
-        ? `<p class="rol-participante">${participante.rol}</p>`
-        : ''
+                    `).join("")}
+                </div>
+            </section>
+        `;
     }
-</a>
-                                </div>
-                            `).join("")}
+
+    // Participantes / Equipo
+    if (proyecto.detalles?.participantes?.length > 0) {
+        const seen = new Set();
+        const participantesUnicos = proyecto.detalles.participantes.filter(p => {
+            if (seen.has(p.id)) return false;
+            seen.add(p.id);
+            return true;
+        });
+
+        html += `
+            <section class="participantes" id="sec-equipo">
+                <h2>Equipo del Proyecto</h2>
+                <div class="participantes-container">
+                    ${participantesUnicos.map(p => `
+                        <div class="participante">
+                            <a href="./perfiles/profile-template.php?id=${p.id}" class="participante-enlace">
+                                <img src="${p.imagen || '../assets/img/default-profile.png'}" class="imagen-participante" alt="${p.nombre}" onerror="this.onerror=null; this.src='../assets/img/default-profile.png';">
+                                <p class="nombre-participante">${p.nombre}</p>
+                            </a>
                         </div>
-                    </div>
-                `;
-            }
-            
-            // COLABORADORES HISTÓRICOS (INACTIVOS)
-            if (inactivos.length > 0) {
-                html += `
-                    <div class="participantes-inactivos">
-                        <h2>Miembros que han pasado por el proyecto</h2>
-                        <div class="participantes-container">
-                            ${inactivos.map(participante => `
-                                <div class="participante estado-inactivo">
-                                   <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-
-    <p class="nombre-participante">${participante.nombre}</p>
-
-    ${participante.rol
-        ? `<p class="rol-participante">${participante.rol}</p>`
-        : ''
+                    `).join("")}
+                </div>
+            </section>
+        `;
     }
-</a>
-                                </div>
-                            `).join("")}
+
+    // Clientes
+    if (proyecto.detalles?.cliente?.length > 0) {
+        html += `
+            <section class="participantes" id="sec-cliente">
+                <h2>Cliente del Proyecto</h2>
+                <div class="participantes-container">
+                    ${proyecto.detalles.cliente.map(cliente => `
+                        <div class="participante">
+                            <a href="./client-template-public.php?id=${cliente.id}" class="participante-enlace">
+                                <p class="nombre-participante">${cliente.name}</p>
+                            </a>
                         </div>
-                    </div>
-                `;
-            }
-            
-            // PARTICIPANTES FUNDADORES (LEGACY)
-            if (legacy.length > 0) {
-                html += `
-                    <div class="participantes-legacy">
-                        <h2>Participantes Fundadores</h2>
-                        <div class="participantes-container">
-                            ${legacy.map(participante => `
-                                <div class="participante estado-legacy">
-                                    <a href="./perfiles/profile-template.php?id=${participante.id}" class="participante-enlace">
-    <img src="${participante.imagen}" class="imagen-participante" alt="Participante">
-
-    <p class="nombre-participante">${participante.nombre}</p>
-
-    ${participante.rol
-        ? `<p class="rol-participante">${participante.rol}</p>`
-        : ''
-    }
-</a>
-                                </div>
-                            `).join("")}
-                        </div>
-                    </div>
-                `;
-            }
-            
-            html += `</section>`;
-        }
-        
-        // Clientes
-        if (proyecto.detalles?.cliente?.length > 0) {
-            html += `
-                <section class="participantes">
-                    <h2>Cliente del proyecto</h2>
-                    <div class="participantes-container">
-                        ${proyecto.detalles.cliente.map(cliente => `
-                            <div class="participante">
-                                <a href="./client-template-public.php?id=${cliente.id}" class="participante-enlace">
-                                    <p class="nombre-participante">${cliente.name}</p>
-                                </a>
-                            </div>
-                        `).join("")}
-                    </div>
-                </section>
-            `;
-        }
-    
-
-        // Agregar todo el HTML al contenedor
-        contenedor.innerHTML = html;
+                    `).join("")}
+                </div>
+            </section>
+        `;
     }
 
+    contenedor.innerHTML = html;
 
-//Manejo modal para ver imágenes más grandes
-const modal = document.getElementById("modal-imagen");
-const modalImg = document.getElementById("imagen-modal");
-const modalDescripcion = document.getElementById("descripcion-modal");
-const cerrarModal = document.querySelector(".cerrar-modal");
-const flechaIzquierda = document.querySelector(".izquierda")
-const flechaDerecha = document.querySelector(".derecha");
-
-let imagenes = []; 
-let imagenActual = 0;
-
-// Capturar todas las imágenes de la galería y añadir evento de click
-document.addEventListener("click", function (event) {
-    if (event.target.classList.contains("imagen-galeria")) {
-        imagenes = [...document.querySelectorAll(".imagen-galeria")]; // Obtener todas las imágenes
-        imagenActual = imagenes.indexOf(event.target); // Obtener índice de la imagen seleccionada
-
-        abrirModal(imagenActual);
-    }
-});
-
-// Abrir el modal con la imagen seleccionada
-function abrirModal(indice) {
-    modal.style.display = "flex";
-    modalImg.src = imagenes[indice].src;
-    modalDescripcion.textContent = imagenes[indice].nextElementSibling.textContent;
+    // Inicializar Navegación por Puntos Redondos Verticales
+    inicializarNavegacionPuntosVert(contenedor);
 }
 
-// Cerrar el modal cuando se presiona la "X"
-cerrarModal.addEventListener("click", function () {
-    modal.style.display = "none";
-});
+function inicializarNavegacionPuntosVert(contenedorModal) {
+    const seccionesDefinidas = [
+        { id: "sec-encabezado", label: "Inicio" },
+        { id: "sec-descripcion", label: "Descripción" },
+        { id: "sec-galeria", label: "Galería" },
+        { id: "sec-testimonios", label: "Testimonios" },
+        { id: "sec-equipo", label: "Equipo" },
+        { id: "sec-cliente", label: "Cliente" }
+    ];
 
-// Cerrar el modal si se hace click fuera de la imagen
-modal.addEventListener("click", function (event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-});
+    const seccionesExistentes = seccionesDefinidas.filter(s => contenedorModal.querySelector(`#${s.id}`));
+    if (seccionesExistentes.length < 2) return;
 
-// Navegar a la imagen anterior
-flechaIzquierda.addEventListener("click", function () {
-    if (imagenActual > 0) {
-        imagenActual--;
-        abrirModal(imagenActual);
-    }
-});
+    const dotNavContainer = document.createElement("div");
+    dotNavContainer.className = "proyecto-dot-nav";
+    dotNavContainer.setAttribute("aria-label", "Navegación rápida por secciones");
 
-// Navegar a la siguiente imagen
-flechaDerecha.addEventListener("click", function () {
-    if (imagenActual < imagenes.length - 1) {
-        imagenActual++;
-        abrirModal(imagenActual);
-    }
-});
+    seccionesExistentes.forEach((sec, index) => {
+        const itemBtn = document.createElement("button");
+        itemBtn.type = "button";
+        itemBtn.className = "dot-nav-item";
+        itemBtn.setAttribute("data-target", sec.id);
 
-// Modal cerrado al inicio
-modal.style.display = "none";
+        itemBtn.innerHTML = `
+            <span class="dot-circle ${index === 0 ? 'active' : ''}"></span>
+            <span class="dot-label">${sec.label}</span>
+        `;
+
+        itemBtn.addEventListener("click", () => {
+            const elTarget = contenedorModal.querySelector(`#${sec.id}`);
+            if (elTarget) {
+                elTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+
+        dotNavContainer.appendChild(itemBtn);
+    });
+
+    contenedorModal.insertBefore(dotNavContainer, contenedorModal.firstChild);
+
+    const actualizarPuntoActivo = () => {
+        let actualId = seccionesExistentes[0].id;
+        const scrollPosition = window.scrollY;
+
+        seccionesExistentes.forEach(sec => {
+            const el = contenedorModal.querySelector(`#${sec.id}`);
+            if (el) {
+                const top = el.offsetTop - 120;
+                if (scrollPosition >= top) {
+                    actualId = sec.id;
+                }
+            }
+        });
+
+        dotNavContainer.querySelectorAll(".dot-nav-item").forEach(item => {
+            const circle = item.querySelector(".dot-circle");
+            if (item.getAttribute("data-target") === actualId) {
+                circle.classList.add("active");
+            } else {
+                circle.classList.remove("active");
+            }
+        });
+    };
+
+    window.addEventListener("scroll", actualizarPuntoActivo);
+}
