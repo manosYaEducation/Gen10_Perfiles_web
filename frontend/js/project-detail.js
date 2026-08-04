@@ -6,6 +6,25 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
+    const contenedor = document.getElementById("proyecto-container");
+    if (contenedor) {
+        contenedor.innerHTML = `
+            <div class="skeleton-container" style="max-width: 900px; margin: 2rem auto; padding: 0 1.5rem;">
+                <div class="skeleton-header">
+                    <div class="skeleton-box skeleton-title"></div>
+                    <div class="skeleton-box skeleton-pill"></div>
+                </div>
+                <div class="skeleton-box skeleton-text"></div>
+                <div class="skeleton-box skeleton-text"></div>
+                <div class="skeleton-box skeleton-text short"></div>
+                <div class="skeleton-grid">
+                    <div class="skeleton-box skeleton-card"></div>
+                    <div class="skeleton-box skeleton-card"></div>
+                </div>
+            </div>
+        `;
+    }
+
     try {
         const response = await fetch(API_URL_PHP + `/project_detail.php?id=${idProyecto}`);
         const data = await response.json();
