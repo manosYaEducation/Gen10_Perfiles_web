@@ -336,12 +336,7 @@ function renderizarVistaStandalone(proyecto, contenedor) {
 
         // Agregar todo el HTML al contenedor
         contenedor.innerHTML = html;
-
-    } catch (error) {
-        console.error("Error en la petición:", error);
     }
-    
-});
 
 
 //Manejo modal para ver imágenes más grandes

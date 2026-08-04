@@ -44,7 +44,6 @@ function mostrarProyectos(proyectos) {
 
     if (!contenedor) return;
 
-    // Limpiar el contenedor antes de agregar nuevos proyectos
     contenedor.innerHTML = "";
 
     proyectos.forEach(proyecto => {
@@ -71,7 +70,6 @@ function mostrarProyectos(proyectos) {
             </div>
         `;
 
-        // Interceptar clic en la tarjeta o el título para abrir el modal
         const tituloBtn = div.querySelector(".proyecto-titulo");
         const tarjeta = div.querySelector(".proyecto-tarjeta");
 
@@ -106,7 +104,7 @@ async function abrirModalDetalleProyecto(idProyecto) {
 
     if (!modalOverlay || !modalContenido) return;
 
-    // Mostrar Skeleton Screen animado mientras se obtienen los datos
+    // Mostrar Skeleton Screen mientras se obtienen los datos
     modalContenido.innerHTML = `
         <div class="skeleton-container">
             <div class="skeleton-header">
@@ -130,7 +128,6 @@ async function abrirModalDetalleProyecto(idProyecto) {
     modalOverlay.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
 
-    // Verificar conectividad antes de realizar la petición
     if (!navigator.onLine) {
         renderizarMensajeError("offline", modalContenido, idProyecto);
         return;
@@ -316,7 +313,6 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
                         : ""
                 }
 
-                <!-- Menú desplegable Compartir -->
                 <div
                     class="proyecto-compartir-contenedor"
                     id="compartir-contenedor"
@@ -400,7 +396,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Tecnologías utilizadas
+    // Tecnologías
     if (proyecto.detalles?.tecnologias?.length > 0) {
         html += `
             <div>
@@ -424,7 +420,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Enlaces del proyecto
+    // Enlaces
     if (proyecto.detalles?.enlaces?.length > 0) {
         html += `
             <div class="modal-proyecto-enlaces">
@@ -447,7 +443,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Galería de imágenes con fallback
+    // Galería con imagen alternativa
     if (proyecto.detalles?.imagenes?.length > 0) {
         html += `
             <div>
@@ -486,7 +482,6 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
             </div>
         `;
     } else {
-        // Imagen por defecto cuando no hay recursos visuales
         html += `
             <div>
                 <h3 class="modal-proyecto-seccion-titulo">
@@ -551,7 +546,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Participantes / Equipo
+    // Participantes
     if (proyecto.detalles?.participantes?.length > 0) {
         const participantesVistos = new Set();
 
@@ -650,7 +645,6 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
 
     contenedor.innerHTML = html;
 
-    // Asignar listeners del botón de compartir y copiar enlace
     inicializarManejadorCompartir(shareUrl);
 }
 
@@ -674,7 +668,6 @@ function inicializarManejadorCompartir(shareUrl) {
         });
     }
 
-    // Cerrar menú si se hace clic fuera
     document.addEventListener("click", event => {
         if (
             compartirContenedor &&
@@ -812,5 +805,4 @@ function inicializarEventosModalProyecto() {
     });
 }
 
-// Cargar proyectos cuando se cargue la página
 document.addEventListener("DOMContentLoaded", cargarProyectos);
