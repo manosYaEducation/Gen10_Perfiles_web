@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="./frontend/css/base/footer.css">
     <link rel="stylesheet" href="./frontend/css/base/proyectos-timeline.css">
+    <link rel="stylesheet" href="./frontend/css/modal-detalle-proyecto.css">
     <link rel="stylesheet" href="./frontend/css/base/clients-index.css">
     <link rel="stylesheet" href="./frontend/css/base/back-to-top.css">
 
@@ -1177,6 +1178,21 @@
     <script src="./frontend/js/loading-component.js"></script>
     <script src="./frontend/js/clients-index.js"></script>
     <script src="./frontend/js/back-to-top.js"></script>
+    <script src="./frontend/js/index-dot-nav.js"></script>
+    <!-- Modal Detalle de Proyecto -->
+    <div id="modal-detalle-proyecto" class="modal-proyecto-overlay" aria-hidden="true">
+        <div class="modal-proyecto-container">
+            <button class="modal-proyecto-cerrar" id="cerrar-modal-proyecto" aria-label="Cerrar modal">&times;</button>
+            <div id="modal-proyecto-contenido">
+                <!-- Contenido cargado dinámicamente -->
+            </div>
+        </div>
+    </div>
+    <!-- Toast de Notificación -->
+    <div id="compartir-toast" class="compartir-toast">
+        <i class="fas fa-check-circle"></i>
+        <span>¡Enlace copiado al portapapeles!</span>
+    </div>
     <div id="footer-container"></div>
     <script>
         fetch('./frontend/components/footer-index.html')
