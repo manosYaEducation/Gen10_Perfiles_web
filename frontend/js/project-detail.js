@@ -48,6 +48,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         html += `</div>`;
 
+        // Tecnologías
+if (proyecto.detalles?.tecnologias?.length > 0) {
+    html += `
+        <section class="tecnologias">
+            <h2>Tecnologías</h2>
+            <div class="tecnologias-container">
+                ${proyecto.detalles.tecnologias.map(tec => `
+                    <span class="tecnologia-item">${tec}</span>
+                `).join("")}
+            </div>
+        </section>
+    `;
+}
+
         // Galería de imágenes
         if (proyecto.detalles?.imagenes?.length > 0) {
             html += `

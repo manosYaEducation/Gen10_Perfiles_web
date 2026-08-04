@@ -415,6 +415,36 @@
 }
 
 /* ===========================
+   TECNOLOGÍAS
+   =========================== */
+
+.tecnologias {
+    padding: 2rem;
+    text-align: center;
+}
+
+.tecnologias h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.tecnologias-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tecnologia-item {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* ===========================
    DARK MODE STYLES
    =========================== */
 body.dark-mode {
@@ -497,3 +527,11 @@ body.dark-mode .dark-mode-toggle:hover {
   background-color: rgba(255,255,255,0.1) !important;
 }
 
+body.dark-mode .tecnologias h2 {
+    color: white;
+}
+
+body.dark-mode .tecnologia-item {
+    background: #6dd990;
+    color: #121212;
+}
