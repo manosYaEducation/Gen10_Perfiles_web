@@ -21,12 +21,16 @@ async function cargarProyectos() {
         
     } catch (error) {
         console.error("Error al obtener proyectos:", error);
-        document.getElementById("contenedor-proyecto").innerHTML = `<p style="color: red;">Error al cargar los proyectos.</p>`;
+        const contenedor = document.getElementById("contenedor-proyecto");
+        if (contenedor) {
+            contenedor.innerHTML = `<p style="color: red;">Error al cargar los proyectos.</p>`;
+        }
     }
 }
 
 function mostrarProyectos(proyectos) {
     const contenedor = document.getElementById("contenedor-proyecto");
+    if (!contenedor) return;
     contenedor.innerHTML = "";
 
     proyectos.forEach(proyecto => {
@@ -51,12 +55,14 @@ function mostrarProyectos(proyectos) {
             abrirModalDetalleProyecto(proyecto.id_proyecto);
         };
 
-        tituloBtn.addEventListener('click', abrirHandler);
-        tarjeta.addEventListener('click', (e) => {
-            if (e.target !== tituloBtn) {
-                abrirHandler(e);
-            }
-        });
+        if (tituloBtn) tituloBtn.addEventListener('click', abrirHandler);
+        if (tarjeta) {
+            tarjeta.addEventListener('click', (e) => {
+                if (e.target !== tituloBtn) {
+                    abrirHandler(e);
+                }
+            });
+        }
 
         contenedor.appendChild(div);
     });
@@ -66,12 +72,36 @@ function mostrarProyectos(proyectos) {
 // Lógica de Modal de Detalle de Proyecto
 // ==========================================
 
+function obtenerOCrearModalOverlay() {
+    let modalOverlay = document.getElementById("modal-detalle-proyecto");
+    let modalContenido = document.getElementById("modal-proyecto-contenido");
+
+    if (!modalOverlay) {
+        modalOverlay = document.createElement("div");
+        modalOverlay.id = "modal-detalle-proyecto";
+        modalOverlay.className = "modal-proyecto-overlay";
+        modalOverlay.setAttribute("aria-hidden", "true");
+
+        modalOverlay.innerHTML = `
+            <div class="modal-proyecto-container">
+                <button class="modal-proyecto-cerrar" id="cerrar-modal-proyecto" aria-label="Cerrar modal">&times;</button>
+                <div id="modal-proyecto-contenido"></div>
+            </div>
+        `;
+        document.body.appendChild(modalOverlay);
+        inicializarEventosModalProyecto();
+    }
+
+    modalContenido = document.getElementById("modal-proyecto-contenido");
+    return { modalOverlay, modalContenido };
+}
+
 async function abrirModalDetalleProyecto(idProyecto) {
-    const modalOverlay = document.getElementById("modal-detalle-proyecto");
-    const modalContenido = document.getElementById("modal-proyecto-contenido");
+    const { modalOverlay, modalContenido } = obtenerOCrearModalOverlay();
 
     if (!modalOverlay || !modalContenido) return;
 
+    // Skeleton Screen animado mientras carga
     modalContenido.innerHTML = `
         <div class="skeleton-container">
             <div class="skeleton-header">
@@ -263,7 +293,7 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
         `;
     }
 
-    // Galería de imágenes
+    // Galería de imágenes (con fallback de imagen por defecto)
     if (proyecto.detalles?.imagenes?.length > 0) {
         html += `
             <div id="sec-galeria">
@@ -353,10 +383,10 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
     html += `</div>`;
     contenedor.innerHTML = html;
 
-    // Inicializar Navegación Vertical por Puntos Redondos (Dot Navigation)
+    // Navegación por puntos redondos en el modal
     inicializarNavegacionPuntosVert(contenedor);
 
-    // Asignar listeners del botón de compartir y copiar enlace
+    // Compartir redes
     inicializarManejadorCompartir(shareUrl);
 }
 
@@ -372,6 +402,10 @@ function inicializarNavegacionPuntosVert(contenedorModal) {
 
     const seccionesExistentes = seccionesDefinidas.filter(s => contenedorModal.querySelector(`#${s.id}`));
     if (seccionesExistentes.length < 2) return;
+
+    // Eliminar navegaciones anteriores si existían
+    const oldNav = contenedorModal.querySelector('.proyecto-dot-nav');
+    if (oldNav) oldNav.remove();
 
     const dotNavContainer = document.createElement("div");
     dotNavContainer.className = "proyecto-dot-nav";
@@ -400,22 +434,30 @@ function inicializarNavegacionPuntosVert(contenedorModal) {
 
     contenedorModal.insertBefore(dotNavContainer, contenedorModal.firstChild);
 
-    // Dynamic Active Dot tracking on Scroll
     const modalScrollParent = contenedorModal.closest('.modal-proyecto-container') || window;
 
     const actualizarPuntoActivo = () => {
-        let actualId = seccionesExistentes[0].id;
-        const scrollPosition = modalScrollParent.scrollTop || window.scrollY;
+        const scrollPos = modalScrollParent.scrollTop || window.scrollY;
+        const containerHeight = modalScrollParent.clientHeight || window.innerHeight;
+        const totalHeight = modalScrollParent.scrollHeight || document.documentElement.scrollHeight;
 
-        seccionesExistentes.forEach(sec => {
-            const el = contenedorModal.querySelector(`#${sec.id}`);
-            if (el) {
-                const top = el.offsetTop - 120;
-                if (scrollPosition >= top) {
-                    actualId = sec.id;
+        let actualId = seccionesExistentes[0].id;
+
+        // Si se llegó al final del scroll (fondo), activar forzosamente el último punto
+        if (scrollPos + containerHeight >= totalHeight - 35) {
+            actualId = seccionesExistentes[seccionesExistentes.length - 1].id;
+        } else {
+            for (let i = 0; i < seccionesExistentes.length; i++) {
+                const sec = seccionesExistentes[i];
+                const el = contenedorModal.querySelector(`#${sec.id}`);
+                if (el) {
+                    const top = el.offsetTop - 150;
+                    if (scrollPos >= top) {
+                        actualId = sec.id;
+                    }
                 }
             }
-        });
+        }
 
         dotNavContainer.querySelectorAll(".dot-nav-item").forEach(item => {
             const circle = item.querySelector(".dot-circle");
@@ -541,4 +583,3 @@ function inicializarEventosModalProyecto() {
 }
 
 document.addEventListener("DOMContentLoaded", cargarProyectos);
-

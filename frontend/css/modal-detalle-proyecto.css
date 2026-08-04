@@ -76,7 +76,7 @@
 }
 
 /* ==========================================================================
-   Navegación Vertical por Puntos Redondos (Vertical Dot Navigation)
+   Navegación Vertical por Puntos Redondos (Modal & Página Principal)
    ========================================================================== */
 
 .proyecto-dot-nav {
@@ -89,12 +89,30 @@
     gap: 1.1rem;
     z-index: 100;
     margin-left: 1.5rem;
-    margin-right: -1rem;
+    margin-right: -0.5rem;
     padding: 0.8rem 0.5rem;
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(4px);
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Variante Fija para la Página Principal (index.html) */
+.main-page-dot-nav {
+    position: fixed;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    z-index: 9998;
+    padding: 0.9rem 0.6rem;
+    background-color: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .dot-nav-item {
@@ -113,28 +131,28 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: #cccccc;
+    background-color: #666666;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .dot-nav-item:hover .dot-circle {
     background-color: #81c784;
-    transform: scale(1.2);
+    transform: scale(1.25);
 }
 
 .dot-circle.active {
-    background-color: #4CAF50;
-    transform: scale(1.45);
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+    background-color: #4CAF50 !important;
+    transform: scale(1.5) !important;
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.85) !important;
 }
 
 /* Tooltip Emergente */
 .dot-label {
     position: absolute;
-    right: 24px;
-    background-color: #333333;
+    right: 26px;
+    background-color: #222222;
     color: #ffffff;
-    padding: 0.35rem 0.75rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 6px;
     font-size: 0.8rem;
     font-weight: 600;
@@ -144,7 +162,7 @@
     transform: translateX(10px);
     transition: all 0.25s ease;
     pointer-events: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dot-nav-item:hover .dot-label {
@@ -662,8 +680,8 @@ body.dark-mode .dot-nav-item:hover .dot-circle {
 }
 
 body.dark-mode .dot-circle.active {
-    background-color: #4CAF50;
-    box-shadow: 0 0 12px rgba(76, 175, 80, 0.8);
+    background-color: #4CAF50 !important;
+    box-shadow: 0 0 12px rgba(76, 175, 80, 0.9) !important;
 }
 
 body.dark-mode .dot-label {
@@ -813,7 +831,8 @@ body.dark-mode .modal-proyecto-participante span {
         font-size: 1.6rem;
     }
 
-    .proyecto-dot-nav {
+    .proyecto-dot-nav,
+    .main-page-dot-nav {
         display: none;
     }
 }

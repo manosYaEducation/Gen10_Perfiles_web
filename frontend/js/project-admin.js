@@ -37,10 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        document.getElementById('seccion-activos').style.display = proyectosActivos.length > 0 ? 'block' : 'none';
-        document.getElementById('seccion-finalizados').style.display = proyectosFinalizados.length > 0 ? 'block' : 'none';
-        document.getElementById('seccion-standby').style.display = proyectosStandBy.length > 0 ? 'block' : 'none';
-        document.getElementById('seccion-sin-clasificar').style.display = proyectosSinClasificar.length > 0 ? 'block' : 'none';
+        const secActivos = document.getElementById('seccion-activos');
+        const secFinalizados = document.getElementById('seccion-finalizados');
+        const secStandBy = document.getElementById('seccion-standby');
+        const secSinClasificar = document.getElementById('seccion-sin-clasificar');
+
+        if (secActivos) secActivos.style.display = proyectosActivos.length > 0 ? 'block' : 'none';
+        if (secFinalizados) secFinalizados.style.display = proyectosFinalizados.length > 0 ? 'block' : 'none';
+        if (secStandBy) secStandBy.style.display = proyectosStandBy.length > 0 ? 'block' : 'none';
+        if (secSinClasificar) secSinClasificar.style.display = proyectosSinClasificar.length > 0 ? 'block' : 'none';
 
         cargarTabla('tablaProyectosActivos', proyectosActivos);
         cargarTabla('tablaProyectosFinalizados', proyectosFinalizados);
@@ -398,4 +403,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
-
