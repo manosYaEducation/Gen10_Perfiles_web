@@ -21,9 +21,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         //Sección de información del evento
         let html = `
-            <div id="evento" class="evento-info">
+            <div id="sec-encabezado" class="evento-info">
                 <h2 id="titulo-evento">${proyecto.titulo}</h2>
-                <p id="descripcion-evento">${proyecto.contenido}</p>
+                
+                ${(proyecto.duracion || proyecto.fecha) ? `
+                    <div style="margin-bottom: 1rem;">
+                        <span class="modal-proyecto-duracion">
+                            <i class="far fa-clock"></i> <strong>Período de Ejecución:</strong> ${proyecto.duracion || proyecto.fecha}
+                        </span>
+                    </div>
+                ` : ''}
+
+                <div id="sec-descripcion">
+                    <p id="descripcion-evento">${proyecto.contenido}</p>
         `;
 
         // Párrafos
@@ -46,17 +56,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                 </section>
             `;
         }
-        html += `</div>`;
+        html += `</div></div>`;
 
         // Galería de imágenes
         if (proyecto.detalles?.imagenes?.length > 0) {
             html += `
-                <section class="galeria">
+                <section class="galeria" id="sec-galeria">
                     <h2>Galería del Evento</h2>
                     <div class="galeria-container">
                         ${proyecto.detalles.imagenes.map(img => `                            
                             <div class="galeria-item">
-                                <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto">
+                                <img src="${img.url}" class="imagen-galeria" alt="Imagen del proyecto" onerror="this.onerror=null; this.src='../assets/img/proyecto-default.svg';">
                                 <p class="descripcion-imagen">${img.descripcion}</p>
                             </div>                            
                         `).join("")}
@@ -187,6 +197,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Agregar todo el HTML al contenedor
         contenedor.innerHTML = html;
+
+        // Inicializar Navegación Vertical por Puntos Redondos
+        inicializarNavegacionPuntosVert(contenedor);
 
     } catch (error) {
         console.error("Error en la petición:", error);
