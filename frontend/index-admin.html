@@ -172,6 +172,7 @@
                             <th>Cliente</th>
                             <th>Desarrollador</th>
                             <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tbReviews"></tbody>
@@ -188,6 +189,44 @@
         <p id="dialogMessage">¿Estás seguro de que deseas realizar esta acción?</p>
         <button id="confirmButton" class="confirmButton" onclick="confirmAction()">Confirmar</button>
         <button id="cancelButton" class="cancelButton" onclick="closeDialog()">Cancelar</button>
+    </dialog>
+
+    <!-- RE-05: Modal de Vista de Detalles -->
+    <dialog id="detalleModal" class="modal modal-detalle">
+        <button class="btn-cerrar-modal" onclick="cerrarDetalle()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="detalle-content">
+            <h2 class="detalle-titulo">Detalle de Reseña</h2>
+            <div class="detalle-grid">
+                <div class="detalle-item">
+                    <span class="detalle-label">Cliente</span>
+                    <span class="detalle-valor" id="detalleCliente"></span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Empresa</span>
+                    <span class="detalle-valor" id="detalleEmpresa"></span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Desarrollador</span>
+                    <span class="detalle-valor" id="detalleDesarrollador"></span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Fecha</span>
+                    <span class="detalle-valor" id="detalleFecha"></span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Calificación</span>
+                    <span class="detalle-valor" id="detalleCalificacion"></span>
+                </div>
+                <div class="detalle-item">
+                    <span class="detalle-label">Estado</span>
+                    <span class="detalle-valor" id="detalleEstado"></span>
+                </div>
+            </div>
+            <div class="detalle-comentario">
+                <span class="detalle-label">Comentario</span>
+                <p class="detalle-valor-texto" id="detalleComentario"></p>
+            </div>
+        </div>
     </dialog>
 
     <script src="../frontend/js/theme-toggle.js"></script>

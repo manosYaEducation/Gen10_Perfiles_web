@@ -28,6 +28,172 @@
     background-color: #f9f9f9;
 }
 
+/* RE-12: Chips de estado para reseñas */
+.chip {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+}
+
+.chip-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.chip-aprobada {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.chip-rechazada {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* RE-11: Botones de acciones rápidas */
+.acciones-rapidas {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+}
+
+.btn-accion {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-aprobar {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-aprobar:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-rechazar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-rechazar:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-ver-detalle {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-ver-detalle:hover {
+    background-color: #138496;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+}
+
+.btn-accion:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* RE-05: Modal de Detalles de Reseña */
+.modal-detalle {
+    max-width: 600px;
+    width: 90%;
+    padding: 30px;
+    text-align: left;
+}
+
+.btn-cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.btn-cerrar-modal:hover {
+    color: #333;
+}
+
+.detalle-titulo {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #314438;
+    font-size: 1.5em;
+}
+
+.detalle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.detalle-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detalle-label {
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.detalle-valor {
+    font-size: 1em;
+    color: #333;
+    font-weight: 500;
+}
+
+.detalle-comentario {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.detalle-valor-texto {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+    background-color: #f9f9f9;
+    padding: 12px;
+    border-radius: 6px;
+}
+
 
 .create-profile {
     display: block;
@@ -455,42 +621,46 @@ select {
 
 table {
     margin: 0 auto;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     background: white;
     margin-bottom: 150px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 th {
-    padding: 10px;
-    width: 1px;
-    border: 1px solid #ddd;
-    font-weight: bold;
-}
-
-.td-large {
-    width: 800px;
-    overflow-wrap: break-word;
-    max-width: 800px;
-}
-
-.td-medium {
-    width: 245px;
-}
-
-.td-small {
-    width: 4px;
+    padding: 16px 20px;
+    border: none;
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-color: #314438;
+    color: white;
 }
 
 td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+    padding: 14px 20px;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left;
+    font-size: 0.95em;
+    color: #333;
 }
 
-.rating {
-    width: 15px;
-    height: 15px;
+tr:last-child td {
+    border-bottom: none;
+}
+
+.review-row {
+    transition: all 0.2s ease;
+}
+
+.review-row:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.005);
 }
 
 .modal {
@@ -852,11 +1022,8 @@ td {
 
     td:nth-of-type(1):before { content: "Cliente:"; }
     td:nth-of-type(2):before { content: "Desarrollador:"; }
-    td:nth-of-type(3):before { content: "Empresa:"; }
-    td:nth-of-type(4):before { content: "Comentario:"; }
-    td:nth-of-type(5):before { content: "Valoración:"; }
-    td:nth-of-type(6):before { content: "Estado:"; }
-    td:nth-of-type(7):before { content: "Acciones:"; }
+    td:nth-of-type(3):before { content: "Estado:"; }
+    td:nth-of-type(4):before { content: "Acciones:"; }
 
     .td-large, .td-medium, .td-small {
         width: 60%;
@@ -881,6 +1048,21 @@ td {
     .confirmButton, .cancelButton {
         width: 100%;
         margin: 5px 0;
+    }
+
+    /* RE-05: Modal de detalles responsive */
+    .modal-detalle {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .detalle-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .acciones-rapidas {
+        flex-wrap: wrap;
     }
 
     section {
@@ -1126,6 +1308,81 @@ body.dark-mode .review-row {
 
 body.dark-mode .review-row:hover {
   background-color: #2a2a2a;
+}
+
+/* RE-12: Chips de estado en dark mode */
+body.dark-mode .chip-pendiente {
+  background-color: #4a3800;
+  color: #ffd966;
+  border-color: #ffc107;
+}
+
+body.dark-mode .chip-aprobada {
+  background-color: #0d3d18;
+  color: #75e89b;
+  border-color: #28a745;
+}
+
+body.dark-mode .chip-rechazada {
+  background-color: #4a0e12;
+  color: #f5a3ab;
+  border-color: #dc3545;
+}
+
+/* RE-11: Botones de acción en dark mode */
+body.dark-mode .btn-aprobar {
+  background-color: #1e7e34;
+}
+
+body.dark-mode .btn-aprobar:hover {
+  background-color: #15692b;
+}
+
+body.dark-mode .btn-rechazar {
+  background-color: #bd2130;
+}
+
+body.dark-mode .btn-rechazar:hover {
+  background-color: #a71d2a;
+}
+
+body.dark-mode .btn-ver-detalle {
+  background-color: #1a6fb5;
+}
+
+body.dark-mode .btn-ver-detalle:hover {
+  background-color: #145a96;
+}
+
+/* RE-05: Modal de detalles en dark mode */
+body.dark-mode .modal-detalle {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+body.dark-mode .btn-cerrar-modal {
+  color: var(--text-color);
+}
+
+body.dark-mode .btn-cerrar-modal:hover {
+  color: #fff;
+}
+
+body.dark-mode .detalle-titulo {
+  color: #4CAF50;
+}
+
+body.dark-mode .detalle-label {
+  color: #aaa;
+}
+
+body.dark-mode .detalle-valor {
+  color: var(--text-color);
+}
+
+body.dark-mode .detalle-valor-texto {
+  color: var(--text-color);
+  background-color: #2d2d2d;
 }
 
 body.dark-mode .review-separator::after {
