@@ -15,22 +15,28 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById('profile_image').src = result.data.image;
         }
 
+        document.getElementById('location-text').innerHTML = '<i class="fas fa-map-marker-alt" style="color: #4caf4f; margin-right: 8px;"></i> ' + profile.basic.location;
+        if (profile.basic.career) {
+            document.getElementById('career-text').innerHTML = '<i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> ' + profile.basic.career;
+        } else {
+            document.getElementById('career-text').innerHTML = '<i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> Analista Programador'; 
+        }
+
         // Información personal
-        document.getElementById('name-hero-lateral').textContent = profile.basic.name;
-        document.getElementById('personal-information-hero-lateral').innerHTML = `
-            <p class="mb-2"><i class="fas fa-map-marker-alt me-2 text-success"></i> ${profile.basic.location}</p>
-            <p class="mb-2"><i class="fas fa-phone me-2 text-success"></i> ${profile.basic.phone}</p>
-            <p class="mb-2"><i class="fas fa-envelope me-2 text-success"></i> ${profile.basic.email}</p>
+        document.getElementById('name-hero').textContent = profile.basic.name;
+        document.getElementById('personal-information-hero').innerHTML = `
+            <p style="margin: 0; width: 100%;">• ${profile.basic.email}</p>
+            <p style="margin: 0; width: 100%;">• ${profile.basic.phone}</p>
         `;
         //funcionalidad: convertir el teléfono en enlace de Wsp
         {
             const infoDiv = document.getElementById('personal-information-hero');
             const paragraphs = infoDiv.getElementsByTagName('p');
             if (paragraphs.length >= 2) {
-                const phoneText = paragraphs[1].textContent.trim();
+                const phoneText = paragraphs[1].textContent.trim().replace('• ', '');
                 const digits = phoneText.replace(/\D/g, '');
                 if (digits) {
-                    paragraphs[1].innerHTML = `<a href="https://wa.me/${digits}" target="_blank">${phoneText}</a>`;
+                    paragraphs[1].innerHTML = `• <a href="https://wa.me/${digits}" target="_blank" style="color: #4caf4f; text-decoration: none;">${phoneText}</a>`;
                 }
             }
         }
