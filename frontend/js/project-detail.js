@@ -23,6 +23,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         let html = `
             <div id="evento" class="evento-info">
                 <h2 id="titulo-evento">${proyecto.titulo}</h2>
+                
+                ${(proyecto.duracion || proyecto.fecha) ? `
+                    <div style="margin-bottom: 1rem;">
+                        <span class="modal-proyecto-duracion">
+                            <i class="far fa-clock"></i> <strong>Período de Ejecución:</strong> ${proyecto.duracion || proyecto.fecha}
+                        </span>
+                    </div>
+                ` : ''}
+
                 <p id="descripcion-evento">${proyecto.contenido}</p>
         `;
 
