@@ -45,47 +45,70 @@ document.addEventListener('DOMContentLoaded', function () {
             if (data.success) {
                 data.data.reviews.forEach((review, index) => {
                     const reviewTable = document.createElement('tr');
-                    reviewTable.classList.add('review-row'); 
+                    reviewTable.classList.add('review-row');
+                    reviewTable.dataset.reviewId = review.id;
 
+                    // RE-06: cada fila guarda su propio estado/calificación/fecha
+                    // para que la función de filtros pueda leerlos sin volver a golpear el backend.
+                    reviewTable.dataset.status = review.estado_reseña || '';
+                    reviewTable.dataset.rating = review.rating || 0;
+                    reviewTable.dataset.date = review.date_review || '';
+                    
+                    // RE-05: Guardar todos los datos de la reseña para el modal de detalles
+                    reviewTable.dataset.cliente = review.nameClient || '';
+                    reviewTable.dataset.empresa = review.company || '';
+                    reviewTable.dataset.desarrollador = review.nombre_perfil || '';
+                    reviewTable.dataset.comentario = review.comments || '';
+
+                    // RE-04: Tabla simplificada - solo columnas esenciales
+                    // RE-12: Chip de color para el estado
+                    const chipClass = `chip-${(review.estado_reseña || '').toLowerCase()}`;
+                    
+                    // RE-11: Botones de acción según estado
+                    let accionesHTML = '';
+                    if (review.estado_reseña === 'Pendiente') {
+                        accionesHTML = `
+                            <button class="btn-accion btn-aprobar" onclick="aprobarRechazar(${review.id}, 2)" title="Aprobar">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="btn-accion btn-rechazar" onclick="aprobarRechazar(${review.id}, 3)" title="Rechazar">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        `;
+                    } else if (review.estado_reseña === 'Aprobada') {
+                        accionesHTML = `
+                            <button class="btn-accion btn-rechazar" onclick="aprobarRechazar(${review.id}, 3)" title="Rechazar">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        `;
+                    } else if (review.estado_reseña === 'Rechazada') {
+                        accionesHTML = `
+                            <button class="btn-accion btn-aprobar" onclick="aprobarRechazar(${review.id}, 2)" title="Aprobar">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                        `;
+                    }
+                    
                     reviewTable.innerHTML = `
                         <td class="td-medium">${review.nameClient}</td>
                         <td class="td-medium">${review.nombre_perfil}</td>
-                        <td class="td-medium">${review.company}</td>
-                        <td class="td-large">${review.comments}</td>
+                        <td class="td-small" id="actualState"><span class="chip ${chipClass}">${review.estado_reseña}</span></td>
                         <td class="td-small">
-                            <div class="imgRating-${review.id}"></div>
-                        </td>
-                        <td class="status td-small" id="actualState">${review.estado_reseña}</td>
-                        <td class="td-small">
-                            <select id="review-status-${review.id}" onchange="changeStatus(${review.id})">
-                                <option>Cambiar estado</option>
-                                <option value="1" ${review.estado_reseña === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
-                                <option value="2" ${review.estado_reseña === 'Aprobada' ? 'selected' : ''}>Aprobada</option>
-                                <option value="3" ${review.estado_reseña === 'Rechazada' ? 'selected' : ''}>Rechazada</option>
-                            </select>
+                            <div class="acciones-rapidas">
+                                ${accionesHTML}
+                                <button class="btn-accion btn-ver-detalle" onclick="verDetalle(${review.id})" title="Ver detalle">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
                         </td>
                     `;
-                    tbReviews.appendChild(reviewTable);
 
                     // Inserta la fila en el cuerpo de la tabla
-                    /*                 console.log(reviewTable) */
                     tbReviews.appendChild(reviewTable);
-
-                    // Agregar estrellas en la valoración
-                    const imgRatingContainer = reviewTable.querySelector(`.imgRating-${review.id}`);
-                    const numberRating = review.rating;
-                    // Se itera sobre el valor de la valoración para agregar las estrellas
-                    for (let i = 0; i < numberRating; i++) {
-                        const estrella = document.createElement('img');
-                        // URL de la estrella
-                        estrella.src = "../assets/img/star.png";
-                        estrella.alt = "Estrella";
-                        estrella.classList.add('rating')
-                        imgRatingContainer.appendChild(estrella);
-                    }
                 });
 
-                fetch(`${window.API_URL_PHP}update_review.php`)
+                // RE-02 / RE-03: calcular y pintar el dashboard con los datos ya cargados
+                actualizarDashboardReseñas(data.data.reviews);
             }
             else {
                 console.log(data)
@@ -94,52 +117,117 @@ document.addEventListener('DOMContentLoaded', function () {
 
         .catch(error => console.error('Error al obtener reseñas:', error.message));
 
+    // RE-06: engancha los controles de filtro una sola vez (no dependen del fetch)
+    inicializarFiltrosReseñas();
 });
-function filterReviews() {
-    const filter = document.getElementById("filter-reviews").value;  // El valor del filtro seleccionado
-    const rows = document.querySelectorAll("#tbReviews tr");          // Las filas de la tabla
-    const estado = document.getElementById("actualState").textContent.trim();  // El valor actual del estado
 
-    console.log(filter)
-    console.log(estado)
-    rows.forEach(row => {
-        const statusCell = row.querySelector(".status"); // Ajusta el selector según tu HTML
-        if (statusCell) {
-            const status = statusCell.textContent.trim();  // Obtén el texto de la celda de estado
-            if (filter === "todas") {
-                row.style.display = "";  // Muestra la fila si se seleccionan todas
-            }
-            // Si el estado de la fila coincide con el filtro, muestra la fila
-            else if (status === filter) {
-                // Si el estado coincide con el filtro o el filtro es "todos", muestra la fila
-                row.style.display = "";
-            } else {
-                // Si no coincide, oculta la fila
-                row.style.display = "none";
-            }
-        }
+/**
+ * RE-02 / RE-03: Calcula los indicadores del dashboard (total, promedio,
+ * y conteo por estado) a partir de las reseñas ya cargadas y los pinta en
+ * las tarjetas del header. Se calcula sobre el total general, no sobre el
+ * resultado filtrado, para que siga funcionando como un resumen global.
+ */
+function actualizarDashboardReseñas(reviews) {
+    const total = reviews.length;
+    const promedio = total > 0
+        ? (reviews.reduce((suma, r) => suma + Number(r.rating || 0), 0) / total).toFixed(1)
+        : '0.0';
+    const pendientes = reviews.filter(r => r.estado_reseña === 'Pendiente').length;
+    const aprobadas = reviews.filter(r => r.estado_reseña === 'Aprobada').length;
+    const rechazadas = reviews.filter(r => r.estado_reseña === 'Rechazada').length;
+
+    document.getElementById('dashTotal').textContent = total;
+    document.getElementById('dashPromedio').textContent = promedio;
+    document.getElementById('dashPendientes').textContent = pendientes;
+    document.getElementById('dashAprobadas').textContent = aprobadas;
+    document.getElementById('dashRechazadas').textContent = rechazadas;
+}
+
+/**
+ * RE-06: estructura base de filtros avanzados. Una sola función combina
+ * estado + rango de fecha (RE-09) + calificación mínima (RE-10) sobre las
+ * filas ya renderizadas en el navegador (filtrado client-side).
+ *
+ * Nota: si más adelante el equipo prefiere que el filtro golpee el backend
+ * (ej. para no cargar miles de reseñas de una vez), esta función es el único
+ * lugar que habría que cambiar por un fetch con querystring.
+ */
+function aplicarFiltrosReseñas() {
+    const estado = document.getElementById('filter-reviews').value;
+    const desde = document.getElementById('filter-fecha-desde').value; // 'YYYY-MM-DD' o ''
+    const hasta = document.getElementById('filter-fecha-hasta').value;
+    const calificacion = parseInt(document.getElementById('filter-rating').value, 10) || 0;
+
+    const filas = document.querySelectorAll('#tbReviews tr');
+
+    filas.forEach(fila => {
+        const filaEstado = fila.dataset.status || '';
+        const filaRating = parseInt(fila.dataset.rating, 10) || 0;
+        const filaFecha = (fila.dataset.date || '').slice(0, 10); // solo YYYY-MM-DD
+
+        let visible = true;
+
+        if (estado !== 'todas' && filaEstado !== estado) visible = false;
+        if (visible && desde && filaFecha && filaFecha < desde) visible = false;
+        if (visible && hasta && filaFecha && filaFecha > hasta) visible = false;
+        // RE-10: calificación EXACTA (no "mínimo"), así se puede aislar
+        // solo las de 1 estrella (críticas) o solo las de 5 (destacadas).
+        if (visible && calificacion !== 0 && filaRating !== calificacion) visible = false;
+
+        fila.style.display = visible ? '' : 'none';
     });
+}
+
+/**
+ * RE-03: recuenta pendientes/aprobadas/rechazadas leyendo el data-status
+ * de las filas actuales del DOM (no toca total ni promedio, que no cambian
+ * al aprobar/rechazar una reseña ya existente).
+ */
+function recalcularContadoresDashboard() {
+    const filas = document.querySelectorAll('#tbReviews tr');
+    let pendientes = 0, aprobadas = 0, rechazadas = 0;
+
+    filas.forEach(fila => {
+        if (fila.dataset.status === 'Pendiente') pendientes++;
+        else if (fila.dataset.status === 'Aprobada') aprobadas++;
+        else if (fila.dataset.status === 'Rechazada') rechazadas++;
+    });
+
+    document.getElementById('dashPendientes').textContent = pendientes;
+    document.getElementById('dashAprobadas').textContent = aprobadas;
+    document.getElementById('dashRechazadas').textContent = rechazadas;
+}
+
+function inicializarFiltrosReseñas() {
+    const filtroEstado = document.getElementById('filter-reviews');
+    const filtroDesde = document.getElementById('filter-fecha-desde');
+    const filtroHasta = document.getElementById('filter-fecha-hasta');
+    const filtroRating = document.getElementById('filter-rating');
+    const btnLimpiar = document.getElementById('btnLimpiarFiltrosReseñas');
+
+    if (!filtroEstado || !filtroDesde || !filtroHasta || !filtroRating) return;
+
+    [filtroEstado, filtroDesde, filtroHasta, filtroRating].forEach(control => {
+        control.addEventListener('change', aplicarFiltrosReseñas);
+    });
+
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener('click', () => {
+            filtroEstado.value = 'todas';
+            filtroDesde.value = '';
+            filtroHasta.value = '';
+            filtroRating.value = '0';
+            aplicarFiltrosReseñas();
+        });
+    }
 }
 
 function redirectToUpdate(profileId) {
     window.location.href = `./actualizar-perfil.html?id=${profileId}`;
 }
 
-function changeStatus(reviewId) {
-    const selectElement = document.getElementById(`review-status-${reviewId}`);
-    const originalStatus = selectElement.getAttribute('data-original-status');
-    const selectedStatus = selectElement.value;
-
-    // Si el estado ha cambiado, abre la modal
-    if (originalStatus !== selectedStatus) {
-        const modal = document.getElementById('confirmationDialog');
-        modal.showModal();
-
-        // Guarda el ID y el nuevo estado en atributos del modal para usarlos en la confirmación
-        modal.setAttribute('data-review-id', reviewId);
-        modal.setAttribute('data-new-status', selectedStatus);
-    }
-}
+// RE-11: Esta función se implementará con los botones de aprobar/rechazar
+// function changeStatus(reviewId) { ... }
 
 function confirmAction() {
     const modal = document.getElementById('confirmationDialog');
@@ -159,25 +247,58 @@ function confirmAction() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Obtiene la celda del estado de la reseña
-                const statusCell = document.querySelector(`#review-status-${reviewId}`).closest('tr').querySelector('#actualState');
-                //Se crea un mapa con los posibles estados de la reseña
-                const statusMap = {
-                    '1': 'Pendiente',
-                    '2': 'Aprobada',
-                    '3': 'Rechazada',
-                };
+                // RE-04: Buscar la fila por reviewId y actualizar el estado
+                const fila = document.querySelector(`tr[data-review-id="${reviewId}"]`);
+                if (fila) {
+                    const statusCell = fila.querySelector('#actualState');
+                    const statusMap = {
+                        '1': 'Pendiente',
+                        '2': 'Aprobada',
+                        '3': 'Rechazada',
+                    };
+                    const newStateText = statusMap[newStatus];
+                    // RE-12: Actualizar chip con nuevo estado y color
+                    const chipClass = `chip-${newStateText.toLowerCase()}`;
+                    statusCell.innerHTML = `<span class="chip ${chipClass}">${newStateText}</span>`;
+                    fila.dataset.status = newStateText;
+                    
+                    // RE-11: Actualizar botones de acción según nuevo estado
+                    const accionesContainer = fila.querySelector('.acciones-rapidas');
+                    if (accionesContainer) {
+                        let accionesHTML = '';
+                        if (newStateText === 'Pendiente') {
+                            accionesHTML = `
+                                <button class="btn-accion btn-aprobar" onclick="aprobarRechazar(${reviewId}, 2)" title="Aprobar">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                                <button class="btn-accion btn-rechazar" onclick="aprobarRechazar(${reviewId}, 3)" title="Rechazar">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            `;
+                        } else if (newStateText === 'Aprobada') {
+                            accionesHTML = `
+                                <button class="btn-accion btn-rechazar" onclick="aprobarRechazar(${reviewId}, 3)" title="Rechazar">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            `;
+                        } else if (newStateText === 'Rechazada') {
+                            accionesHTML = `
+                                <button class="btn-accion btn-aprobar" onclick="aprobarRechazar(${reviewId}, 2)" title="Aprobar">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                            `;
+                        }
+                        accionesContainer.innerHTML = `
+                            ${accionesHTML}
+                            <button class="btn-accion btn-ver-detalle" onclick="verDetalle(${reviewId})" title="Ver detalle">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        `;
+                    }
+                }
 
-                // Obtiene el texto del nuevo estado
-                const newStateText = statusMap[newStatus]
-
-                // Actualiza el texto del estado en la tabla
-                statusCell.textContent = newStateText;
-
-                // También puedes actualizar el atributo de estado original del selector
-                const selectElement = document.getElementById(`review-status-${reviewId}`);
-                // Guarda el nuevo estado como el estado original
-                selectElement.setAttribute('data-original-status', newStatus);
+                // RE-03: recalcula los contadores del dashboard
+                recalcularContadoresDashboard();
             } else {
                 console.error('Error al actualizar la reseña:', data.message);
             }
@@ -189,6 +310,58 @@ function confirmAction() {
 function closeDialog() {
     const modal = document.getElementById('confirmationDialog');
     modal.close();
+}
+
+// RE-11: Función para aprobar o rechazar reseña directamente
+function aprobarRechazar(reviewId, newStatusId) {
+    const modal = document.getElementById('confirmationDialog');
+    modal.setAttribute('data-review-id', reviewId);
+    modal.setAttribute('data-new-status', newStatusId);
+    modal.showModal();
+}
+
+// RE-05: Función para abrir modal de detalles
+function verDetalle(reviewId) {
+    const fila = document.querySelector(`tr[data-review-id="${reviewId}"]`);
+    if (!fila) return;
+    
+    // Obtener datos de la fila
+    const cliente = fila.dataset.cliente;
+    const empresa = fila.dataset.empresa;
+    const desarrollador = fila.dataset.desarrollador;
+    const comentario = fila.dataset.comentario;
+    const rating = fila.dataset.rating;
+    const estado = fila.dataset.status;
+    const fecha = fila.dataset.date;
+    
+    // Llenar el modal con los datos
+    document.getElementById('detalleCliente').textContent = cliente;
+    document.getElementById('detalleEmpresa').textContent = empresa;
+    document.getElementById('detalleDesarrollador').textContent = desarrollador;
+    document.getElementById('detalleFecha').textContent = fecha ? new Date(fecha).toLocaleDateString('es-ES') : 'No especificada';
+    document.getElementById('detalleEstado').innerHTML = `<span class="chip chip-${estado.toLowerCase()}">${estado}</span>`;
+    
+    // Calificación con estrellas
+    let estrellasHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            estrellasHTML += '<i class="fa-solid fa-star" style="color: #ffc107;"></i>';
+        } else {
+            estrellasHTML += '<i class="fa-regular fa-star" style="color: #ffc107;"></i>';
+        }
+    }
+    document.getElementById('detalleCalificacion').innerHTML = estrellasHTML;
+    
+    // Comentario
+    document.getElementById('detalleComentario').textContent = comentario || 'Sin comentario';
+    
+    // Abrir modal
+    document.getElementById('detalleModal').showModal();
+}
+
+// RE-05: Cerrar modal de detalles
+function cerrarDetalle() {
+    document.getElementById('detalleModal').close();
 }
 
 

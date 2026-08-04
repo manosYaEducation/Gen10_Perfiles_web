@@ -377,11 +377,17 @@
 
                 const podcasts = await response.json();
 
-                todosLosPodcasts = podcasts;
-                podcastsFiltrados = podcasts;
+                if (!Array.isArray(podcasts)) {
+                    throw new Error('Formato de datos inválido');
+                }
+
+                const validPodcasts = podcasts.filter(p => p != null);
+
+                todosLosPodcasts = validPodcasts;
+                podcastsFiltrados = validPodcasts;
 
                 actualizarEstadisticas();
-                renderizarPodcasts(podcasts);
+                renderizarPodcasts(validPodcasts);
 
             } catch (error) {
                 console.error('Error al cargar podcasts:', error);
@@ -398,7 +404,7 @@
             document.getElementById('total-hours').textContent = horas + 'h';
 
             // Visualizaciones totales
-            const totalVistas = todosLosPodcasts.reduce((sum, p) => sum + (p.visualizaciones || 0), 0);
+            const totalVistas = todosLosPodcasts.reduce((sum, p) => sum + (p?.visualizaciones || 0), 0);
             document.getElementById('total-views').textContent = totalVistas.toLocaleString();
         }
 

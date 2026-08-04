@@ -5,6 +5,32 @@ body {
     background-color: #f4f4f9;
 }
 
+/* Dark mode toggle button */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-toggle.dark {
+  color: #ffd700;
+}
+
 
 .encabezado-seccion {
     text-align: center;
@@ -225,4 +251,152 @@ body {
 .delete-btn {
     background: #f44336;
     color: white;
+}
+
+/* ===========================
+   DARK MODE STYLES
+   =========================== */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --card-bg: #1e1e1e;
+  --header-bg: #1a1a1a;
+  --border-color: #444;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+body.dark-mode header {
+  background-color: var(--header-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .headernav li a.button-53 {
+  color: var(--text-color);
+}
+
+body.dark-mode .headernav li a.button-53:hover {
+  background-color: #333;
+  color: #4CAF50;
+}
+
+body.dark-mode .hamburger span {
+  background-color: var(--text-color);
+}
+
+body.dark-mode .icon {
+  filter: brightness(0) invert(1);
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+body.dark-mode .projects-section {
+  background-color: var(--bg-color);
+}
+
+body.dark-mode .info-title {
+  color: #ffffff;
+}
+
+body.dark-mode .proyecto-card {
+  background: var(--card-bg);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .proyecto-card p {
+  color: var(--text-color);
+}
+
+body.dark-mode .card-info {
+  color: #ccc;
+}
+
+body.dark-mode .ver-btn {
+  background: #1a7a34;
+}
+
+body.dark-mode .ver-btn:hover {
+  background: #15612a;
+}
+
+body.dark-mode .encabezado-seccion {
+  background-color: var(--header-bg);
+}
+
+body.dark-mode .encabezado-seccion h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .proyectos-destacados {
+  background-color: var(--bg-color);
+}
+
+body.dark-mode .proyectos-destacados h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .tarjeta-proyecto {
+  background: var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .info-proyecto {
+  background: var(--card-bg);
+}
+
+body.dark-mode .info-proyecto h3 {
+  color: #6dd990;
+}
+
+body.dark-mode .info-proyecto p {
+  color: #ccc;
+}
+
+body.dark-mode .pr-2 {
+  color: #ccc;
+}
+
+body.dark-mode .footer {
+  background-color: #121212;
+  border-top: 1px solid #2a2a2a;
+}
+
+body.dark-mode .footer-section h3 {
+  color: #4CAF50;
+}
+
+body.dark-mode .footer-section a {
+  color: var(--text-color);
+}
+
+body.dark-mode .footer-section a:hover {
+  color: #4CAF50;
+}
+
+body.dark-mode .copyright {
+  background-color: #121212;
+  border-top: 1px solid #2a2a2a;
+  color: #aaa;
+}
+
+/* Responsive dark mode */
+@media (max-width: 768px) {
+  body.dark-mode .navbar {
+    background-color: var(--header-bg);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+
+  body.dark-mode .headernav li a.button-53 {
+    border-color: var(--border-color);
+    color: var(--text-color);
+  }
+
+  body.dark-mode .headernav li a.button-53:hover {
+    background-color: #333;
+    color: #4CAF50;
+    border-color: #4CAF50;
+  }
 }
