@@ -164,7 +164,7 @@
 
 /* Modal al clickear imagen */
 .modal {
-    display: none; /* Oculto al inicio */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -172,12 +172,10 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.863);
-    display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column; /* imagen y la descripción estén en columna */
+    flex-direction: column;
 }
-
 /* Imagen dentro del modal */
 .modal-contenido {
     width: 50%;
@@ -410,6 +408,15 @@
     color: #333;
 }
 
+.rol-participante {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #636e72;
+    text-align: center;
+}
+
 
 /* Media queries para responsividad */
 @media (max-width: 768px) {
@@ -438,6 +445,36 @@
     .testimonio-foto {
         margin: 0 auto;
     }
+}
+
+/* ===========================
+   TECNOLOGÍAS
+   =========================== */
+
+.tecnologias {
+    padding: 2rem;
+    text-align: center;
+}
+
+.tecnologias h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.tecnologias-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.tecnologia-item {
+    background: #4CAF50;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: 600;
 }
 
 /* ===========================
@@ -523,3 +560,15 @@ body.dark-mode .dark-mode-toggle:hover {
   background-color: rgba(255,255,255,0.1) !important;
 }
 
+body.dark-mode .tecnologias h2 {
+    color: white;
+}
+
+body.dark-mode .tecnologia-item {
+    background: #6dd990;
+    color: #121212;
+}
+
+body.dark-mode .rol-participante {
+    color: #b8c2bc;
+}

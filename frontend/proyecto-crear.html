@@ -40,6 +40,25 @@
     <label>Contenido del Proyecto:</label>
     <textarea name="contenido_proyecto" required class="campo"></textarea>
 
+    <h3>Tecnologías Utilizadas</h3>
+
+<div id="contenedor-tecnologias"></div>
+
+<div class="agregar-tecnologia">
+    <input 
+        type="text" 
+        id="input-tecnologia" 
+        placeholder="Ej: PHP, MySQL, JavaScript" 
+        class="campo"
+    >
+
+    <button type="button" onclick="agregarTecnologia()">
+        Agregar Tecnología
+    </button>
+</div>
+
+<input type="hidden" name="tecnologias_json" id="tecnologias-json">
+
     <h3>Estado del Proyecto:</h3>
     <select name="estado_proyecto" id="estado_proyecto" class="campo">
       <option value="Activo" selected>🟢 Activo</option>
@@ -68,13 +87,37 @@
     
     <!-- NUEVO: Selector de estado -->
     <label for="estado-participante">Estado del Participante:</label>
-    <select id="estado-participante" class="campo" required>
-        <option value="activo">✅ Activo</option>
-        <option value="inactivo">⏸️ Inactivo</option>
-        <option value="legacy">🏛️ Legacy / Fundador</option>
-    </select>
-    
-    <button type="button" id="btn-agregar-participante" disabled>Agregar Participante</button>
+<select id="estado-participante" class="campo" required>
+    <option value="activo">✅ Activo</option>
+    <option value="inactivo">⏸️ Inactivo</option>
+    <option value="legacy">🏛️ Legacy / Fundador</option>
+</select>
+
+<label for="rol-participante">Rol en el proyecto:</label>
+<select id="rol-participante" class="campo">
+    <option value="">Seleccionar rol</option>
+    <option value="QA">QA</option>
+    <option value="Developer">Developer</option>
+    <option value="Frontend Developer">Frontend Developer</option>
+    <option value="Backend Developer">Backend Developer</option>
+    <option value="Full Stack Developer">Full Stack Developer</option>
+    <option value="UX/UI Designer">UX/UI Designer</option>
+    <option value="Project Manager">Project Manager</option>
+    <option value="Otro">Otro</option>
+ 
+</select>
+
+<input
+    type="text"
+    id="rol-personalizado"
+    class="campo"
+    placeholder="Escribe el rol"
+    style="display: none;"
+>
+
+<button type="button" id="btn-agregar-participante" disabled>
+    Agregar Participante
+</button>
     <div id="lista-participantes"></div>
 
     <h3>Testimonios</h3>

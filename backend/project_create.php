@@ -76,6 +76,27 @@ try {
         }
     }
 
+// Guardar Tecnologías
+if (!empty($_POST['tecnologias_json'])) {
+
+    $tecnologias = json_decode($_POST['tecnologias_json'], true);
+
+    if (is_array($tecnologias)) {
+
+        $stmt = $conn->prepare("
+            INSERT INTO proyectos_detalles (tipo, descripcion, id_proyecto)
+            VALUES ('tecnologia', ?, ?)
+        ");
+
+        foreach ($tecnologias as $tecnologia) {
+            $stmt->execute([
+                $tecnologia,
+                $id_proyecto
+            ]);
+        }
+    }
+}
+
     // Guardar Imágenes (permitiendo subir múltiples imágenes)
     if (!empty($_FILES['imagenes']['name'][0])) {
         // Definir la carpeta de destino al mismo nivel que el backend
@@ -133,29 +154,51 @@ try {
     }
 
 
-    // Guardar Participantes (enviados como participantes[id_participante] => {nombre, estado})
-    if (!empty($_POST['participantes']) && is_array($_POST['participantes'])) {
-        foreach ($_POST['participantes'] as $id_participante => $datos_participante) {
-            // Extraer nombre y estado (compatible con ambos formatos)
-            if (is_array($datos_participante)) {
-                $nombre = $datos_participante['nombre'] ?? '';
-                $estado = $datos_participante['estado'] ?? 'activo';
-            } else {
-                // Compatibilidad hacia atrás: si es string, asumir nombre sin estado
-                $nombre = $datos_participante;
-                $estado = 'activo';
-            }
-            
-            // Crear tipo compuesto: "participante:activo"
-            $tipo_participante = "participante:{$estado}";
-            
-            $stmt = $conn->prepare("
-                INSERT INTO proyectos_detalles (tipo, descripcion, detalle, id_proyecto) 
-                VALUES (?, ?, ?, ?)
+   // Guardar Participantes
+if (!empty($_POST['participantes']) && is_array($_POST['participantes'])) {
+    foreach ($_POST['participantes'] as $id_participante => $datos_participante) {
+
+        if (is_array($datos_participante)) {
+            $nombre = $datos_participante['nombre'] ?? '';
+            $estado = $datos_participante['estado'] ?? 'activo';
+            $rol = trim($datos_participante['rol'] ?? '');
+        } else {
+            $nombre = $datos_participante;
+            $estado = 'activo';
+            $rol = '';
+        }
+
+        $tipo_participante = "participante:{$estado}";
+
+        $stmt = $conn->prepare("
+            INSERT INTO proyectos_detalles
+            (tipo, descripcion, detalle, id_proyecto)
+            VALUES (?, ?, ?, ?)
+        ");
+
+        $stmt->execute([
+            $tipo_participante,
+            $nombre,
+            $id_participante,
+            $id_proyecto
+        ]);
+
+        // Guardar el rol del participante como otra fila
+        if ($rol !== '') {
+            $stmtRol = $conn->prepare("
+                INSERT INTO proyectos_detalles
+                (tipo, descripcion, detalle, id_proyecto)
+                VALUES ('participante_rol', ?, ?, ?)
             ");
-            $stmt->execute([$tipo_participante, $nombre, $id_participante, $id_proyecto]);
+
+            $stmtRol->execute([
+                $rol,
+                $id_participante,
+                $id_proyecto
+            ]);
         }
     }
+}
         // Guardar Clientes (enviados como clientes[id_cliente] => nombre)
     if (!empty($_POST['clientes']) && is_array($_POST['clientes'])) {
         foreach ($_POST['clientes'] as $id_cliente => $nombre_cliente) {

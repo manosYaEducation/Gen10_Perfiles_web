@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Modal de Proyecto, Compartir, Skeleton, Tarjetas de Error, Duración y Dot Nav
+   Modal de Proyecto, Compartir, Skeleton, Errores, Duración y Navegación
    ========================================================================== */
 
 .modal-proyecto-overlay {
@@ -76,7 +76,7 @@
 }
 
 /* ==========================================================================
-   Navegación Vertical por Puntos Redondos (Modal & Página Principal)
+   Navegación Vertical por Puntos
    ========================================================================== */
 
 .proyecto-dot-nav {
@@ -97,7 +97,7 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Variante Fija para la Página Principal (index.html) */
+/* Variante fija para la página principal */
 .main-page-dot-nav {
     position: fixed;
     right: 22px;
@@ -146,7 +146,7 @@
     box-shadow: 0 0 12px rgba(76, 175, 80, 0.85) !important;
 }
 
-/* Tooltip Emergente */
+/* Tooltip emergente */
 .dot-label {
     position: absolute;
     right: 26px;
@@ -171,7 +171,7 @@
     transform: translateX(0);
 }
 
-/* Insignia de Duración / Período del Proyecto */
+/* Insignia de duración o período */
 .modal-proyecto-duracion {
     display: inline-flex;
     align-items: center;
@@ -191,7 +191,9 @@
     font-size: 0.95rem;
 }
 
-/* Tarjetas de Error */
+/* ==========================================================================
+   Tarjetas de Error
+   ========================================================================== */
 .modal-proyecto-error-card {
     display: flex;
     flex-direction: column;
@@ -278,11 +280,15 @@
     color: #333333;
 }
 
-/* Skeleton Screen */
+/* ==========================================================================
+   Skeleton Screen
+   ========================================================================== */
+
 @keyframes skeleton-shimmer {
     0% {
         background-position: -200px 0;
     }
+
     100% {
         background-position: calc(200px + 100%) 0;
     }
@@ -350,10 +356,25 @@
     border-radius: 12px;
 }
 
+/* Loader clásico de respaldo */
+.modal-proyecto-cargando {
+    text-align: center;
+    padding: 4rem 2rem;
+    font-size: 1.2rem;
+    color: #4CAF50;
+    font-weight: 500;
+}
+
+.modal-proyecto-cargando i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
 /* Contenido Interno */
 .modal-proyecto-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     border-bottom: 2px solid #eef2f5;
     padding-bottom: 1.5rem;
     position: relative;
@@ -384,7 +405,9 @@
     font-weight: 600;
 }
 
-/* Compartir */
+/* ==========================================================================
+   Sección de Compartir y Menú Desplegable
+   ========================================================================== */
 .proyecto-compartir-contenedor {
     position: relative;
     display: inline-block;
@@ -467,10 +490,21 @@
     text-align: center;
 }
 
-.compartir-item.copiar i { color: #4CAF50; }
-.compartir-item.linkedin i { color: #0077b5; }
-.compartir-item.whatsapp i { color: #25D366; }
-.compartir-item.twitter i { color: #1DA1F2; }
+.compartir-item.copiar i {
+    color: #4CAF50;
+}
+
+.compartir-item.linkedin i {
+    color: #0077b5;
+}
+
+.compartir-item.whatsapp i {
+    color: #25D366;
+}
+
+.compartir-item.twitter i {
+    color: #1DA1F2;
+}
 
 /* Notification Toast */
 .compartir-toast {
@@ -487,7 +521,9 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     z-index: 99999;
     opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    transition:
+        transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.3s ease;
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -555,7 +591,7 @@
     box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
 }
 
-/* Galería */
+/* Galería en Modal */
 .modal-proyecto-seccion-titulo {
     font-size: 1.5rem;
     color: #333;
