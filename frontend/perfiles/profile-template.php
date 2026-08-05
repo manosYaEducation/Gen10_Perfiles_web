@@ -13,6 +13,7 @@
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />   
         <link href="../css/cliente/profile-templates-styles.css" rel="stylesheet" />
         <link href="../css/cliente/user-projects.css" rel="stylesheet" />
+        <link href="../css/modal-detalle-proyecto.css" rel="stylesheet" />
     </head>
     <body id="top">
         <nav class="navbar" id="sideNav">
@@ -129,12 +130,20 @@
 
                 <a id="add-review-link"><button class="add-review-button" id="add-review-button">Agregar reseña</button></a>
             </section>
+
+            <div id="modal-detalle-proyecto" class="modal-proyecto-overlay" aria-hidden="true">
+                <div class="modal-proyecto-container">
+                    <button class="modal-proyecto-cerrar" id="cerrar-modal-proyecto" aria-label="Cerrar modal">&times;</button>
+                    <div id="modal-proyecto-contenido"></div>
+                </div>
+            </div>
                 
         </div>        
         </div> 
         <script src="../js/config.js"></script>
         <script src="../js/read_user.js" crossorigin="anonymous"></script>
         <script src="../js/resenas.js"></script>
-        <script src="../js/user-projects.js"></script>
+        <script src="../js/project-admin.js?v=20260805-1"></script>
+        <script src="../js/user-projects.js?v=20260805-1"></script>
     </body>
 </html>

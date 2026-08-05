@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    obtenerProyectos();
+    if (document.getElementById("tablaProyectosActivos")) {
+        obtenerProyectos();
+    }
     inicializarEventosModalProyecto();
+    window.abrirModalDetalleProyectoAdmin = abrirModalDetalleProyecto;
 
     async function obtenerProyectos() {
         try {
