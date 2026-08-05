@@ -46,78 +46,73 @@
                         <img src="<?php echo htmlspecialchars($metaImage); ?>"
                          id="profile_image"
                          class="imagen-participante"
-                         alt="Imagen de <?php echo htmlspecialchars($profile['name']); ?>">
+                        alt="Imagen de <?php echo htmlspecialchars($profile['name']); ?>">
+                        <div class="profile-name-block">
+                            <h1 id="name-hero" class="profile-header-name mb-0"><?php echo htmlspecialchars($profile['name']); ?></h1>
+                        </div>
                         <div id="social-icons-hero" class="social-icons-hero" aria-label="Redes sociales" hidden></div>
                     </div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; width: 100%; padding: 20px 30px 20px 30px; box-sizing: border-box;">
-                    <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding-right: 20px;">
-                        <h1 id="name-hero" style="margin-top: 0; margin-bottom: 15px; text-align: left; font-size: 42px; display: block !important; width: 100% !important;" class="mb-0"><?php echo htmlspecialchars($profile['name']); ?></h1>
-                        <p id="location-text" style="margin: 0 0 8px 0; font-size: 16px; font-weight: 500; color: #333;">
-                            <i class="fas fa-map-marker-alt" style="color: #4caf4f; margin-right: 8px;"></i> Cargando ubicación...
-                        </p>
-                        
-                        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); width: 100%; margin: 0 0 8px 0;">
-                        
-                        <p id="career-text" style="margin: 0 0 15px 0; font-size: 16px; font-weight: 500; color: #333;">
-                            <i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> Cargando carrera...
-                        </p>
-                        <div style="width: 100%;">
-                            <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.08); width: 100%; margin: 0 0 10px 0;">
-                            <h4 style="font-size: 16px; font-weight: bold; margin: 0 0 8px 0; color: #333;">CONTACTO:</h4>
-                            <div id="personal-information-hero" style="font-size: 15px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;"></div>
+            </section>
+            <div class="profile-sections-layout">
+                <aside class="profile-sidebar-column" aria-label="Información complementaria del perfil">
+                    <section class="profile-details-card" aria-label="Descripción y contacto">
+                        <p id="description-hero"></p>
+                        <div class="profile-contact-details">
+                            <p id="location-text">
+                                <i class="fas fa-map-marker-alt"></i> Cargando ubicación...
+                            </p>
+                            <p id="career-text">
+                                <i class="fas fa-graduation-cap"></i> Cargando carrera...
+                            </p>
+                            <h2>Contacto</h2>
+                            <div id="personal-information-hero"></div>
                         </div>
-                        
-                    </div>
-                    <div style="display: flex; flex-direction: column; justify-content: flex-start; padding-left: 20px;">
-                        <p id="description-hero" style="font-size: 16px; line-height: 1.7; text-align: justify; margin: 0; color: #444;"></p>
-                    </div>
-
-                </div>
-            </section>
-            <hr class="m-0" />
-            <section class="resume-section" id="experience">
-                <div class="skill-section"> <!-- Se esta reutilizando la misma tarjeta visual de skill-section -->
-                    <h2 class="mb-5" id="experience-title">Experiencia</h2>
-                    <div id="experience-section">
-                    </div>
-                </div>
-            </section>
-            <hr class="m-0" />
+                    </section>
             <section class="resume-section profile-education-section" id="education" aria-labelledby="title-education">
                 <div class="profile-education-card">
                     <h2 id="title-education">Estudios</h2>
                     <div id="timeline" class="education-timeline" aria-live="polite"></div>
                 </div>
             </section>
-            <hr class="m-0" />
-            <section class="resume-section" id="skills">
-                <div class="skill-section">
-                    <h2 class="mb-5">Habilidades</h2>
-                    <p id="p-skill-section"></p>
-                </div>
-            </section>
-            <hr class="m-0" />
-                        <section class="resume-section" id="interests">
+                <section class="resume-section" id="interests">
                 <div class="interest-section">
                     <h2 class="mb-5">Intereses</h2>
                     <p id="p-interest-section"></p>
                 </div>
             </section>
-            <hr class="m-0" />
-            <section class="resume-section" id="projects">
-                <div class="user-projects-section">
-                    <h2 class="mb-5">Proyectos</h2>
-                    <div id="user-projects-section">
-                        <div class="text-center">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Cargando proyectos...</span>
+                </aside>
+
+                <main class="profile-content-column">
+                    <section class="resume-section" id="projects">
+                        <div class="user-projects-section">
+                            <h2 class="mb-5">Proyectos</h2>
+                            <div id="user-projects-section">
+                                <div class="text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Cargando proyectos...</span>
+                                    </div>
+                                    <p class="mt-2">Cargando proyectos...</p>
+                                </div>
                             </div>
-                            <p class="mt-2">Cargando proyectos...</p>
                         </div>
-                    </div>
-                </div>
-            </section>
+                    </section>
+
+                    <section class="resume-section" id="skills">
+                        <div class="skill-section">
+                            <h2 class="mb-5">Habilidades</h2>
+                            <p id="p-skill-section"></p>
+                        </div>
+                    </section>
+
+                    <section class="resume-section" id="experience">
+                        <div class="skill-section">
+                            <h2 class="mb-5" id="experience-title">Experiencia</h2>
+                            <div id="experience-section"></div>
+                        </div>
+                    </section>
+                </main>
+            </div>
             <hr class="m-0" />
             <section class="resume-section" id="contact">
                 <div class="contact-section">
