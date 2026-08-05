@@ -84,11 +84,10 @@
                 </div>
             </section>
             <hr class="m-0" />
-            <section class="resume-section" id="education">
-                <div class="skill-section"> <!-- Se esta reutilizando la misma tarjeta visual de skill-section -->
-                    <h2 id="title-education" class="mb-5">Educación</h2>
-                    <div id="timeline">
-                    </div>
+            <section class="resume-section profile-education-section" id="education" aria-labelledby="title-education">
+                <div class="profile-education-card">
+                    <h2 id="title-education">Estudios</h2>
+                    <div id="timeline" class="education-timeline" aria-live="polite"></div>
                 </div>
             </section>
             <hr class="m-0" />

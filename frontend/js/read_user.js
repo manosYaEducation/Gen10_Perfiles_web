@@ -15,23 +15,31 @@ document.addEventListener("DOMContentLoaded", async function () {
             document.getElementById('profile_image').src = result.data.image;
         }
 
-        document.getElementById('location-text').innerHTML = '<i class="fas fa-map-marker-alt" style="color: #4caf4f; margin-right: 8px;"></i> ' + profile.basic.location;
-        if (profile.basic.career) {
-            document.getElementById('career-text').innerHTML = '<i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> ' + profile.basic.career;
-        } else {
-            document.getElementById('career-text').innerHTML = '<i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> Analista Programador'; 
+        const locationElement = document.getElementById('location-text');
+        const careerElement = document.getElementById('career-text');
+
+        if (locationElement) {
+            locationElement.innerHTML = '<i class="fas fa-map-marker-alt" style="color: #4caf4f; margin-right: 8px;"></i> ' + profile.basic.location;
         }
 
-        // Información personal
-        document.getElementById('name-hero').textContent = profile.basic.name;
-        document.getElementById('personal-information-hero').innerHTML = `
+        if (profile.basic.career) {
+            if (careerElement) careerElement.innerHTML = '<i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> ' + profile.basic.career;
+        } else if (careerElement) {
+            careerElement.innerHTML = '<i class="fas fa-graduation-cap" style="color: #4caf4f; margin-right: 8px;"></i> Analista Programador';
+        }
+
+        // Información personal (compatible con la vista actual y la lateral)
+        const nameElement = document.getElementById('name-hero-lateral') || document.getElementById('name-hero');
+        const infoDiv = document.getElementById('personal-information-hero-lateral') || document.getElementById('personal-information-hero');
+
+        if (nameElement) nameElement.textContent = profile.basic.name;
+        if (infoDiv) infoDiv.innerHTML = `
             <p style="margin: 0; width: 100%;">• ${profile.basic.email}</p>
             <p style="margin: 0; width: 100%;">• ${profile.basic.phone}</p>
         `;
         //funcionalidad: convertir el teléfono en enlace de Wsp
         {
-            const infoDiv = document.getElementById('personal-information-hero');
-            const paragraphs = infoDiv.getElementsByTagName('p');
+            const paragraphs = infoDiv ? infoDiv.getElementsByTagName('p') : [];
             if (paragraphs.length >= 2) {
                 const phoneText = paragraphs[1].textContent.trim().replace('• ', '');
                 const digits = phoneText.replace(/\D/g, '');
@@ -40,7 +48,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             }
         }
-        document.getElementById('description-hero').textContent = profile.basic.description;
+        const descriptionElement = document.getElementById('description-hero');
+        if (descriptionElement) descriptionElement.textContent = profile.basic.description;
        
         // Experiencia
         const experienceSection = document.getElementById('experience-section');
@@ -54,16 +63,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Educación
         const educationSection = document.getElementById('timeline');
-        const educationData = profile.education || [];
-        educationSection.innerHTML = educationData.map(edc => `
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3 class="mb-0">${edc.title || 'titulo no disponible'}</h3>
-                    <span class="text-primary">${edc.startdate || 'Fecha de inicio no disponible'} - ${edc.enddate || 'Fecha de finalización no disponible'}</span>
-                    <div class="subheading mb-3">${edc.institution || 'Institución no disponible'}</div>
-                </div>
-            </div>
-        `).join('');
+        renderEducationTimeline(educationSection, profile.education || []);
         
         // Intereses
         document.getElementById('p-interest-section').innerHTML = `<p>${profile.interest}</p>`;
@@ -123,6 +123,56 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 });
+
+function renderEducationTimeline(container, educationData) {
+    if (!container) return;
+
+    container.replaceChildren();
+
+    if (!educationData.length) {
+        const emptyState = document.createElement('p');
+        emptyState.className = 'education-empty';
+        emptyState.textContent = 'No hay estudios registrados.';
+        container.appendChild(emptyState);
+        return;
+    }
+
+    educationData.forEach((education) => {
+        const item = document.createElement('article');
+        const content = document.createElement('div');
+        const title = document.createElement('h3');
+        const institution = document.createElement('p');
+        const dates = document.createElement('p');
+
+        item.className = 'education-entry';
+        content.className = 'education-entry-content';
+        title.className = 'education-entry-title';
+        institution.className = 'education-entry-institution';
+        dates.className = 'education-entry-dates';
+
+        title.textContent = education.title || 'Estudio sin título';
+        institution.textContent = education.institution || 'Institución no informada';
+        dates.textContent = `${formatEducationDate(education.startdate)} – ${formatEducationDate(education.enddate, 'Actualidad')}`;
+
+        content.append(title, institution, dates);
+        item.appendChild(content);
+        container.appendChild(item);
+    });
+}
+
+function formatEducationDate(dateValue, fallback = 'Sin fecha') {
+    if (!dateValue) return fallback;
+
+    const parsedDate = new Date(`${dateValue}T00:00:00`);
+    if (Number.isNaN(parsedDate.getTime())) return dateValue;
+
+    const formattedDate = new Intl.DateTimeFormat('es-CL', {
+        month: 'short',
+        year: 'numeric'
+    }).format(parsedDate).replace('.', '');
+
+    return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+}
 
 function renderSocialLinks(socialNetworks) {
     const container = document.getElementById('social-icons-hero');
