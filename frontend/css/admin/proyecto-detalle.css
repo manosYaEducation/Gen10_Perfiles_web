@@ -453,28 +453,181 @@
 
 .tecnologias {
     padding: 2rem;
-    text-align: center;
+    text-align: left;
+    max-width: 70%;
+    margin: 0 auto;
 }
 
 .tecnologias h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
     color: #333;
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
 }
 
+.tecnologias h2 i {
+    color: #4CAF50;
+    font-size: 1.4rem;
+}
+
 .tecnologias-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
+    gap: 0.75rem;
 }
 
 .tecnologia-item {
-    background: #4CAF50;
-    color: white;
-    padding: 8px 18px;
-    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.55rem 1.15rem;
+
+    background-color: #e8f5e9;
+    color: #2e7d32;
+
+    border: 1px solid #c8e6c9;
+    border-radius: 999px;
+
+    font-size: 0.95rem;
     font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tecnologia-item:hover {
+    background-color: #d7efda;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(76, 175, 80, 0.18);
+}
+
+.modal-proyecto-tecnologias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.modal-proyecto-tecnologia {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 1.15rem;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Tecnologías utilizadas dentro del modal */
+.modal-proyecto-tecnologias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.modal-proyecto-tecnologia {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.55rem 1.15rem;
+
+    background-color: #e8f5e9;
+    color: #2e7d32;
+
+    border: 1px solid #c8e6c9;
+    border-radius: 999px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.modal-proyecto-tecnologia:hover {
+    background-color: #d7efda;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(76, 175, 80, 0.18);
+}
+
+/* =========================================
+   TECNOLOGÍAS UTILIZADAS - PILLS
+   ========================================= */
+
+.modal-proyecto-tecnologias {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 1rem;
+
+    /* Make sure the container itself has NO box */
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.modal-proyecto-tecnologia {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 20px;
+
+    background: rgba(76, 175, 80, 0.12);
+    color: #4CAF50;
+
+    border: 1px solid #4CAF50;
+    border-radius: 999px;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1;
+
+    width: fit-content;
+    white-space: nowrap;
+
+    transition: background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.modal-proyecto-tecnologia:hover {
+    background: rgba(76, 175, 80, 0.22);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.20);
+}
+
+/* Dark mode */
+body.dark-mode .modal-proyecto-tecnologia {
+    background: rgba(76, 175, 80, 0.12);
+    color: #6dd990;
+    border-color: #4CAF50;
+}
+
+body.dark-mode .modal-proyecto-tecnologia:hover {
+    background: rgba(76, 175, 80, 0.22);
+    color: #81e39c;
 }
 
 /* ===========================
@@ -561,14 +714,34 @@ body.dark-mode .dark-mode-toggle:hover {
 }
 
 body.dark-mode .tecnologias h2 {
-    color: white;
+    color: #ffffff;
+}
+
+body.dark-mode .tecnologias h2 i {
+    color: #6dd990;
 }
 
 body.dark-mode .tecnologia-item {
-    background: #6dd990;
-    color: #121212;
+    background-color: #1b3823;
+    color: #81c784;
+    border-color: #2e4d35;
+}
+
+body.dark-mode .tecnologia-item:hover {
+    background-color: #23472d;
+    box-shadow: 0 3px 8px rgba(76, 175, 80, 0.2);
 }
 
 body.dark-mode .rol-participante {
     color: #b8c2bc;
+}
+
+body.dark-mode .modal-proyecto-tecnologia {
+    background-color: #1b3823;
+    color: #81c784;
+    border-color: #2e4d35;
+}
+
+body.dark-mode .modal-proyecto-tecnologia:hover {
+    background-color: #23472d;
 }

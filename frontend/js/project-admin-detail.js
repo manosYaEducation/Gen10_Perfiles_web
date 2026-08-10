@@ -76,6 +76,26 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         html += `</div>`;
 
+        // Tecnologías utilizadas
+if (proyecto.detalles?.tecnologias?.length > 0) {
+    html += `
+        <section class="tecnologias">
+            <h2>
+                <i class="fas fa-microchip"></i>
+                Tecnologías Utilizadas
+            </h2>
+
+            <div class="tecnologias-container">
+                ${proyecto.detalles.tecnologias.map(tecnologia => `
+                    <span class="tecnologia-item">
+                        ${tecnologia}
+                    </span>
+                `).join("")}
+            </div>
+        </section>
+    `;
+}
+
         // Galería de imágenes
         if (proyecto.detalles?.imagenes?.length > 0) {
             html += `

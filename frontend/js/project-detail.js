@@ -279,29 +279,32 @@ function renderizarVistaStandalone(proyecto, contenedor) {
         </div>
     `;
 
-    // Tecnologías
-    if (detalles.tecnologias?.length > 0) {
-        html += `
-            <section
-                class="tecnologias"
-                id="sec-tecnologias"
-            >
-                <h2>Tecnologías</h2>
+  // Tecnologías
+if (detalles.tecnologias?.length > 0) {
+    html += `
+        <section
+            class="tecnologias"
+            id="sec-tecnologias"
+        >
+            <h2>
+                <i class="fas fa-microchip"></i>
+                Tecnologías Utilizadas
+            </h2>
 
-                <div class="tecnologias-container">
-                    ${detalles.tecnologias
-                        .map(
-                            tecnologia => `
-                                <span class="tecnologia-item">
-                                    ${tecnologia}
-                                </span>
-                            `
-                        )
-                        .join("")}
-                </div>
-            </section>
-        `;
-    }
+            <div class="tecnologias-container">
+                ${detalles.tecnologias
+                    .map(
+                        tecnologia => `
+                            <span class="tecnologia-item">
+                                ${tecnologia}
+                            </span>
+                        `
+                    )
+                    .join("")}
+            </div>
+        </section>
+    `;
+}
 
     // Galería
     if (detalles.imagenes?.length > 0) {

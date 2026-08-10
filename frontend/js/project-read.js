@@ -470,28 +470,46 @@ function renderizarDetalleEnModal(proyecto, contenedor) {
     }
 
     // Tecnologías
-    if (proyecto.detalles?.tecnologias?.length > 0) {
-        html += `
-            <div>
-                <h3 class="modal-proyecto-seccion-titulo">
-                    <i class="fas fa-code"></i>
-                    Tecnologías Utilizadas
-                </h3>
+if (proyecto.detalles?.tecnologias?.length > 0) {
+    html += `
+        <div id="sec-tecnologias">
+            <h3 class="modal-proyecto-seccion-titulo">
+                <i class="fas fa-microchip"></i>
+                Tecnologías Utilizadas
+            </h3>
 
-                <div class="modal-proyecto-tecnologias">
-                    ${proyecto.detalles.tecnologias
-                        .map(
-                            tecnologia => `
-                                <span class="modal-proyecto-tecnologia">
-                                    ${tecnologia}
-                                </span>
-                            `
-                        )
-                        .join("")}
-                </div>
+            <div class="modal-proyecto-tecnologias">
+            // Estilos inline intencionales para las etiquetas de tecnologías del modal
+                ${proyecto.detalles.tecnologias
+                    .map(
+                        tecnologia => `
+                            <span
+                                class="modal-proyecto-tecnologia"
+                                style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    padding: 9px 20px;
+                                    background: rgba(76, 175, 80, 0.14);
+                                    color: #6dd990;
+                                    border: 1px solid #4CAF50;
+                                    border-radius: 999px;
+                                    font-size: 0.95rem;
+                                    font-weight: 600;
+                                    line-height: 1;
+                                    width: fit-content;
+                                    white-space: nowrap;
+                                "
+                            >
+                                ${tecnologia}
+                            </span>
+                        `
+                    )
+                    .join("")}
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
     // Enlaces del proyecto
     if (proyecto.detalles?.enlaces?.length > 0) {
@@ -729,6 +747,7 @@ function inicializarNavegacionPuntosVert(contenedorModal) {
     const seccionesDefinidas = [
         { id: "sec-encabezado", label: "Inicio" },
         { id: "sec-descripcion", label: "Descripción" },
+        { id: "sec-tecnologias", label: "Tecnologías" },
         { id: "sec-galeria", label: "Galería" },
         { id: "sec-testimonios", label: "Testimonios" },
         { id: "sec-equipo", label: "Equipo" },
