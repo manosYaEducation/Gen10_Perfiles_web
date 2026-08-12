@@ -64,6 +64,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     // RE-12: Chip de color para el estado
                     const chipClass = `chip-${(review.estado_reseña || '').toLowerCase()}`;
                     
+                    // Estrellas de calificación para la tabla
+                    let estrellasHTML = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= review.rating) {
+                            estrellasHTML += '<i class="fa-solid fa-star"></i>';
+                        } else {
+                            estrellasHTML += '<i class="fa-regular fa-star"></i>';
+                        }
+                    }
+                    
                     // RE-11: Botones de acción según estado
                     let accionesHTML = '';
                     if (review.estado_reseña === 'Pendiente') {
@@ -92,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     reviewTable.innerHTML = `
                         <td class="td-medium">${review.nameClient}</td>
                         <td class="td-medium">${review.nombre_perfil}</td>
+                        <td class="td-small rating-stars">${estrellasHTML}</td>
                         <td class="td-small" id="actualState"><span class="chip ${chipClass}">${review.estado_reseña}</span></td>
                         <td class="td-small">
                             <div class="acciones-rapidas">
